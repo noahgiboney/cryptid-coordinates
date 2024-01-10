@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		E24A43AB2B4E2475006B1B2A /* MapView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AA2B4E2475006B1B2A /* MapView-ViewModel.swift */; };
+		E24A43AD2B4E2B34006B1B2A /* haunted_places.json in Resources */ = {isa = PBXBuildFile; fileRef = E24A43AC2B4E2B34006B1B2A /* haunted_places.json */; };
+		E24A43AF2B4E2B5C006B1B2A /* HauntedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AE2B4E2B5C006B1B2A /* HauntedLocation.swift */; };
+		E24A43B12B4E2CAD006B1B2A /* BundleDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43B02B4E2CAD006B1B2A /* BundleDecode.swift */; };
 		E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */; };
 		E2C76C092B4E14550080F669 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C76C082B4E14550080F669 /* ContentView.swift */; };
 		E2C76C0B2B4E14550080F669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2C76C0A2B4E14550080F669 /* Assets.xcassets */; };
@@ -17,6 +20,9 @@
 
 /* Begin PBXFileReference section */
 		E24A43AA2B4E2475006B1B2A /* MapView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapView-ViewModel.swift"; sourceTree = "<group>"; };
+		E24A43AC2B4E2B34006B1B2A /* haunted_places.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = haunted_places.json; sourceTree = "<group>"; };
+		E24A43AE2B4E2B5C006B1B2A /* HauntedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HauntedLocation.swift; sourceTree = "<group>"; };
+		E24A43B02B4E2CAD006B1B2A /* BundleDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleDecode.swift; sourceTree = "<group>"; };
 		E2C76C032B4E14550080F669 /* CryptidCoordinates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptidCoordinates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptidCoordinatesApp.swift; sourceTree = "<group>"; };
 		E2C76C082B4E14550080F669 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -39,7 +45,6 @@
 		E2C76BFA2B4E14550080F669 = {
 			isa = PBXGroup;
 			children = (
-				E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */,
 				E2C76C052B4E14550080F669 /* CryptidCoordinates */,
 				E2C76C042B4E14550080F669 /* Products */,
 			);
@@ -56,9 +61,13 @@
 		E2C76C052B4E14550080F669 /* CryptidCoordinates */ = {
 			isa = PBXGroup;
 			children = (
+				E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */,
 				E2C76C182B4E15940080F669 /* Views */,
 				E2C76C162B4E157B0080F669 /* Models */,
 				E2C76C0A2B4E14550080F669 /* Assets.xcassets */,
+				E24A43AE2B4E2B5C006B1B2A /* HauntedLocation.swift */,
+				E24A43B02B4E2CAD006B1B2A /* BundleDecode.swift */,
+				E24A43AC2B4E2B34006B1B2A /* haunted_places.json */,
 				E2C76C0C2B4E14550080F669 /* Preview Content */,
 			);
 			path = CryptidCoordinates;
@@ -149,6 +158,7 @@
 			files = (
 				E2C76C0E2B4E14550080F669 /* Preview Assets.xcassets in Resources */,
 				E2C76C0B2B4E14550080F669 /* Assets.xcassets in Resources */,
+				E24A43AD2B4E2B34006B1B2A /* haunted_places.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,7 +172,9 @@
 				E24A43AB2B4E2475006B1B2A /* MapView-ViewModel.swift in Sources */,
 				E2C76C092B4E14550080F669 /* ContentView.swift in Sources */,
 				E2C76C1A2B4E17730080F669 /* MapView.swift in Sources */,
+				E24A43B12B4E2CAD006B1B2A /* BundleDecode.swift in Sources */,
 				E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */,
+				E24A43AF2B4E2B5C006B1B2A /* HauntedLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
