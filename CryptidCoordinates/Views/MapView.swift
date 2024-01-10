@@ -8,9 +8,14 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
+    
+    @State private var viewModel = ViewModel()
+    
     var body: some View {
-        Map()
-            .mapStyle(.hybrid)
+        Map(initialPosition: viewModel.cameraPosition){
+            
+        }
+        .mapStyle(.hybrid)
     }
 }
 
