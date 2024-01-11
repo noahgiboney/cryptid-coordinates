@@ -9,6 +9,8 @@ import SwiftUI
 
 struct LocationDetailView: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     var location: HauntedLocation
     
     var body: some View {
@@ -26,6 +28,21 @@ struct LocationDetailView: View {
                 .padding()
             }
             .navigationTitle(location.name)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading){
+                    Button("Close") {
+                        dismiss()
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing){
+                    Button {
+                        
+                    } label: {
+                        Text("Save")
+                        Image(systemName: "square.and.arrow.down")
+                    }
+                }
+            }
         }
     }
 }
