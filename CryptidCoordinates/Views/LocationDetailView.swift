@@ -18,17 +18,20 @@ struct LocationDetailView: View {
             ScrollView{
                 VStack(alignment: .leading, spacing: 20){
                     
-                    Text("\(location.city), \(location.country)")
-                        .italic()
-                        .font(.caption)
+                    VStack(alignment: .leading, spacing: 5){
+                        Text(location.name)
+                            .font(.title.bold())
+                        Text("\(location.city), \(location.country)")
+                            .font(.subheadline.italic())
+                    }
                     
                     Divider()
                     
                     Label(
-                        title: { Text("Detailed Accout:") },
+                        title: { Text("Detailed Accout") },
                         icon: { Image(systemName: "doc.text.magnifyingglass") }
                     )
-                    .font(.title2.bold())
+                    .font(.title2.weight(.medium))
                                         
                     Text(location.description)
                     
@@ -37,7 +40,6 @@ struct LocationDetailView: View {
                 }
                 .padding()
             }
-            .navigationTitle(location.name)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading){
                     Button("Close") {
