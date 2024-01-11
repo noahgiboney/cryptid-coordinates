@@ -20,9 +20,19 @@ struct LocationDetailView: View {
                     
                     Text("\(location.city), \(location.country)")
                         .italic()
-                        .font(.headline)
+                        .font(.caption)
                     
+                    Divider()
+                    
+                    Label(
+                        title: { Text("Detailed Accout:") },
+                        icon: { Image(systemName: "doc.text.magnifyingglass") }
+                    )
+                    .font(.title2.bold())
+                                        
                     Text(location.description)
+                    
+                    Divider()
                     
                 }
                 .padding()
