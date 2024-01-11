@@ -7,14 +7,23 @@
 
 import SwiftUI
 
-struct LocationDetail: View {
+struct LocationDetailView: View {
     
     var location: HauntedLocation
     
     var body: some View {
         NavigationStack{
-            VStack{
-                
+            ScrollView{
+                VStack(alignment: .leading, spacing: 20){
+                    
+                    Text("\(location.city), \(location.country)")
+                        .italic()
+                        .font(.headline)
+                    
+                    Text(location.description)
+                    
+                }
+                .padding()
             }
             .navigationTitle(location.name)
         }
@@ -22,5 +31,5 @@ struct LocationDetail: View {
 }
 
 #Preview {
-    LocationDetail(location: HauntedLocation.example)
+    LocationDetailView(location: HauntedLocation.example)
 }

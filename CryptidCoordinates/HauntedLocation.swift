@@ -33,5 +33,5 @@ struct HauntedLocation: Codable, Hashable, Identifiable {
         return CLLocationCoordinate2D()
     }
     
-    static let example = HauntedLocation(location: "Simi Valley Hospital", country: "United States", city: "Simi Valley", description: "This place has been know to have ghosts waking around", longitude: "0", latitude: "0")
+    static let example = HauntedLocation(location: "Simi Valley Hospital", country: "United States", city: "Simi Valley", description: "There are reports of an apparition of a woman being chased by hounds, children playing on the train tracks below, and sounds of a baby crying.- February 2004 Correction – Additional Information: You can also hear footsteps and see footprints, but no one is there.", longitude: "0", latitude: "0")
 }

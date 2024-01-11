@@ -23,7 +23,16 @@ struct MapView: View {
                         .scaledToFit()
                         .frame(width: 44, height: 44)
                         .background(.white)
+                        .clipShape(.capsule)
+                        .onTapGesture(perform: {
+                            viewModel.updateSelectedLocation(location: location)
+                        })
                 }
+            }
+        }
+        .sheet(item: $viewModel.selectedLocation){ location in
+            if let location = viewModel.selectedLocation {
+                LocationDetailView(location: location)
             }
         }
         .mapStyle(.hybrid)
