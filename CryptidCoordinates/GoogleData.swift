@@ -21,7 +21,7 @@ struct SearchItem: Codable {
 
 // Struct for the pagemap section which can contain image information
 struct PageMap: Codable {
-    let cse_image: [CSEImage]?
+    let cseImage: [CSEImage]?
 
     struct CSEImage: Codable {
         let src: String?

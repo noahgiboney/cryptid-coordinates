@@ -79,7 +79,7 @@ struct LocationDetailView: View {
 
     func getImage() async throws{
         
-        let endpoint = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCt1WnYvBfzwv7UUuYgPOZmnTz0VwC8Tcs&cx=84d755fd86d324926&q=apple"
+        let endpoint = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCt1WnYvBfzwv7UUuYgPOZmnTz0VwC8Tcs&cx=84d755fd86d324926&q=sixflags"
         
         guard let url = URL(string: endpoint) else {
             throw APIError.url
@@ -90,11 +90,12 @@ struct LocationDetailView: View {
         
             
         let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         
         if let decodedData = try? decoder.decode(GoogleSearchResponse.self, from: data) {
             if let items = decodedData.items {
                 for item in items {
-                    if let cseImages = item.pagemap?.cse_image {
+                    if let cseImages = item.pagemap?.cseImage {
                         for cseImage in cseImages {
                             if let imageURL = cseImage.src {
                                 print(imageURL)
