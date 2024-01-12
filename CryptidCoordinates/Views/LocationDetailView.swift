@@ -16,8 +16,6 @@ struct LocationDetailView: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var viewModel = ViewModel()
-    @State private var imageURL: String = "No Image Found"
-    
     
     var location: HauntedLocation
     
@@ -50,7 +48,7 @@ struct LocationDetailView: View {
             }
             .task{
                 do{
-                    try await getImage()
+                    try await viewModel.getImage()
                     
                 } catch APIError.urlError {
                     print("invalid url")
@@ -78,41 +76,6 @@ struct LocationDetailView: View {
                 }
             }
         }
-    }
-
-    func getImage() async throws{
-        
-        let endpoint = ""
-        
-        guard let url = URL(string: endpoint) else {
-            throw APIError.urlError
-        }
-        
-        let (data, response ) = try await URLSession.shared.data(from: url)
-        print(String(data: data, encoding: .utf8) ?? "No data")
-        
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            throw APIError.serverError
-        }
-            
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
-        if let decodedData = try? decoder.decode(GoogleSearchResponse.self, from: data) {
-            if let items = decodedData.items {
-                for item in items {
-                    if let cseImages = item.pagemap?.cseImage {
-                        for cseImage in cseImages {
-                            if let imageURL = cseImage.src {
-                                print(imageURL)
-                                return
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        throw APIError.jsonError
     }
 }
 
