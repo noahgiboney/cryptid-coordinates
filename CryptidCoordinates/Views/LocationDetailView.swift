@@ -10,7 +10,7 @@ import SwiftUI
 struct LocationDetailView: View {
     
     enum APIError: Error {
-        case server, url, json
+        case serverError, urlError, jsonError, responseError
     }
     
     @Environment(\.dismiss) var dismiss
@@ -51,12 +51,15 @@ struct LocationDetailView: View {
             .task{
                 do{
                     try await getImage()
-                } catch APIError.url {
+                    
+                } catch APIError.urlError {
                     print("invalid url")
-                } catch APIError.json {
+                } catch APIError.jsonError {
                     print("invalid json")
+                } catch APIError.responseError{
+                    print("invlaid server response")
                 } catch {
-                    print("Some error")
+                    print("error")
                 }
             }
             .toolbar {
@@ -82,12 +85,15 @@ struct LocationDetailView: View {
         let endpoint = ""
         
         guard let url = URL(string: endpoint) else {
-            throw APIError.url
+            throw APIError.urlError
         }
         
-        let (data, _ ) = try await URLSession.shared.data(from: url)
+        let (data, response ) = try await URLSession.shared.data(from: url)
         print(String(data: data, encoding: .utf8) ?? "No data")
         
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw APIError.serverError
+        }
             
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -106,7 +112,7 @@ struct LocationDetailView: View {
                 }
             }
         }
-        throw APIError.json
+        throw APIError.jsonError
     }
 }
 
