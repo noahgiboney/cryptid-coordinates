@@ -12,6 +12,8 @@ extension LocationDetailView{
     @Observable
     class ViewModel {
         
+        var queryURL: String = ""
+        
         func getImage() async throws{
             // establish url endpoint
             let endpoint = ""
@@ -42,7 +44,7 @@ extension LocationDetailView{
                     if let cseImages = item.pagemap?.cseImage {
                         for cseImage in cseImages {
                             if let imageURL = cseImage.src {
-                                print(imageURL)
+                                queryURL = imageURL
                                 return
                             }
                             throw APIError.jsonError

@@ -43,6 +43,14 @@ struct LocationDetailView: View {
                     
                     Divider()
                     
+                    AsyncImage(url: URL(string: viewModel.queryURL)) { image in
+                        image
+                            .resizable()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: 50)
+                    
                 }
                 .padding()
             }
