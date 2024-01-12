@@ -79,7 +79,7 @@ struct LocationDetailView: View {
 
     func getImage() async throws{
         
-        let endpoint = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCt1WnYvBfzwv7UUuYgPOZmnTz0VwC8Tcs&cx=84d755fd86d324926&q=sixflags"
+        let endpoint = ""
         
         guard let url = URL(string: endpoint) else {
             throw APIError.url
