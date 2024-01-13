@@ -5,7 +5,7 @@
 //  Created by Noah Giboney on 1/10/24.
 //
 
-import Foundation
+import MapKit
 
 extension LocationDetailView{
     
@@ -13,6 +13,15 @@ extension LocationDetailView{
     class ViewModel {
         
         private(set) var queryURL: String = ""
+        
+        var lookAroundPlace: MKLookAroundScene?
+        
+        func fetchLookAroundPreview(_ locationCoordinates: CLLocationCoordinate2D) {
+            Task {
+                let request = MKLookAroundSceneRequest(coordinate: locationCoordinates)
+                lookAroundPlace = try? await request.scene
+            }
+        }
         
         func getImage(searchTerm: String) async throws{
             // establish url endpoint

@@ -35,7 +35,6 @@ struct MapView: View {
                 LocationDetailView(location: location)
             }
         }
-        .mapStyle(.hybrid)
     }
 }
 

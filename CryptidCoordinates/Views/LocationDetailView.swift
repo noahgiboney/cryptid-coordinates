@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct LocationDetailView: View {
     
@@ -43,11 +44,32 @@ struct LocationDetailView: View {
                     
                     Divider()
                     
+                    ZStack{
+                        if viewModel.lookAroundPlace != nil {
+                            ContentUnavailableView("No Preview Available", systemImage: "eye.slash")
+                        }
+                        else {
+                            VStack(alignment: .leading){
+                                Label("Take a look around the area.", systemImage: "eye")
+                                    .font(.title3.weight(.medium))
+                                LookAroundPreview(scene: $viewModel.lookAroundPlace)
+                            }
+                                
+                        }
+                    }
+                    .frame(height: 200)
+                    .clipShape(Rectangle())
+                    .shadow(radius: 20)
+                    
+                    
+                    Divider()
+                    
                     AsyncImage(url: URL(string: viewModel.queryURL)) { image in
                         image
                             .resizable()
                             .scaledToFit()
                             .border(Color.black)
+
                         
                     } placeholder: {
                         HStack{
@@ -58,6 +80,9 @@ struct LocationDetailView: View {
                     }
                     
                     Divider()
+                }
+                .onAppear {
+                    viewModel.fetchLookAroundPreview(location.coordinates)
                 }
                 .padding()
             }
