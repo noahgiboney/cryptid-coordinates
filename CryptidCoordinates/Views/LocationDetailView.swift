@@ -46,17 +46,24 @@ struct LocationDetailView: View {
                     AsyncImage(url: URL(string: viewModel.queryURL)) { image in
                         image
                             .resizable()
+                            .scaledToFit()
+                            .border(Color.black)
+                        
                     } placeholder: {
-                        ProgressView()
+                        HStack{
+                            Spacer()
+                            ProgressView()
+                            Spacer()
+                        }
                     }
-                    .frame(width: 50)
                     
+                    Divider()
                 }
                 .padding()
             }
             .task{
                 do{
-                    try await viewModel.getImage()
+                    try await viewModel.getImage(searchTerm: location.name)
                     
                 } catch APIError.urlError {
                     print("invalid url")

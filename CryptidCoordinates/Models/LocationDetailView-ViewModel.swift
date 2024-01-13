@@ -12,9 +12,9 @@ extension LocationDetailView{
     @Observable
     class ViewModel {
         
-        var queryURL: String = ""
+        private(set) var queryURL: String = ""
         
-        func getImage() async throws{
+        func getImage(searchTerm: String) async throws{
             // establish url endpoint
             let endpoint = ""
             

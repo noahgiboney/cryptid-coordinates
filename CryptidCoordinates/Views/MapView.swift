@@ -15,7 +15,7 @@ struct MapView: View {
         Map(initialPosition: viewModel.cameraPosition){
             
             ForEach(viewModel.locations.filter({ location in
-                location.city == "Atlanta"
+                location.city == "Los Angeles"
             })) { location in
                 Annotation(location.name, coordinate: location.coordinates) {
                     Image(systemName: "eye")
