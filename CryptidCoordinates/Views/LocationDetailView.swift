@@ -63,7 +63,7 @@ struct LocationDetailView: View {
             }
             .task{
                 do{
-                    try await viewModel.getImage(searchTerm: location.name)
+                    try await viewModel.getImage(searchTerm: "\(location.name)")
                     
                 } catch APIError.urlError {
                     print("invalid url")

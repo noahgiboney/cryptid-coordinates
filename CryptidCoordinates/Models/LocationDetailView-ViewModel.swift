@@ -16,7 +16,8 @@ extension LocationDetailView{
         
         func getImage(searchTerm: String) async throws{
             // establish url endpoint
-            let endpoint = ""
+            
+            let endpoint = "https://www.googleapis.com/customsearch/v1?key=\("")&cx=\("")&q=\(searchTerm)"
             
             guard let url = URL(string: endpoint) else {
                 throw APIError.urlError
