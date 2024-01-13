@@ -47,15 +47,7 @@ struct LocationDetailView: View {
                             .resizable()
                             .scaledToFit()
                             .border(Color.black)
-
-                        
-                    } placeholder: {
-                        HStack{
-                            Spacer()
-                            ProgressView()
-                            Spacer()
-                        }
-                    }
+                    } placeholder: {}
                     
                     Divider()
                     
