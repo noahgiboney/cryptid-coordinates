@@ -13,19 +13,17 @@ extension LocationDetailView{
     class ViewModel {
         
         private(set) var queryURL: String = ""
-        
         var lookAroundPlace: MKLookAroundScene?
         
-        func fetchLookAroundPreview(_ locationCoordinates: CLLocationCoordinate2D) {
+        func fetchLookAroundPreview(for locationCoordinates: CLLocationCoordinate2D) {
             Task {
                 let request = MKLookAroundSceneRequest(coordinate: locationCoordinates)
                 lookAroundPlace = try? await request.scene
             }
         }
         
-        func getImage(searchTerm: String) async throws{
+        func searchImage(search searchTerm: String) async throws{
             // establish url endpoint
-            
             let endpoint = "https://www.googleapis.com/customsearch/v1?key=\("")&cx=\("")&q=\(searchTerm)"
             
             guard let url = URL(string: endpoint) else {
@@ -35,7 +33,7 @@ extension LocationDetailView{
             // grab data from urlsession
             let (data, response ) = try await URLSession.shared.data(from: url)
             
-            // valid good response
+            // valid response is 200
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                 throw APIError.serverError
             }
@@ -48,7 +46,7 @@ extension LocationDetailView{
             }
         }
         
-        func parseJSON(decodedData: GoogleSearchResponse) throws {
+        private func parseJSON(decodedData: GoogleSearchResponse) throws {
             if let items = decodedData.items {
                 for item in items {
                     if let cseImages = item.pagemap?.cseImage {

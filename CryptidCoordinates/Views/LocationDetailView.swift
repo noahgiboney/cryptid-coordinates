@@ -42,28 +42,6 @@ struct LocationDetailView: View {
                                         
                     Text(location.description)
                     
-                    Divider()
-                    
-                    ZStack{
-                        if viewModel.lookAroundPlace != nil {
-                            ContentUnavailableView("No Preview Available", systemImage: "eye.slash")
-                        }
-                        else {
-                            VStack(alignment: .leading){
-                                Label("Take a look around the area.", systemImage: "eye")
-                                    .font(.title3.weight(.medium))
-                                LookAroundPreview(scene: $viewModel.lookAroundPlace)
-                            }
-                                
-                        }
-                    }
-                    .frame(height: 200)
-                    .clipShape(Rectangle())
-                    .shadow(radius: 20)
-                    
-                    
-                    Divider()
-                    
                     AsyncImage(url: URL(string: viewModel.queryURL)) { image in
                         image
                             .resizable()
@@ -80,15 +58,34 @@ struct LocationDetailView: View {
                     }
                     
                     Divider()
-                }
-                .onAppear {
-                    viewModel.fetchLookAroundPreview(location.coordinates)
+                    
+                    ZStack{
+                        if viewModel.lookAroundPlace == nil {
+                            ContentUnavailableView("No Preview Available", systemImage: "eye.slash")
+                        }
+                        else {
+                            VStack(alignment: .leading){
+                                Label("Take a look around the area.", systemImage: "eye")
+                                    .font(.headline)
+                                LookAroundPreview(scene: $viewModel.lookAroundPlace)
+                            }
+                                
+                        }
+                    }
+                    .frame(height: 200)
+                    .clipShape(Rectangle())
+                    .shadow(radius: 20)
+                    
+                    Divider()
                 }
                 .padding()
+                .onAppear {
+                    viewModel.fetchLookAroundPreview(for: location.coordinates)
+                }
             }
             .task{
                 do{
-                    try await viewModel.getImage(searchTerm: "\(location.name)")
+                    try await viewModel.searchImage(search: "\(location.name)")
                     
                 } catch APIError.urlError {
                     print("invalid url")
