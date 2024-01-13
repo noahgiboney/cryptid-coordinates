@@ -12,8 +12,8 @@ struct MapView: View {
     @State private var viewModel = ViewModel()
     
     var body: some View {
-        Map(initialPosition: viewModel.cameraPosition){
-            
+        Map(position: $viewModel.cameraPosition){
+            UserAnnotation()
             ForEach(viewModel.locations.filter({ location in
                 location.city == "Los Angeles"
             })) { location in
@@ -29,6 +29,11 @@ struct MapView: View {
                         })
                 }
             }
+        }
+        .tint(Color.pink)
+        .mapStyle(.hybrid)
+        .onAppear {
+            viewModel.checkIfLocationsEnabled()
         }
         .sheet(item: $viewModel.selectedLocation){ location in
             if let location = viewModel.selectedLocation {

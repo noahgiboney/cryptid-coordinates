@@ -12,16 +12,57 @@ import SwiftUI
 
 extension MapView{
     @Observable
-    class ViewModel {
+    class ViewModel: NSObject, CLLocationManagerDelegate {
         
         var selectedLocation: HauntedLocation?
         
-        private(set) var cameraPosition: MapCameraPosition = .region(MKCoordinateRegion(
+        var cameraPosition: MapCameraPosition = .region(MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 39.83333, longitude: -98.585522),
             span: MKCoordinateSpan(latitudeDelta: 255, longitudeDelta: 255)))
         
-            
+        var locationManager: CLLocationManager?
+        
         var locations: [HauntedLocation] = Bundle.main.decode(file: "hauntedplaces.json")
+        
+        private func checkLocationAuthorization() {
+            guard let locationManager = locationManager else { return }
+            
+            switch locationManager.authorizationStatus  {
+             
+            case .notDetermined:
+                locationManager.requestWhenInUseAuthorization()
+                
+            case .restricted:
+                print("tell them about locations servies, prarental controls ")
+                
+            case .denied:
+                print(" denied ,asign a differnt cord")
+                
+            case .authorizedAlways, .authorizedWhenInUse:
+                cameraPosition = .region(MKCoordinateRegion(
+                    center: locationManager.location!.coordinate,
+                    span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)))
+                
+            @unknown default:
+                break;
+            }
+        }
+        
+        func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+            checkLocationAuthorization()
+        }
+        
+        func checkIfLocationsEnabled() {
+            if CLLocationManager.locationServicesEnabled() {
+                locationManager = CLLocationManager()
+                if let locationManager{
+                    locationManager.delegate = self
+                }
+            }
+            else {
+                //alert to have user enable location
+            }
+        }
         
         func updateSelectedLocation(location: HauntedLocation) {
             selectedLocation = location
