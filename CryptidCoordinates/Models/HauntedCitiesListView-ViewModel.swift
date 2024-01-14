@@ -12,15 +12,18 @@ extension HauntedCitiesListView {
         
         var searchText = ""
         
-        var hauntedCities: [String] {
+        var uniqueCities: [HauntedLocation] {
             
-            // build array of only cities
-            let cities = HauntedLocation.locations.map { $0.city }
+            var hauntedCities = [HauntedLocation]()
             
-            let removedDuplicateCities = Set(cities)
-            
-            // return array of all possible haunted cities
-            return Array(removedDuplicateCities).sorted { $0 < $1 }
+            for i in HauntedLocation.allLocations {
+                if !hauntedCities.contains(where: { j in
+                    i.city == j.city
+                }) {
+                    hauntedCities.append(i)
+                }
+            }
+            return hauntedCities.sorted { $0.city < $1.city }
         }
     }
 }

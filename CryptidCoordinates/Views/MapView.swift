@@ -16,7 +16,7 @@ struct MapView: View {
             ZStack(alignment: .topTrailing){
                 Map(position: $viewModel.cameraPosition){
                     UserAnnotation()
-                    ForEach(HauntedLocation.locations.filter({ location in
+                    ForEach(HauntedLocation.allLocations.filter({ location in
                         location.city == "Los Angeles"
                     })) { location in
                         Annotation(location.name, coordinate: location.coordinates) {

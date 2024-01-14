@@ -76,12 +76,12 @@
 				E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */,
 				E2C76C182B4E15940080F669 /* Views */,
 				E2C76C162B4E157B0080F669 /* Models */,
-				E2C76C0A2B4E14550080F669 /* Assets.xcassets */,
 				E294BD752B50C9AF00C5C39C /* Constants.swift */,
 				E294BD732B50C4D900C5C39C /* GoogleData.swift */,
 				E24A43AE2B4E2B5C006B1B2A /* HauntedLocation.swift */,
 				E24A43B02B4E2CAD006B1B2A /* BundleDecode.swift */,
 				E27395CB2B4E391200D70108 /* hauntedplaces.json */,
+				E2C76C0A2B4E14550080F669 /* Assets.xcassets */,
 				E2C76C0C2B4E14550080F669 /* Preview Content */,
 			);
 			path = CryptidCoordinates;

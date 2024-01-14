@@ -16,8 +16,8 @@ struct HauntedCitiesListView: View {
     
     var body: some View {
         NavigationStack{
-            List(viewModel.hauntedCities, id: \.self) {
-                Text("\($0)")
+            List(viewModel.uniqueCities, id: \.self) { location in
+                Text(location.city)
             }
             .navigationTitle("Haunted Cities")
             .searchable(text: $viewModel.searchText, prompt: "Search for a haunted city")
