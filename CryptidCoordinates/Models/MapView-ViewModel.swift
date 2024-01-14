@@ -53,15 +53,8 @@ extension MapView{
         }
         
         func checkIfLocationsEnabled() {
-            if CLLocationManager.locationServicesEnabled() {
-                locationManager = CLLocationManager()
-                if let locationManager{
-                    locationManager.delegate = self
-                }
-            }
-            else {
-                //alert to have user enable location
-            }
+            locationManager = CLLocationManager()
+            locationManager!.delegate = self
         }
         
         func updateSelectedLocation(location: HauntedLocation) {
