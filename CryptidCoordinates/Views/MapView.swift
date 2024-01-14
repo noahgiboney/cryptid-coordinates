@@ -33,7 +33,7 @@ struct MapView: View {
                     }
                 }
                 Button {
-                    
+                    viewModel.showingSearch.toggle()
                 } label: {
                     Image(systemName: "magnifyingglass")
                         .frame(width: 44, height: 44)
@@ -49,7 +49,9 @@ struct MapView: View {
                 viewModel.checkIfLocationsEnabled()
             }
             // city search view
-            
+            .sheet(isPresented: $viewModel.showingSearch) {
+                HauntedCitiesListView()
+            }
             // location detail view
             .sheet(item: $viewModel.selectedLocation){ location in
                 if let location = viewModel.selectedLocation {

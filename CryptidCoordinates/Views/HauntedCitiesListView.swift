@@ -16,11 +16,11 @@ struct HauntedCitiesListView: View {
     
     var body: some View {
         NavigationStack{
-            List(viewModel.uniqueCities, id: \.self) { location in
+            List(viewModel.searchCities, id: \.self) { location in
                 Text(location.city)
             }
             .navigationTitle("Haunted Cities")
-            .searchable(text: $viewModel.searchText, prompt: "Search for a haunted city")
+            .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a haunted city")
         }
     }
 }

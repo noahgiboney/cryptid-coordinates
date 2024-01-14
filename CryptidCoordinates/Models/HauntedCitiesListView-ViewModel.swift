@@ -25,5 +25,16 @@ extension HauntedCitiesListView {
             }
             return hauntedCities.sorted { $0.city < $1.city }
         }
+        
+        var searchCities: [HauntedLocation] {
+            if searchText == "" {
+                return uniqueCities
+            }
+            else {
+                return uniqueCities.filter {
+                    $0.city.localizedCaseInsensitiveContains(searchText)
+                }
+            }
+        }
     }
 }

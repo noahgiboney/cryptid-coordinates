@@ -20,7 +20,7 @@ extension MapView{
             span: MKCoordinateSpan(latitudeDelta: 255, longitudeDelta: 255)))
         // user selected location to give to sheet
         var selectedLocation: HauntedLocation?
-        
+        var showingSearch = false
         // manage location
         var locationManager: CLLocationManager?
         

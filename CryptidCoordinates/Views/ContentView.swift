@@ -9,20 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        HauntedCitiesListView()
-//        TabView{
-//            MapView()
-//                .tabItem {
-//                    Image(systemName: "map")
-//                    Text("Map")
-//                }
-//            Text("Favoirtes Placeholder")
-//                .tabItem {
-//                    Image(systemName: "star")
-//                    Text("Favorites")
-//                    
-//                }
-//        }
+        TabView{
+            MapView()
+                .tabItem {
+                    Image(systemName: "map")
+                    Text("Map")
+                }
+            Text("Favoirtes Placeholder")
+                .tabItem {
+                    Image(systemName: "star")
+                    Text("Favorites")
+                    
+                }
+        }
     }
 }
 
