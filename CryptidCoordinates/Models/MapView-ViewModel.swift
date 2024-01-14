@@ -24,8 +24,6 @@ extension MapView{
         // manage location
         var locationManager: CLLocationManager?
         
-        var locations: [HauntedLocation] = Bundle.main.decode(file: "hauntedplaces.json")
-        
         private func checkLocationAuthorization() {
             guard let locationManager = locationManager else { return }
             

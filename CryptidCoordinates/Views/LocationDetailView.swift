@@ -24,7 +24,6 @@ struct LocationDetailView: View {
         NavigationStack{
             ScrollView{
                 VStack(alignment: .leading, spacing: 20){
-                    
                     VStack(alignment: .leading, spacing: 5){
                         Text(location.name)
                             .font(.title.bold())

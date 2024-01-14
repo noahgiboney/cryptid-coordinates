@@ -20,6 +20,7 @@
 		E2C76C0B2B4E14550080F669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2C76C0A2B4E14550080F669 /* Assets.xcassets */; };
 		E2C76C0E2B4E14550080F669 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2C76C0D2B4E14550080F669 /* Preview Assets.xcassets */; };
 		E2C76C1A2B4E17730080F669 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C76C192B4E17730080F669 /* MapView.swift */; };
+		E2D4DA182B53AE82000657E9 /* HauntedCitiesListView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D4DA172B53AE82000657E9 /* HauntedCitiesListView-ViewModel.swift */; };
 		E2ECE2EB2B53756600FA4BDB /* HauntedCitiesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ECE2EA2B53756600FA4BDB /* HauntedCitiesListView.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +39,7 @@
 		E2C76C0A2B4E14550080F669 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2C76C0D2B4E14550080F669 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E2C76C192B4E17730080F669 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		E2D4DA172B53AE82000657E9 /* HauntedCitiesListView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HauntedCitiesListView-ViewModel.swift"; sourceTree = "<group>"; };
 		E2ECE2EA2B53756600FA4BDB /* HauntedCitiesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HauntedCitiesListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +100,7 @@
 			children = (
 				E24A43AA2B4E2475006B1B2A /* MapView-ViewModel.swift */,
 				E216EB0C2B4FA4D70006AB32 /* LocationDetailView-ViewModel.swift */,
+				E2D4DA172B53AE82000657E9 /* HauntedCitiesListView-ViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -107,8 +110,8 @@
 			children = (
 				E2C76C082B4E14550080F669 /* ContentView.swift */,
 				E2C76C192B4E17730080F669 /* MapView.swift */,
-				E2ECE2EA2B53756600FA4BDB /* HauntedCitiesListView.swift */,
 				E27395D12B4E59BB00D70108 /* LocationDetailView.swift */,
+				E2ECE2EA2B53756600FA4BDB /* HauntedCitiesListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */,
 				E24A43B12B4E2CAD006B1B2A /* BundleDecode.swift in Sources */,
 				E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */,
+				E2D4DA182B53AE82000657E9 /* HauntedCitiesListView-ViewModel.swift in Sources */,
 				E2ECE2EB2B53756600FA4BDB /* HauntedCitiesListView.swift in Sources */,
 				E24A43AF2B4E2B5C006B1B2A /* HauntedLocation.swift in Sources */,
 			);
