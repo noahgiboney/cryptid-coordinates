@@ -14,12 +14,14 @@ extension MapView{
     @Observable
     class ViewModel: NSObject, CLLocationManagerDelegate {
         
-        var selectedLocation: HauntedLocation?
-        
+        // current postion camera is showing on the map
         var cameraPosition: MapCameraPosition = .region(MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 39.83333, longitude: -98.585522),
             span: MKCoordinateSpan(latitudeDelta: 255, longitudeDelta: 255)))
+        // user selected location to give to sheet
+        var selectedLocation: HauntedLocation?
         
+        // manage location
         var locationManager: CLLocationManager?
         
         var locations: [HauntedLocation] = Bundle.main.decode(file: "hauntedplaces.json")

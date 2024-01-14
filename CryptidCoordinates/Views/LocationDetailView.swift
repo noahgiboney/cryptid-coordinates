@@ -58,9 +58,11 @@ struct LocationDetailView: View {
                         else {
                             VStack(alignment: .leading){
                                 Label("Take a look around the area.", systemImage: "eye")
-                                    .font(.headline)
+                                    .font(.title3.weight(.medium))
                                 LookAroundPreview(scene: $viewModel.lookAroundPlace)
+                                    .clipShape(Rectangle())
                             }
+                            
                                 
                         }
                     }
