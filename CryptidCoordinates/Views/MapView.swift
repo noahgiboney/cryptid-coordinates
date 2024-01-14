@@ -44,7 +44,7 @@ struct MapView: View {
             }
             // map
             .mapStyle(.hybrid)
-            .tint(Color.pink)
+            .tint(Color.green)
             .onAppear {
                 viewModel.checkIfLocationsEnabled()
             }
