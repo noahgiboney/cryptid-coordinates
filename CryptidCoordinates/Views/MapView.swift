@@ -13,23 +13,34 @@ struct MapView: View {
     
     var body: some View {
         NavigationStack{
-            Map(position: $viewModel.cameraPosition){
-                UserAnnotation()
-                ForEach(viewModel.locations.filter({ location in
-                    location.city == "Los Angeles"
-                })) { location in
-                    Annotation(location.name, coordinate: location.coordinates) {
-                        Image(systemName: "eye")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 44, height: 44)
-                            .background(.white)
-                            .clipShape(.capsule)
-                            .onTapGesture(perform: {
-                                viewModel.updateSelectedLocation(location: location)
-                            })
+            ZStack(alignment: .topTrailing){
+                Map(position: $viewModel.cameraPosition){
+                    UserAnnotation()
+                    ForEach(viewModel.locations.filter({ location in
+                        location.city == "Los Angeles"
+                    })) { location in
+                        Annotation(location.name, coordinate: location.coordinates) {
+                            Image(systemName: "eye")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 44, height: 44)
+                                .background(.white)
+                                .clipShape(.capsule)
+                                .onTapGesture(perform: {
+                                    viewModel.updateSelectedLocation(location: location)
+                                })
+                        }
                     }
                 }
+                Button {
+                    
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                        .frame(width: 44, height: 44)
+                        .background(Color.black.opacity(0.7))
+                        .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                }
+                .padding(.trailing)
             }
             // map
             .mapStyle(.hybrid)
