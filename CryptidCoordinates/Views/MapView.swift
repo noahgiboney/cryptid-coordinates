@@ -38,7 +38,7 @@ struct MapView: View {
                     Image(systemName: "magnifyingglass")
                         .frame(width: 44, height: 44)
                         .background(Color.black.opacity(0.7))
-                        .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                        .clipShape(Circle())
                 }
                 .padding(.trailing)
             }

@@ -12,16 +12,35 @@ struct HauntedCitiesListView: View {
     @Environment(\.dismiss) var dismiss
     @State private var viewModel = ViewModel()
     
-    let arr = [1,2,3,4]
+    @State private var listArray: [HauntedLocation] = []
     
     var body: some View {
         NavigationStack{
-            List(viewModel.searchCities, id: \.self) { location in
-                Text(location.city)
+
+            ZStack{
+                if viewModel.searchText == "" {
+                    ContentUnavailableView("Find a haunted City", systemImage: "waveform.badge.magnifyingglass")
+                }
+                else {
+                    List(listArray, id: \.self) { location in
+                        location.city.localizedCaseInsensitiveContains(viewModel.searchText) ? Text(location.city) : nil
+                    }
+                }
             }
+            .onAppear {
+                self.listArray = []
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                    self.listArray = viewModel.searchCities
+                }
+            }
+                
+            
             .navigationTitle("Haunted Cities")
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a haunted city")
         }
+//        .onAppear {
+//            print(viewModel.searchCities.count)
+//        }
     }
 }
 

@@ -15,7 +15,6 @@ struct LocationDetailView: View {
     }
     
     @Environment(\.dismiss) var dismiss
-    
     @State private var viewModel = ViewModel()
     
     var location: HauntedLocation
