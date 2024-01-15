@@ -22,6 +22,7 @@ extension Bundle {
         
         //decode data from json and return arr
         let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         guard let decodedLocations = try? decoder.decode([HauntedLocation].self, from: data) else{
             fatalError("Unable to decode json from \(file)")
         }

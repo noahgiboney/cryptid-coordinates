@@ -5,7 +5,6 @@
 //  Created by Noah Giboney on 1/9/24.
 //
 
-import Foundation
 import Observation
 import MapKit
 import SwiftUI

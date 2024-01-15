@@ -50,7 +50,7 @@ struct MapView: View {
             }
             // city search view
             .sheet(isPresented: $viewModel.showingSearch) {
-                SearchListView()
+                SearchListView(cameraPosition: $viewModel.cameraPosition)
             }
             // location detail view
             .sheet(item: $viewModel.selectedLocation){ location in
