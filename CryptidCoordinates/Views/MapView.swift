@@ -15,23 +15,27 @@ struct MapView: View {
         NavigationStack{
             ZStack(alignment: .top){
                 Map(position: $viewModel.cameraPosition){
-                    UserAnnotation()
-                    ForEach(HauntedLocation.allLocations.filter({ location in
-                        location.city == "Los Angeles"
-                    })) { location in
+                    ForEach(viewModel.displayedLocations) { location in
                         Annotation(location.name, coordinate: location.coordinates) {
                             Image(systemName: "eye")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 44, height: 44)
-                                .background(.white)
                                 .clipShape(.capsule)
                                 .onTapGesture(perform: {
                                     viewModel.updateSelectedLocation(location: location)
                                 })
                         }
                     }
+                    
                 }
+                .onMapCameraChange{ mapCameraUpdateContext in
+                    viewModel.getDisplayedLocations(center: mapCameraUpdateContext.camera.centerCoordinate)
+                }
+//                .onAppear {
+//                    print(viewModel.displayedLocations)
+//                    
+//                }
                 Button {
                     viewModel.showingSearch.toggle()
                 } label: {
@@ -45,9 +49,9 @@ struct MapView: View {
             // map
             .mapStyle(.hybrid)
             .tint(Color.green)
-            .onAppear {
-                viewModel.checkIfLocationsEnabled()
-            }
+//            .onAppear {
+//                viewModel.checkIfLocationsEnabled()
+//            }
             // city search view
             .sheet(isPresented: $viewModel.showingSearch) {
                 SearchListView(cameraPosition: $viewModel.cameraPosition)
