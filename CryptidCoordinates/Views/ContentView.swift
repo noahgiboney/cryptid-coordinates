@@ -19,7 +19,6 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "star")
                     Text("Favorites")
-                    
                 }
         }
     }

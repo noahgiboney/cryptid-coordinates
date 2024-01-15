@@ -13,7 +13,7 @@ struct MapView: View {
     
     var body: some View {
         NavigationStack{
-            ZStack(alignment: .topTrailing){
+            ZStack(alignment: .top){
                 Map(position: $viewModel.cameraPosition){
                     UserAnnotation()
                     ForEach(HauntedLocation.allLocations.filter({ location in
@@ -36,11 +36,11 @@ struct MapView: View {
                     viewModel.showingSearch.toggle()
                 } label: {
                     Image(systemName: "magnifyingglass")
-                        .frame(width: 44, height: 44)
+                        .frame(width: 50, height: 50)
                         .background(Color.black.opacity(0.7))
                         .clipShape(Circle())
                 }
-                .padding(.trailing)
+                .padding()
             }
             // map
             .mapStyle(.hybrid)
@@ -50,7 +50,7 @@ struct MapView: View {
             }
             // city search view
             .sheet(isPresented: $viewModel.showingSearch) {
-                HauntedCitiesListView()
+                SearchListView()
             }
             // location detail view
             .sheet(item: $viewModel.selectedLocation){ location in
