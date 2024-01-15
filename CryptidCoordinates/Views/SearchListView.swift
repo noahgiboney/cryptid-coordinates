@@ -16,14 +16,12 @@ struct SearchListView: View {
     
     var body: some View {
         NavigationStack{
-            ZStack{
-                List(viewModel.searchList, id: \.self) { cityName in
-                    Text(cityName)
-                        .onTapGesture {
-                            cameraPosition = viewModel.getCityCameraPosition(for: cityName)
-                            dismiss()
-                        }
-                }
+            List(viewModel.searchList, id: \.self) { cityName in
+                Text(cityName)
+                    .onTapGesture {
+                        cameraPosition = viewModel.getCityCameraPosition(for: cityName)
+                        dismiss()
+                    }
             }
             //navigation
             .navigationTitle("Cryptid Locations")
