@@ -50,10 +50,12 @@ extension MapView{
         func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
             checkLocationAuthorization()
         }
-        
+
         func checkIfLocationsEnabled() {
-            locationManager = CLLocationManager()
-            locationManager!.delegate = self
+            if locationManager == nil{
+                locationManager = CLLocationManager()
+                locationManager!.delegate = self
+            }
         }
         
         func updateSelectedLocation(location: HauntedLocation) {
