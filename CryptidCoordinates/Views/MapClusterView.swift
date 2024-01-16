@@ -1,20 +1,18 @@
 //
-//  MapAnnotationView.swift
+//  MapClusterView.swift
 //  CryptidCoordinates
 //
-//  Created by Noah Giboney on 1/15/24.
+//  Created by Noah Giboney on 1/16/24.
 //
 
 import SwiftUI
 
-struct MapAnnotationView: View {
+struct MapClusterView: View {
     var body: some View {
         VStack{
             ZStack{
                 Circle()
-                Image("ghost")
-                    .resizable()
-                    .scaledToFit()
+                Image(systemName: "square.3.layers.3d")
                     .foregroundStyle(Color.white)
             }
             .frame(width: 35)
@@ -28,5 +26,5 @@ struct MapAnnotationView: View {
 }
 
 #Preview {
-    MapAnnotationView()
+    MapClusterView()
 }

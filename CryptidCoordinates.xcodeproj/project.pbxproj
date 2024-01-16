@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E216EB0D2B4FA4D70006AB32 /* LocationDetailView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216EB0C2B4FA4D70006AB32 /* LocationDetailView-ViewModel.swift */; };
+		E22D10E62B57436500BD4A8C /* MapClusterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D10E52B57436500BD4A8C /* MapClusterView.swift */; };
 		E24A43AB2B4E2475006B1B2A /* MapView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AA2B4E2475006B1B2A /* MapView-ViewModel.swift */; };
 		E24A43AF2B4E2B5C006B1B2A /* HauntedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AE2B4E2B5C006B1B2A /* HauntedLocation.swift */; };
 		E24A43B12B4E2CAD006B1B2A /* BundleDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43B02B4E2CAD006B1B2A /* BundleDecode.swift */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		E216EB0C2B4FA4D70006AB32 /* LocationDetailView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationDetailView-ViewModel.swift"; sourceTree = "<group>"; };
+		E22D10E52B57436500BD4A8C /* MapClusterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapClusterView.swift; sourceTree = "<group>"; };
 		E24A43AA2B4E2475006B1B2A /* MapView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapView-ViewModel.swift"; sourceTree = "<group>"; };
 		E24A43AE2B4E2B5C006B1B2A /* HauntedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HauntedLocation.swift; sourceTree = "<group>"; };
 		E24A43B02B4E2CAD006B1B2A /* BundleDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleDecode.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				E27395D12B4E59BB00D70108 /* LocationDetailView.swift */,
 				E2ECE2EA2B53756600FA4BDB /* SearchListView.swift */,
 				E286FF842B56049300C9782A /* MapAnnotationView.swift */,
+				E22D10E52B57436500BD4A8C /* MapClusterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */,
 				E2ECE2EB2B53756600FA4BDB /* SearchListView.swift in Sources */,
 				E24A43AF2B4E2B5C006B1B2A /* HauntedLocation.swift in Sources */,
+				E22D10E62B57436500BD4A8C /* MapClusterView.swift in Sources */,
 				E2BC84252B54A568005681F9 /* SearchListView-ViewModel.swift in Sources */,
 				E286FF852B56049300C9782A /* MapAnnotationView.swift in Sources */,
 			);

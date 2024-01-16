@@ -1,34 +1,25 @@
-//
-//  MapKitIntegration.swift
-//  Example-SwiftUI
-//
-//  Created by Mikhail Vospennikov on 17.10.2023.
-//
-
 import MapKit
 import SwiftUI
 
 struct MapView: View {
-    @State private var searchClient = LocalSearchCompleter()
+    @State private var clusterManager = ClusterMap()
     @State private var viewModel = ViewModel()
 
     var body: some View {
         ZStack(alignment: .top){
-            Map(initialPosition: .region(searchClient.currentRegion)) {
-                ForEach(searchClient.annotations) { item in
-                    Marker(
-                        "\(item.coordinate.latitude) \(item.coordinate.longitude)",
-                        systemImage: "mappin",
-                        coordinate: item.coordinate
-                    )
+            Map(initialPosition: .region(clusterManager.currentRegion)) {
+                ForEach(clusterManager.annotations) { item in
+                    
+                    Annotation("\(item.id)", coordinate: item.coordinate) {
+                        MapAnnotationView()
+                    }
                     .annotationTitles(.hidden)
                 }
-                ForEach(searchClient.clusters) { item in
-                    Marker(
-                        "\(item.count)",
-                        systemImage: "square.3.layers.3d",
-                        coordinate: item.coordinate
-                    )
+                ForEach(clusterManager.clusters) { item in
+                    Annotation("\(item.count)", coordinate: item.coordinate) {
+                        MapClusterView()
+                    }
+        
                 }
             }
             Button {
@@ -44,14 +35,14 @@ struct MapView: View {
         // map
         .mapStyle(.hybrid)
         .onMapCameraChange { context in
-            searchClient.currentRegion = context.region
+            clusterManager.currentRegion = context.region
             Task.detached {
-                await searchClient.getAnnotations(center: searchClient.currentRegion.center)
-                await searchClient.reloadAnnotations()
+                await clusterManager.getAnnotations(center: clusterManager.currentRegion.center)
+                await clusterManager.reloadAnnotations()
             }
         }
         .readSize(onChange: { newValue in
-            searchClient.mapSize = newValue
+            clusterManager.mapSize = newValue
         })
         .sheet(isPresented: $viewModel.showingSearch) {
             SearchListView(cameraPosition: $viewModel.cameraPosition)

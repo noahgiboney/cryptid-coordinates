@@ -1,23 +1,30 @@
+//
+//  LocalSearchCompleter.swift
+//  Example-SwiftUI
+//
+//  Created by Mikhail Vospennikov on 21.10.2023.
+//
+
 import ClusterMap
 import Foundation
 import MapKit
 
 extension MapView {
-    struct Cluster: Identifiable {
+    struct ExampleClusterAnnotation: Identifiable {
         var id = UUID()
         var coordinate: CLLocationCoordinate2D
         var count: Int
     }
     
     @Observable
-    class LocalSearchCompleter: NSObject, MKLocalSearchCompleterDelegate {
+    class ClusterMap: NSObject, MKLocalSearchCompleterDelegate {
         private let clusterManager = ClusterManager<MKMapItem>()
         
         var mapSize: CGSize = .zero
         var currentRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.787_994, longitude: -122.407_437),
                                                span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1))
         var annotations = [MKMapItem]()
-        var clusters = [Cluster]()
+        var clusters = [ExampleClusterAnnotation]()
         
         func getAnnotations(center: CLLocationCoordinate2D) async {
             let filteredLocations = HauntedLocation.allLocations.filter { location in
@@ -65,7 +72,7 @@ extension MapView {
                 case .annotation(let newItem):
                     annotations.append(newItem)
                 case .cluster(let newItem):
-                    clusters.append(Cluster(
+                    clusters.append(ExampleClusterAnnotation(
                         id: newItem.id,
                         coordinate: newItem.coordinate,
                         count: newItem.memberAnnotations.count
