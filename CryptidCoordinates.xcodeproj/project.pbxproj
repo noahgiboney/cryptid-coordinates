@@ -13,14 +13,18 @@
 		E24A43B12B4E2CAD006B1B2A /* BundleDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43B02B4E2CAD006B1B2A /* BundleDecode.swift */; };
 		E27395CC2B4E391200D70108 /* hauntedplaces.json in Resources */ = {isa = PBXBuildFile; fileRef = E27395CB2B4E391200D70108 /* hauntedplaces.json */; };
 		E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27395D12B4E59BB00D70108 /* LocationDetailView.swift */; };
+		E286FF852B56049300C9782A /* MapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E286FF842B56049300C9782A /* MapAnnotationView.swift */; };
+		E286FF882B560B4300C9782A /* ClusterMap in Frameworks */ = {isa = PBXBuildFile; productRef = E286FF872B560B4300C9782A /* ClusterMap */; };
+		E286FF8A2B560B4300C9782A /* ClusterMapSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E286FF892B560B4300C9782A /* ClusterMapSwiftUI */; };
+		E286FF8C2B56109F00C9782A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E286FF8B2B56109F00C9782A /* MapView.swift */; };
+		E286FF8E2B5610A500C9782A /* ClusterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E286FF8D2B5610A500C9782A /* ClusterManager.swift */; };
+		E286FF912B5614D900C9782A /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E286FF902B5614D900C9782A /* SizeReader.swift */; };
 		E294BD742B50C4D900C5C39C /* GoogleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E294BD732B50C4D900C5C39C /* GoogleData.swift */; };
-		E294BD762B50C9AF00C5C39C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E294BD752B50C9AF00C5C39C /* Constants.swift */; };
 		E2BC84252B54A568005681F9 /* SearchListView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BC84242B54A568005681F9 /* SearchListView-ViewModel.swift */; };
 		E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */; };
 		E2C76C092B4E14550080F669 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C76C082B4E14550080F669 /* ContentView.swift */; };
 		E2C76C0B2B4E14550080F669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2C76C0A2B4E14550080F669 /* Assets.xcassets */; };
 		E2C76C0E2B4E14550080F669 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2C76C0D2B4E14550080F669 /* Preview Assets.xcassets */; };
-		E2C76C1A2B4E17730080F669 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C76C192B4E17730080F669 /* MapView.swift */; };
 		E2ECE2EB2B53756600FA4BDB /* SearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ECE2EA2B53756600FA4BDB /* SearchListView.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,15 +35,17 @@
 		E24A43B02B4E2CAD006B1B2A /* BundleDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleDecode.swift; sourceTree = "<group>"; };
 		E27395CB2B4E391200D70108 /* hauntedplaces.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hauntedplaces.json; sourceTree = "<group>"; };
 		E27395D12B4E59BB00D70108 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
+		E286FF842B56049300C9782A /* MapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapAnnotationView.swift; path = ../../MapAnnotationView.swift; sourceTree = "<group>"; };
+		E286FF8B2B56109F00C9782A /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		E286FF8D2B5610A500C9782A /* ClusterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterManager.swift; sourceTree = "<group>"; };
+		E286FF902B5614D900C9782A /* SizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
 		E294BD732B50C4D900C5C39C /* GoogleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleData.swift; sourceTree = "<group>"; };
-		E294BD752B50C9AF00C5C39C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E2BC84242B54A568005681F9 /* SearchListView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchListView-ViewModel.swift"; sourceTree = "<group>"; };
 		E2C76C032B4E14550080F669 /* CryptidCoordinates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptidCoordinates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptidCoordinatesApp.swift; sourceTree = "<group>"; };
 		E2C76C082B4E14550080F669 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E2C76C0A2B4E14550080F669 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2C76C0D2B4E14550080F669 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		E2C76C192B4E17730080F669 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		E2ECE2EA2B53756600FA4BDB /* SearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -48,6 +54,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E286FF8A2B560B4300C9782A /* ClusterMapSwiftUI in Frameworks */,
+				E286FF882B560B4300C9782A /* ClusterMap in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,10 +84,11 @@
 				E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */,
 				E2C76C182B4E15940080F669 /* Views */,
 				E2C76C162B4E157B0080F669 /* Models */,
-				E294BD752B50C9AF00C5C39C /* Constants.swift */,
 				E294BD732B50C4D900C5C39C /* GoogleData.swift */,
 				E24A43AE2B4E2B5C006B1B2A /* HauntedLocation.swift */,
 				E24A43B02B4E2CAD006B1B2A /* BundleDecode.swift */,
+				E286FF902B5614D900C9782A /* SizeReader.swift */,
+				E286FF8D2B5610A500C9782A /* ClusterManager.swift */,
 				E27395CB2B4E391200D70108 /* hauntedplaces.json */,
 				E2C76C0A2B4E14550080F669 /* Assets.xcassets */,
 				E2C76C0C2B4E14550080F669 /* Preview Content */,
@@ -109,9 +118,10 @@
 			isa = PBXGroup;
 			children = (
 				E2C76C082B4E14550080F669 /* ContentView.swift */,
-				E2C76C192B4E17730080F669 /* MapView.swift */,
+				E286FF8B2B56109F00C9782A /* MapView.swift */,
 				E27395D12B4E59BB00D70108 /* LocationDetailView.swift */,
 				E2ECE2EA2B53756600FA4BDB /* SearchListView.swift */,
+				E286FF842B56049300C9782A /* MapAnnotationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -132,6 +142,10 @@
 			dependencies = (
 			);
 			name = CryptidCoordinates;
+			packageProductDependencies = (
+				E286FF872B560B4300C9782A /* ClusterMap */,
+				E286FF892B560B4300C9782A /* ClusterMapSwiftUI */,
+			);
 			productName = CryptidCoordinates;
 			productReference = E2C76C032B4E14550080F669 /* CryptidCoordinates.app */;
 			productType = "com.apple.product-type.application";
@@ -160,6 +174,9 @@
 				Base,
 			);
 			mainGroup = E2C76BFA2B4E14550080F669;
+			packageReferences = (
+				E286FF862B560B4300C9782A /* XCRemoteSwiftPackageReference "ClusterMap" */,
+			);
 			productRefGroup = E2C76C042B4E14550080F669 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -187,18 +204,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E286FF8C2B56109F00C9782A /* MapView.swift in Sources */,
 				E24A43AB2B4E2475006B1B2A /* MapView-ViewModel.swift in Sources */,
-				E294BD762B50C9AF00C5C39C /* Constants.swift in Sources */,
 				E216EB0D2B4FA4D70006AB32 /* LocationDetailView-ViewModel.swift in Sources */,
 				E294BD742B50C4D900C5C39C /* GoogleData.swift in Sources */,
 				E2C76C092B4E14550080F669 /* ContentView.swift in Sources */,
-				E2C76C1A2B4E17730080F669 /* MapView.swift in Sources */,
+				E286FF8E2B5610A500C9782A /* ClusterManager.swift in Sources */,
 				E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */,
+				E286FF912B5614D900C9782A /* SizeReader.swift in Sources */,
 				E24A43B12B4E2CAD006B1B2A /* BundleDecode.swift in Sources */,
 				E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */,
 				E2ECE2EB2B53756600FA4BDB /* SearchListView.swift in Sources */,
 				E24A43AF2B4E2B5C006B1B2A /* HauntedLocation.swift in Sources */,
 				E2BC84252B54A568005681F9 /* SearchListView-ViewModel.swift in Sources */,
+				E286FF852B56049300C9782A /* MapAnnotationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +427,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E286FF862B560B4300C9782A /* XCRemoteSwiftPackageReference "ClusterMap" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vospennikov/ClusterMap.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E286FF872B560B4300C9782A /* ClusterMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E286FF862B560B4300C9782A /* XCRemoteSwiftPackageReference "ClusterMap" */;
+			productName = ClusterMap;
+		};
+		E286FF892B560B4300C9782A /* ClusterMapSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E286FF862B560B4300C9782A /* XCRemoteSwiftPackageReference "ClusterMap" */;
+			productName = ClusterMapSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E2C76BFB2B4E14550080F669 /* Project object */;
 }

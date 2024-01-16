@@ -1,66 +1,65 @@
 //
-//  MapView.swift
-//  CryptidCoordinates
+//  MapKitIntegration.swift
+//  Example-SwiftUI
 //
-//  Created by Noah Giboney on 1/9/24.
+//  Created by Mikhail Vospennikov on 17.10.2023.
 //
+
 import MapKit
 import SwiftUI
 
 struct MapView: View {
-    
+    @State private var searchClient = LocalSearchCompleter()
     @State private var viewModel = ViewModel()
-    
+
     var body: some View {
-        NavigationStack{
-            ZStack(alignment: .top){
-                Map(position: $viewModel.cameraPosition){
-                    ForEach(viewModel.displayedLocations) { location in
-                        Annotation(location.name, coordinate: location.coordinates) {
-                            Image(systemName: "eye")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 44, height: 44)
-                                .clipShape(.capsule)
-                                .onTapGesture(perform: {
-                                    viewModel.updateSelectedLocation(location: location)
-                                })
-                        }
-                    }
-                    
+        ZStack(alignment: .top){
+            Map(initialPosition: .region(searchClient.currentRegion)) {
+                ForEach(searchClient.annotations) { item in
+                    Marker(
+                        "\(item.coordinate.latitude) \(item.coordinate.longitude)",
+                        systemImage: "mappin",
+                        coordinate: item.coordinate
+                    )
+                    .annotationTitles(.hidden)
                 }
-                .onMapCameraChange{ mapCameraUpdateContext in
-                    viewModel.getDisplayedLocations(center: mapCameraUpdateContext.camera.centerCoordinate)
+                ForEach(searchClient.clusters) { item in
+                    Marker(
+                        "\(item.count)",
+                        systemImage: "square.3.layers.3d",
+                        coordinate: item.coordinate
+                    )
                 }
-//                .onAppear {
-//                    print(viewModel.displayedLocations)
-//                    
-//                }
-                Button {
-                    viewModel.showingSearch.toggle()
-                } label: {
-                    Image(systemName: "magnifyingglass")
-                        .frame(width: 50, height: 50)
-                        .background(Color.black.opacity(0.7))
-                        .clipShape(Circle())
-                }
-                .padding()
             }
-            // map
-            .mapStyle(.hybrid)
-            .tint(Color.green)
-//            .onAppear {
-//                viewModel.checkIfLocationsEnabled()
-//            }
-            // city search view
-            .sheet(isPresented: $viewModel.showingSearch) {
-                SearchListView(cameraPosition: $viewModel.cameraPosition)
+            Button {
+                viewModel.showingSearch.toggle()
+            } label: {
+                Image(systemName: "magnifyingglass")
+                    .frame(width: 50, height: 50)
+                    .background(Color.black.opacity(0.7))
+                    .clipShape(Circle())
             }
-            // location detail view
-            .sheet(item: $viewModel.selectedLocation){ location in
-                if let location = viewModel.selectedLocation {
-                    LocationDetailView(location: location)
-                }
+            .padding()
+        }
+        // map
+        .mapStyle(.hybrid)
+        .onMapCameraChange { context in
+            searchClient.currentRegion = context.region
+            Task.detached {
+                await searchClient.getAnnotations(center: searchClient.currentRegion.center)
+                await searchClient.reloadAnnotations()
+            }
+        }
+        .readSize(onChange: { newValue in
+            searchClient.mapSize = newValue
+        })
+        .sheet(isPresented: $viewModel.showingSearch) {
+            SearchListView(cameraPosition: $viewModel.cameraPosition)
+        }
+        // location detail view
+        .sheet(item: $viewModel.selectedLocation){ location in
+            if let location = viewModel.selectedLocation {
+                LocationDetailView(location: location)
             }
         }
     }

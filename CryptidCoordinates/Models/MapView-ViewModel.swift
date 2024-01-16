@@ -33,11 +33,11 @@ extension MapView{
                     return false
                 }
                 
-                let lowerBoundLong = longitude - 1
-                let upperBoundLong = longitude + 1
+                let lowerBoundLong = longitude - 2
+                let upperBoundLong = longitude + 2
                 
-                let lowerBoundLat = latitude - 0.5
-                let upperBoundLat = latitude + 0.5
+                let lowerBoundLat = latitude - 2
+                let upperBoundLat = latitude + 2
                 
                 return center.longitude >= lowerBoundLong && center.longitude <= upperBoundLong &&
                 center.latitude >= lowerBoundLat && center.latitude <= upperBoundLat
