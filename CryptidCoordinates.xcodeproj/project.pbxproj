@@ -64,6 +64,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E22D10E82B574F3600BD4A8C /* ClusterMap */ = {
+			isa = PBXGroup;
+			children = (
+				E286FF8D2B5610A500C9782A /* ClusterManager.swift */,
+				E286FF902B5614D900C9782A /* SizeReader.swift */,
+			);
+			path = ClusterMap;
+			sourceTree = "<group>";
+		};
 		E2C76BFA2B4E14550080F669 = {
 			isa = PBXGroup;
 			children = (
@@ -86,11 +95,10 @@
 				E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */,
 				E2C76C182B4E15940080F669 /* Views */,
 				E2C76C162B4E157B0080F669 /* Models */,
-				E294BD732B50C4D900C5C39C /* GoogleData.swift */,
+				E22D10E82B574F3600BD4A8C /* ClusterMap */,
 				E24A43AE2B4E2B5C006B1B2A /* HauntedLocation.swift */,
 				E24A43B02B4E2CAD006B1B2A /* BundleDecode.swift */,
-				E286FF902B5614D900C9782A /* SizeReader.swift */,
-				E286FF8D2B5610A500C9782A /* ClusterManager.swift */,
+				E294BD732B50C4D900C5C39C /* GoogleData.swift */,
 				E27395CB2B4E391200D70108 /* hauntedplaces.json */,
 				E2C76C0A2B4E14550080F669 /* Assets.xcassets */,
 				E2C76C0C2B4E14550080F669 /* Preview Content */,
