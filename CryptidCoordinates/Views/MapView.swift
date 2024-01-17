@@ -12,6 +12,9 @@ struct MapView: View {
                     
                     Annotation("\(item.id)", coordinate: item.coordinate) {
                         MapAnnotationView()
+                            .onTapGesture {
+                                clusterManager.getSelectedLocation(item)
+                            }
                     }
                     .annotationTitles(.hidden)
                 }
@@ -27,7 +30,7 @@ struct MapView: View {
             } label: {
                 Image(systemName: "magnifyingglass")
                     .frame(width: 50, height: 50)
-                    .background(Color.black.opacity(0.7))
+                    .background(Color.black.opacity(0.8))
                     .clipShape(Circle())
             }
             .padding()
@@ -48,9 +51,11 @@ struct MapView: View {
             SearchListView(cameraPosition: $viewModel.cameraPosition)
         }
         // location detail view
-        .sheet(item: $viewModel.selectedLocation){ location in
-            if let location = viewModel.selectedLocation {
-                LocationDetailView(location: location)
+        .sheet(item: $clusterManager.selectedLocation){ location in
+            if let location = clusterManager.selectedLocation {
+                let nearestLocations = viewModel.getNearestLocations(for: location)
+                LocationPreviewView(nearestLocations: nearestLocations)
+                    .presentationDetents([.fraction(0.25)])
             }
         }
     }

@@ -13,22 +13,19 @@ extension MapView{
     @Observable
     class ViewModel: NSObject, CLLocationManagerDelegate {
         
-        // current postion camera is showing on the map
         var cameraPosition: MapCameraPosition = .region(MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 39.83333, longitude: -98.585522),
             span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)))
-        // user selected location to give to sheet
-        var selectedLocation: HauntedLocation?
+        
         var showingSearch = false
-        // manage location
+
         var locationManager: CLLocationManager?
         
         var displayedLocations = [HauntedLocation]()
         
         func getDisplayedLocations(center: CLLocationCoordinate2D) {
-            
             displayedLocations = HauntedLocation.allLocations.filter { location in
-                
+    
                 guard let longitude = Double(location.longitude), let latitude = Double(location.latitude) else {
                     return false
                 }
@@ -44,6 +41,34 @@ extension MapView{
             }
         }
         
+        func getNearestLocations(for startingLocation: HauntedLocation) -> [HauntedLocation] {
+            var array = HauntedLocation.allLocations
+            
+            guard let startingLatitude = Double(startingLocation.latitude),
+                  let startingLongitude = Double(startingLocation.longitude) else {
+                return []
+            }
+            
+            let current = CLLocation(latitude: startingLatitude, longitude: startingLongitude)
+            
+            var dictArray = array.compactMap { (location: HauntedLocation) -> [String: Any]? in
+                guard let locationLatitude = Double(location.latitude),
+                      let locationLongitude = Double(location.longitude) else {
+                    return nil
+                }
+                
+                return ["distance": current.distance(from: CLLocation(latitude: locationLatitude, longitude: locationLongitude)),
+                        "coordinate": location]
+            }
+            
+            dictArray.sort { ($0["distance"] as! CLLocationDistance) < ($1["distance"] as! CLLocationDistance) }
+            
+            var sortedLocations = dictArray.compactMap { $0["coordinate"] as? HauntedLocation }
+            
+            sortedLocations.insert(startingLocation, at: 0)
+            
+            return sortedLocations
+        }
         
         
         private func checkLocationAuthorization() {
@@ -77,10 +102,6 @@ extension MapView{
         func checkIfLocationsEnabled() {
                 locationManager = CLLocationManager()
                 locationManager!.delegate = self
-        }
-        
-        func updateSelectedLocation(location: HauntedLocation) {
-            selectedLocation = location
         }
     }
 }
