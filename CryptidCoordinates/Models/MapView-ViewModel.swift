@@ -13,12 +13,11 @@ extension MapView{
     @Observable
     class ViewModel: NSObject, CLLocationManagerDelegate {
         
-        var cameraPosition: MapCameraPosition = .region(MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 39.83333, longitude: -98.585522),
-            span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)))
+        var cameraPosition: MapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.787994, longitude: -122.407437), span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)))
         
         var showingSearch = false
-
+        var showingPreview = false
+        
         var locationManager: CLLocationManager?
         
         var displayedLocations = [HauntedLocation]()
@@ -42,7 +41,7 @@ extension MapView{
         }
         
         func getNearestLocations(for startingLocation: HauntedLocation) -> [HauntedLocation] {
-            var array = HauntedLocation.allLocations
+            let array = HauntedLocation.allLocations
             
             guard let startingLatitude = Double(startingLocation.latitude),
                   let startingLongitude = Double(startingLocation.longitude) else {
@@ -63,11 +62,7 @@ extension MapView{
             
             dictArray.sort { ($0["distance"] as! CLLocationDistance) < ($1["distance"] as! CLLocationDistance) }
             
-            var sortedLocations = dictArray.compactMap { $0["coordinate"] as? HauntedLocation }
-            
-            sortedLocations.insert(startingLocation, at: 0)
-            
-            return sortedLocations
+            return dictArray.compactMap { $0["coordinate"] as? HauntedLocation }
         }
         
         

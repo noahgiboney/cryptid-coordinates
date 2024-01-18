@@ -27,7 +27,6 @@
 		E2C76C092B4E14550080F669 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C76C082B4E14550080F669 /* ContentView.swift */; };
 		E2C76C0B2B4E14550080F669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2C76C0A2B4E14550080F669 /* Assets.xcassets */; };
 		E2C76C0E2B4E14550080F669 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2C76C0D2B4E14550080F669 /* Preview Assets.xcassets */; };
-		E2EC88012B57904C0020D6BC /* LocationPreviewView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EC88002B57904C0020D6BC /* LocationPreviewView-ViewModel.swift */; };
 		E2ECE2EB2B53756600FA4BDB /* SearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ECE2EA2B53756600FA4BDB /* SearchListView.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +50,6 @@
 		E2C76C082B4E14550080F669 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E2C76C0A2B4E14550080F669 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2C76C0D2B4E14550080F669 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		E2EC88002B57904C0020D6BC /* LocationPreviewView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationPreviewView-ViewModel.swift"; sourceTree = "<group>"; };
 		E2ECE2EA2B53756600FA4BDB /* SearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,7 +129,6 @@
 			children = (
 				E24A43AA2B4E2475006B1B2A /* MapView-ViewModel.swift */,
 				E216EB0C2B4FA4D70006AB32 /* LocationDetailView-ViewModel.swift */,
-				E2EC88002B57904C0020D6BC /* LocationPreviewView-ViewModel.swift */,
 				E2BC84242B54A568005681F9 /* SearchListView-ViewModel.swift */,
 			);
 			path = Models;
@@ -236,7 +233,6 @@
 				E2C76C092B4E14550080F669 /* ContentView.swift in Sources */,
 				E286FF8E2B5610A500C9782A /* ClusterManager.swift in Sources */,
 				E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */,
-				E2EC88012B57904C0020D6BC /* LocationPreviewView-ViewModel.swift in Sources */,
 				E286FF912B5614D900C9782A /* SizeReader.swift in Sources */,
 				E24A43B12B4E2CAD006B1B2A /* BundleDecode.swift in Sources */,
 				E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */,

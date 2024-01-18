@@ -23,7 +23,7 @@ struct LocationDetailView: View {
         NavigationStack{
             ScrollView{
                 VStack(alignment: .leading, spacing: 20){
-                    VStack(alignment: .leading, spacing: 5){
+                    VStack(alignment: .leading, spacing: 8){
                         Text(location.name)
                             .font(.title.bold())
                         Text("\(location.city), \(location.country)")

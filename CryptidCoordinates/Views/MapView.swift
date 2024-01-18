@@ -7,13 +7,15 @@ struct MapView: View {
 
     var body: some View {
         ZStack(alignment: .top){
-            Map(initialPosition: .region(clusterManager.currentRegion)) {
+            Map(position: $viewModel.cameraPosition) {
                 ForEach(clusterManager.annotations) { item in
                     
                     Annotation("\(item.id)", coordinate: item.coordinate) {
                         MapAnnotationView()
+                            .scaleEffect(clusterManager.selectedLocation?.coordinates == item.coordinate ? 1.3 : 1)
                             .onTapGesture {
                                 clusterManager.getSelectedLocation(item)
+                                viewModel.showingPreview.toggle()
                             }
                     }
                     .annotationTitles(.hidden)
@@ -51,11 +53,11 @@ struct MapView: View {
             SearchListView(cameraPosition: $viewModel.cameraPosition)
         }
         // location detail view
-        .sheet(item: $clusterManager.selectedLocation){ location in
+        .sheet(isPresented: $viewModel.showingPreview ) {
             if let location = clusterManager.selectedLocation {
                 let nearestLocations = viewModel.getNearestLocations(for: location)
-                LocationPreviewView(nearestLocations: nearestLocations)
-                    .presentationDetents([.fraction(0.25)])
+                LocationPreviewView(cameraPosition: $viewModel.cameraPosition, nearestLocations: nearestLocations)
+                    .presentationDetents([.fraction(0.3)])
             }
         }
     }

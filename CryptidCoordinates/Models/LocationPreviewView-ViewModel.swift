@@ -12,6 +12,15 @@ extension LocationPreviewView {
     class ViewModel {
         
         var index = 0
-
+        
+        func slideLeft() {
+            index -= 1
+            
+        }
+        
+        func slideRight() {
+            index += 1
+        }
+        
     }
 }
