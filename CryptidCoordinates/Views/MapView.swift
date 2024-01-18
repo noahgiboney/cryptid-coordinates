@@ -57,7 +57,7 @@ struct MapView: View {
             if let location = clusterManager.selectedLocation {
                 let nearestLocations = viewModel.getNearestLocations(for: location)
                 LocationPreviewView(cameraPosition: $viewModel.cameraPosition, nearestLocations: nearestLocations)
-                    .presentationDetents([.fraction(0.3)])
+                    .presentationDetents([.fraction(0.4)])
             }
         }
     }

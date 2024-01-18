@@ -10,12 +10,9 @@ import MapKit
 
 struct LocationDetailView: View {
     
-    enum APIError: Error {
-        case serverError, urlError, jsonError, responseError
-    }
-    
     @Environment(\.dismiss) var dismiss
     @State private var viewModel = ViewModel()
+    @State private var imageManager = GoogleAPIManager()
     
     var location: HauntedLocation
     
@@ -40,7 +37,7 @@ struct LocationDetailView: View {
                                         
                     Text(location.description)
                     
-                    AsyncImage(url: URL(string: viewModel.queryURL)) { image in
+                    AsyncImage(url: URL(string: imageManager.queryURL)) { image in
                         image
                             .resizable()
                             .scaledToFit()
@@ -60,8 +57,6 @@ struct LocationDetailView: View {
                                 LookAroundPreview(scene: $viewModel.lookAroundPlace)
                                     .clipShape(Rectangle())
                             }
-                            
-                                
                         }
                     }
                     .frame(height: 200)
@@ -76,18 +71,7 @@ struct LocationDetailView: View {
                 }
             }
             .task{
-                do{
-                    try await viewModel.searchImage(search: "\(location.name)")
-                    
-                } catch APIError.urlError {
-                    print("invalid url")
-                } catch APIError.jsonError {
-                    print("invalid json")
-                } catch APIError.responseError{
-                    print("invlaid server response")
-                } catch {
-                    print("error")
-                }
+                await imageManager.getImage(for: "\(location.name)")
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading){

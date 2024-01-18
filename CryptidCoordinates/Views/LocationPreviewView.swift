@@ -11,6 +11,7 @@ import SwiftUI
 struct LocationPreviewView: View {
     
     @Binding var cameraPosition: MapCameraPosition
+    @State private var imageManager = GoogleAPIManager()
     @State private var index = 0
     
     var nearestLocations: [HauntedLocation]
@@ -23,7 +24,6 @@ struct LocationPreviewView: View {
                     Text(nearestLocations[index].name)
                         .font(.title.bold())
                         
-                    
                     Text("\(nearestLocations[index].city), USA")
                         .font(.subheadline.italic())
                 }
@@ -35,13 +35,36 @@ struct LocationPreviewView: View {
             
             
             HStack{
-                Spacer()
-                Button("Investigate") {
+                
+                AsyncImage(url: URL(string: imageManager.queryURL)) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(maxWidth: 170, maxHeight: 100)
+                        .clipShape(.rect(cornerRadius: 5))
+                        .shadow(radius: 10)
                     
+                } placeholder: {
+                    HStack{
+                        Spacer()
+                        ProgressView()
+                        Spacer()
+                    }
                 }
-                .buttonStyle(.borderedProminent)
+                
+                Spacer()
+                
+                NavigationLink(destination: LocationDetailView(location: nearestLocations[index])) {
+                    Button {}
+                    label: {
+                        Text("Investigate")
+                    }
+                    .padding(.trailing, 30)
+                    .foregroundStyle(Color.green)
+                    .buttonStyle(.borderedProminent)
+                }
+                
             }
-            .padding(.trailing, 30)
             
             HStack{
                 Spacer()
@@ -88,7 +111,14 @@ struct LocationPreviewView: View {
             Spacer()
         }
         .padding()
+        .onChange(of: index) {
+            Task {
+                await imageManager.getImage(for: nearestLocations[index].name)
+                print(imageManager.queryURL)
+            }
+        }
     }
+    
     
     func moveRight() {
         index += 1
