@@ -12,10 +12,10 @@ struct MapView: View {
                     
                     Annotation("\(item.id)", coordinate: item.coordinate) {
                         MapAnnotationView()
-                            .scaleEffect(clusterManager.selectedLocation?.coordinates == item.coordinate ? 1.3 : 1)
+                            .scaleEffect(viewModel.selectedLocation?.coordinates == item.coordinate ? 1.5 : 1)
                             .onTapGesture {
-                                clusterManager.getSelectedLocation(item)
-                                viewModel.showingPreview.toggle()
+                                viewModel.selectedLocation = viewModel.getLocation(for: item)
+//                                viewModel.showingPreview.toggle()
                             }
                     }
                     .annotationTitles(.hidden)
@@ -27,15 +27,20 @@ struct MapView: View {
         
                 }
             }
-            Button {
-                viewModel.showingSearch.toggle()
-            } label: {
-                Image(systemName: "magnifyingglass")
-                    .frame(width: 50, height: 50)
-                    .background(Color.black.opacity(0.8))
-                    .clipShape(Circle())
+            
+            if let location = viewModel.selectedLocation {
+                HeaderView(locationName: location.name)
             }
-            .padding()
+            
+//            Button {
+//                viewModel.showingSearch.toggle()
+//            } label: {
+//                Image(systemName: "magnifyingglass")
+//                    .frame(width: 50, height: 50)
+//                    .background(Color.black.opacity(0.8))
+//                    .clipShape(Circle())
+//            }
+//            .padding()
         }
         // map
         .mapStyle(.hybrid)
@@ -54,10 +59,13 @@ struct MapView: View {
         }
         // location detail view
         .sheet(isPresented: $viewModel.showingPreview ) {
-            if let location = clusterManager.selectedLocation {
-                let nearestLocations = viewModel.getNearestLocations(for: location)
-                LocationPreviewView(cameraPosition: $viewModel.cameraPosition, nearestLocations: nearestLocations)
+            if let selectedLocation = viewModel.selectedLocation {
+                let nearestLocations = viewModel.getNearestLocations(for: selectedLocation)
+                LocationPreviewView(cameraPosition: $viewModel.cameraPosition, selectedLocation: $viewModel.selectedLocation, nearestLocations: nearestLocations)
                     .presentationDetents([.fraction(0.4)])
+                    .onDisappear {
+                        viewModel.selectedLocation = nil
+                    }
             }
         }
     }

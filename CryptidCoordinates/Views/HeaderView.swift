@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct HeaderView: View {
+    
+    var locationName: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        Label(locationName, systemImage: "mappin")
+            .font(.title2)
+            .padding(.horizontal, 30)
+            .frame(height: 50)
+            .background(.ultraThinMaterial)
+            .clipShape(.rect(cornerRadius: 10))
+            
     }
 }
 
 #Preview {
-    HeaderView()
+    HeaderView(locationName: HauntedLocation.example.name)
 }

@@ -26,16 +26,6 @@ extension MapView {
         var annotations = [MKMapItem]()
         var clusters = [ExampleClusterAnnotation]()
         
-        var selectedLocation: HauntedLocation?
-        
-        func getSelectedLocation(_ item: MKMapItem) {
-            if let index = HauntedLocation.allLocations.firstIndex(where: { location in
-                location.coordinates == item.coordinate
-            }) {
-                selectedLocation = HauntedLocation.allLocations[index]
-            }
-        }
-        
         func getAnnotations(center: CLLocationCoordinate2D) async {
             let filteredLocations = HauntedLocation.allLocations.filter { location in
                 guard let longitude = Double(location.longitude), let latitude = Double(location.latitude) else {

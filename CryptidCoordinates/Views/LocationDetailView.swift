@@ -25,6 +25,9 @@ struct LocationDetailView: View {
                             .font(.title.bold())
                         Text("\(location.city), \(location.country)")
                             .font(.subheadline.italic())
+                            .padding(.bottom)
+                        Text(location.coordinateString)
+                            .font(.subheadline)
                     }
                     
                     Divider()
@@ -34,7 +37,7 @@ struct LocationDetailView: View {
                         icon: { Image(systemName: "doc.text.magnifyingglass") }
                     )
                     .font(.title2.weight(.medium))
-                                        
+                    
                     Text(location.description)
                     
                     AsyncImage(url: URL(string: imageManager.queryURL)) { image in
@@ -84,14 +87,14 @@ struct LocationDetailView: View {
                         
                     } label: {
                         Text("Save")
-                        Image(systemName: "square.and.arrow.down")
+                        Image(systemName: "star")
                     }
+                    
                 }
             }
         }
     }
 }
-
 #Preview {
     LocationDetailView(location: HauntedLocation.example)
 }

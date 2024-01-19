@@ -20,7 +20,18 @@ extension MapView{
         
         var locationManager: CLLocationManager?
         
+        var selectedLocation: HauntedLocation?
+        
         var displayedLocations = [HauntedLocation]()
+        
+        func getLocation(for item: MKMapItem) -> HauntedLocation? {
+            if let index = HauntedLocation.allLocations.firstIndex(where: { location in
+                location.coordinates == item.coordinate
+            }) {
+                return HauntedLocation.allLocations[index]
+            }
+            return nil
+        }
         
         func getDisplayedLocations(center: CLLocationCoordinate2D) {
             displayedLocations = HauntedLocation.allLocations.filter { location in

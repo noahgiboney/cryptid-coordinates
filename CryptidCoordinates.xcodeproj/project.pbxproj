@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E213134D2B5A2F4300A7217B /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E213134C2B5A2F4300A7217B /* HeaderView.swift */; };
 		E216EB0D2B4FA4D70006AB32 /* LocationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216EB0C2B4FA4D70006AB32 /* LocationDetail.swift */; };
 		E22D10E62B57436500BD4A8C /* MapClusterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D10E52B57436500BD4A8C /* MapClusterView.swift */; };
 		E22D10EB2B576D6E00BD4A8C /* LocationPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D10EA2B576D6E00BD4A8C /* LocationPreviewView.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E213134C2B5A2F4300A7217B /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		E216EB0C2B4FA4D70006AB32 /* LocationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetail.swift; sourceTree = "<group>"; };
 		E22D10E52B57436500BD4A8C /* MapClusterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapClusterView.swift; sourceTree = "<group>"; };
 		E22D10EA2B576D6E00BD4A8C /* LocationPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPreviewView.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				E2ECE2EA2B53756600FA4BDB /* SearchListView.swift */,
 				E286FF842B56049300C9782A /* MapAnnotationView.swift */,
 				E22D10E52B57436500BD4A8C /* MapClusterView.swift */,
+				E213134C2B5A2F4300A7217B /* HeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E286FF8C2B56109F00C9782A /* MapView.swift in Sources */,
+				E213134D2B5A2F4300A7217B /* HeaderView.swift in Sources */,
 				E24A43AB2B4E2475006B1B2A /* Map.swift in Sources */,
 				E216EB0D2B4FA4D70006AB32 /* LocationDetail.swift in Sources */,
 				E294BD742B50C4D900C5C39C /* GoogleData.swift in Sources */,
