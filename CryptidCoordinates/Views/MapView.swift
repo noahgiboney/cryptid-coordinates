@@ -6,7 +6,7 @@ struct MapView: View {
     @State private var viewModel = ViewModel()
 
     var body: some View {
-        ZStack(alignment: .top){
+        ZStack{
             Map(position: $viewModel.cameraPosition) {
                 ForEach(clusterManager.annotations) { item in
                     
@@ -27,10 +27,15 @@ struct MapView: View {
         
                 }
             }
+                if let selectedLocation = viewModel.selectedLocation {
+                    
+                    let nearestLocations = viewModel.getNearestLocations(for: selectedLocation)
+                    
+                    PreviewView(cameraPosition: $viewModel.cameraPosition, selectedLocation: $viewModel.selectedLocation, nearestLocations: nearestLocations)
+                }
             
-            if let location = viewModel.selectedLocation {
-                HeaderView(locationName: location.name)
-            }
+            
+ 
             
 //            Button {
 //                viewModel.showingSearch.toggle()

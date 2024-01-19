@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E213134D2B5A2F4300A7217B /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E213134C2B5A2F4300A7217B /* HeaderView.swift */; };
 		E216EB0D2B4FA4D70006AB32 /* LocationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216EB0C2B4FA4D70006AB32 /* LocationDetail.swift */; };
 		E22D10E62B57436500BD4A8C /* MapClusterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D10E52B57436500BD4A8C /* MapClusterView.swift */; };
 		E22D10EB2B576D6E00BD4A8C /* LocationPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D10EA2B576D6E00BD4A8C /* LocationPreviewView.swift */; };
@@ -23,6 +22,7 @@
 		E286FF8C2B56109F00C9782A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E286FF8B2B56109F00C9782A /* MapView.swift */; };
 		E286FF8E2B5610A500C9782A /* ClusterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E286FF8D2B5610A500C9782A /* ClusterManager.swift */; };
 		E286FF912B5614D900C9782A /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E286FF902B5614D900C9782A /* SizeReader.swift */; };
+		E28A75DE2B5A460C00B6176A /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28A75DD2B5A460C00B6176A /* PreviewView.swift */; };
 		E294BD742B50C4D900C5C39C /* GoogleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E294BD732B50C4D900C5C39C /* GoogleData.swift */; };
 		E2BC84252B54A568005681F9 /* SearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BC84242B54A568005681F9 /* SearchList.swift */; };
 		E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */; };
@@ -33,7 +33,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E213134C2B5A2F4300A7217B /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		E216EB0C2B4FA4D70006AB32 /* LocationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetail.swift; sourceTree = "<group>"; };
 		E22D10E52B57436500BD4A8C /* MapClusterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapClusterView.swift; sourceTree = "<group>"; };
 		E22D10EA2B576D6E00BD4A8C /* LocationPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPreviewView.swift; sourceTree = "<group>"; };
@@ -47,6 +46,7 @@
 		E286FF8B2B56109F00C9782A /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		E286FF8D2B5610A500C9782A /* ClusterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterManager.swift; sourceTree = "<group>"; };
 		E286FF902B5614D900C9782A /* SizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
+		E28A75DD2B5A460C00B6176A /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		E294BD732B50C4D900C5C39C /* GoogleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleData.swift; sourceTree = "<group>"; };
 		E2BC84242B54A568005681F9 /* SearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchList.swift; sourceTree = "<group>"; };
 		E2C76C032B4E14550080F669 /* CryptidCoordinates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptidCoordinates.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,7 +157,7 @@
 				E2ECE2EA2B53756600FA4BDB /* SearchListView.swift */,
 				E286FF842B56049300C9782A /* MapAnnotationView.swift */,
 				E22D10E52B57436500BD4A8C /* MapClusterView.swift */,
-				E213134C2B5A2F4300A7217B /* HeaderView.swift */,
+				E28A75DD2B5A460C00B6176A /* PreviewView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -241,12 +241,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E286FF8C2B56109F00C9782A /* MapView.swift in Sources */,
-				E213134D2B5A2F4300A7217B /* HeaderView.swift in Sources */,
 				E24A43AB2B4E2475006B1B2A /* Map.swift in Sources */,
 				E216EB0D2B4FA4D70006AB32 /* LocationDetail.swift in Sources */,
 				E294BD742B50C4D900C5C39C /* GoogleData.swift in Sources */,
 				E2C76C092B4E14550080F669 /* ContentView.swift in Sources */,
 				E286FF8E2B5610A500C9782A /* ClusterManager.swift in Sources */,
+				E28A75DE2B5A460C00B6176A /* PreviewView.swift in Sources */,
 				E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */,
 				E286FF912B5614D900C9782A /* SizeReader.swift in Sources */,
 				E233E68A2B58E6200040E1B5 /* GoogleImageManager.swift in Sources */,
