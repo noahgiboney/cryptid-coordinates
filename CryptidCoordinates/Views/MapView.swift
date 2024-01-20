@@ -2,31 +2,15 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
+    
     @State private var clusterManager = ClusterMap()
     @State private var viewModel = ViewModel()
 
     var body: some View {
         ZStack{
-            Map(position: $viewModel.cameraPosition) {
-                ForEach(clusterManager.annotations) { item in
-                    
-                    Annotation("\(item.id)", coordinate: item.coordinate) {
-                        MapAnnotationView()
-                            .scaleEffect(viewModel.selectedLocation?.coordinates == item.coordinate ? 1.5 : 1)
-                            .onTapGesture {
-                                viewModel.selectedLocation = viewModel.getLocation(for: item)
-//                                viewModel.showingPreview.toggle()
-                            }
-                    }
-                    .annotationTitles(.hidden)
-                }
-                ForEach(clusterManager.clusters) { item in
-                    Annotation("\(item.count)", coordinate: item.coordinate) {
-                        MapClusterView()
-                    }
-        
-                }
-            }
+            
+            mapLayer
+
                 if let selectedLocation = viewModel.selectedLocation {
                     
                     let nearestLocations = viewModel.getNearestLocations(for: selectedLocation)
@@ -47,18 +31,7 @@ struct MapView: View {
 //            }
 //            .padding()
         }
-        // map
-        .mapStyle(.hybrid)
-        .onMapCameraChange { context in
-            clusterManager.currentRegion = context.region
-            Task.detached {
-                await clusterManager.getAnnotations(center: clusterManager.currentRegion.center)
-                await clusterManager.reloadAnnotations()
-            }
-        }
-        .readSize(onChange: { newValue in
-            clusterManager.mapSize = newValue
-        })
+        .preferredColorScheme(.light)
         .sheet(isPresented: $viewModel.showingSearch) {
             SearchListView(cameraPosition: $viewModel.cameraPosition)
         }
@@ -78,4 +51,45 @@ struct MapView: View {
 
 #Preview {
     MapView()
+}
+
+extension MapView {
+    
+    private var mapLayer: some View {
+        MapReader{ reader in
+            Map(position: $viewModel.cameraPosition) {
+                ForEach(clusterManager.annotations) { item in
+                    
+                    Annotation("\(item.id)", coordinate: item.coordinate) {
+                        MapAnnotationView()
+                            .onTapGesture {
+                                viewModel.selectedLocation = viewModel.getLocation(for: item)
+                            }
+                            .scaleEffect(viewModel.selectedLocation?.coordinates == item.coordinate ? 1.5 : 1)
+                  
+                    }
+                    .annotationTitles(.hidden)
+                }
+                ForEach(clusterManager.clusters) { item in
+                    Annotation("\(item.count)", coordinate: item.coordinate) {
+                        MapClusterView()
+                    }
+                }
+            }
+        }
+        .mapStyle(.hybrid)
+        .onMapCameraChange { context in
+            clusterManager.currentRegion = context.region
+            Task {
+                await clusterManager.getAnnotations(center: clusterManager.currentRegion.center)
+                await clusterManager.reloadAnnotations()
+            }
+        }
+        .readSize(onChange: { newValue in
+            clusterManager.mapSize = newValue
+        })
+
+    }
+    
+
 }

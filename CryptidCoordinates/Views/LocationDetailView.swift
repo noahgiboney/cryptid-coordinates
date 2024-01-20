@@ -40,13 +40,6 @@ struct LocationDetailView: View {
                     
                     Text(location.description)
                     
-                    AsyncImage(url: URL(string: imageManager.queryURL)) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .border(Color.black)
-                    } placeholder: {}
-                    
                     Divider()
                     
                     ZStack{
@@ -72,9 +65,6 @@ struct LocationDetailView: View {
                 .onAppear {
                     viewModel.fetchLookAroundPreview(for: location.coordinates)
                 }
-            }
-            .task{
-                await imageManager.getImage(for: "\(location.name)")
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading){

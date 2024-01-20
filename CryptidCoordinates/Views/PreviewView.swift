@@ -21,11 +21,12 @@ struct PreviewView: View {
         
         VStack(){
             header
+                .padding(.top, 40)
             
             Spacer()
             
             locationCard
-                .padding(.bottom, 40)
+                .padding(.bottom, 25)
         }
         .sheet(isPresented: $showingDetails, content: {LocationDetailView(location: nearestLocations[index])})
     }
@@ -43,7 +44,7 @@ struct PreviewView: View {
     }
     
     func updateCamera(to index: Int) {
-        cameraPosition = .region(MKCoordinateRegion(center: nearestLocations[index].coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+        cameraPosition = .region(MKCoordinateRegion(center: nearestLocations[index].coordinates, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)))
     }
 }
 
@@ -64,15 +65,14 @@ extension PreviewView {
     }
     
     private var locationCard: some View {
-        VStack{
-            HStack {
+        VStack(spacing: 5){
                 Spacer()
                 AsyncImage(url: URL(string: imageManager.queryURL)) { image in
                     image
                         .resizable()
                         .scaledToFill()
-                        .frame(maxWidth: 170, maxHeight: 100)
-                        .clipShape(.rect(cornerRadius: 10))
+                        .frame(maxWidth: 180, maxHeight: 100)
+                        .shadow(radius: 10)
                         .shadow(radius: 10)
                     
                 } placeholder: {
@@ -80,21 +80,19 @@ extension PreviewView {
                         ProgressView()
                     }
                 }
-                
+            
+            
                 Spacer()
-                
-                VStack{
-                    Button{
-                        showingDetails.toggle() 
-                    } label: {
-                        Image(systemName: "waveform.badge.magnifyingglass")
-                        Text("Investigate")
-                    }
-                    .buttonStyle(.borderedProminent)
+            
+                Button{
+                    showingDetails.toggle()
+                } label: {
+                    Image(systemName: "waveform.badge.magnifyingglass")
+                    Text("Investigate")
+                        .padding(5)
                 }
-                
-                Spacer()
-            }
+                .buttonStyle(.borderedProminent)
+            
             
             HStack{
                 if nearestLocations[index] != nearestLocations.first{
@@ -104,7 +102,10 @@ extension PreviewView {
                         Image(systemName: "arrow.left")
                     }
                 }
-                
+                else {
+                    Spacer()
+                }
+             
                 Spacer()
                 
                 if nearestLocations[index] != nearestLocations.last{
@@ -114,13 +115,25 @@ extension PreviewView {
                         Image(systemName: "arrow.right")
                     }
                 }
+                else {
+                    Spacer()
+                }
             }
-            .padding(.top)
+            //when index changes and when view is loaded get the image for location
+            .task {
+                await imageManager.getImage(for: nearestLocations[index].name)
+            }
+            .onChange(of: selectedLocation) {
+                Task {
+                    await imageManager.getImage(for: (nearestLocations[index].name))
+                }
+            }
+        
         }
-        .frame(width: 300)
+        .frame(width: 300, height: 200)
         .padding()
         .background(.ultraThinMaterial)
-        .clipShape(.rect(cornerRadius: 10))
+        .clipShape(.rect(cornerRadius: 15))
         .shadow(radius: 5)
     }
     

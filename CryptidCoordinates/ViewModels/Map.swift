@@ -13,7 +13,7 @@ extension MapView{
     @Observable
     class ViewModel: NSObject, CLLocationManagerDelegate {
         
-        var cameraPosition: MapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.787994, longitude: -122.407437), span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)))
+        var cameraPosition: MapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.787994, longitude: -122.407437), span: .init(latitudeDelta: 0.2, longitudeDelta: 0.2)))
         
         var showingSearch = false
         var showingPreview = false
