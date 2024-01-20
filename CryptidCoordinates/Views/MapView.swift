@@ -5,6 +5,7 @@ struct MapView: View {
     
     @State private var clusterManager = ClusterMap()
     @State private var viewModel = ViewModel()
+    @State private var showingPreview = false
 
     var body: some View {
         ZStack(alignment: .bottom){
@@ -45,6 +46,7 @@ extension MapView {
                         MapAnnotationView()
                             .scaleEffect(viewModel.selectedLocation?.coordinates == item.coordinate ? 1.3 : 1)
                             .onTapGesture {
+                                print("tapped marker")
                                 viewModel.selectedLocation = viewModel.getLocation(for: item)
                                 withAnimation(.easeIn) {
                                     viewModel.cameraPosition = .region(MKCoordinateRegion(center: item.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
@@ -64,8 +66,12 @@ extension MapView {
                     }
                 }
             }
-            .onTapGesture(perform: { tapped in
-                
+            .onTapGesture(perform: { screenCord in
+                if let tappedCord = reader.convert(screenCord, from: .local) {
+                    if !clusterManager.isAMarker(point: tappedCord) {
+                        viewModel.selectedLocation = nil
+                    }
+                }
             })
         }
         .mapStyle(.hybrid)

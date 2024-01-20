@@ -26,6 +26,23 @@ extension MapView {
         var annotations = [MKMapItem]()
         var clusters = [ExampleClusterAnnotation]()
         
+        func isAMarker(point: CLLocationCoordinate2D) -> Bool {
+            let tolerance = 0.001
+
+            return annotations.contains { item in
+                let lowerBoundLong = item.coordinate.longitude - tolerance
+                let upperBoundLong = item.coordinate.longitude + tolerance
+
+                let lowerBoundLat = item.coordinate.latitude - tolerance
+                let upperBoundLat = item.coordinate.latitude + tolerance
+
+                let isWithinBounds = (point.longitude >= lowerBoundLong && point.longitude <= upperBoundLong) &&
+                                     (point.latitude >= lowerBoundLat && point.latitude <= upperBoundLat)
+
+                return isWithinBounds
+            }
+        }
+        
         func getAnnotations(center: CLLocationCoordinate2D) async {
             let filteredLocations = HauntedLocation.allLocations.filter { location in
                 guard let longitude = Double(location.longitude), let latitude = Double(location.latitude) else {

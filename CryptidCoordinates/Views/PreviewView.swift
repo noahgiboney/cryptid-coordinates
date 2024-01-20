@@ -15,7 +15,7 @@ struct PreviewView: View {
     @State private var imageManager = GoogleAPIManager()
     @State private var showingDetails = false
     @State private var index = 0
-    var nearestLocations: [HauntedLocation]
+    let nearestLocations: [HauntedLocation]
     
     var body: some View {
         
@@ -69,19 +69,19 @@ extension PreviewView {
     private var locationCard: some View {
         VStack(spacing: 5){
                 Spacer()
-                AsyncImage(url: URL(string: imageManager.queryURL)) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(maxWidth: 180, maxHeight: 100)
-                        .shadow(radius: 10)
-                        .shadow(radius: 10)
-                    
-                } placeholder: {
-                    HStack{
-                        ProgressView()
-                    }
-                }
+//                AsyncImage(url: URL(string: imageManager.queryURL)) { image in
+//                    image
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(maxWidth: 180, maxHeight: 100)
+//                        .shadow(radius: 10)
+//                        .shadow(radius: 10)
+//                    
+//                } placeholder: {
+//                    HStack{
+//                        ProgressView()
+//                    }
+//                }
             
             
                 Spacer()

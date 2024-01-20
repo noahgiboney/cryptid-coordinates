@@ -23,7 +23,7 @@ struct LocationDetailView: View {
                     VStack(alignment: .leading, spacing: 8){
                         Text(location.name)
                             .font(.title.bold())
-                        Text("\(location.city), \(location.country)")
+                        Text("\(location.city), USA")
                             .font(.subheadline.italic())
                             .padding(.bottom)
                         Text(location.coordinateString)
