@@ -7,44 +7,25 @@ struct MapView: View {
     @State private var viewModel = ViewModel()
 
     var body: some View {
-        ZStack{
+        ZStack(alignment: .bottom){
             
             mapLayer
 
+            if viewModel.selectedLocation == nil{
+                buttonLayer
+            }
+            else{
                 if let selectedLocation = viewModel.selectedLocation {
-                    
                     let nearestLocations = viewModel.getNearestLocations(for: selectedLocation)
                     
                     PreviewView(cameraPosition: $viewModel.cameraPosition, selectedLocation: $viewModel.selectedLocation, nearestLocations: nearestLocations)
                 }
-            
-            
- 
-            
-//            Button {
-//                viewModel.showingSearch.toggle()
-//            } label: {
-//                Image(systemName: "magnifyingglass")
-//                    .frame(width: 50, height: 50)
-//                    .background(Color.black.opacity(0.8))
-//                    .clipShape(Circle())
-//            }
-//            .padding()
+            }
         }
         .preferredColorScheme(.light)
         .sheet(isPresented: $viewModel.showingSearch) {
             SearchListView(cameraPosition: $viewModel.cameraPosition)
-        }
-        // location detail view
-        .sheet(isPresented: $viewModel.showingPreview ) {
-            if let selectedLocation = viewModel.selectedLocation {
-                let nearestLocations = viewModel.getNearestLocations(for: selectedLocation)
-                LocationPreviewView(cameraPosition: $viewModel.cameraPosition, selectedLocation: $viewModel.selectedLocation, nearestLocations: nearestLocations)
-                    .presentationDetents([.fraction(0.4)])
-                    .onDisappear {
-                        viewModel.selectedLocation = nil
-                    }
-            }
+                .presentationDetents([.fraction(0.25),.medium,.large])
         }
     }
 }
@@ -88,8 +69,29 @@ extension MapView {
         .readSize(onChange: { newValue in
             clusterManager.mapSize = newValue
         })
-
     }
     
-
+    private var buttonLayer: some View {
+        HStack{
+            Button {
+                viewModel.showingSearch.toggle()
+            } label: {
+                Image(systemName: "magnifyingglass")
+                    .frame(width: 60, height: 60)
+                    .background(Color.black.opacity(0.8))
+                    .clipShape(Circle())
+            }
+            .padding()
+            
+            Button {
+                viewModel.showingSearch.toggle()
+            } label: {
+                Image(systemName: "star.fill")
+                    .frame(width: 60, height: 60)
+                    .background(Color.black.opacity(0.8))
+                    .clipShape(Circle())
+            }
+            .padding()
+        }
+    }
 }

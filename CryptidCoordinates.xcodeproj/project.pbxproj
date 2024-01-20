@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		E216EB0D2B4FA4D70006AB32 /* LocationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216EB0C2B4FA4D70006AB32 /* LocationDetail.swift */; };
 		E22D10E62B57436500BD4A8C /* MapClusterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D10E52B57436500BD4A8C /* MapClusterView.swift */; };
-		E22D10EB2B576D6E00BD4A8C /* LocationPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D10EA2B576D6E00BD4A8C /* LocationPreviewView.swift */; };
 		E233E68A2B58E6200040E1B5 /* GoogleImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233E6892B58E6200040E1B5 /* GoogleImageManager.swift */; };
 		E24A43AB2B4E2475006B1B2A /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AA2B4E2475006B1B2A /* Map.swift */; };
 		E24A43AF2B4E2B5C006B1B2A /* HauntedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AE2B4E2B5C006B1B2A /* HauntedLocation.swift */; };
@@ -35,7 +34,6 @@
 /* Begin PBXFileReference section */
 		E216EB0C2B4FA4D70006AB32 /* LocationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetail.swift; sourceTree = "<group>"; };
 		E22D10E52B57436500BD4A8C /* MapClusterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapClusterView.swift; sourceTree = "<group>"; };
-		E22D10EA2B576D6E00BD4A8C /* LocationPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPreviewView.swift; sourceTree = "<group>"; };
 		E233E6892B58E6200040E1B5 /* GoogleImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleImageManager.swift; sourceTree = "<group>"; };
 		E24A43AA2B4E2475006B1B2A /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		E24A43AE2B4E2B5C006B1B2A /* HauntedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HauntedLocation.swift; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 				E2C76C082B4E14550080F669 /* ContentView.swift */,
 				E286FF8B2B56109F00C9782A /* MapView.swift */,
 				E27395D12B4E59BB00D70108 /* LocationDetailView.swift */,
-				E22D10EA2B576D6E00BD4A8C /* LocationPreviewView.swift */,
 				E2ECE2EA2B53756600FA4BDB /* SearchListView.swift */,
 				E286FF842B56049300C9782A /* MapAnnotationView.swift */,
 				E22D10E52B57436500BD4A8C /* MapClusterView.swift */,
@@ -252,7 +249,6 @@
 				E233E68A2B58E6200040E1B5 /* GoogleImageManager.swift in Sources */,
 				E24A43B12B4E2CAD006B1B2A /* BundleDecode.swift in Sources */,
 				E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */,
-				E22D10EB2B576D6E00BD4A8C /* LocationPreviewView.swift in Sources */,
 				E2ECE2EB2B53756600FA4BDB /* SearchListView.swift in Sources */,
 				E24A43AF2B4E2B5C006B1B2A /* HauntedLocation.swift in Sources */,
 				E22D10E62B57436500BD4A8C /* MapClusterView.swift in Sources */,
