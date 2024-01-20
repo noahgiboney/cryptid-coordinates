@@ -43,20 +43,30 @@ extension MapView {
                     
                     Annotation("\(item.id)", coordinate: item.coordinate) {
                         MapAnnotationView()
+                            .scaleEffect(viewModel.selectedLocation?.coordinates == item.coordinate ? 1.3 : 1)
                             .onTapGesture {
                                 viewModel.selectedLocation = viewModel.getLocation(for: item)
+                                withAnimation(.easeIn) {
+                                    viewModel.cameraPosition = .region(MKCoordinateRegion(center: item.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+                                }
                             }
-                            .scaleEffect(viewModel.selectedLocation?.coordinates == item.coordinate ? 1.5 : 1)
-                  
                     }
                     .annotationTitles(.hidden)
                 }
                 ForEach(clusterManager.clusters) { item in
                     Annotation("\(item.count)", coordinate: item.coordinate) {
                         MapClusterView()
+                            .onTapGesture {
+                                withAnimation(.easeIn) {
+                                    viewModel.cameraPosition = .region(MKCoordinateRegion(center: item.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.04, longitudeDelta: 0.04)))
+                                }
+                            }
                     }
                 }
             }
+            .onTapGesture(perform: { tapped in
+                
+            })
         }
         .mapStyle(.hybrid)
         .onMapCameraChange { context in
