@@ -20,6 +20,7 @@ struct MapView: View {
                     let nearestLocations = viewModel.getNearestLocations(for: selectedLocation)
                     
                     PreviewView(cameraPosition: $viewModel.cameraPosition, selectedLocation: $viewModel.selectedLocation, nearestLocations: nearestLocations)
+                        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
                 }
             }
         }

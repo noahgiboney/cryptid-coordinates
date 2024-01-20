@@ -26,7 +26,7 @@ struct PreviewView: View {
             Spacer()
             
             locationCard
-                .padding(.bottom, 25)
+                .padding(.bottom, 50)
         }
         .sheet(isPresented: $showingDetails, content: {LocationDetailView(location: nearestLocations[index])})
     }
@@ -58,31 +58,34 @@ extension PreviewView {
     
     private var header: some View {
         Label(nearestLocations[index].location, systemImage: "mappin")
-            .font(.title2)
+            .font(.title2.bold())
             .padding(.horizontal, 30)
             .frame(height: 50)
             .background(.ultraThinMaterial)
             .clipShape(.rect(cornerRadius: 10))
-            .shadow(radius: 5)
+            .shadow(radius: 10)
     }
     
     private var locationCard: some View {
         VStack(spacing: 5){
-                Spacer()
-//                AsyncImage(url: URL(string: imageManager.queryURL)) { image in
-//                    image
-//                        .resizable()
-//                        .scaledToFill()
-//                        .frame(maxWidth: 180, maxHeight: 100)
-//                        .shadow(radius: 10)
-//                        .shadow(radius: 10)
-//                    
-//                } placeholder: {
-//                    HStack{
-//                        ProgressView()
-//                    }
-//                }
-            
+            Spacer()
+            AsyncImage(url: URL(string: imageManager.queryURL)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 200, height: 120)
+                    .clipped()
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+            } placeholder: {
+                HStack {
+                    ProgressView()
+                }
+            }
             
                 Spacer()
             
