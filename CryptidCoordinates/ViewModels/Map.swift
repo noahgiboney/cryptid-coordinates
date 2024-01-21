@@ -39,7 +39,7 @@ extension MapView{
         }
         
         func updateCamera(to point: CLLocationCoordinate2D, span: Double) {
-            withAnimation(.easeInOut){
+            withAnimation(.smooth){
                 cameraPosition = .region(MKCoordinateRegion(center: point, span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)))
             }
         }
