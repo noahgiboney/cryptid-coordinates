@@ -20,7 +20,6 @@ struct MapView: View {
                     let nearestLocations = viewModel.getNearestLocations(for: selectedLocation)
                     
                     PreviewView(cameraPosition: $viewModel.cameraPosition, selectedLocation: $viewModel.selectedLocation, nearestLocations: nearestLocations)
-                        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
                 }
             }
         }
@@ -47,11 +46,7 @@ extension MapView {
                         MapAnnotationView()
                             .scaleEffect(viewModel.selectedLocation?.coordinates == item.coordinate ? 1.3 : 1)
                             .onTapGesture {
-                                print("tapped marker")
-                                viewModel.selectedLocation = viewModel.getLocation(for: item)
-                                withAnimation(.easeIn) {
-                                    viewModel.cameraPosition = .region(MKCoordinateRegion(center: item.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
-                                }
+                                viewModel.tappedMarker(marker: item)
                             }
                     }
                     .annotationTitles(.hidden)
@@ -60,17 +55,20 @@ extension MapView {
                     Annotation("\(item.count)", coordinate: item.coordinate) {
                         MapClusterView()
                             .onTapGesture {
-                                withAnimation(.easeIn) {
-                                    viewModel.cameraPosition = .region(MKCoordinateRegion(center: item.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.04, longitudeDelta: 0.04)))
-                                }
+                                viewModel.updateCamera(to: item.coordinate, span: 0.03)
                             }
                     }
                 }
             }
             .onTapGesture(perform: { screenCord in
                 if let tappedCord = reader.convert(screenCord, from: .local) {
-                    if !clusterManager.isAMarker(point: tappedCord) {
+                    if !clusterManager.isAMarker(point: tappedCord) && viewModel.selectedLocation != nil{
                         viewModel.selectedLocation = nil
+                        
+                        if let spanLat = viewModel.cameraPosition.region?.span.latitudeDelta, let currentCord = viewModel.cameraPosition.region?.center {
+                                
+                            viewModel.updateCamera(to: currentCord, span: spanLat + 0.05)
+                        }
                     }
                 }
             })

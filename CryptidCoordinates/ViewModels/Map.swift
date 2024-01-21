@@ -33,6 +33,17 @@ extension MapView{
             return nil
         }
         
+        func tappedMarker(marker: MKMapItem) {
+            selectedLocation = getLocation(for: marker)
+            updateCamera(to: marker.coordinate, span: 0.01)
+        }
+        
+        func updateCamera(to point: CLLocationCoordinate2D, span: Double) {
+            withAnimation(.easeInOut){
+                cameraPosition = .region(MKCoordinateRegion(center: point, span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)))
+            }
+        }
+        
         func getDisplayedLocations(center: CLLocationCoordinate2D) {
             displayedLocations = HauntedLocation.allLocations.filter { location in
     

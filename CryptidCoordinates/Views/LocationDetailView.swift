@@ -44,7 +44,7 @@ struct LocationDetailView: View {
                     
                     ZStack{
                         if viewModel.lookAroundPlace == nil {
-                            ContentUnavailableView("No Preview Available", systemImage: "eye.slash")
+                            Label("No Lookaround Available", systemImage: "eye.slash")
                         }
                         else {
                             VStack(alignment: .leading){
@@ -53,13 +53,11 @@ struct LocationDetailView: View {
                                 LookAroundPreview(scene: $viewModel.lookAroundPlace)
                                     .clipShape(Rectangle())
                             }
+                            .frame(height: 200)
+                            .clipShape(Rectangle())
+                            .shadow(radius: 20)
                         }
                     }
-                    .frame(height: 200)
-                    .clipShape(Rectangle())
-                    .shadow(radius: 20)
-                    
-                    Divider()
                 }
                 .padding()
                 .onAppear {
