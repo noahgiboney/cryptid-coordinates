@@ -32,17 +32,9 @@ struct SearchListView: View {
                 }
             }
             //navigation
-            .navigationTitle("Cryptid Locations")
+            .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a city")
-            //toobar
-            .toolbar{
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
-                }
-            }
         }
     }
 }

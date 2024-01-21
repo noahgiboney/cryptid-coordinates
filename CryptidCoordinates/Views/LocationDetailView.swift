@@ -67,13 +67,14 @@ extension LocationDetailView {
             Text(location.name)
                 .font(.title.bold())
             Label("\(location.city), \(location.stateAbbrev)", systemImage: "map")
+                .font(.subheadline.italic())
         }
     }
     
     private var bodySection: some View {
         VStack(alignment: .leading, spacing: 10){
             Label("Details", systemImage: "doc.text.magnifyingglass")
-                .font(.title)
+                .font(.title2)
             Text(location.description)
         }
     }
@@ -87,7 +88,7 @@ extension LocationDetailView {
             else {
                 VStack(alignment: .leading){
                     Label("See for yourself", systemImage: "binoculars.fill")
-                        .font(.title)
+                        .font(.title2)
                     LookAroundPreview(scene: $viewModel.lookAroundPlace)
                         .clipShape(.rect(cornerRadius: 10))
                 }
