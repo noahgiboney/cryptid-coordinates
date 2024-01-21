@@ -26,7 +26,7 @@ struct PreviewView: View {
             Spacer()
             
             locationCard
-                .padding(.bottom, 50)
+                .padding(.bottom, 60)
         }
         .sheet(isPresented: $showingDetails, content: {LocationDetailView(location: nearestLocations[index])})
     }
@@ -73,14 +73,10 @@ extension PreviewView {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 200, height: 120)
+                    .frame(width: 250, height: 140)
                     .clipped()
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
             } placeholder: {
                 HStack {
                     ProgressView()
@@ -88,16 +84,6 @@ extension PreviewView {
             }
             
                 Spacer()
-            
-                Button{
-                    showingDetails.toggle()
-                } label: {
-                    Image(systemName: "waveform.badge.magnifyingglass")
-                    Text("Investigate")
-                        .padding(5)
-                }
-                .buttonStyle(.borderedProminent)
-            
             
             HStack{
                 if nearestLocations[index] != nearestLocations.first{
@@ -110,7 +96,18 @@ extension PreviewView {
                 else {
                     Spacer()
                 }
-             
+                
+                Spacer()
+                
+                Button{
+                    showingDetails.toggle()
+                } label: {
+                    Image(systemName: "waveform.badge.magnifyingglass")
+                    Text("Investigate")
+                        .padding(5)
+                }
+                .buttonStyle(.borderedProminent)
+                
                 Spacer()
                 
                 if nearestLocations[index] != nearestLocations.last{
@@ -135,7 +132,7 @@ extension PreviewView {
             }
         
         }
-        .frame(width: 300, height: 200)
+        .frame(width: 280, height: 200)
         .padding()
         .background(.ultraThinMaterial)
         .clipShape(.rect(cornerRadius: 15))
