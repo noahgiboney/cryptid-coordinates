@@ -9,20 +9,25 @@ import SwiftUI
 
 struct MapAnnotationView: View {
     var body: some View {
-        VStack{
-            ZStack{
+        VStack {
+            ZStack {
                 Circle()
+                    .foregroundColor(.black)
+                    .shadow(color: .gray, radius: 2, x: 0, y: 2)
+                
                 Image("ghost")
                     .resizable()
                     .scaledToFit()
-                    .foregroundStyle(Color.white)
+                    .foregroundColor(.white)
+                    .padding(5)
             }
-            .frame(width: 35)
+            .frame(width: 40, height: 40)
             
             Image(systemName: "triangle.fill")
-                .offset(y: 7)
+                .font(.system(size: 12))
+                .offset(y: 5)
                 .rotationEffect(.degrees(180))
-                .imageScale(.small)
+                .foregroundColor(.black)
         }
     }
 }
