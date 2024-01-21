@@ -20,44 +20,16 @@ struct LocationDetailView: View {
         NavigationStack{
             ScrollView{
                 VStack(alignment: .leading, spacing: 20){
-                    VStack(alignment: .leading, spacing: 8){
-                        Text(location.name)
-                            .font(.title.bold())
-                        Text("\(location.city), USA")
-                            .font(.subheadline.italic())
-                            .padding(.bottom)
-                        Text(location.coordinateString)
-                            .font(.subheadline)
-                    }
+                    
+                    header
                     
                     Divider()
                     
-                    Label(
-                        title: { Text("Detailed Accout") },
-                        icon: { Image(systemName: "doc.text.magnifyingglass") }
-                    )
-                    .font(.title2.weight(.medium))
-                    
-                    Text(location.description)
+                    bodySection
                     
                     Divider()
                     
-                    ZStack{
-                        if viewModel.lookAroundPlace == nil {
-                            Label("No Lookaround Available", systemImage: "eye.slash")
-                        }
-                        else {
-                            VStack(alignment: .leading){
-                                Label("Take a look around the area.", systemImage: "eye")
-                                    .font(.title3.weight(.medium))
-                                LookAroundPreview(scene: $viewModel.lookAroundPlace)
-                                    .clipShape(Rectangle())
-                            }
-                            .frame(height: 200)
-                            .clipShape(Rectangle())
-                            .shadow(radius: 20)
-                        }
-                    }
+                    lookAroundSection
                 }
                 .padding()
                 .onAppear {
@@ -66,8 +38,10 @@ struct LocationDetailView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading){
-                    Button("Close") {
+                    Button {
                         dismiss()
+                    } label: {
+                        Image(systemName: "arrow.uturn.backward")
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing){
@@ -77,12 +51,48 @@ struct LocationDetailView: View {
                         Text("Save")
                         Image(systemName: "star")
                     }
-                    
                 }
             }
         }
     }
 }
 #Preview {
-    LocationDetailView(location: HauntedLocation.example)
+    LocationDetailView(location: HauntedLocation.allLocations[6534])
+}
+
+extension LocationDetailView {
+    
+    private var header: some View {
+        VStack(alignment: .leading, spacing: 8){
+            Text(location.name)
+                .font(.title.bold())
+            Label("\(location.city), \(location.stateAbbrev)", systemImage: "map")
+        }
+    }
+    
+    private var bodySection: some View {
+        VStack(alignment: .leading, spacing: 10){
+            Label("Details", systemImage: "doc.text.magnifyingglass")
+                .font(.title)
+            Text(location.description)
+        }
+    }
+    
+    private var lookAroundSection: some View {
+        ZStack{
+            if viewModel.lookAroundPlace == nil {
+                Label("No Lookaround Available", systemImage: "eye.slash")
+                    .font(.title2)
+            }
+            else {
+                VStack(alignment: .leading){
+                    Label("See for yourself", systemImage: "binoculars.fill")
+                        .font(.title)
+                    LookAroundPreview(scene: $viewModel.lookAroundPlace)
+                        .clipShape(.rect(cornerRadius: 10))
+                }
+                .frame(height: 200)
+            }
+        }
+    }
 }

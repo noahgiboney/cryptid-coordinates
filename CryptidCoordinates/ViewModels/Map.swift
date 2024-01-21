@@ -13,17 +13,26 @@ extension MapView{
     @Observable
     class ViewModel: NSObject, CLLocationManagerDelegate {
         
+        // region that the camera is showing on the map
         var cameraPosition: MapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.787994, longitude: -122.407437), span: .init(latitudeDelta: 0.2, longitudeDelta: 0.2)))
+        
+        // lcoation if the user selects one
+        var selectedLocation: HauntedLocation?
         
         var showingSearch = false
         var showingPreview = false
         
-        var locationManager: CLLocationManager?
-        
-        var selectedLocation: HauntedLocation?
-        
         var displayedLocations = [HauntedLocation]()
         
+        var locationManager: CLLocationManager?
+        
+        // execute when marker is tapped
+        func tappedMarker(marker: MKMapItem) {
+            selectedLocation = getLocation(for: marker)
+            updateCamera(to: marker.coordinate, span: 0.01)
+        }
+        
+        // converts the marker to the haunted location
         func getLocation(for item: MKMapItem) -> HauntedLocation? {
             if let index = HauntedLocation.allLocations.firstIndex(where: { location in
                 location.coordinates == item.coordinate
@@ -33,16 +42,13 @@ extension MapView{
             return nil
         }
         
-        func tappedMarker(marker: MKMapItem) {
-            selectedLocation = getLocation(for: marker)
-            updateCamera(to: marker.coordinate, span: 0.01)
-        }
-        
+        // update map camera to some point
         func updateCamera(to point: CLLocationCoordinate2D, span: Double) {
             withAnimation(.smooth){
                 cameraPosition = .region(MKCoordinateRegion(center: point, span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)))
             }
         }
+        
         
         func getDisplayedLocations(center: CLLocationCoordinate2D) {
             displayedLocations = HauntedLocation.allLocations.filter { location in

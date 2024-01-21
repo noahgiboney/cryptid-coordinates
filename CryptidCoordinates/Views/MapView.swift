@@ -66,7 +66,6 @@ extension MapView {
                         viewModel.selectedLocation = nil
                         
                         if let spanLat = viewModel.cameraPosition.region?.span.latitudeDelta, let currentCord = viewModel.cameraPosition.region?.center {
-                                
                             viewModel.updateCamera(to: currentCord, span: spanLat + 0.05)
                         }
                     }

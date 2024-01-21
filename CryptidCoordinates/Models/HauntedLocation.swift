@@ -5,7 +5,6 @@
 //  Created by Noah Giboney on 1/9/24.
 //
 
-import Foundation
 import MapKit
 
 struct HauntedLocation: Codable, Hashable, Identifiable {
@@ -18,6 +17,7 @@ struct HauntedLocation: Codable, Hashable, Identifiable {
     let latitude: String
     let cityLongitude: String
     let cityLatitude: String
+    let stateAbbrev: String
     
     var name: String {
         location
@@ -43,10 +43,6 @@ struct HauntedLocation: Codable, Hashable, Identifiable {
             }
         }
         return CLLocationCoordinate2D()
-    }
-    
-    var coordinateString: String {
-        "(\(latitude), \(longitude))"
     }
     
     static let allLocations: [HauntedLocation] = Bundle.main.decode(file: "hauntedplaces.json")
