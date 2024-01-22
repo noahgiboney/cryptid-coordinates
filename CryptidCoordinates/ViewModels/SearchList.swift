@@ -12,6 +12,7 @@ extension SearchListView {
     @Observable
     class ViewModel {
         
+        //text to search for in list
         var searchText = ""
         
         var searchList: [String] {
@@ -28,14 +29,15 @@ extension SearchListView {
             }
         }
         
-        func getCityCameraPosition(for city: String) -> MapCameraPosition {
+        
+        // returns the city cordinates for some city string given
+        func getCordFor(for city: String) -> CLLocationCoordinate2D {
             if let index = HauntedLocation.allLocations.firstIndex(where: { location in
                 location.city == city
             }){
-                let coords = HauntedLocation.allLocations[index].cityCoordinates
-                return .region(MKCoordinateRegion(center: coords, span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)))
+                return HauntedLocation.allLocations[index].cityCoordinates
             }
-            return MapCameraPosition.automatic
+            return CLLocationCoordinate2D()
         }
     }
 }

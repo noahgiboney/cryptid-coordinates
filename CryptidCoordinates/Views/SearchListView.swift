@@ -11,8 +11,8 @@ import MapKit
 struct SearchListView: View {
     
     @Environment(\.dismiss) var dismiss
-    @State private var viewModel = ViewModel()
     @Binding var cameraPosition: MapCameraPosition
+    @State private var viewModel = ViewModel()
     
     var body: some View {
         NavigationStack{
@@ -25,7 +25,8 @@ struct SearchListView: View {
                     List(viewModel.searchList, id: \.self) { cityName in
                         Text(cityName)
                             .onTapGesture {
-                                cameraPosition = viewModel.getCityCameraPosition(for: cityName)
+                                updateCamera(to: viewModel.getCordFor(for: cityName), span: 0.15)
+                                dismiss()
                             }
                     }
                     .id(UUID())
@@ -35,6 +36,17 @@ struct SearchListView: View {
             .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a city")
+            .toolbar {
+                ToolbarItem{
+                }
+            }
+        }
+    }
+    
+    // update map camera to some point
+    func updateCamera(to point: CLLocationCoordinate2D, span: Double) {
+        withAnimation(.smooth){
+            cameraPosition = .region(MKCoordinateRegion(center: point, span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)))
         }
     }
 }
