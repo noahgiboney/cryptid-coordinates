@@ -13,15 +13,13 @@ struct SearchListView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var cameraPosition: MapCameraPosition
     @State private var viewModel = ViewModel()
+    @State private var pickerSel = 0
     
     var body: some View {
         NavigationStack{
             
-            ZStack{
-                if viewModel.searchText == ""{
-                    Label("Search for a Cryptid Location above.", systemImage: "magnifyingglass")
-                }
-                else{
+            VStack{
+                if viewModel.searchText != ""{
                     List(viewModel.searchList, id: \.self) { cityName in
                         Text(cityName)
                             .onTapGesture {
@@ -32,12 +30,19 @@ struct SearchListView: View {
                     .id(UUID())
                 }
             }
+            
             //navigation
             .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a city")
             .toolbar {
                 ToolbarItem{
+                    Menu("Search by", systemImage: "arrow.up.arrow.down") {
+                        Picker("Search by", selection: $pickerSel) {
+                            Text("City")
+                            Text("Location")
+                        }
+                    }
                 }
             }
         }

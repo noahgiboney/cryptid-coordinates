@@ -98,7 +98,6 @@ extension MapView {
             .padding()
             
             Button {
-                viewModel.showingSearch.toggle()
             } label: {
                 Image(systemName: "star.fill")
                     .frame(width: 60, height: 60)
