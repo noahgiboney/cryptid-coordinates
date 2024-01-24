@@ -62,10 +62,10 @@ struct SearchListView: View {
 extension SearchListView {
     
     private var searchList: some View {
-        List(viewModel.searchList, id: \.self) { cityName in
-            Text(cityName)
+        List(viewModel.searchList) { item in
+            Text(item.text)
                 .onTapGesture {
-                    updateCamera(to: viewModel.getCordFor(for: cityName), span: 0.1)
+                    updateCamera(to: viewModel.getCordFor(for: item.text), span: 0.1)
                     dismiss()
                 }
         }

@@ -10,38 +10,52 @@ import SwiftUI
 
 extension SearchListView {
     
+    // defines what list is showing to search over
     enum ListType: String {
         case city, location
+    }
+    
+    // search through this nested struct
+    struct SearchItem: Identifiable, Comparable {
+        var id = UUID()
+        var text: String
+        
+        static func <(lhs: SearchItem, rhs: SearchItem) -> Bool{
+            return lhs.text < rhs.text
+        }
     }
     
     @Observable
     class ViewModel {
         
-        //text to search for in list
+        // text to search for in list
         var searchText = ""
         
+        // selection for type of list
         var searchSelection: ListType = .city
         
-        var searchList: [String] {
+        //dynamically returns list based on searchText
+        var searchList: [SearchItem] {
             
-            var cityList = [String]()
+            var list: [SearchItem]
             
             switch searchSelection {
             case .city:
-               cityList = Array(Set(HauntedLocation.allLocations.map {$0.city})).sorted()
+                
+                let allCities = Array((Set(HauntedLocation.allLocations.map{ $0.city})))
+                
+                list = allCities.map {SearchItem(text: $0)}.sorted()
+                
             case .location:
-                cityList = HauntedLocation.allLocations.map {$0.location + ": " + $0.city + ", " + $0.stateAbbrev}.sorted()
+                list = HauntedLocation.allLocations.map {
+                    SearchItem(text: $0.name + ": " + $0.city + ", " + $0.stateAbbrev)}
             }
-            if searchText == "" {
-                return cityList
-            }
-            else {
-                return cityList.filter({ city in
-                    city.localizedCaseInsensitiveContains(searchText)
-                })
-            }
+            
+            // filter list based on term
+            return list.filter({ term in
+                term.text.localizedCaseInsensitiveContains(searchText)
+            })
         }
-        
         
         // returns cordinates for city or location based on search selection
         func getCordFor(for place: String) -> CLLocationCoordinate2D {
