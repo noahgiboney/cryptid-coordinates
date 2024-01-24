@@ -19,14 +19,10 @@ struct SearchListView: View {
             
             VStack{
                 if viewModel.searchText != ""{
-                    List(viewModel.searchList, id: \.self) { cityName in
-                        Text(cityName)
-                            .onTapGesture {
-                                updateCamera(to: viewModel.getCordFor(for: cityName), span: 0.15)
-                                dismiss()
-                            }
-                    }
-                    .id(UUID())
+                    searchList
+                }
+                else {
+                    placeholderImage
                 }
             }
             
@@ -61,4 +57,29 @@ struct SearchListView: View {
     SearchListView(cameraPosition: .constant(.region(MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 39.83333, longitude: -98.585522),
         span: MKCoordinateSpan(latitudeDelta: 255, longitudeDelta: 255)))))
+}
+
+extension SearchListView {
+    
+    private var searchList: some View {
+        List(viewModel.searchList, id: \.self) { cityName in
+            Text(cityName)
+                .onTapGesture {
+                    updateCamera(to: viewModel.getCordFor(for: cityName), span: 0.1)
+                    dismiss()
+                }
+        }
+        .id(UUID())
+    }
+    
+    private var placeholderImage: some View {
+        VStack{
+            Image(systemName: "magnifyingglass")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 70)
+                .padding(.top)
+            Spacer()
+        }
+    }
 }
