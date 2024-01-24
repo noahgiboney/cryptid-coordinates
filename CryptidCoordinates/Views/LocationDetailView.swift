@@ -41,7 +41,7 @@ struct LocationDetailView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Image(systemName: "arrow.uturn.backward")
+                        Image(systemName: "arrow.down.right.and.arrow.up.left")
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing){

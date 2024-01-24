@@ -13,7 +13,6 @@ struct SearchListView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var cameraPosition: MapCameraPosition
     @State private var viewModel = ViewModel()
-    @State private var pickerSel = 0
     
     var body: some View {
         NavigationStack{
@@ -34,13 +33,15 @@ struct SearchListView: View {
             //navigation
             .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a city")
+            .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a \(viewModel.searchSelection.rawValue)")
             .toolbar {
                 ToolbarItem{
                     Menu("Search by", systemImage: "arrow.up.arrow.down") {
-                        Picker("Search by", selection: $pickerSel) {
+                        Picker("Search by", selection: $viewModel.searchSelection) {
                             Text("City")
+                                .tag(ListType.city)
                             Text("Location")
+                                .tag(ListType.location)
                         }
                     }
                 }

@@ -27,7 +27,7 @@ extension MapView {
         var clusters = [ExampleClusterAnnotation]()
         
         func isAMarker(point: CLLocationCoordinate2D) -> Bool {
-            let tolerance = 0.001
+            let tolerance = 0.002
 
             return annotations.contains { item in
                 let lowerBoundLong = item.coordinate.longitude - tolerance

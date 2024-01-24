@@ -9,16 +9,29 @@ import MapKit
 import SwiftUI
 
 extension SearchListView {
+    
+    enum ListType: String {
+        case city, location
+    }
+    
     @Observable
     class ViewModel {
         
         //text to search for in list
         var searchText = ""
         
+        var searchSelection: ListType = .city
+        
         var searchList: [String] {
             
-            let cityList: [String] = Array(Set(HauntedLocation.allLocations.map {$0.city})).sorted()
+            var cityList = [String]()
             
+            switch searchSelection {
+            case .city:
+               cityList = Array(Set(HauntedLocation.allLocations.map {$0.city})).sorted()
+            case .location:
+                cityList = HauntedLocation.allLocations.map { $0.location}.sorted()
+            }
             if searchText == "" {
                 return cityList
             }
