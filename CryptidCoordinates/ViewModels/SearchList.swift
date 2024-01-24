@@ -43,12 +43,22 @@ extension SearchListView {
         }
         
         
-        // returns the city cordinates for some city string given
-        func getCordFor(for city: String) -> CLLocationCoordinate2D {
-            if let index = HauntedLocation.allLocations.firstIndex(where: { location in
-                location.city == city
-            }){
-                return HauntedLocation.allLocations[index].cityCoordinates
+        // returns cordinates for city or location based on search selection
+        func getCordFor(for place: String) -> CLLocationCoordinate2D {
+            
+            switch searchSelection {
+            case .city:
+                if let index = HauntedLocation.allLocations.firstIndex(where: { location in
+                    location.city == place
+                }){
+                    return HauntedLocation.allLocations[index].cityCoordinates
+                }
+            case .location:
+                if let index = HauntedLocation.allLocations.firstIndex(where: { location in
+                    location.name == place
+                }){ 
+                    return HauntedLocation.allLocations[index].coordinates
+                }
             }
             return CLLocationCoordinate2D()
         }
