@@ -15,7 +15,7 @@
 		E27395CC2B4E391200D70108 /* hauntedplaces.json in Resources */ = {isa = PBXBuildFile; fileRef = E27395CB2B4E391200D70108 /* hauntedplaces.json */; };
 		E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27395D12B4E59BB00D70108 /* LocationDetailView.swift */; };
 		E279044D2B64CFE40034939B /* BundleDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E279044C2B64CFE40034939B /* BundleDecode.swift */; };
-		E279044F2B64D0420034939B /* NavButtonImageStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E279044E2B64D0420034939B /* NavButtonImageStyle.swift */; };
+		E279044F2B64D0420034939B /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E279044E2B64D0420034939B /* Buttons.swift */; };
 		E286FF852B56049300C9782A /* MapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E286FF842B56049300C9782A /* MapAnnotationView.swift */; };
 		E286FF882B560B4300C9782A /* ClusterMap in Frameworks */ = {isa = PBXBuildFile; productRef = E286FF872B560B4300C9782A /* ClusterMap */; };
 		E286FF8A2B560B4300C9782A /* ClusterMapSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E286FF892B560B4300C9782A /* ClusterMapSwiftUI */; };
@@ -41,7 +41,7 @@
 		E27395CB2B4E391200D70108 /* hauntedplaces.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hauntedplaces.json; sourceTree = "<group>"; };
 		E27395D12B4E59BB00D70108 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		E279044C2B64CFE40034939B /* BundleDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleDecode.swift; sourceTree = "<group>"; };
-		E279044E2B64D0420034939B /* NavButtonImageStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavButtonImageStyle.swift; sourceTree = "<group>"; };
+		E279044E2B64D0420034939B /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		E286FF842B56049300C9782A /* MapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapAnnotationView.swift; path = ../../MapAnnotationView.swift; sourceTree = "<group>"; };
 		E286FF8B2B56109F00C9782A /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		E286FF8D2B5610A500C9782A /* ClusterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterManager.swift; sourceTree = "<group>"; };
@@ -91,7 +91,7 @@
 		E27904492B64CE990034939B /* Styles */ = {
 			isa = PBXGroup;
 			children = (
-				E279044E2B64D0420034939B /* NavButtonImageStyle.swift */,
+				E279044E2B64D0420034939B /* Buttons.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -263,7 +263,7 @@
 				E24A43AF2B4E2B5C006B1B2A /* HauntedLocation.swift in Sources */,
 				E22D10E62B57436500BD4A8C /* MapClusterView.swift in Sources */,
 				E2BC84252B54A568005681F9 /* SearchList.swift in Sources */,
-				E279044F2B64D0420034939B /* NavButtonImageStyle.swift in Sources */,
+				E279044F2B64D0420034939B /* Buttons.swift in Sources */,
 				E286FF852B56049300C9782A /* MapAnnotationView.swift in Sources */,
 				E279044D2B64CFE40034939B /* BundleDecode.swift in Sources */,
 			);

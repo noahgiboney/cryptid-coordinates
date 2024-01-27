@@ -101,6 +101,13 @@ extension MapView {
                     .navButtonStyle()
             }
             .padding()
+            
+            Button {
+            } label: {
+                Image(systemName: "square.and.arrow.up")
+                    .navButtonStyle()
+            }
+            .padding()
         }
     }
 }

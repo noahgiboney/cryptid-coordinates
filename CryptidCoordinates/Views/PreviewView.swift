@@ -92,6 +92,7 @@ extension PreviewView {
                     } label: {
                         Image(systemName: "arrow.left")
                     }
+                    .previewButtomStyle()
                 }
                 else {
                     Spacer()
@@ -102,11 +103,10 @@ extension PreviewView {
                 Button{
                     showingDetails.toggle()
                 } label: {
-                    Image(systemName: "waveform.badge.magnifyingglass")
-                    Text("Investigate")
-                        .padding(5)
+                    Label("Investigate", systemImage: "eye.fill")
                 }
-                .buttonStyle(.borderedProminent)
+                .previewButtomStyle()
+                .padding(.leading, nearestLocations[index] != nearestLocations.first ? 0 : 30)
                 
                 Spacer()
                 
@@ -116,6 +116,7 @@ extension PreviewView {
                     } label: {
                         Image(systemName: "arrow.right")
                     }
+                    .previewButtomStyle()
                 }
                 else {
                     Spacer()
