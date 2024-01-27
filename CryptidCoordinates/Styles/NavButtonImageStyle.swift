@@ -9,7 +9,6 @@ import SwiftUI
 
 
 struct NavButtonStyle: ViewModifier {
-    
     func body(content: Content) -> some View {
         content
             .foregroundStyle(Color.purple)

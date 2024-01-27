@@ -91,18 +91,14 @@ extension MapView {
                 viewModel.showingSearch.toggle()
             } label: {
                 Image(systemName: "magnifyingglass")
-                    .frame(width: 60, height: 60)
-                    .background(Color.black.opacity(0.8))
-                    .clipShape(Circle())
+                    .navButtonStyle()
             }
             .padding()
             
             Button {
             } label: {
                 Image(systemName: "star.fill")
-                    .frame(width: 60, height: 60)
-                    .background(Color.black.opacity(0.8))
-                    .clipShape(Circle())
+                    .navButtonStyle()
             }
             .padding()
         }
