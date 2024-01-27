@@ -5,7 +5,6 @@ struct MapView: View {
     
     @State private var clusterManager = ClusterMap()
     @State private var viewModel = ViewModel()
-    @State private var showingPreview = false
 
     var body: some View {
         ZStack(alignment: .bottom){
@@ -27,6 +26,9 @@ struct MapView: View {
         .sheet(isPresented: $viewModel.showingSearch) {
             SearchListView(cameraPosition: $viewModel.cameraPosition)
                 .presentationDetents([.fraction(0.25),.medium,.large])
+        }
+        .sheet(isPresented: $viewModel.showingUserFavorites) {
+            UserFavoritesView()
         }
     }
 }
@@ -88,14 +90,15 @@ extension MapView {
     private var buttonLayer: some View {
         HStack{
             Button {
-                viewModel.showingSearch.toggle()
+                viewModel.showingSubmitLocation.toggle()
             } label: {
-                Image(systemName: "magnifyingglass")
+                Image(systemName: "square.and.arrow.up")
                     .navButtonStyle()
             }
             .padding()
             
             Button {
+                viewModel.showingUserFavorites.toggle()
             } label: {
                 Image(systemName: "star.fill")
                     .navButtonStyle()
@@ -103,11 +106,13 @@ extension MapView {
             .padding()
             
             Button {
+                viewModel.showingSearch.toggle()
             } label: {
-                Image(systemName: "square.and.arrow.up")
+                Image(systemName: "magnifyingglass")
                     .navButtonStyle()
             }
             .padding()
         }
+        .padding(.bottom)
     }
 }

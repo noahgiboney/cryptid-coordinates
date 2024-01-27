@@ -19,8 +19,11 @@ extension MapView{
         // lcoation if the user selects one
         var selectedLocation: HauntedLocation?
         
+        // different sheets to show on toggle
         var showingSearch = false
         var showingPreview = false
+        var showingUserFavorites = false
+        var showingSubmitLocation = false
         
         var displayedLocations = [HauntedLocation]()
         
