@@ -38,10 +38,8 @@ struct LocationDetailView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading){
-                    Button {
+                    Button("Close"){
                         dismiss()
-                    } label: {
-                        Image(systemName: "arrow.down.right.and.arrow.up.left")
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing){

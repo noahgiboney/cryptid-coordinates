@@ -13,8 +13,7 @@ struct MapAnnotationView: View {
             ZStack {
                 Circle()
                     .foregroundColor(.black)
-                    .shadow(color: .gray, radius: 2, x: 0, y: 2)
-                
+    
                 Image("ghost")
                     .resizable()
                     .scaledToFit()

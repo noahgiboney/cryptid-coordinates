@@ -132,7 +132,7 @@ extension PreviewView {
             }
         
         }
-        .frame(width: 280, height: 200)
+        .frame(width: 300, height: 200)
         .padding()
         .background(.ultraThinMaterial)
         .clipShape(.rect(cornerRadius: 15))
