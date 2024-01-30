@@ -10,4 +10,13 @@ import SwiftUI
 @Observable
 class UserFavorites {
     var locations: [HauntedLocation] = []
+    
+    func isInFavorites(location: HauntedLocation) -> Bool {
+        for index in locations {
+            if index.coordinates == location.coordinates{
+                return true
+            }
+        }
+        return false
+    }
 }

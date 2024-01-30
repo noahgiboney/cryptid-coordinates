@@ -5,12 +5,15 @@
 //  Created by Noah Giboney on 1/10/24.
 //
 
+import SwiftUI
 import MapKit
 
 extension LocationDetailView{
     
     @Observable
     class ViewModel {
+        
+        
         
         // some citys do not have look around support
         var lookAroundPlace: MKLookAroundScene?

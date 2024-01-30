@@ -10,12 +10,13 @@ import MapKit
 
 struct LocationDetailView: View {
     
+    @Environment(UserFavorites.self) var userFavorites
     @Environment(\.dismiss) var dismiss
     @State private var viewModel = ViewModel()
     @State private var imageManager = GoogleAPIManager()
-    
+
     var location: HauntedLocation
-    
+        
     var body: some View {
         NavigationStack{
             ScrollView{
@@ -45,9 +46,17 @@ struct LocationDetailView: View {
                 ToolbarItem(placement: .topBarTrailing){
                     Button {
                         
+                        if !userFavorites.isInFavorites(location: location) {
+                            userFavorites.locations.append(location)
+                        }
+                        else {
+                            if let index = userFavorites.locations.firstIndex(of: location){
+                                userFavorites.locations.remove(at: index)
+                            }
+                        }
+                        
                     } label: {
-                        Text("Save")
-                        Image(systemName: "star")
+                        Image(systemName: userFavorites.isInFavorites(location: location) ? "star.fill" : "star")
                     }
                 }
             }
@@ -56,6 +65,7 @@ struct LocationDetailView: View {
 }
 #Preview {
     LocationDetailView(location: HauntedLocation.allLocations[6534])
+        .environment(UserFavorites())
 }
 
 extension LocationDetailView {
