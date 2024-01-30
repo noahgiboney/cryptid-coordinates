@@ -45,21 +45,20 @@ struct LocationDetailView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing){
                     Button {
-                        
-                        if !userFavorites.isInFavorites(location: location) {
-                            userFavorites.locations.append(location)
-                        }
-                        else {
-                            if let index = userFavorites.locations.firstIndex(of: location){
-                                userFavorites.locations.remove(at: index)
-                            }
-                        }
-                        
+                        toggleStar()
                     } label: {
                         Image(systemName: userFavorites.isInFavorites(location: location) ? "star.fill" : "star")
                     }
                 }
             }
+        }
+    }
+    func toggleStar() {
+        if !userFavorites.isInFavorites(location: location) {
+            userFavorites.add(location)
+        }
+        else {
+            userFavorites.remove(location)
         }
     }
 }

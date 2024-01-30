@@ -11,6 +11,7 @@ import SwiftUI
 class UserFavorites {
     var locations: [HauntedLocation] = []
     
+    // check if some location is already in array
     func isInFavorites(location: HauntedLocation) -> Bool {
         for index in locations {
             if index.coordinates == location.coordinates{
@@ -18,5 +19,17 @@ class UserFavorites {
             }
         }
         return false
+    }
+    
+    // add some location
+    func add(_ location: HauntedLocation) {
+        locations.append(location)
+    }
+    
+    // remove a location
+    func remove(_ location: HauntedLocation) {
+        if let index = locations.firstIndex(of: location) {
+            locations.remove(at: index)
+        }
     }
 }
