@@ -8,15 +8,21 @@
 import SwiftUI
 
 struct UserFavoritesView: View {
+    
+    @Environment(UserFavorites.self) private var userFavorites
+    
     var body: some View {
-        List {
-//            ForEach(){
-//                
-//            }
+        NavigationStack{
+            List {
+                ForEach(userFavorites.locations) { location in
+                    Text(location.name)
+                }
+            }
+            .navigationTitle("Saved Locations")
         }
     }
 }
 
 #Preview {
-    UserFavoritesView()
+    UserFavoritesView().environment(UserFavorites())
 }
