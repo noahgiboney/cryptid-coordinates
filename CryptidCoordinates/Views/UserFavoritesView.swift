@@ -10,19 +10,55 @@ import SwiftUI
 struct UserFavoritesView: View {
     
     @Environment(UserFavorites.self) private var userFavorites
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationStack{
-            List {
-                ForEach(userFavorites.locations) { location in
-                    Text(location.name)
-                }
+            locationList
+            .onAppear {
+                userFavorites.locations.append(HauntedLocation.allLocations[1])
+                userFavorites.locations.append(HauntedLocation.allLocations[66])
+                userFavorites.locations.append(HauntedLocation.allLocations[951])
             }
             .navigationTitle("Saved Locations")
+            .toolbar {
+                ToolbarItem{
+                    EditButton()
+                }
+                ToolbarItem(placement: .topBarLeading){
+                    Button("Back") {
+                        dismiss()
+                    }
+                }
+            }
         }
     }
 }
 
 #Preview {
     UserFavoritesView().environment(UserFavorites())
+}
+
+extension UserFavoritesView {
+    
+    private var locationList: some View {
+        VStack{
+            List {
+                ForEach(userFavorites.locations) { location in
+                    HStack{
+                        VStack(alignment: .leading){
+                            Text(location.name)
+                            Text(location.cityState)
+                                .font(.caption.italic())
+                        }
+                        Spacer()
+                        Image("ghost")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 25)
+                    }
+                }
+            }
+        }
+    }
 }

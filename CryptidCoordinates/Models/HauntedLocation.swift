@@ -45,6 +45,10 @@ struct HauntedLocation: Codable, Hashable, Identifiable {
         return CLLocationCoordinate2D()
     }
     
+    var cityState: String {
+        "\(city), " + "\(stateAbbrev)"
+    }
+    
     static let allLocations: [HauntedLocation] = Bundle.main.decode(file: "hauntedplaces.json")
     
     static let example = HauntedLocation.allLocations[0]
