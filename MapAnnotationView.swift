@@ -11,8 +11,9 @@ struct MapAnnotationView: View {
     var body: some View {
         VStack {
             ZStack {
-                Circle()
-                    .foregroundColor(.black)
+                LinearGradient(colors: [.black,.red], startPoint: .bottom, endPoint: .top)
+                    .clipShape(Circle())
+                    .shadow(radius: 2, x:0, y: 2)
     
                 Image("ghost")
                     .resizable()

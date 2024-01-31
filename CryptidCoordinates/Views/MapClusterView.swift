@@ -11,9 +11,9 @@ struct MapClusterView: View {
     var body: some View {
         VStack {
             ZStack {
-                Circle()
-                    .foregroundColor(.black)
-                    .shadow(color: .gray, radius: 2, x: 0, y: 2)
+                LinearGradient(colors: [.black, .clear], startPoint: .bottom, endPoint: .top)
+                    .clipShape(Circle())
+                    .shadow(radius: 2, x:0, y: 2)
                 
                 Image(systemName: "square.3.layers.3d")
                     .resizable()

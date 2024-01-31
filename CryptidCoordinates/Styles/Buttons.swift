@@ -11,7 +11,7 @@ import SwiftUI
 struct NavButtonStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .foregroundStyle(.bar)
+            .foregroundStyle(.white)
             .frame(width: 70, height: 70)
             .background(.black)
             .clipShape(Circle())
