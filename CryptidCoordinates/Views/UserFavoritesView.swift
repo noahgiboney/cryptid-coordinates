@@ -12,7 +12,6 @@ struct UserFavoritesView: View {
     @Environment(UserFavorites.self) private var userFavorites
     @Environment(\.dismiss) var dismiss
     @State private var showingDetail = false
-    @State private var tappedLocation: HauntedLocation?
     
     var body: some View {
         NavigationStack{
@@ -33,9 +32,6 @@ struct UserFavoritesView: View {
                     }
                 }
             }
-            .sheet(item: $tappedLocation) { location in
-                LocationDetailView(location: location)
-            }
         }
     }
 }
@@ -50,24 +46,24 @@ extension UserFavoritesView {
         VStack{
             List {
                 ForEach(userFavorites.locations) { location in
-                    HStack{
-                        VStack(alignment: .leading){
-                            Text(location.name)
-                            Text(location.cityState)
-                                .font(.caption.italic())
+                    NavigationLink{
+                        LocationDetailView(location: location)
+                            .navigationBarTitleDisplayMode(.inline)
+                    }  label: {
+                        HStack{
+                            VStack(alignment: .leading){
+                                Text(location.name)
+                                Text(location.cityState)
+                                    .font(.caption.italic())
+                            }
+                            Spacer()
+                            Image("ghost")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 25)
                         }
-                        Spacer()
-                        Image("ghost")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 25)
-                    }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        tappedLocation = location
                     }
                 }
-
             }
         }
     }
