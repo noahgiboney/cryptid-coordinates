@@ -34,6 +34,10 @@ struct UserFavoritesView: View {
             }
         }
     }
+    
+    func removeFromList(offset: IndexSet) {
+        userFavorites.locations.remove(atOffsets: offset)
+    }
 }
 
 #Preview {
@@ -64,6 +68,9 @@ extension UserFavoritesView {
                         }
                     }
                 }
+                .onDelete(perform: { indexSet in
+                    removeFromList(offset: indexSet)
+                })
             }
         }
     }
