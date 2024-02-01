@@ -11,7 +11,7 @@ struct MapClusterView: View {
     var body: some View {
         VStack {
             ZStack {
-                LinearGradient(colors: [.black, .clear], startPoint: .bottom, endPoint: .top)
+                LinearGradient(colors: [.black, .gray], startPoint: .bottom, endPoint: .top)
                     .clipShape(Circle())
                     .shadow(radius: 2, x:0, y: 2)
                 

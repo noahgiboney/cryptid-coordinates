@@ -90,14 +90,6 @@ extension MapView {
     private var buttonLayer: some View {
         HStack{
             Button {
-                viewModel.showingSubmitLocation.toggle()
-            } label: {
-                Image(systemName: "square.and.arrow.up")
-                    .navButtonStyle()
-            }
-            .padding()
-            
-            Button {
                 viewModel.showingUserFavorites.toggle()
             } label: {
                 Image(systemName: "star.fill")
