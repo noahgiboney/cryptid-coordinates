@@ -38,17 +38,10 @@ struct LocationDetailView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading){
-                    Button("Close"){
-                        dismiss()
-                    }
-                }
-                ToolbarItem(placement: .topBarTrailing){
-                    Button {
-                        toggleStar()
-                    } label: {
-                        Image(systemName: userFavorites.isInFavorites(location: location) ? "star.fill" : "star")
-                    }
+                Button {
+                    toggleStar()
+                } label: {
+                    Image(systemName: userFavorites.isInFavorites(location: location) ? "star.fill" : "star")
                 }
             }
         }

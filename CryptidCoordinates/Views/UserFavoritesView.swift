@@ -11,6 +11,8 @@ struct UserFavoritesView: View {
     
     @Environment(UserFavorites.self) private var userFavorites
     @Environment(\.dismiss) var dismiss
+    @State private var showingDetail = false
+    @State private var tappedLocation: HauntedLocation?
     
     var body: some View {
         NavigationStack{
@@ -30,6 +32,9 @@ struct UserFavoritesView: View {
                         dismiss()
                     }
                 }
+            }
+            .sheet(item: $tappedLocation) { location in
+                LocationDetailView(location: location)
             }
         }
     }
@@ -57,7 +62,12 @@ extension UserFavoritesView {
                             .scaledToFit()
                             .frame(width: 25)
                     }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        tappedLocation = location
+                    }
                 }
+
             }
         }
     }
