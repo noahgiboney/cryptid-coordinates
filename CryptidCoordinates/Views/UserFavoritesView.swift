@@ -11,32 +11,23 @@ struct UserFavoritesView: View {
     
     @Environment(UserFavorites.self) private var userFavorites
     @Environment(\.dismiss) var dismiss
-    @State private var showingDetail = false
     
     var body: some View {
         NavigationStack{
+            
             locationList
-            .onAppear {
-                userFavorites.locations.append(HauntedLocation.allLocations[1])
-                userFavorites.locations.append(HauntedLocation.allLocations[66])
-                userFavorites.locations.append(HauntedLocation.allLocations[951])
-            }
-            .navigationTitle("Saved Locations")
-            .toolbar {
-                ToolbarItem{
-                    EditButton()
-                }
-                ToolbarItem(placement: .topBarLeading){
-                    Button("Back") {
-                        dismiss()
+                .navigationTitle("Your Locations")
+                .toolbar {
+                    ToolbarItem{
+                        EditButton()
+                    }
+                    ToolbarItem(placement: .topBarLeading){
+                        Button("Back") {
+                            dismiss()
+                        }
                     }
                 }
-            }
         }
-    }
-    
-    func removeFromList(offset: IndexSet) {
-        userFavorites.locations.remove(atOffsets: offset)
     }
 }
 
@@ -69,7 +60,7 @@ extension UserFavoritesView {
                     }
                 }
                 .onDelete(perform: { indexSet in
-                    removeFromList(offset: indexSet)
+                    userFavorites.locations.remove(atOffsets: indexSet)
                 })
             }
         }
