@@ -16,9 +16,7 @@ struct MapView: View {
             }
             else{
                 if let selectedLocation = viewModel.selectedLocation {
-                    let nearestLocations = viewModel.getNearestLocations(for: selectedLocation)
-                    
-                    PreviewView(cameraPosition: $viewModel.cameraPosition, selectedLocation: $viewModel.selectedLocation, nearestLocations: nearestLocations)
+                    PreviewView(cameraPosition: $viewModel.cameraPosition, currentLocation: selectedLocation)
                 }
             }
         }

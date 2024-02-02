@@ -27,6 +27,9 @@ extension MapView{
         
         var displayedLocations = [HauntedLocation]()
         
+        // array of locations to loop through when location is tapped
+        var previewArray: [HauntedLocation]?
+        
         var locationManager: CLLocationManager?
         
         // execute when marker is tapped

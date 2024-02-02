@@ -11,11 +11,10 @@ import SwiftUI
 struct PreviewView: View {
     
     @Binding var cameraPosition: MapCameraPosition
-    @Binding var selectedLocation: HauntedLocation?
     @State private var imageManager = GoogleAPIManager()
     @State private var showingDetails = false
-    @State private var index = 0
-    let nearestLocations: [HauntedLocation]
+    
+    var currentLocation: HauntedLocation
     
     var body: some View {
         
@@ -26,41 +25,31 @@ struct PreviewView: View {
             locationCard
                 .padding(.bottom, 100)
         }
-        .sheet(isPresented: $showingDetails, content: {LocationDetailView(location: nearestLocations[index])})
+        .sheet(isPresented: $showingDetails) {
+            LocationDetailView(location: currentLocation)
+        }
     }
-    
-    func moveRight() {
-        index += 1
-        updateCamera(to: index)
-        selectedLocation = nearestLocations[index]
-    }
-    
-    func moveLeft() {
-        index -= 1
-        updateCamera(to: index)
-        selectedLocation = nearestLocations[index]
-    }
-    
     func updateCamera(to index: Int) {
         withAnimation(.easeIn) {
-            cameraPosition = .region(MKCoordinateRegion(center: nearestLocations[index].coordinates, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)))
+            cameraPosition = .region(MKCoordinateRegion(center: currentLocation.coordinates, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)))
         }
     }
 }
 
 #Preview {
-    PreviewView(cameraPosition: .constant(.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.787994, longitude: -122.407437), span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)))) ,selectedLocation: .constant(nil)  ,nearestLocations: [HauntedLocation.example, HauntedLocation.allLocations[1]])
+    PreviewView(cameraPosition: .constant(.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.787994, longitude: -122.407437), span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)))) ,currentLocation : HauntedLocation.allLocations[33])
 }
 
 extension PreviewView {
     
     private var locationCard: some View {
-        VStack(spacing: 5){
-            
-            Label(nearestLocations[index].location, systemImage: "mappin")
+        VStack(spacing: 10){
+            Label(currentLocation.name, systemImage: "mappin")
                 .font(.title.bold())
-            
-            Spacer()
+    
+            Label("\(currentLocation.city), \(currentLocation.stateAbbrev)", systemImage: "map")
+                .font(.subheadline.italic())
+                .padding(.bottom)
             
             Button{
                 showingDetails.toggle()
@@ -68,40 +57,11 @@ extension PreviewView {
                 Label("Investigate", systemImage: "eye.fill")
             }
             .previewButtomStyle()
-            
-            HStack{
-                if nearestLocations[index] != nearestLocations.first{
-                    Button {
-                        moveLeft()
-                    } label: {
-                        Image(systemName: "arrow.left")
-                    }
-                    .previewButtomStyle()
-                }
-                else {
-                    Spacer()
-                }
-                
-                Spacer()
-                
-                if nearestLocations[index] != nearestLocations.last{
-                    Button {
-                        moveRight()
-                    } label: {
-                        Image(systemName: "arrow.right")
-                    }
-                    .previewButtomStyle()
-                }
-                else {
-                    Spacer()
-                }
-            }
         }
-        .frame(width: 300, height: 175)
+        .frame(width: 300, height: 150)
         .padding()
         .background(.ultraThinMaterial)
         .clipShape(.rect(cornerRadius: 15))
         .shadow(radius: 5)
     }
-    
 }
