@@ -25,6 +25,8 @@ struct LocationDetailView: View {
                     
                     header
                     
+                    imageSection
+                    
                     Divider()
                     
                     bodySection
@@ -57,7 +59,7 @@ struct LocationDetailView: View {
     }
 }
 #Preview {
-    LocationDetailView(location: HauntedLocation.allLocations[6534])
+    LocationDetailView(location: HauntedLocation.allLocations[4234])
         .environment(UserFavorites())
 }
 
@@ -69,6 +71,23 @@ extension LocationDetailView {
                 .font(.title.bold())
             Label("\(location.city), \(location.stateAbbrev)", systemImage: "map")
                 .font(.subheadline.italic())
+        }
+    }
+    
+    private var imageSection: some View {
+        VStack{
+            AsyncImage(url: URL(string: imageManager.queryURL)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 250, height: 140)
+                    .clipped()
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            } placeholder: {
+                HStack {
+                }
+            }
         }
     }
     
@@ -84,7 +103,6 @@ extension LocationDetailView {
         ZStack{
             if viewModel.lookAroundPlace == nil {
                 Label("No Lookaround Available", systemImage: "eye.slash")
-                    .font(.title2)
             }
             else {
                 VStack(alignment: .leading){
