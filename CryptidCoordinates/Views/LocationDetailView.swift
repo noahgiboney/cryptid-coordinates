@@ -89,6 +89,9 @@ extension LocationDetailView {
                 }
             }
         }
+        .task {
+            await imageManager.getImage(for: location.name)
+        }
     }
     
     private var bodySection: some View {

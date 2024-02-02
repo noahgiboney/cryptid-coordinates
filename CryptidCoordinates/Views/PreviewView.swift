@@ -81,7 +81,7 @@ extension PreviewView {
                 else {
                     Spacer()
                 }
-            
+                
                 Spacer()
                 
                 if nearestLocations[index] != nearestLocations.last{
@@ -96,16 +96,6 @@ extension PreviewView {
                     Spacer()
                 }
             }
-            //when index changes and when view is loaded get the image for location
-            .task {
-                await imageManager.getImage(for: nearestLocations[index].name)
-            }
-            .onChange(of: selectedLocation) {
-                Task {
-                    await imageManager.getImage(for: (nearestLocations[index].name))
-                }
-            }
-        
         }
         .frame(width: 300, height: 175)
         .padding()
