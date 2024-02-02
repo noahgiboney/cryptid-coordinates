@@ -23,7 +23,7 @@ class UserFavorites {
     
     // add a location to top of list
     func add(_ location: HauntedLocation) {
-        locations.insert(location, at: 0)
+        locations.append(location)
     }
     
     // remove a location

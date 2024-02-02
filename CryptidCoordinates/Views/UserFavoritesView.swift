@@ -9,22 +9,49 @@ import SwiftUI
 
 struct UserFavoritesView: View {
     
+    enum SortType: String {
+        case newest, oldest
+    }
+    
+    @AppStorage("sortBy") var sortSelection: SortType = .newest
     @Environment(UserFavorites.self) private var userFavorites
     @Environment(\.dismiss) var dismiss
     
+    var sortedList: [HauntedLocation] {
+        
+        switch sortSelection {
+        case .newest:
+            return userFavorites.locations.reversed()
+        case .oldest:
+            return userFavorites.locations
+        }
+    }
+
     var body: some View {
         NavigationStack{
             
             locationList
                 .navigationTitle("Your Locations")
                 .toolbar {
-                    ToolbarItem{
-                        EditButton()
-                    }
                     ToolbarItem(placement: .topBarLeading){
-                        Button("Back") {
+                        Button("Dismiss") {
                             dismiss()
                         }
+                    }
+                    
+                    ToolbarItem{
+                        Menu("Sort By", systemImage: "arrow.up.arrow.down.circle") {
+                            Picker("Sort y", selection: $sortSelection) {
+                                Text("Newest")
+                                    .tag(SortType.newest)
+                                Text("Oldest")
+                                    .tag(SortType.oldest)
+                            }
+                        }
+                    }
+                    
+                    ToolbarItem{
+                        EditButton()
                     }
                 }
         }
@@ -40,7 +67,7 @@ extension UserFavoritesView {
     private var locationList: some View {
         VStack{
             List {
-                ForEach(userFavorites.locations) { location in
+                ForEach(sortedList) { location in
                     NavigationLink{
                         LocationDetailView(location: location)
                             .navigationBarTitleDisplayMode(.inline)
