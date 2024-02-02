@@ -3,6 +3,8 @@ import SwiftUI
 
 struct MapView: View {
     
+    @AppStorage("viewedCount") var viewedCount: Int = 0
+    @Environment(\.requestReview) var requestReview
     @State private var clusterManager = ClusterMap()
     @State private var viewModel = ViewModel()
 
@@ -49,6 +51,13 @@ extension MapView {
                             .scaleEffect(viewModel.selectedLocation?.coordinates == item.coordinate ? 1.3 : 1)
                             .onTapGesture {
                                 viewModel.tappedMarker(marker: item)
+                                print(viewedCount)
+                                viewedCount += 1
+                                if viewedCount == 10 {
+                                    Task{
+                                        await requestReview()
+                                    }
+                                }
                             }
                     }
                     .annotationTitles(.hidden)

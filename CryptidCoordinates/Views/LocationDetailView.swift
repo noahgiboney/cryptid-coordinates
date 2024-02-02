@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import StoreKit
 import MapKit
 
 struct LocationDetailView: View {
-    
+
     @Environment(UserFavorites.self) var userFavorites
     @Environment(\.dismiss) var dismiss
     @State private var viewModel = ViewModel()
