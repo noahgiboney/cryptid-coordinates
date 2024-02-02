@@ -10,6 +10,7 @@ import MapKit
 
 struct SearchListView: View {
     
+    @AppStorage("searchType") var searchBy: ListType = .city
     @Environment(\.dismiss) var dismiss
     @Binding var cameraPosition: MapCameraPosition
     @State private var viewModel = ViewModel()
@@ -29,11 +30,11 @@ struct SearchListView: View {
             //navigation
             .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a \(viewModel.searchSelection.rawValue)")
+            .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a \(searchBy.rawValue)")
             .toolbar {
                 ToolbarItem{
                     Menu("Search by", systemImage: "arrow.up.arrow.down") {
-                        Picker("Search by", selection: $viewModel.searchSelection) {
+                        Picker("Search by", selection: $searchBy) {
                             Text("City")
                                 .tag(ListType.city)
                             Text("Location")
@@ -41,6 +42,9 @@ struct SearchListView: View {
                         }
                     }
                 }
+            }
+            .onChange(of: searchBy) {
+                viewModel.searchSelection = searchBy
             }
         }
     }

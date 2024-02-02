@@ -13,8 +13,6 @@ extension LocationDetailView{
     @Observable
     class ViewModel {
         
-        
-        
         // some citys do not have look around support
         var lookAroundPlace: MKLookAroundScene?
         

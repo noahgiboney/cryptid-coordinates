@@ -48,7 +48,7 @@ extension SearchListView {
                 
             case .location:
                 list = HauntedLocation.allLocations.map {
-                    SearchItem(text: $0.name + ": " + $0.city + ", " + $0.stateAbbrev)}
+                    SearchItem(text: $0.name + ", " + $0.cityState)}
             }
             
             // filter list based on term
