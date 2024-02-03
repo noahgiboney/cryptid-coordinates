@@ -70,7 +70,6 @@ struct LocationDetailView: View {
 }
 #Preview {
     LocationDetailView(location: HauntedLocation.allLocations[4234])
-        .environment(UserFavorites())
 }
 
 extension LocationDetailView {

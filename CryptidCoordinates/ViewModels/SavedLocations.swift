@@ -15,7 +15,7 @@ extension SavedLocationsView{
         
         var savedLocations = [HauntedLocation]()
         
-        func loadData() {
+        func loadSavedLocations() {
             let url = URL.documentsDirectory.appending(component: "savedLocations")
             
             guard let data = try? Data(contentsOf: url) else {

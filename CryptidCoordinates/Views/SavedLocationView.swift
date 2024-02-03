@@ -27,10 +27,9 @@ struct SavedLocationsView: View {
             return viewModel.savedLocations
         }
     }
-
+    
     var body: some View {
         NavigationStack{
-            
             locationList
                 .navigationTitle("Your Locations")
                 .toolbar {
@@ -41,7 +40,7 @@ struct SavedLocationsView: View {
                     }
                     
                     ToolbarItem{
-                        Menu("Sort By", systemImage: "arrow.up.arrow.down.circle") {
+                        Menu("Sort By", systemImage: "arrow.up.arrow.down") {
                             Picker("Sort y", selection: $sortSelection) {
                                 Text("Newest")
                                     .tag(SortType.newest)
@@ -54,6 +53,9 @@ struct SavedLocationsView: View {
                     ToolbarItem{
                         EditButton()
                     }
+                }
+                .onAppear {
+                    viewModel.loadSavedLocations()
                 }
         }
     }
