@@ -5,7 +5,8 @@
 //  Created by Noah Giboney on 1/17/24.
 //
 
-import Foundation
+import SwiftUI
+import UIKit
 
 @Observable
 class GoogleAPIManager {
@@ -35,7 +36,7 @@ class GoogleAPIManager {
     
     func fetchImage(search searchTerm: String) async throws{
         // establish url endpoint
-        let endpoint = "https://www.googleapis.com/customsearch/v1?key=\("")&cx=\("")&q=\(searchTerm)"
+        let endpoint = "https://www.googleapis.com/customsearch/v1?key=\("AIzaSyCtwfhw-m5veLfJMNLYi0Vdna-E0kD6qfA")&cx=\("84d755fd86d324926")&q=\(searchTerm)"
         
         guard let url = URL(string: endpoint) else {
             throw APIError.urlError

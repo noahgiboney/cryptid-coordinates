@@ -14,6 +14,8 @@ struct LocationDetailView: View {
     @Environment(\.dismiss) var dismiss
     @State private var viewModel = ViewModel()
     @State private var imageManager = GoogleAPIManager()
+    
+    @State private var uiImage : UIImage?
 
     var location: HauntedLocation
         
@@ -22,9 +24,9 @@ struct LocationDetailView: View {
             ScrollView{
                 VStack(alignment: .leading, spacing: 20){
                     
-                    header
-                    
                     imageSection
+                    
+                    header
                     
                     Divider()
                     
@@ -40,13 +42,11 @@ struct LocationDetailView: View {
                 }
             }
             .toolbar {
-                
                 ToolbarItem(placement: .topBarLeading){
                     Button("Dismiss"){
                         dismiss()
                     }
                 }
-                
                 ToolbarItem{
                     Button {
                         toggleStar()
@@ -54,6 +54,9 @@ struct LocationDetailView: View {
                         Image(systemName: viewModel.isInFavorites(location: location) ? "star.fill" : "star")
                     }
                 }
+            }
+            .task {
+                await imageManager.getImage(for: location.name)
             }
         }
     }
@@ -85,22 +88,22 @@ extension LocationDetailView {
     
     private var imageSection: some View {
         VStack{
-            AsyncImage(url: URL(string: imageManager.queryURL)) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 250, height: 140)
-                    .clipped()
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-            } placeholder: {
-                HStack {
-                }
+            if let image = viewModel.proccessedImage {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .clipped()
+                        .frame(maxHeight: 250)
+                        .background(Color.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
             }
+            
         }
         .task {
             await imageManager.getImage(for: location.name)
+            await viewModel.loadAndProccessImage(url: imageManager.queryURL)
         }
+        
     }
     
     private var bodySection: some View {

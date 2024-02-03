@@ -11,7 +11,6 @@ import SwiftUI
 struct PreviewView: View {
     
     @Binding var cameraPosition: MapCameraPosition
-    @State private var imageManager = GoogleAPIManager()
     @State private var showingDetails = false
     
     var currentLocation: HauntedLocation
