@@ -11,7 +11,6 @@ import MapKit
 
 struct LocationDetailView: View {
 
-    @Environment(UserFavorites.self) var userFavorites
     @Environment(\.dismiss) var dismiss
     @State private var viewModel = ViewModel()
     @State private var imageManager = GoogleAPIManager()
@@ -41,20 +40,31 @@ struct LocationDetailView: View {
                 }
             }
             .toolbar {
-                Button {
-                    toggleStar()
-                } label: {
-                    Image(systemName: userFavorites.isInFavorites(location: location) ? "star.fill" : "star")
+                
+                ToolbarItem(placement: .topBarLeading){
+                    Button("Dismiss"){
+                        dismiss()
+                    }
+                }
+                
+                ToolbarItem{
+                    Button {
+                        toggleStar()
+                    } label: {
+                        Image(systemName: viewModel.isInFavorites(location: location) ? "star.fill" : "star")
+                    }
                 }
             }
         }
     }
     func toggleStar() {
-        if !userFavorites.isInFavorites(location: location) {
-            userFavorites.add(location)
+        if !viewModel.isInFavorites(location: location) {
+            viewModel.savedLocations.append(location)
         }
         else {
-            userFavorites.remove(location)
+            if let index = viewModel.savedLocations.firstIndex(of: location) {
+                viewModel.savedLocations.remove(at: index)
+            }
         }
     }
 }

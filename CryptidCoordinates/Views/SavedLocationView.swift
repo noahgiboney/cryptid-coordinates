@@ -5,25 +5,26 @@
 //  Created by Noah Giboney on 1/26/24.
 //
 
+import SwiftData
 import SwiftUI
 
-struct UserFavoritesView: View {
+struct SavedLocationsView: View {
     
     enum SortType: String {
         case newest, oldest
     }
     
     @AppStorage("sortBy") var sortSelection: SortType = .newest
-    @Environment(UserFavorites.self) private var userFavorites
     @Environment(\.dismiss) var dismiss
+    @State private var viewModel = ViewModel()
     
     var sortedList: [HauntedLocation] {
         
         switch sortSelection {
         case .newest:
-            return userFavorites.locations.reversed()
+            return viewModel.savedLocations.reversed()
         case .oldest:
-            return userFavorites.locations
+            return viewModel.savedLocations
         }
     }
 
@@ -59,10 +60,10 @@ struct UserFavoritesView: View {
 }
 
 #Preview {
-    UserFavoritesView().environment(UserFavorites())
+    SavedLocationsView()
 }
 
-extension UserFavoritesView {
+extension SavedLocationsView {
     
     private var locationList: some View {
         VStack{
@@ -87,7 +88,7 @@ extension UserFavoritesView {
                     }
                 }
                 .onDelete(perform: { indexSet in
-                    userFavorites.locations.remove(atOffsets: indexSet)
+                    viewModel.savedLocations.remove(atOffsets: indexSet)
                 })
             }
         }

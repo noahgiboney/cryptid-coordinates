@@ -26,7 +26,7 @@ struct MapView: View {
                 .presentationDetents([.fraction(0.25),.medium,.large])
         }
         .sheet(isPresented: $viewModel.showingUserFavorites) {
-            UserFavoritesView()
+            SavedLocationsView()
         }
     }
 }

@@ -58,7 +58,7 @@ extension MapView{
         
         func getDisplayedLocations(center: CLLocationCoordinate2D) {
             displayedLocations = HauntedLocation.allLocations.filter { location in
-    
+                
                 guard let longitude = Double(location.longitude), let latitude = Double(location.latitude) else {
                     return false
                 }
@@ -104,7 +104,7 @@ extension MapView{
             guard let locationManager = locationManager else { return }
             
             switch locationManager.authorizationStatus  {
-             
+                
             case .notDetermined:
                 locationManager.requestWhenInUseAuthorization()
                 
@@ -127,10 +127,10 @@ extension MapView{
         func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
             checkLocationAuthorization()
         }
-
+        
         func checkIfLocationsEnabled() {
-                locationManager = CLLocationManager()
-                locationManager!.delegate = self
+            locationManager = CLLocationManager()
+            locationManager!.delegate = self
         }
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 
 @Observable
 class GoogleAPIManager {
-
+    
     enum APIError: Error {
         case serverError, urlError, jsonError, responseError
     }
@@ -49,7 +49,7 @@ class GoogleAPIManager {
             print(response)
             throw APIError.serverError
         }
-
+        
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         
