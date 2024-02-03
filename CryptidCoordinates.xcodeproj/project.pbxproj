@@ -129,13 +129,13 @@
 			children = (
 				E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */,
 				E279044C2B64CFE40034939B /* BundleDecode.swift */,
+				E27395CB2B4E391200D70108 /* hauntedplaces.json */,
 				E2C76C182B4E15940080F669 /* Views */,
 				E2C76C162B4E157B0080F669 /* ViewModels */,
 				E2C6BA232B58C72700CDB792 /* Managers */,
 				E233E68B2B58E6320040E1B5 /* Models */,
 				E27904492B64CE990034939B /* Styles */,
 				E22D10E82B574F3600BD4A8C /* ClusterMap */,
-				E27395CB2B4E391200D70108 /* hauntedplaces.json */,
 				E2C76C0A2B4E14550080F669 /* Assets.xcassets */,
 				E2C76C0C2B4E14550080F669 /* Preview Content */,
 			);
