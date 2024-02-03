@@ -56,7 +56,7 @@ struct LocationDetailView: View {
                 }
             }
             .task {
-                await imageManager.getImage(for: location.name)
+                await imageManager.fetchURL(for: location.name)
             }
         }
     }
@@ -95,12 +95,12 @@ extension LocationDetailView {
                         .clipped()
                         .frame(maxHeight: 250)
                         .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                        .clipShape(RoundedRectangle(cornerRadius: 3))
             }
             
         }
         .task {
-            await imageManager.getImage(for: location.name)
+            await imageManager.fetchURL(for: location.name)
             await viewModel.loadAndProccessImage(url: imageManager.queryURL)
         }
         

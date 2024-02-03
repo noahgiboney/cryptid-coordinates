@@ -17,9 +17,10 @@ class GoogleAPIManager {
     
     var queryURL: String = ""
     
-    func getImage(for searchTerm: String) async {
+    // assigns queryURL for the image url based on search term
+    func fetchURL(for searchTerm: String) async {
         do{
-            try await fetchImage(search: "\(searchTerm)")
+            try await callAPI(search: "\(searchTerm)")
             
         } catch APIError.urlError {
             print("invalid url")
@@ -34,7 +35,8 @@ class GoogleAPIManager {
         }
     }
     
-    func fetchImage(search searchTerm: String) async throws{
+    // performs network call to get url
+    private func callAPI(search searchTerm: String) async throws{
         // establish url endpoint
         let endpoint = "https://www.googleapis.com/customsearch/v1?key=\("AIzaSyCtwfhw-m5veLfJMNLYi0Vdna-E0kD6qfA")&cx=\("84d755fd86d324926")&q=\(searchTerm)"
         
@@ -59,6 +61,7 @@ class GoogleAPIManager {
         }
     }
     
+    //parse json to retrieve url
     private func parseJSON(decodedData: GoogleSearchResponse) throws {
         if let items = decodedData.items {
             for item in items {
