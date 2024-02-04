@@ -30,16 +30,24 @@ struct SavedLocationsView: View {
     
     var body: some View {
         NavigationStack{
-            locationList
-                .navigationTitle("Your Locations")
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading){
-                        Button("Dismiss") {
-                            dismiss()
-                        }
+            VStack{
+                if viewModel.savedLocations.isEmpty {
+                    ContentUnavailableView("No Locations Saved Yet", image: "ghost")
+                }
+                else {
+                    locationList
+                }
+            }
+            .navigationTitle("Your Locations")
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading){
+                    Button("Dismiss") {
+                        dismiss()
                     }
-                    
-                    ToolbarItem{
+                }
+                
+                ToolbarItem{
+                    if !viewModel.savedLocations.isEmpty {
                         Menu("Sort By", systemImage: "arrow.up.arrow.down") {
                             Picker("Sort y", selection: $sortSelection) {
                                 Text("Newest")
@@ -50,13 +58,18 @@ struct SavedLocationsView: View {
                         }
                     }
                     
-                    ToolbarItem{
+                    
+                }
+                
+                ToolbarItem{
+                    if !viewModel.savedLocations.isEmpty{
                         EditButton()
                     }
                 }
-                .onAppear {
-                    viewModel.loadSavedLocations()
-                }
+            }
+            .onAppear {
+                viewModel.loadSavedLocations()
+            }
         }
     }
 }

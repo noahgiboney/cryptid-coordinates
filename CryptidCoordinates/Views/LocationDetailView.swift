@@ -39,14 +39,10 @@ struct LocationDetailView: View {
                 .padding()
                 .onAppear {
                     viewModel.fetchLookAroundPreview(for: location.coordinates)
+                    viewModel.loadSavedLoations()
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading){
-                    Button("Dismiss"){
-                        dismiss()
-                    }
-                }
                 ToolbarItem{
                     Button {
                         toggleStar()
@@ -82,7 +78,7 @@ extension LocationDetailView {
             Text(location.name)
                 .font(.title.bold())
             Label("\(location.city), \(location.stateAbbrev)", systemImage: "map")
-                .font(.subheadline.italic())
+                .font(.subheadline)
         }
     }
     

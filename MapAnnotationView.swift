@@ -13,13 +13,12 @@ struct MapAnnotationView: View {
             Image("ghost")
                 .resizable()
                 .scaledToFit()
-                .foregroundColor(.white)
                 .frame(width: 40, height: 40)
                 
             
             Image(systemName: "mappin")
                 .font(.system(size: 15))
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 .padding(.bottom, 30)
         }
     }

@@ -59,6 +59,7 @@ extension MapView {
                             }
                     }
                 }
+                .annotationTitles(.hidden)
             }
             .onTapGesture(perform: { screenCord in
                 if let tappedCord = reader.convert(screenCord, from: .local) {
@@ -72,7 +73,6 @@ extension MapView {
                 }
             })
         }
-        .mapStyle(.hybrid)
         .onMapCameraChange { context in
             clusterManager.currentRegion = context.region
             Task {

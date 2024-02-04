@@ -69,10 +69,7 @@ extension LocationDetailView{
         var savedLocations = [HauntedLocation]() {
             didSet {
                 let url = URL.documentsDirectory.appending(component: "savedLocations")
-                let encoder = JSONEncoder()
-                
-                let data = try? encoder.encode(savedLocations)
-                
+                let data = try? JSONEncoder().encode(savedLocations)
                 do {
                     try data?.write(to: url)
                     
@@ -90,6 +87,20 @@ extension LocationDetailView{
                 }
             }
             return false
+        }
+        
+        func loadSavedLoations() {
+            let url = URL.documentsDirectory.appending(component: "savedLocations")
+            
+            guard let data = try? Data(contentsOf: url) else {
+                return
+            }
+            
+            do {
+                savedLocations = try JSONDecoder().decode([HauntedLocation].self, from: data)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
         
         // gets the look around preview for some cordinate if it exists
