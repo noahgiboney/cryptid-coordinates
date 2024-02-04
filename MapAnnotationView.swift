@@ -20,7 +20,7 @@ struct MapAnnotationView: View {
             Image(systemName: "mappin")
                 .font(.system(size: 15))
                 .foregroundColor(.white)
-                .padding(.bottom, 20)
+                .padding(.bottom, 30)
         }
     }
 }
