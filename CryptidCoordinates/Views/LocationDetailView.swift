@@ -58,6 +58,7 @@ struct LocationDetailView: View {
 }
 #Preview {
     LocationDetailView(location: HauntedLocation.allLocations[4234])
+        .preferredColorScheme(.dark)
 }
 
 extension LocationDetailView {

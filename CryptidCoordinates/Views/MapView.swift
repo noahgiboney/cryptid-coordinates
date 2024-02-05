@@ -1,3 +1,10 @@
+//
+//  MapView.swift
+//  CryptidCoordinates
+//
+//  Created by Noah Giboney on 1/9/24.
+//
+
 import MapKit
 import SwiftUI
 
@@ -5,31 +12,19 @@ struct MapView: View {
     
     @State private var clusterManager = ClusterMap()
     @State private var viewModel = ViewModel()
-
+    
     var body: some View {
         NavigationStack{
-            ZStack(alignment: .bottom){
+            ZStack{
                 
                 mapLayer
-
+                
                 if viewModel.selectedLocation != nil{
-                    if let selectedLocation = viewModel.selectedLocation {
-                        PreviewView(cameraPosition: $viewModel.cameraPosition, currentLocation: selectedLocation)
-                            .overlay {
-                                Button {
-                                    viewModel.selectedLocation = nil
-                                    viewModel.updateCamera(to: selectedLocation.coordinates, span: 0.05)
-                                }label: {
-                                    Image(systemName: "arrow.down.right.and.arrow.up.left")
-                                        .darkButtonStyle(foreground: .red)
-                                }
-                                .font(.caption)
-                                .padding(.top, 165)
-                                .padding(.leading, 290)
-                            }
-                    }
+                    
+                    previewLayer
                 }
             }
+            .preferredColorScheme(.dark)
             .navigationTitle("Crytpid Coordinates")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
@@ -48,7 +43,6 @@ struct MapView: View {
                     }
                 }
             }
-            .preferredColorScheme(.dark)
             .sheet(isPresented: $viewModel.showingSearch) {
                 SearchListView(cameraPosition: $viewModel.cameraPosition)
                     .presentationDetents([.fraction(0.25),.medium,.large])
@@ -57,7 +51,6 @@ struct MapView: View {
                 SavedLocationsView()
             }
         }
-
     }
 }
 
@@ -67,11 +60,30 @@ struct MapView: View {
 
 extension MapView {
     
+    private var previewLayer: some View {
+        VStack{
+            if let selectedLocation = viewModel.selectedLocation {
+                PreviewView(cameraPosition: $viewModel.cameraPosition, currentLocation: selectedLocation)
+                    .overlay {
+                        Button {
+                            viewModel.selectedLocation = nil
+                            viewModel.updateCamera(to: selectedLocation.coordinates, span: 0.05)
+                        }label: {
+                            Image(systemName: "arrow.down.right.and.arrow.up.left")
+                                .darkButtonStyle(foreground: .red)
+                        }
+                        .font(.caption)
+                        .padding(.top, 175)
+                        .padding(.leading, 290)
+                    }
+            }
+        }
+    }
+    
     private var mapLayer: some View {
         MapReader{ reader in
             Map(position: $viewModel.cameraPosition) {
                 ForEach(clusterManager.annotations) { item in
-                    
                     Annotation("\(item.id)", coordinate: item.coordinate) {
                         MapAnnotationView()
                             .scaleEffect(viewModel.selectedLocation?.coordinates == item.coordinate ? 1.3 : 1)
@@ -85,12 +97,11 @@ extension MapView {
                     Annotation("\(item.count)", coordinate: item.coordinate) {
                         MapClusterView()
                             .onTapGesture {
-                                print("tapped cluster")
-                                viewModel.updateCamera(to: item.coordinate, span: 0.05)
+                                viewModel.updateCamera(to: item.coordinate, span: 0.055)
                             }
                     }
+                    .annotationTitles(.hidden)
                 }
-                .annotationTitles(.hidden)
             }
         }
         .onMapCameraChange { context in

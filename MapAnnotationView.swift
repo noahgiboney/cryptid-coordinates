@@ -14,13 +14,7 @@ struct MapAnnotationView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 40, height: 40)
-                .padding([.horizontal, .top])
-                
-            
-            Image(systemName: "mappin")
-                .font(.system(size: 15))
-                .foregroundColor(.black)
-                .padding(.bottom, 30)
+                .padding(30)
         }
     }
 }

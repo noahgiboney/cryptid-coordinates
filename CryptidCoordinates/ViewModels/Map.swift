@@ -16,19 +16,17 @@ extension MapView{
         // region that the camera is showing on the map
         var cameraPosition: MapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.787994, longitude: -122.407437), span: .init(latitudeDelta: 0.2, longitudeDelta: 0.2)))
         
-        // lcoation if the user selects one
+        // lcoation to show if the user selects one
         var selectedLocation: HauntedLocation?
         
-        // different sheets to show on toggle
+        // sheets to show on toggle
         var showingSearch = false
-        var showingPreview = false
         var showingUserFavorites = false
         
+        // locations to display on map
         var displayedLocations = [HauntedLocation]()
-        
-        // array of locations to loop through when location is tapped
-        var previewArray: [HauntedLocation]?
-        
+    
+        // manage user location
         var locationManager: CLLocationManager?
         
         // execute when marker is tapped
@@ -54,7 +52,7 @@ extension MapView{
             }
         }
         
-        
+        // calculates locations around the center of the map center
         func getDisplayedLocations(center: CLLocationCoordinate2D) {
             displayedLocations = HauntedLocation.allLocations.filter { location in
                 
@@ -73,32 +71,7 @@ extension MapView{
             }
         }
         
-        func getNearestLocations(for startingLocation: HauntedLocation) -> [HauntedLocation] {
-            let array = HauntedLocation.allLocations
-            
-            guard let startingLatitude = Double(startingLocation.latitude),
-                  let startingLongitude = Double(startingLocation.longitude) else {
-                return []
-            }
-            
-            let current = CLLocation(latitude: startingLatitude, longitude: startingLongitude)
-            
-            var dictArray = array.compactMap { (location: HauntedLocation) -> [String: Any]? in
-                guard let locationLatitude = Double(location.latitude),
-                      let locationLongitude = Double(location.longitude) else {
-                    return nil
-                }
-                
-                return ["distance": current.distance(from: CLLocation(latitude: locationLatitude, longitude: locationLongitude)),
-                        "coordinate": location]
-            }
-            
-            dictArray.sort { ($0["distance"] as! CLLocationDistance) < ($1["distance"] as! CLLocationDistance) }
-            
-            return dictArray.compactMap { $0["coordinate"] as? HauntedLocation }
-        }
-        
-        
+        // user location
         private func checkLocationAuthorization() {
             guard let locationManager = locationManager else { return }
             
