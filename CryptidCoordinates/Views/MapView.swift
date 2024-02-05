@@ -15,6 +15,21 @@ struct MapView: View {
                 if viewModel.selectedLocation != nil{
                     if let selectedLocation = viewModel.selectedLocation {
                         PreviewView(cameraPosition: $viewModel.cameraPosition, currentLocation: selectedLocation)
+                            .overlay {
+                                Button {
+                                    viewModel.selectedLocation = nil
+                                    viewModel.updateCamera(to: selectedLocation.coordinates, span: 0.05)
+                                }label: {
+                                    Image(systemName: "arrow.down.right.and.arrow.up.left")
+                                        .foregroundStyle(.red)
+                                        .padding()
+                                        .background(.ultraThickMaterial)
+                                        .clipShape(Circle())
+                                        .shadow(radius: 10)
+                                }
+                                .padding(.top, 165)
+                                .padding(.leading, 290)
+                            }
                     }
                 }
             }
@@ -80,17 +95,6 @@ extension MapView {
                 }
                 .annotationTitles(.hidden)
             }
-            .onTapGesture(perform: { screenCord in
-                if let tappedCord = reader.convert(screenCord, from: .local) {
-                    if !clusterManager.isAMarker(point: tappedCord) && viewModel.selectedLocation != nil{
-                        viewModel.selectedLocation = nil
-                        
-                        if let spanLat = viewModel.cameraPosition.region?.span.latitudeDelta, let currentCord = viewModel.cameraPosition.region?.center {
-                            viewModel.updateCamera(to: currentCord, span: spanLat + 0.03)
-                        }
-                    }
-                }
-            })
         }
         .onMapCameraChange { context in
             clusterManager.currentRegion = context.region

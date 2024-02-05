@@ -33,7 +33,7 @@ extension LocationDetailView{
                     return
                 }
                 
-                proccessedImage = applyDarkGrainyFilter(to: uiImage)
+                proccessedImage = applyHuantedFilter(to: uiImage)
                 
             } catch {
                 print("unable to load image from \(url)")
@@ -41,24 +41,36 @@ extension LocationDetailView{
             
         }
         
-        func applyDarkGrainyFilter(to inputImage: UIImage) -> UIImage? {
-            let context = CIContext()
+        func applyHuantedFilter(to inputImage: UIImage) -> UIImage? {
+            let context = CIContext(options: nil)
             guard let cgImage = inputImage.cgImage else { return nil }
             let ciImage = CIImage(cgImage: cgImage)
 
-            // Apply a darkening filter
-            let darkenFilter = CIFilter.colorControls()
-            darkenFilter.inputImage = ciImage
-            darkenFilter.brightness = -0.15 // Adjust these values as needed
-            darkenFilter.contrast = 1.1
+            // Apply a darkening filter to reduce brightness and increase contrast
+            guard let darkenFilter = CIFilter(name: "CIColorControls") else { return nil }
+            darkenFilter.setValue(ciImage, forKey: kCIInputImageKey)
+            darkenFilter.setValue(-0.2, forKey: kCIInputBrightnessKey) // Darker than before
+            darkenFilter.setValue(1.2, forKey: kCIInputContrastKey) // Slightly higher contrast
 
-            // Apply a grain effect
-            let grainFilter = CIFilter.noiseReduction()
-            grainFilter.inputImage = darkenFilter.outputImage
-            grainFilter.noiseLevel = 0.02 // Adjust for more or less grain
-            grainFilter.sharpness = 0.7
+            // Apply a vignette effect to darken the edges, enhancing the haunted look
+            guard let vignetteFilter = CIFilter(name: "CIVignette") else { return nil }
+            vignetteFilter.setValue(darkenFilter.outputImage, forKey: kCIInputImageKey)
+            vignetteFilter.setValue(2, forKey: kCIInputIntensityKey) // Increase intensity for stronger edge darkening
+            vignetteFilter.setValue(1, forKey: kCIInputRadiusKey) // Adjust radius to fit the effect you're going for
 
-            if let outputImage = grainFilter.outputImage,
+            // Apply a grain effect to introduce noise
+            guard let grainFilter = CIFilter(name: "CINoiseReduction") else { return nil }
+            grainFilter.setValue(vignetteFilter.outputImage, forKey: kCIInputImageKey)
+            grainFilter.setValue(0.05, forKey: "inputNoiseLevel") // Higher noise level for more grain
+            grainFilter.setValue(0.7, forKey: "inputSharpness") // Maintain some sharpness
+
+            // Optional: Apply a color monochrome filter to give a chilling color tint
+            guard let colorMonochromeFilter = CIFilter(name: "CIColorMonochrome") else { return nil }
+            colorMonochromeFilter.setValue(grainFilter.outputImage, forKey: kCIInputImageKey)
+            colorMonochromeFilter.setValue(CIColor(color: UIColor(white: 0.5, alpha: 1.0)), forKey: kCIInputColorKey)
+            colorMonochromeFilter.setValue(0.1, forKey: kCIInputIntensityKey) // Subtle tint intensity
+
+            if let outputImage = colorMonochromeFilter.outputImage,
                let cgOutputImage = context.createCGImage(outputImage, from: ciImage.extent) {
                 return UIImage(cgImage: cgOutputImage)
             } else {

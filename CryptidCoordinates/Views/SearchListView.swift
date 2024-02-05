@@ -48,7 +48,10 @@ struct SearchListView: View {
                     }
                 }
             }
-            .onChange(of: searchBy) {
+            .onChange(of: searchBy){
+                viewModel.searchSelection = searchBy
+            }
+            .onAppear {
                 viewModel.searchSelection = searchBy
             }
         }
@@ -56,7 +59,7 @@ struct SearchListView: View {
     
     // update map camera to some point
     func updateCamera(to point: CLLocationCoordinate2D, span: Double) {
-        withAnimation(.smooth(duration: 2)){
+        withAnimation(.smooth){
             cameraPosition = .region(MKCoordinateRegion(center: point, span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)))
         }
     }
@@ -72,9 +75,9 @@ extension SearchListView {
     
     private var searchList: some View {
         List(viewModel.searchList) { item in
-            Text(item.text)
+            Text(item.text + (item.cityState ?? ""))
                 .onTapGesture {
-                    updateCamera(to: viewModel.getCordFor(for: item.text), span: 0.15)
+                    updateCamera(to: viewModel.getCordFor(for: item), span: 0.15)
                     dismiss()
                 }
         }

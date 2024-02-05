@@ -19,6 +19,7 @@ struct PreviewView: View {
         
         VStack(){
             
+            
             Spacer()
             
             locationCard
