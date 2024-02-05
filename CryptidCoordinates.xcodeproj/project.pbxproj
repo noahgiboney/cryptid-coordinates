@@ -27,7 +27,6 @@
 		E294BD742B50C4D900C5C39C /* GoogleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E294BD732B50C4D900C5C39C /* GoogleData.swift */; };
 		E2BC84252B54A568005681F9 /* SearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BC84242B54A568005681F9 /* SearchList.swift */; };
 		E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */; };
-		E2C76C092B4E14550080F669 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C76C082B4E14550080F669 /* ContentView.swift */; };
 		E2C76C0B2B4E14550080F669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2C76C0A2B4E14550080F669 /* Assets.xcassets */; };
 		E2C76C0E2B4E14550080F669 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2C76C0D2B4E14550080F669 /* Preview Assets.xcassets */; };
 		E2DE85332B6DBB7500D1AF12 /* SavedLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DE85322B6DBB7500D1AF12 /* SavedLocations.swift */; };
@@ -54,7 +53,6 @@
 		E2BC84242B54A568005681F9 /* SearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchList.swift; sourceTree = "<group>"; };
 		E2C76C032B4E14550080F669 /* CryptidCoordinates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptidCoordinates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptidCoordinatesApp.swift; sourceTree = "<group>"; };
-		E2C76C082B4E14550080F669 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E2C76C0A2B4E14550080F669 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2C76C0D2B4E14550080F669 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E2DE85322B6DBB7500D1AF12 /* SavedLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocations.swift; sourceTree = "<group>"; };
@@ -164,7 +162,6 @@
 		E2C76C182B4E15940080F669 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E2C76C082B4E14550080F669 /* ContentView.swift */,
 				E286FF8B2B56109F00C9782A /* MapView.swift */,
 				E27395D12B4E59BB00D70108 /* LocationDetailView.swift */,
 				E2ECE2EA2B53756600FA4BDB /* SearchListView.swift */,
@@ -258,7 +255,6 @@
 				E24A43AB2B4E2475006B1B2A /* Map.swift in Sources */,
 				E216EB0D2B4FA4D70006AB32 /* LocationDetail.swift in Sources */,
 				E294BD742B50C4D900C5C39C /* GoogleData.swift in Sources */,
-				E2C76C092B4E14550080F669 /* ContentView.swift in Sources */,
 				E286FF8E2B5610A500C9782A /* ClusterManager.swift in Sources */,
 				E28A75DE2B5A460C00B6176A /* PreviewView.swift in Sources */,
 				E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */,

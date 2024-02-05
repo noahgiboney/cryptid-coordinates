@@ -21,12 +21,9 @@ struct MapView: View {
                                     viewModel.updateCamera(to: selectedLocation.coordinates, span: 0.05)
                                 }label: {
                                     Image(systemName: "arrow.down.right.and.arrow.up.left")
-                                        .foregroundStyle(.red)
-                                        .padding()
-                                        .background(.ultraThickMaterial)
-                                        .clipShape(Circle())
-                                        .shadow(radius: 10)
+                                        .darkButtonStyle(foreground: .red)
                                 }
+                                .font(.caption)
                                 .padding(.top, 165)
                                 .padding(.leading, 290)
                             }

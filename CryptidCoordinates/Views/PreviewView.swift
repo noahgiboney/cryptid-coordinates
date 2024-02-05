@@ -28,7 +28,10 @@ struct PreviewView: View {
         .sheet(isPresented: $showingDetails) {
             LocationDetailView(location: currentLocation)
         }
+        .preferredColorScheme(.dark)
     }
+    
+    
     func updateCamera(to index: Int) {
         withAnimation(.easeIn) {
             cameraPosition = .region(MKCoordinateRegion(center: currentLocation.coordinates, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)))
@@ -55,8 +58,9 @@ extension PreviewView {
                 showingDetails.toggle()
             } label: {
                 Label("Investigate", systemImage: "eye.fill")
+                    .darkButtonStyle(foreground: .blue)
             }
-            .previewButtomStyle()
+            
         }
         .frame(width: 300, height: 150)
         .padding()

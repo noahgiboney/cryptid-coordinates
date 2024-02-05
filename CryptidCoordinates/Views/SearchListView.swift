@@ -59,7 +59,7 @@ struct SearchListView: View {
     
     // update map camera to some point
     func updateCamera(to point: CLLocationCoordinate2D, span: Double) {
-        withAnimation(.smooth){
+        withAnimation(.smooth(duration: 1.5)){
             cameraPosition = .region(MKCoordinateRegion(center: point, span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)))
         }
     }

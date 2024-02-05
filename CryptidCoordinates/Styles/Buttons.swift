@@ -7,34 +7,21 @@
 
 import SwiftUI
 
-
-struct NavButtonStyle: ViewModifier {
+struct DarkButton: ViewModifier {
+    
+    var color: Color
+    
     func body(content: Content) -> some View {
         content
-            .foregroundStyle(.white)
-            .frame(width: 70, height: 70)
-            .background(.black)
-            .clipShape(Circle())
-    }
-}
-
-struct PreviewButtonStyle: ViewModifier {
-    func body(content: Content) -> some View {
-        content
+            .foregroundStyle(color)
             .padding()
-            .foregroundStyle(.white)
-            .background(.black)
-            .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
-            .shadow(color: .gray, radius: 5)
+            .background(.ultraThickMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
     }
 }
 
 extension View{
-    func navButtonStyle() -> some View {
-        modifier(NavButtonStyle())
-    }
-    
-    func previewButtomStyle() -> some View {
-        modifier(PreviewButtonStyle())
+    func darkButtonStyle(foreground: Color) -> some View {
+        modifier(DarkButton(color: foreground))
     }
 }

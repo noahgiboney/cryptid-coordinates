@@ -78,11 +78,7 @@ extension LocationDetailView {
                     dismiss()
                 }label: {
                     Image(systemName: "arrow.down.right.and.arrow.up.left")
-                        .foregroundStyle(.red)
-                        .padding()
-                        .background(.ultraThinMaterial)
-                        .clipShape(Circle())
-                        .shadow(color: .black ,radius: 1, x:0, y:1)
+                        .darkButtonStyle(foreground: .red)
                 }
                 .padding()
                 
@@ -93,10 +89,7 @@ extension LocationDetailView {
                     }
                 }label: {
                     Image(systemName: viewModel.isInFavorites(location: location) ? "star.fill" : "star")
-                        .padding()
-                        .background(.ultraThinMaterial)
-                        .clipShape(Circle())
-                        .shadow(color: .black ,radius: 1, x:0, y:1)
+                        .darkButtonStyle(foreground: .blue)
                 }
                 .padding()
             }
