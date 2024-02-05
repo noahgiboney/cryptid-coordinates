@@ -23,7 +23,6 @@ extension MapView{
         var showingSearch = false
         var showingPreview = false
         var showingUserFavorites = false
-        var showingSubmitLocation = false
         
         var displayedLocations = [HauntedLocation]()
         

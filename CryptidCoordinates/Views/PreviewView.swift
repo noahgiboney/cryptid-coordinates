@@ -45,9 +45,9 @@ extension PreviewView {
         VStack(spacing: 10){
             Label(currentLocation.name, systemImage: "mappin")
                 .font(.title.bold())
-    
-            Label("\(currentLocation.city), \(currentLocation.stateAbbrev)", systemImage: "map")
-                .font(.subheadline.italic())
+            
+            Text(currentLocation.cityState)
+                .font(.subheadline)
                 .padding(.bottom)
             
             Button{

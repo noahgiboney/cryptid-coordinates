@@ -32,6 +32,11 @@ struct SearchListView: View {
             .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a \(searchBy.rawValue)")
             .toolbar {
+                ToolbarItem(placement: .topBarLeading){
+                    Button("Close"){
+                        dismiss()
+                    }
+                }
                 ToolbarItem{
                     Menu("Search by", systemImage: "arrow.up.arrow.down") {
                         Picker("Search by", selection: $searchBy) {
@@ -51,7 +56,7 @@ struct SearchListView: View {
     
     // update map camera to some point
     func updateCamera(to point: CLLocationCoordinate2D, span: Double) {
-        withAnimation(.smooth){
+        withAnimation(.smooth(duration: 2)){
             cameraPosition = .region(MKCoordinateRegion(center: point, span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)))
         }
     }
@@ -69,7 +74,7 @@ extension SearchListView {
         List(viewModel.searchList) { item in
             Text(item.text)
                 .onTapGesture {
-                    updateCamera(to: viewModel.getCordFor(for: item.text), span: 0.1)
+                    updateCamera(to: viewModel.getCordFor(for: item.text), span: 0.15)
                     dismiss()
                 }
         }

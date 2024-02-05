@@ -14,6 +14,7 @@ struct MapAnnotationView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 40, height: 40)
+                .padding([.horizontal, .top])
                 
             
             Image(systemName: "mappin")

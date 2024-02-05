@@ -7,27 +7,45 @@ struct MapView: View {
     @State private var viewModel = ViewModel()
 
     var body: some View {
-        ZStack(alignment: .bottom){
-            
-            mapLayer
+        NavigationStack{
+            ZStack(alignment: .bottom){
+                
+                mapLayer
 
-            if viewModel.selectedLocation == nil{
-                buttonLayer
-            }
-            else{
-                if let selectedLocation = viewModel.selectedLocation {
-                    PreviewView(cameraPosition: $viewModel.cameraPosition, currentLocation: selectedLocation)
+                if viewModel.selectedLocation != nil{
+                    if let selectedLocation = viewModel.selectedLocation {
+                        PreviewView(cameraPosition: $viewModel.cameraPosition, currentLocation: selectedLocation)
+                    }
                 }
             }
+            .navigationTitle("Crytpid Coordinates")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar{
+                ToolbarItem(placement: .topBarTrailing){
+                    Button {
+                        viewModel.showingSearch.toggle()
+                    } label: {
+                        Image(systemName: "magnifyingglass")
+                    }
+                }
+                ToolbarItem(placement: .topBarLeading){
+                    Button {
+                        viewModel.showingUserFavorites.toggle()
+                    } label: {
+                        Image(systemName: "star.fill")
+                    }
+                }
+            }
+            .preferredColorScheme(.dark)
+            .sheet(isPresented: $viewModel.showingSearch) {
+                SearchListView(cameraPosition: $viewModel.cameraPosition)
+                    .presentationDetents([.fraction(0.25),.medium,.large])
+            }
+            .sheet(isPresented: $viewModel.showingUserFavorites) {
+                SavedLocationsView()
+            }
         }
-        .preferredColorScheme(.light)
-        .sheet(isPresented: $viewModel.showingSearch) {
-            SearchListView(cameraPosition: $viewModel.cameraPosition)
-                .presentationDetents([.fraction(0.25),.medium,.large])
-        }
-        .sheet(isPresented: $viewModel.showingUserFavorites) {
-            SavedLocationsView()
-        }
+
     }
 }
 
@@ -55,7 +73,8 @@ extension MapView {
                     Annotation("\(item.count)", coordinate: item.coordinate) {
                         MapClusterView()
                             .onTapGesture {
-                                viewModel.updateCamera(to: item.coordinate, span: 0.03)
+                                print("tapped cluster")
+                                viewModel.updateCamera(to: item.coordinate, span: 0.05)
                             }
                     }
                 }
@@ -67,7 +86,7 @@ extension MapView {
                         viewModel.selectedLocation = nil
                         
                         if let spanLat = viewModel.cameraPosition.region?.span.latitudeDelta, let currentCord = viewModel.cameraPosition.region?.center {
-                            viewModel.updateCamera(to: currentCord, span: spanLat + 0.05)
+                            viewModel.updateCamera(to: currentCord, span: spanLat + 0.03)
                         }
                     }
                 }
@@ -83,26 +102,5 @@ extension MapView {
         .readSize(onChange: { newValue in
             clusterManager.mapSize = newValue
         })
-    }
-    
-    private var buttonLayer: some View {
-        HStack{
-            Button {
-                viewModel.showingUserFavorites.toggle()
-            } label: {
-                Image(systemName: "star.fill")
-                    .navButtonStyle()
-            }
-            .padding()
-            
-            Button {
-                viewModel.showingSearch.toggle()
-            } label: {
-                Image(systemName: "magnifyingglass")
-                    .navButtonStyle()
-            }
-            .padding()
-        }
-        .padding(.bottom)
     }
 }

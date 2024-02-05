@@ -10,19 +10,19 @@ import StoreKit
 import MapKit
 
 struct LocationDetailView: View {
-
+    
     @Environment(\.dismiss) var dismiss
     @State private var viewModel = ViewModel()
     @State private var imageManager = GoogleAPIManager()
     
     @State private var uiImage : UIImage?
-
+    
     var location: HauntedLocation
-        
+    
     var body: some View {
         NavigationStack{
             ScrollView{
-                VStack(alignment: .leading, spacing: 20){
+                VStack(alignment: .leading){
                     
                     imageSection
                     
@@ -30,27 +30,25 @@ struct LocationDetailView: View {
                     
                     Divider()
                     
-                    bodySection
-                    
-                    Divider()
+                    details
                     
                     lookAroundSection
                 }
-                .padding()
+                
                 .onAppear {
                     viewModel.fetchLookAroundPreview(for: location.coordinates)
                     viewModel.loadSavedLoations()
                 }
             }
-            .toolbar {
-                ToolbarItem{
-                    Button {
-                        toggleStar()
-                    } label: {
-                        Image(systemName: viewModel.isInFavorites(location: location) ? "star.fill" : "star")
-                    }
-                }
-            }
+            //            .toolbar {
+            //                ToolbarItem{
+            //                    Button {
+            //                        toggleStar()
+            //                    } label: {
+            //                        Image(systemName: viewModel.isInFavorites(location: location) ? "star.fill" : "star")
+            //                    }
+            //                }
+            //            }
             .task {
                 await imageManager.fetchURL(for: location.name)
             }
@@ -73,25 +71,43 @@ struct LocationDetailView: View {
 
 extension LocationDetailView {
     
-    private var header: some View {
-        VStack(alignment: .leading, spacing: 8){
-            Text(location.name)
-                .font(.title.bold())
-            Label("\(location.city), \(location.stateAbbrev)", systemImage: "map")
-                .font(.subheadline)
-        }
-    }
-    
     private var imageSection: some View {
-        VStack{
+        ZStack(alignment: .topLeading){
             if let image = viewModel.proccessedImage {
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .clipped()
-                        .frame(maxHeight: 250)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 3))
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .clipped()
+                    .frame(maxHeight: 200)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 3))
+            }
+            HStack{
+                Button {
+                    dismiss()
+                }label: {
+                    Image(systemName: "arrow.down.right.and.arrow.up.left")
+                        .foregroundStyle(.red)
+                        .padding()
+                        .background(.ultraThickMaterial)
+                        .clipShape(Circle())
+                        .shadow(radius: 10)
+                }
+                .padding()
+                
+                Spacer()
+                Button {
+                    withAnimation(.smooth){
+                        toggleStar()
+                    }
+                }label: {
+                    Image(systemName: viewModel.isInFavorites(location: location) ? "star.fill" : "star")
+                        .padding()
+                        .background(.ultraThickMaterial)
+                        .clipShape(Circle())
+                        .shadow(radius: 10)
+                }
+                .padding()
             }
             
         }
@@ -102,12 +118,26 @@ extension LocationDetailView {
         
     }
     
-    private var bodySection: some View {
-        VStack(alignment: .leading, spacing: 10){
-            Label("Details", systemImage: "doc.text.magnifyingglass")
-                .font(.title2)
-            Text(location.description)
+    private var header: some View {
+        VStack(alignment: .leading, spacing: 8){
+            Text(location.name)
+                .font(.title.bold())
+            Label("\(location.city), \(location.stateAbbrev)", systemImage: "map")
+                .font(.subheadline)
         }
+        .padding()
+    }
+    
+    private var details: some View {
+        VStack(alignment: .leading, spacing: 5){
+
+            Image(systemName: "doc.text.magnifyingglass")
+            
+            Text(location.description)
+            
+        }
+        .padding(.top, 2)
+        .padding([.horizontal, .bottom])
     }
     
     private var lookAroundSection: some View {
@@ -125,5 +155,6 @@ extension LocationDetailView {
                 .frame(height: 200)
             }
         }
+        .padding()
     }
 }

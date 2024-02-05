@@ -41,7 +41,7 @@ struct SavedLocationsView: View {
             .navigationTitle("Your Locations")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading){
-                    Button("Dismiss") {
+                    Button("Close") {
                         dismiss()
                     }
                 }
