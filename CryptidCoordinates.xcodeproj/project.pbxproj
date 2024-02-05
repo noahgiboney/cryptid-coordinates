@@ -152,8 +152,8 @@
 			isa = PBXGroup;
 			children = (
 				E24A43AA2B4E2475006B1B2A /* Map.swift */,
-				E2DE85322B6DBB7500D1AF12 /* SavedLocations.swift */,
 				E216EB0C2B4FA4D70006AB32 /* LocationDetail.swift */,
+				E2DE85322B6DBB7500D1AF12 /* SavedLocations.swift */,
 				E2BC84242B54A568005681F9 /* SearchList.swift */,
 			);
 			path = ViewModels;

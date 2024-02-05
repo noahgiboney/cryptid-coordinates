@@ -18,8 +18,10 @@ extension LocationDetailView{
         // some citys do not have look around support
         var lookAroundPlace: MKLookAroundScene?
         
+        // processed image
         var proccessedImage: UIImage?
         
+        // load and apply filter to an image form url
         func loadAndProccessImage(url: String) async {
             
             guard let url = URL(string: url) else {
@@ -41,6 +43,7 @@ extension LocationDetailView{
             
         }
         
+        // apply filter to a UIImage
         func applyHuantedFilter(to inputImage: UIImage) -> UIImage? {
             let context = CIContext(options: nil)
             guard let cgImage = inputImage.cgImage else { return nil }
@@ -49,26 +52,26 @@ extension LocationDetailView{
             // Apply a darkening filter to reduce brightness and increase contrast
             guard let darkenFilter = CIFilter(name: "CIColorControls") else { return nil }
             darkenFilter.setValue(ciImage, forKey: kCIInputImageKey)
-            darkenFilter.setValue(-0.2, forKey: kCIInputBrightnessKey) // Darker than before
-            darkenFilter.setValue(1.2, forKey: kCIInputContrastKey) // Slightly higher contrast
+            darkenFilter.setValue(-0.2, forKey: kCIInputBrightnessKey)
+            darkenFilter.setValue(1.2, forKey: kCIInputContrastKey)
 
             // Apply a vignette effect to darken the edges, enhancing the haunted look
             guard let vignetteFilter = CIFilter(name: "CIVignette") else { return nil }
             vignetteFilter.setValue(darkenFilter.outputImage, forKey: kCIInputImageKey)
-            vignetteFilter.setValue(2, forKey: kCIInputIntensityKey) // Increase intensity for stronger edge darkening
-            vignetteFilter.setValue(1, forKey: kCIInputRadiusKey) // Adjust radius to fit the effect you're going for
+            vignetteFilter.setValue(2, forKey: kCIInputIntensityKey)
+            vignetteFilter.setValue(1, forKey: kCIInputRadiusKey)
 
             // Apply a grain effect to introduce noise
             guard let grainFilter = CIFilter(name: "CINoiseReduction") else { return nil }
             grainFilter.setValue(vignetteFilter.outputImage, forKey: kCIInputImageKey)
-            grainFilter.setValue(0.05, forKey: "inputNoiseLevel") // Higher noise level for more grain
-            grainFilter.setValue(0.7, forKey: "inputSharpness") // Maintain some sharpness
+            grainFilter.setValue(0.05, forKey: "inputNoiseLevel")
+            grainFilter.setValue(0.7, forKey: "inputSharpness")
 
             // Optional: Apply a color monochrome filter to give a chilling color tint
             guard let colorMonochromeFilter = CIFilter(name: "CIColorMonochrome") else { return nil }
             colorMonochromeFilter.setValue(grainFilter.outputImage, forKey: kCIInputImageKey)
             colorMonochromeFilter.setValue(CIColor(color: UIColor(white: 0.5, alpha: 1.0)), forKey: kCIInputColorKey)
-            colorMonochromeFilter.setValue(0.1, forKey: kCIInputIntensityKey) // Subtle tint intensity
+            colorMonochromeFilter.setValue(0.1, forKey: kCIInputIntensityKey)
 
             if let outputImage = colorMonochromeFilter.outputImage,
                let cgOutputImage = context.createCGImage(outputImage, from: ciImage.extent) {
@@ -78,6 +81,7 @@ extension LocationDetailView{
             }
         }
         
+        // array of locations to store in app storage
         var savedLocations = [HauntedLocation]() {
             didSet {
                 let url = URL.documentsDirectory.appending(component: "savedLocations")
@@ -87,6 +91,18 @@ extension LocationDetailView{
                     
                 } catch {
                     print(error.localizedDescription)
+                }
+            }
+        }
+        
+        // append or remove location from favorites by pressing star
+        func toggleStar(location: HauntedLocation) {
+            if !isInFavorites(location: location) {
+                savedLocations.append(location)
+            }
+            else {
+                if let index = savedLocations.firstIndex(of: location) {
+                    savedLocations.remove(at: index)
                 }
             }
         }
@@ -101,6 +117,7 @@ extension LocationDetailView{
             return false
         }
         
+        // load saved locations from app storage
         func loadSavedLoations() {
             let url = URL.documentsDirectory.appending(component: "savedLocations")
             

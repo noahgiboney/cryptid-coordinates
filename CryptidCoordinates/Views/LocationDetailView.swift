@@ -15,50 +15,29 @@ struct LocationDetailView: View {
     @State private var viewModel = ViewModel()
     @State private var imageManager = GoogleAPIManager()
     
-    @State private var uiImage : UIImage?
-    
+    // location to preview
     var location: HauntedLocation
     
     var body: some View {
         NavigationStack{
             ScrollView{
                 VStack(alignment: .leading){
-                    
                     imageSection
-                    
                     header
-                    
                     Divider()
-                    
                     details
-                    
                     lookAroundSection
                 }
-                
                 .onAppear {
                     viewModel.fetchLookAroundPreview(for: location.coordinates)
                     viewModel.loadSavedLoations()
                 }
-            }
-            .task {
-                await imageManager.fetchURL(for: location.name)
-            }
-        }
-    }
-    func toggleStar() {
-        if !viewModel.isInFavorites(location: location) {
-            viewModel.savedLocations.append(location)
-        }
-        else {
-            if let index = viewModel.savedLocations.firstIndex(of: location) {
-                viewModel.savedLocations.remove(at: index)
             }
         }
     }
 }
 #Preview {
     LocationDetailView(location: HauntedLocation.allLocations[4234])
-        .preferredColorScheme(.dark)
 }
 
 extension LocationDetailView {
@@ -84,10 +63,9 @@ extension LocationDetailView {
                 .padding()
                 
                 Spacer()
+                
                 Button {
-                    withAnimation(.smooth){
-                        toggleStar()
-                    }
+                    viewModel.toggleStar(location: location)
                 }label: {
                     Image(systemName: viewModel.isInFavorites(location: location) ? "star.fill" : "star")
                         .darkButtonStyle(foreground: .blue)
@@ -115,9 +93,7 @@ extension LocationDetailView {
     
     private var details: some View {
         VStack(alignment: .leading, spacing: 5){
-
             Image(systemName: "doc.text.magnifyingglass")
-            
             Text(location.description)
             
         }
