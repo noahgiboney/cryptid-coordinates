@@ -40,14 +40,14 @@ struct MapView: View {
                     Button {
                         viewModel.showingSearch.toggle()
                     } label: {
-                        Image(systemName: "magnifyingglass")
+                        Image(systemName: "magnifyingglass.circle")
                     }
                 }
                 ToolbarItem(placement: .topBarLeading){
                     Button {
                         viewModel.showingUserFavorites.toggle()
                     } label: {
-                        Image(systemName: "star.fill")
+                        Image(systemName: "star.circle")
                     }
                 }
             }

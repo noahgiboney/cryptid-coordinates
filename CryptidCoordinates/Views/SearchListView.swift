@@ -75,7 +75,7 @@ extension SearchListView {
     
     private var searchList: some View {
         List(viewModel.searchList) { item in
-            Text(item.text + (item.cityState ?? ""))
+            Text(item.text + " " + (item.cityState ?? ""))
                 .onTapGesture {
                     updateCamera(to: viewModel.getCordFor(for: item), span: 0.15)
                     dismiss()

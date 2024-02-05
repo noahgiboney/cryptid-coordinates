@@ -40,15 +40,6 @@ struct LocationDetailView: View {
                     viewModel.loadSavedLoations()
                 }
             }
-            //            .toolbar {
-            //                ToolbarItem{
-            //                    Button {
-            //                        toggleStar()
-            //                    } label: {
-            //                        Image(systemName: viewModel.isInFavorites(location: location) ? "star.fill" : "star")
-            //                    }
-            //                }
-            //            }
             .task {
                 await imageManager.fetchURL(for: location.name)
             }
@@ -89,9 +80,9 @@ extension LocationDetailView {
                     Image(systemName: "arrow.down.right.and.arrow.up.left")
                         .foregroundStyle(.red)
                         .padding()
-                        .background(.ultraThickMaterial)
+                        .background(.ultraThinMaterial)
                         .clipShape(Circle())
-                        .shadow(radius: 10)
+                        .shadow(color: .black ,radius: 1, x:0, y:1)
                 }
                 .padding()
                 
@@ -103,9 +94,9 @@ extension LocationDetailView {
                 }label: {
                     Image(systemName: viewModel.isInFavorites(location: location) ? "star.fill" : "star")
                         .padding()
-                        .background(.ultraThickMaterial)
+                        .background(.ultraThinMaterial)
                         .clipShape(Circle())
-                        .shadow(radius: 10)
+                        .shadow(color: .black ,radius: 1, x:0, y:1)
                 }
                 .padding()
             }
