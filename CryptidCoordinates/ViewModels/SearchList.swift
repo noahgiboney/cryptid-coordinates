@@ -11,11 +11,10 @@ import SwiftUI
 extension SearchListView {
     
     // defines what list is showing to search over
-    enum ListType: String {
+    enum SearchType: String {
         case city, location
     }
     
-    // search through this nested struct
     struct SearchItem: Identifiable, Comparable {
         var id = UUID()
         var text: String
@@ -33,7 +32,7 @@ extension SearchListView {
         var searchText = ""
         
         // selection for type of list
-        var searchSelection: ListType = .city
+        var searchSelection: SearchType = .city
         
         //dynamically returns list based on searchText
         var searchList: [SearchItem] {
