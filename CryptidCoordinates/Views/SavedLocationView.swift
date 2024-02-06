@@ -5,21 +5,16 @@
 //  Created by Noah Giboney on 1/26/24.
 //
 
-import SwiftData
 import SwiftUI
 
 struct SavedLocationsView: View {
-    
-    enum SortType: String {
-        case newest, oldest
-    }
     
     @AppStorage("sortBy") var sortSelection: SortType = .newest
     @Environment(\.dismiss) var dismiss
     @State private var viewModel = ViewModel()
     
+    // sort list based on selection
     var sortedList: [HauntedLocation] {
-        
         switch sortSelection {
         case .newest:
             return viewModel.savedLocations.reversed()
@@ -45,7 +40,6 @@ struct SavedLocationsView: View {
                         dismiss()
                     }
                 }
-                
                 ToolbarItem{
                     if !viewModel.savedLocations.isEmpty {
                         Menu("Sort By", systemImage: "arrow.up.arrow.down") {
@@ -60,7 +54,6 @@ struct SavedLocationsView: View {
                     
                     
                 }
-                
                 ToolbarItem{
                     if !viewModel.savedLocations.isEmpty{
                         EditButton()
@@ -88,17 +81,10 @@ extension SavedLocationsView {
                         LocationDetailView(location: location)
                             .navigationBarTitleDisplayMode(.inline)
                     }  label: {
-                        HStack{
-                            VStack(alignment: .leading){
-                                Text(location.name)
-                                Text(location.cityState)
-                                    .font(.caption.italic())
-                            }
-                            Spacer()
-                            Image("ghost")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 25)
+                        VStack(alignment: .leading){
+                            Text(location.name)
+                            Text(location.cityState)
+                                .font(.caption.italic())
                         }
                     }
                 }

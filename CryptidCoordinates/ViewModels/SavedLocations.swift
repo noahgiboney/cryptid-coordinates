@@ -10,11 +10,17 @@ import SwiftUI
 
 extension SavedLocationsView{
     
+    enum SortType: String {
+        case newest, oldest
+    }
+    
     @Observable
     class ViewModel {
         
+        // array of locations loaded from app storage
         var savedLocations = [HauntedLocation]()
         
+        // load locations from app storage
         func loadSavedLocations() {
             let url = URL.documentsDirectory.appending(component: "savedLocations")
             
