@@ -63,7 +63,7 @@ extension MapView {
     private var previewLayer: some View {
         VStack{
             if let selectedLocation = viewModel.selectedLocation {
-                PreviewView(cameraPosition: $viewModel.cameraPosition, currentLocation: selectedLocation)
+                PreviewCardView(cameraPosition: $viewModel.cameraPosition, location: selectedLocation)
                     .overlay {
                         Button {
                             viewModel.selectedLocation = nil

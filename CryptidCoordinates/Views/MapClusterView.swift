@@ -14,9 +14,8 @@ struct MapClusterView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 25, height: 25)
-                .foregroundStyle(.white)
+                .foregroundStyle(.black)
         }
-        .preferredColorScheme(.dark)
     }
 }
 

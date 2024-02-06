@@ -8,49 +8,37 @@
 import MapKit
 import SwiftUI
 
-struct PreviewView: View {
+struct PreviewCardView: View {
     
     @Binding var cameraPosition: MapCameraPosition
     @State private var showingDetails = false
-    
-    var currentLocation: HauntedLocation
+
+    var location: HauntedLocation
     
     var body: some View {
         
         VStack(){
-            
-            
             Spacer()
-            
             locationCard
                 .padding(.bottom, 100)
         }
         .sheet(isPresented: $showingDetails) {
-            LocationDetailView(location: currentLocation)
-        }
-        .preferredColorScheme(.dark)
-    }
-    
-    
-    func updateCamera(to index: Int) {
-        withAnimation(.easeIn) {
-            cameraPosition = .region(MKCoordinateRegion(center: currentLocation.coordinates, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)))
+            LocationDetailView(location: location)
         }
     }
 }
 
 #Preview {
-    PreviewView(cameraPosition: .constant(.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.787994, longitude: -122.407437), span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)))) ,currentLocation : HauntedLocation.allLocations[33])
+    PreviewCardView(cameraPosition: .constant(.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.787994, longitude: -122.407437), span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)))) ,location : HauntedLocation.allLocations[33])
 }
 
-extension PreviewView {
+extension PreviewCardView {
     
     private var locationCard: some View {
         VStack(spacing: 10){
-            Label(currentLocation.name, systemImage: "mappin")
+            Label(location.name, systemImage: "mappin")
                 .font(.title.bold())
-            
-            Text(currentLocation.cityState)
+            Text(location.cityState)
                 .font(.subheadline)
                 .padding(.bottom)
             
