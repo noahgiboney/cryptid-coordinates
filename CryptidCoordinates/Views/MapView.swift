@@ -15,34 +15,39 @@ struct MapView: View {
     
     var body: some View {
         NavigationStack{
-            ZStack{
+            ZStack(alignment: .topLeading){
                 
                 mapLayer
                 
-                if viewModel.selectedLocation != nil{
+                VStack(spacing: 1){
+                    Button {
+                        viewModel.showingUserFavorites.toggle()
+                    }label: {
+                        Image(systemName: "star")
+                            .darkButtonStyle(foreground: .blue)
+                    }
+
+                    .scaleEffect(CGSize(width: 0.9, height: 0.9))
                     
+                    Button {
+                        viewModel.showingSearch.toggle()
+                    }label: {
+                        Image(systemName: "magnifyingglass")
+                            .darkButtonStyle(foreground: .blue)
+                    }
+                    .padding(3)
+                    .scaleEffect(CGSize(width: 0.9, height: 0.9))
+                }
+                .padding(.top, 2)
+                
+                
+                if viewModel.selectedLocation != nil{
                     previewLayer
                 }
             }
             .preferredColorScheme(.dark)
-            .navigationTitle("Crytpid Coordinates")
+            .navigationTitle("Cryptid Coordinates")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar{
-                ToolbarItem(placement: .topBarTrailing){
-                    Button {
-                        viewModel.showingSearch.toggle()
-                    } label: {
-                        Image(systemName: "magnifyingglass.circle")
-                    }
-                }
-                ToolbarItem(placement: .topBarLeading){
-                    Button {
-                        viewModel.showingUserFavorites.toggle()
-                    } label: {
-                        Image(systemName: "star.circle")
-                    }
-                }
-            }
             .sheet(isPresented: $viewModel.showingSearch) {
                 SearchListView(cameraPosition: $viewModel.cameraPosition)
                     .presentationDetents([.fraction(0.25),.medium,.large])
@@ -104,7 +109,15 @@ extension MapView {
                     .annotationTitles(.hidden)
                 }
             }
+            .mapControls{
+                MapUserLocationButton()
+                MapPitchToggle()
+            }
+            .onAppear{
+                CLLocationManager().requestWhenInUseAuthorization()
+            }
         }
+        
         .onMapCameraChange { context in
             clusterManager.currentRegion = context.region
             Task {

@@ -16,7 +16,7 @@ struct DarkButton: ViewModifier {
             .foregroundStyle(color)
             .padding()
             .background(.ultraThickMaterial)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
 
