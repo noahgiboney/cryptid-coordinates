@@ -96,6 +96,13 @@ extension LocationDetailView {
             Image(systemName: "doc.text.magnifyingglass")
             Text(location.description)
             
+            Button{
+                viewModel.openInMaps(location: location)
+            } label: {
+                Label("Directions", systemImage: "map")
+                    .darkButtonStyle(foreground: .blue)
+            }
+            
         }
         .padding(.top, 2)
         .padding([.horizontal, .bottom])
@@ -108,8 +115,6 @@ extension LocationDetailView {
             }
             else {
                 VStack(alignment: .leading){
-                    Label("See for yourself", systemImage: "binoculars.fill")
-                        .font(.title2)
                     LookAroundPreview(scene: $viewModel.lookAroundPlace)
                         .clipShape(.rect(cornerRadius: 10))
                 }

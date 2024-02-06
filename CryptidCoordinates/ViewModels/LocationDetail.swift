@@ -21,6 +21,11 @@ extension LocationDetailView{
         // processed image
         var proccessedImage: UIImage?
         
+        func openInMaps(location: HauntedLocation) {
+            let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinates))
+            item.openInMaps()
+        }
+        
         // load and apply filter to an image form url
         func loadAndProccessImage(url: String) async {
             

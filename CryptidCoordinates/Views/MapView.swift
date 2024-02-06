@@ -19,26 +19,7 @@ struct MapView: View {
                 
                 mapLayer
                 
-                VStack(spacing: 1){
-                    Button {
-                        viewModel.showingUserFavorites.toggle()
-                    }label: {
-                        Image(systemName: "star")
-                            .darkButtonStyle(foreground: .blue)
-                    }
-
-                    .scaleEffect(CGSize(width: 0.9, height: 0.9))
-                    
-                    Button {
-                        viewModel.showingSearch.toggle()
-                    }label: {
-                        Image(systemName: "magnifyingglass")
-                            .darkButtonStyle(foreground: .blue)
-                    }
-                    .padding(3)
-                    .scaleEffect(CGSize(width: 0.9, height: 0.9))
-                }
-                .padding(.top, 2)
+                mapButtons
                 
                 if viewModel.selectedLocation != nil{
                     HStack{
@@ -67,6 +48,29 @@ struct MapView: View {
 }
 
 extension MapView {
+    
+    private var mapButtons: some View {
+        VStack(spacing: 1){
+            Button {
+                viewModel.showingUserFavorites.toggle()
+            }label: {
+                Image(systemName: "star")
+                    .darkButtonStyle(foreground: .blue)
+            }
+
+            .scaleEffect(CGSize(width: 0.9, height: 0.9))
+            
+            Button {
+                viewModel.showingSearch.toggle()
+            }label: {
+                Image(systemName: "magnifyingglass")
+                    .darkButtonStyle(foreground: .blue)
+            }
+            .padding(3)
+            .scaleEffect(CGSize(width: 0.9, height: 0.9))
+        }
+        .padding(.top, 2)
+    }
     
     private var previewLayer: some View {
         VStack{
@@ -120,7 +124,6 @@ extension MapView {
                 CLLocationManager().requestWhenInUseAuthorization()
             }
         }
-        
         .onMapCameraChange { context in
             clusterManager.currentRegion = context.region
             Task {
