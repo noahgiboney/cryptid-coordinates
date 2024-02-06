@@ -40,9 +40,12 @@ struct MapView: View {
                 }
                 .padding(.top, 2)
                 
-                
                 if viewModel.selectedLocation != nil{
-                    previewLayer
+                    HStack{
+                        Spacer()
+                        previewLayer
+                        Spacer()
+                    }
                 }
             }
             .preferredColorScheme(.dark)
