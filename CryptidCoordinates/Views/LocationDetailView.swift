@@ -19,7 +19,6 @@ struct LocationDetailView: View {
     var location: HauntedLocation
     
     var body: some View {
-        NavigationStack{
             ScrollView{
                 VStack(alignment: .leading){
                     imageSection
@@ -33,7 +32,6 @@ struct LocationDetailView: View {
                     viewModel.loadSavedLoations()
                 }
             }
-        }
     }
 }
 #Preview {
@@ -54,25 +52,15 @@ extension LocationDetailView {
                     .clipShape(RoundedRectangle(cornerRadius: 3))
             }
             HStack{
-                Button {
-                    dismiss()
-                }label: {
-                    Image(systemName: "arrow.down.right.and.arrow.up.left")
-                        .darkButtonStyle(foreground: .red)
-                }
-                .padding()
-                
                 Spacer()
-                
                 Button {
                     viewModel.toggleStar(location: location)
                 }label: {
                     Image(systemName: viewModel.isInFavorites(location: location) ? "star.fill" : "star")
-                        .darkButtonStyle(foreground: .blue)
+                        .darkButtonStyle(foreground: .yellow)
                 }
-                .padding()
+                .padding(10)
             }
-            
         }
         .task {
             await imageManager.fetchURL(for: location.name)
@@ -85,7 +73,7 @@ extension LocationDetailView {
         VStack(alignment: .leading, spacing: 8){
             Text(location.name)
                 .font(.title.bold())
-            Label("\(location.city), \(location.stateAbbrev)", systemImage: "map")
+            Text("\(location.city), \(location.stateAbbrev)")
                 .font(.subheadline)
         }
         .padding()
@@ -97,12 +85,12 @@ extension LocationDetailView {
             Text(location.description)
             
             Button{
-                viewModel.openInMaps(location: location)
+                viewModel.openInMaps(location)
             } label: {
                 Label("Directions", systemImage: "map")
                     .darkButtonStyle(foreground: .blue)
             }
-            
+            .padding(.top)
         }
         .padding(.top, 2)
         .padding([.horizontal, .bottom])

@@ -37,7 +37,7 @@ struct SearchListView: View {
                     }
                 }
                 ToolbarItem{
-                    Menu("Search by", systemImage: "arrow.up.arrow.down") {
+                    Menu("Search by", systemImage: "line.3.horizontal.decrease") {
                         Picker("Search by", selection: $searchBy) {
                             Text("City")
                                 .tag(SearchType.city)
@@ -45,6 +45,7 @@ struct SearchListView: View {
                                 .tag(SearchType.location)
                         }
                     }
+                    
                 }
             }
             .onChange(of: searchBy){

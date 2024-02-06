@@ -21,7 +21,7 @@ extension LocationDetailView{
         // processed image
         var proccessedImage: UIImage?
         
-        func openInMaps(location: HauntedLocation) {
+        func openInMaps(_ location: HauntedLocation) {
             let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinates))
             item.openInMaps()
         }

@@ -42,7 +42,7 @@ struct SavedLocationsView: View {
                 }
                 ToolbarItem{
                     if !viewModel.savedLocations.isEmpty {
-                        Menu("Sort By", systemImage: "arrow.up.arrow.down") {
+                        Menu("Sort By", systemImage: "line.3.horizontal.decrease.circle") {
                             Picker("Sort y", selection: $sortSelection) {
                                 Text("Newest")
                                     .tag(SortType.newest)

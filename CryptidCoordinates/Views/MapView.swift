@@ -55,7 +55,7 @@ extension MapView {
                 viewModel.showingUserFavorites.toggle()
             }label: {
                 Image(systemName: "star")
-                    .darkButtonStyle(foreground: .blue)
+                    .darkButtonStyle(foreground: .yellow)
             }
 
             .scaleEffect(CGSize(width: 0.9, height: 0.9))
@@ -64,7 +64,7 @@ extension MapView {
                 viewModel.showingSearch.toggle()
             }label: {
                 Image(systemName: "magnifyingglass")
-                    .darkButtonStyle(foreground: .blue)
+                    .darkButtonStyle(foreground: .white)
             }
             .padding(3)
             .scaleEffect(CGSize(width: 0.9, height: 0.9))
@@ -95,6 +95,7 @@ extension MapView {
     private var mapLayer: some View {
         MapReader{ reader in
             Map(position: $viewModel.cameraPosition) {
+                UserAnnotation()
                 ForEach(clusterManager.annotations) { item in
                     Annotation("\(item.id)", coordinate: item.coordinate) {
                         MapAnnotationView()
