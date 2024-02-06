@@ -73,7 +73,7 @@ extension MapView {
                                 .darkButtonStyle(foreground: .red)
                         }
                         .font(.caption)
-                        .padding(.top, 175)
+                        .padding(.top, 160)
                         .padding(.leading, 290)
                     }
             }
@@ -88,6 +88,7 @@ extension MapView {
                         MapAnnotationView()
                             .scaleEffect(viewModel.selectedLocation?.coordinates == item.coordinate ? 1.3 : 1)
                             .onTapGesture {
+                                viewModel.updateCamera(to: item.coordinate, span: 0.01)
                                 viewModel.tappedMarker(marker: item)
                             }
                     }

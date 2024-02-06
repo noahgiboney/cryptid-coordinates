@@ -50,6 +50,4 @@ struct HauntedLocation: Codable, Hashable, Identifiable {
     }
     
     static let allLocations: [HauntedLocation] = Bundle.main.decode(file: "hauntedplaces.json")
-    
-    static let example = HauntedLocation.allLocations[0]
 }

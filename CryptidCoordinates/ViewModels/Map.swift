@@ -32,7 +32,6 @@ extension MapView{
         // execute when marker is tapped
         func tappedMarker(marker: MKMapItem) {
             selectedLocation = getLocation(for: marker)
-            updateCamera(to: marker.coordinate, span: 0.01)
         }
         
         // converts the marker to the haunted location
@@ -47,7 +46,7 @@ extension MapView{
         
         // update map camera to some point
         func updateCamera(to point: CLLocationCoordinate2D, span: Double) {
-            withAnimation(.smooth(duration: 1.5)){
+            withAnimation(.smooth(duration: 5)){
                 cameraPosition = .region(MKCoordinateRegion(center: point, span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)))
             }
         }
