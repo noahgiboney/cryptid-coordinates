@@ -51,9 +51,14 @@
       </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = ""
-            value = ""
-            isEnabled = "NO">
+            key = "API_KEY"
+            value = "AIzaSyCtwfhw-m5veLfJMNLYi0Vdna-E0kD6qfA"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "SEARCH_ID"
+            value = "84d755fd86d324926"
+            isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>

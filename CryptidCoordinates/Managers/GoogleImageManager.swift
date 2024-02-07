@@ -37,8 +37,13 @@ class GoogleAPIManager {
     
     // performs network call to get url
     private func callAPI(search searchTerm: String) async throws{
+        
+        // api stuff
+        let apiKey = ProcessInfo().environment["API_KEY"] ?? ""
+        let searchID = ProcessInfo().environment["SEARCH_ID"] ?? ""
+        
         // establish url endpoint
-        let endpoint = "https://www.googleapis.com/customsearch/v1?key=\("AIzaSyCtwfhw-m5veLfJMNLYi0Vdna-E0kD6qfA")&cx=\("84d755fd86d324926")&q=\(searchTerm)"
+        let endpoint = "https://www.googleapis.com/customsearch/v1?key=\(apiKey)&cx=\(searchID)&q=\(searchTerm)"
         
         guard let url = URL(string: endpoint) else {
             throw APIError.urlError
