@@ -24,8 +24,11 @@ struct SavedLocationsView: View {
     }
     
     var body: some View {
+        
         NavigationStack{
+            
             VStack{
+                
                 if viewModel.savedLocations.isEmpty {
                     ContentUnavailableView("No Locations Saved Yet", image: "ghost")
                 }
@@ -41,13 +44,17 @@ struct SavedLocationsView: View {
             })
             .toolbar {
                 ToolbarItem(placement: .topBarLeading){
+                    
                     Button("Close") {
                         dismiss()
                     }
                 }
                 ToolbarItem{
+                    
                     if !viewModel.savedLocations.isEmpty {
+        
                         Menu("Sort By", systemImage: "line.3.horizontal.decrease.circle") {
+                            
                             Picker("Sort y", selection: $sortSelection) {
                                 Text("Newest")
                                     .tag(SortType.newest)
@@ -75,9 +82,13 @@ struct SavedLocationsView: View {
 extension SavedLocationsView {
     
     private var locationList: some View {
+        
         VStack{
+            
             List {
+                
                 ForEach(sortedList) { location in
+                    
                     VStack(alignment: .leading){
                         Text(location.name)
                         Text(location.cityState)

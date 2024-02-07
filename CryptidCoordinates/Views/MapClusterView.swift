@@ -10,11 +10,13 @@ import SwiftUI
 struct MapClusterView: View {
     var body: some View {
         VStack {
+            
             Image(systemName: "square.3.layers.3d")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 25, height: 25)
                 .foregroundStyle(.black)
+            
         }
     }
 }

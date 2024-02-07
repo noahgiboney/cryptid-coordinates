@@ -16,8 +16,11 @@ struct SearchListView: View {
     @State private var viewModel = ViewModel()
     
     var body: some View {
+        
         NavigationStack{
+            
             VStack{
+                
                 if viewModel.searchText != ""{
                     searchList
                 }
@@ -25,7 +28,6 @@ struct SearchListView: View {
                     placeholderImage
                 }
             }
-            // nav
             .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $viewModel.showingDetails){
@@ -79,7 +81,9 @@ struct SearchListView: View {
 extension SearchListView {
     
     private var searchList: some View {
+        
         List(viewModel.searchList) { item in
+            
             Text(item.text + " " + (item.cityState ?? ""))
                 .onTapGesture {
                     switch searchBy {
@@ -98,11 +102,13 @@ extension SearchListView {
     
     private var placeholderImage: some View {
         VStack{
+            
             Image(systemName: "magnifyingglass")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 70)
                 .padding(.top)
+            
             Spacer()
         }
     }

@@ -15,13 +15,18 @@ struct PreviewCardView: View {
     @Environment(\.requestReview) var requestReview
     @Binding var cameraPosition: MapCameraPosition
     @State private var showingDetails = false
-
+    
+    // current locaiton to display
     var location: HauntedLocation
     
     var body: some View {
+        
         NavigationStack{
+            
             VStack(){
+                
                 Spacer()
+                
                 locationCard
                     .padding(.bottom, 80)
             }
@@ -31,6 +36,7 @@ struct PreviewCardView: View {
         }
         .navigationTitle("\(location.name)")
     }
+    
     @MainActor
     func requestReviewIfAppropriate(){
         if visitCount <= 10{
@@ -50,12 +56,16 @@ struct PreviewCardView: View {
 extension PreviewCardView {
     
     private var locationCard: some View {
+        
         VStack(spacing: 10){
+            
             Text(location.name)
                 .font(.title.bold())
+            
             Text(location.cityState)
                 .font(.subheadline)
                 .padding(.bottom)
+            
             Button{
                 Task{
                     await requestReviewIfAppropriate()

@@ -18,13 +18,21 @@ struct LocationDetailView: View {
     var location: HauntedLocation
     
     var body: some View {
+        
             ScrollView{
+                
                 VStack(alignment: .leading){
+                    
                     imageSection
+                    
                     header
+                    
                     Divider()
+                    
                     details
+                    
                     Divider()
+                    
                     lookAroundSection
                 }
                 .onAppear {
@@ -41,7 +49,9 @@ struct LocationDetailView: View {
 extension LocationDetailView {
     
     private var imageSection: some View {
+        
         ZStack(alignment: .topLeading){
+            
             if let image = viewModel.proccessedImage {
                 Image(uiImage: image)
                     .resizable()
@@ -51,7 +61,9 @@ extension LocationDetailView {
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 3))
             }
+            
             HStack{
+                
                 Button {
                     dismiss()
                 }label: {
@@ -70,18 +82,24 @@ extension LocationDetailView {
     }
     
     private var header: some View {
+        
         VStack(alignment: .leading, spacing: 8){
+            
             Text(location.name)
                 .font(.title.bold())
+            
             Text("\(location.city), \(location.stateAbbrev)")
                 .font(.subheadline)
+            
             HStack{
+                
                 Button{
                     viewModel.openInMaps(location)
                 } label: {
                     Label("Directions", systemImage: "map")
                         .darkLabelStyle(foreground: .blue)
                 }
+                
                 Button {
                     viewModel.toggleStar(location: location)
                 }label: {
@@ -98,18 +116,24 @@ extension LocationDetailView {
     }
     
     private var details: some View {
+        
         VStack(alignment: .leading, spacing: 5){
+            
             Text(location.description)
         }
         .padding()
     }
     
     private var lookAroundSection: some View {
+        
         ZStack{
+            
             if viewModel.lookAroundPlace == nil {
+                
                 Label("No Lookaround Available", systemImage: "eye.slash")
             }
             else {
+                
                 VStack(alignment: .leading){
                     LookAroundPreview(scene: $viewModel.lookAroundPlace)
                         .clipShape(.rect(cornerRadius: 10))
