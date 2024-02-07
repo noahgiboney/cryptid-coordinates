@@ -51,13 +51,9 @@ struct SavedLocationsView: View {
                             }
                         }
                     }
-                    
-                    
                 }
                 ToolbarItem{
-                    if !viewModel.savedLocations.isEmpty{
-                        EditButton()
-                    }
+                    EditButton()
                 }
             }
             .onAppear {

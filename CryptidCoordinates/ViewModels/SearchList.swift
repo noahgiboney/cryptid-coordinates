@@ -19,6 +19,7 @@ extension SearchListView {
         var id = UUID()
         var text: String
         var cityState: String?
+        var coordinates: CLLocationCoordinate2D?
         
         static func <(lhs: SearchItem, rhs: SearchItem) -> Bool{
             return lhs.text < rhs.text
@@ -30,6 +31,11 @@ extension SearchListView {
         
         // text to search for in list
         var searchText = ""
+        
+        //
+        var showingDetails = false
+        
+        var location: HauntedLocation?
         
         // selection for type of list
         var searchSelection: SearchType = .city
@@ -48,7 +54,7 @@ extension SearchListView {
                 
             case .location:
                 list = HauntedLocation.allLocations.map {
-                    SearchItem(text: $0.name, cityState: $0.cityState)}
+                    SearchItem(text: $0.name, cityState: $0.cityState, coordinates: $0.coordinates)}
             }
             
             // filter list based on term
@@ -75,6 +81,14 @@ extension SearchListView {
                 }
             }
             return CLLocationCoordinate2D()
+        }
+        
+        func searchItemToLocation(item: SearchItem){
+            if let coordinates = item.coordinates{
+                location =  HauntedLocation.allLocations.first{ location in
+                    item.coordinates == location.coordinates
+                }
+            }
         }
     }
 }

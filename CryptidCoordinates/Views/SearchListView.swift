@@ -28,6 +28,11 @@ struct SearchListView: View {
             // nav
             .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $viewModel.showingDetails){
+                if let location = viewModel.location{
+                    LocationDetailView(location: location)
+                }
+            }
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a \(searchBy.rawValue)")
             // toolbar
             .toolbar {
@@ -77,8 +82,15 @@ extension SearchListView {
         List(viewModel.searchList) { item in
             Text(item.text + " " + (item.cityState ?? ""))
                 .onTapGesture {
-                    updateCamera(to: viewModel.getCordFor(for: item), span: 0.15)
-                    dismiss()
+                    switch searchBy {
+                    case .city:
+                        updateCamera(to: viewModel.getCordFor(for: item), span: 0.15)
+                        dismiss()
+                    case .location:
+                        viewModel.searchItemToLocation(item: item)
+                        viewModel.showingDetails.toggle()
+                    }
+                    
                 }
         }
         .id(UUID())

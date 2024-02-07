@@ -50,7 +50,7 @@ extension PreviewCardView {
                     .darkLabelStyle(foreground: .blue)
             }
         }
-        .frame(width: 300, height: 150)
+        .frame(width: 320, height: 150)
         .padding()
         .background(.ultraThinMaterial)
         .clipShape(.rect(cornerRadius: 15))
