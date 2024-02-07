@@ -42,7 +42,7 @@ struct SearchListView: View {
                     }
                 }
                 ToolbarItem{
-                    Menu("Search by", systemImage: "line.3.horizontal.decrease") {
+                    Menu("Search by", systemImage: "line.3.horizontal.decrease.circle") {
                         Picker("Search by", selection: $searchBy) {
                             Text("City")
                                 .tag(SearchType.city)

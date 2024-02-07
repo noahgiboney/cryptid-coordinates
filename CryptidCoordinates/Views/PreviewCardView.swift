@@ -6,10 +6,13 @@
 //
 
 import MapKit
+import StoreKit
 import SwiftUI
 
 struct PreviewCardView: View {
     
+    @AppStorage("visitCount") var visitCount = 0
+    @Environment(\.requestReview) var requestReview
     @Binding var cameraPosition: MapCameraPosition
     @State private var showingDetails = false
 
@@ -28,6 +31,16 @@ struct PreviewCardView: View {
         }
         .navigationTitle("\(location.name)")
     }
+    @MainActor
+    func requestReviewIfAppropriate(){
+        if visitCount <= 10{
+            visitCount += 1
+        }
+        
+        if visitCount == 10 {
+            requestReview()
+        }
+    }
 }
 
 #Preview {
@@ -44,6 +57,10 @@ extension PreviewCardView {
                 .font(.subheadline)
                 .padding(.bottom)
             Button{
+                Task{
+                    await requestReviewIfAppropriate()
+                }
+                print(visitCount)
                 showingDetails.toggle()
             } label: {
                 Label("Investigate", systemImage: "eye")

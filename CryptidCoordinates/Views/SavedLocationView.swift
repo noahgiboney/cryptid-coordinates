@@ -34,11 +34,11 @@ struct SavedLocationsView: View {
                 }
             }
             .navigationTitle("Your Locations")
-            .sheet(item: $viewModel.tappedLocation){ location in
-                if let location = viewModel.tappedLocation{
+            .sheet(isPresented: $viewModel.showingDetails, content: {
+                if let location = viewModel.tappedLocation {
                     LocationDetailView(location: location)
                 }
-            }
+            })
             .toolbar {
                 ToolbarItem(placement: .topBarLeading){
                     Button("Close") {
@@ -84,6 +84,7 @@ extension SavedLocationsView {
                             .font(.caption.italic())
                     }
                     .onTapGesture {
+                        viewModel.showingDetails.toggle()
                         viewModel.tappedLocation = location
                     }
                 }
