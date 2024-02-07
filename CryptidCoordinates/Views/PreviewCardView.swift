@@ -20,7 +20,7 @@ struct PreviewCardView: View {
             VStack(){
                 Spacer()
                 locationCard
-                    .padding(.bottom, 100)
+                    .padding(.bottom, 80)
             }
             .sheet(isPresented: $showingDetails){
                 LocationDetailView(location: location)
@@ -51,6 +51,7 @@ extension PreviewCardView {
             }
         }
         .frame(width: 320, height: 150)
+        .padding(.top, 20)
         .padding()
         .background(.ultraThinMaterial)
         .clipShape(.rect(cornerRadius: 15))

@@ -20,6 +20,11 @@ extension SavedLocationsView{
         // array of locations loaded from app storage
         var savedLocations = [HauntedLocation]()
         
+        // sheet
+        var showingDetails = false
+        var tappedLocation: HauntedLocation?
+        
+        
         // load locations from app storage
         func loadSavedLocations() {
             let url = URL.documentsDirectory.appending(component: "savedLocations")

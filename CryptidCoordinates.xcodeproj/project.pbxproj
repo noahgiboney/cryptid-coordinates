@@ -72,15 +72,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E22D10E82B574F3600BD4A8C /* ClusterMap */ = {
-			isa = PBXGroup;
-			children = (
-				E286FF8D2B5610A500C9782A /* ClusterManager.swift */,
-				E286FF902B5614D900C9782A /* SizeReader.swift */,
-			);
-			path = ClusterMap;
-			sourceTree = "<group>";
-		};
 		E233E68B2B58E6320040E1B5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +93,8 @@
 			isa = PBXGroup;
 			children = (
 				E233E6892B58E6200040E1B5 /* GoogleImageManager.swift */,
+				E286FF8D2B5610A500C9782A /* ClusterManager.swift */,
+				E286FF902B5614D900C9782A /* SizeReader.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -133,7 +126,6 @@
 				E2C6BA232B58C72700CDB792 /* Managers */,
 				E233E68B2B58E6320040E1B5 /* Models */,
 				E27904492B64CE990034939B /* Styles */,
-				E22D10E82B574F3600BD4A8C /* ClusterMap */,
 				E2C76C0A2B4E14550080F669 /* Assets.xcassets */,
 				E2C76C0C2B4E14550080F669 /* Preview Content */,
 			);

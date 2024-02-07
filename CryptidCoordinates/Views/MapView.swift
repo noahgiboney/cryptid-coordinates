@@ -84,10 +84,10 @@ extension MapView {
                             Image(systemName: "arrow.down.left.arrow.up.right")
                                 .foregroundStyle(.red)
                         }
-                        .font(.title2)
+                        .font(.title3)
                         .padding(5)
                         .padding(.top, 195)
-                        .padding(.leading, 290)
+                        .padding(.leading, 305)
                     }
             }
         }
@@ -125,18 +125,6 @@ extension MapView {
             .onAppear{
                 CLLocationManager().requestWhenInUseAuthorization()
             }
-            .onTapGesture(perform: { screenCord in
-                if viewModel.selectedLocation != nil{
-                    if let tappedCord = reader.convert(screenCord, from: .local) {
-                        if !clusterManager.isAMarker(point: tappedCord) && viewModel.selectedLocation != nil{
-                            viewModel.selectedLocation = nil
-                            if let spanLat = viewModel.cameraPosition.region?.span.latitudeDelta, let currentCord = viewModel.cameraPosition.region?.center {
-                                viewModel.updateCamera(to: currentCord, span: spanLat + 0.05)
-                            }
-                        }
-                    }
-                }
-            })
         }
         .onMapCameraChange { context in
             clusterManager.currentRegion = context.region

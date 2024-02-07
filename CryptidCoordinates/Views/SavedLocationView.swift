@@ -34,6 +34,11 @@ struct SavedLocationsView: View {
                 }
             }
             .navigationTitle("Your Locations")
+            .sheet(item: $viewModel.tappedLocation){ location in
+                if let location = viewModel.tappedLocation{
+                    LocationDetailView(location: location)
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading){
                     Button("Close") {
@@ -73,15 +78,13 @@ extension SavedLocationsView {
         VStack{
             List {
                 ForEach(sortedList) { location in
-                    NavigationLink{
-                        LocationDetailView(location: location)
-                            .navigationBarTitleDisplayMode(.inline)
-                    }  label: {
-                        VStack(alignment: .leading){
-                            Text(location.name)
-                            Text(location.cityState)
-                                .font(.caption.italic())
-                        }
+                    VStack(alignment: .leading){
+                        Text(location.name)
+                        Text(location.cityState)
+                            .font(.caption.italic())
+                    }
+                    .onTapGesture {
+                        viewModel.tappedLocation = location
                     }
                 }
                 .onDelete(perform: { indexSet in

@@ -25,6 +25,7 @@ struct LocationDetailView: View {
                     header
                     Divider()
                     details
+                    Divider()
                     lookAroundSection
                 }
                 .onAppear {
@@ -86,8 +87,10 @@ extension LocationDetailView {
                     viewModel.toggleStar(location: location)
                 }label: {
                     Image(systemName: viewModel.isInFavorites(location: location) ? "star.fill" : "star")
-                        .padding()
+                        .padding(5)
                         .foregroundStyle(.yellow)
+                        .background(.ultraThickMaterial)
+                        .clipShape(Circle(), style: FillStyle())
                 }
                 .buttonStyle(AnimatedButton())
             }
