@@ -84,7 +84,7 @@ extension SearchListView {
         }
         
         func searchItemToLocation(item: SearchItem){
-            if let coordinates = item.coordinates{
+            if item.coordinates != nil{
                 location =  HauntedLocation.allLocations.first{ location in
                     item.coordinates == location.coordinates
                 }
