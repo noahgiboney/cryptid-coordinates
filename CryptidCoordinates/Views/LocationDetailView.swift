@@ -52,14 +52,14 @@ extension LocationDetailView {
                     .clipShape(RoundedRectangle(cornerRadius: 3))
             }
             HStack{
-                Spacer()
                 Button {
-                    viewModel.toggleStar(location: location)
+                    dismiss()
                 }label: {
-                    Image(systemName: viewModel.isInFavorites(location: location) ? "star.fill" : "star")
-                        .darkButtonStyle(foreground: .yellow)
+                    Image(systemName: "arrow.down.left.arrow.up.right")
+                        .darkLabelStyle(foreground: .red)
+                        .scaleEffect(CGSize(width: 0.75, height: 0.75))
                 }
-                .padding(10)
+                .padding(5)
             }
         }
         .task {
@@ -75,25 +75,31 @@ extension LocationDetailView {
                 .font(.title.bold())
             Text("\(location.city), \(location.stateAbbrev)")
                 .font(.subheadline)
+            HStack{
+                Button{
+                    viewModel.openInMaps(location)
+                } label: {
+                    Label("Directions", systemImage: "map")
+                        .darkLabelStyle(foreground: .blue)
+                }
+                Button {
+                    viewModel.toggleStar(location: location)
+                }label: {
+                    Image(systemName: viewModel.isInFavorites(location: location) ? "star.fill" : "star")
+                        .padding()
+                        .foregroundStyle(.yellow)
+                }
+                .buttonStyle(AnimatedButton())
+            }
         }
-        .padding()
+        .padding(.horizontal)
     }
     
     private var details: some View {
         VStack(alignment: .leading, spacing: 5){
-            Image(systemName: "doc.text.magnifyingglass")
             Text(location.description)
-            
-            Button{
-                viewModel.openInMaps(location)
-            } label: {
-                Label("Directions", systemImage: "map")
-                    .darkButtonStyle(foreground: .blue)
-            }
-            .padding(.top)
         }
-        .padding(.top, 2)
-        .padding([.horizontal, .bottom])
+        .padding()
     }
     
     private var lookAroundSection: some View {

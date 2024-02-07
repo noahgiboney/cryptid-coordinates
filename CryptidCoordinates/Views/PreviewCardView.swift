@@ -11,20 +11,22 @@ import SwiftUI
 struct PreviewCardView: View {
     
     @Binding var cameraPosition: MapCameraPosition
-    @State private var path = [HauntedLocation]()
+    @State private var showingDetails = false
 
     var location: HauntedLocation
     
     var body: some View {
-        VStack(){
-            Spacer()
-            locationCard
-                .padding(.bottom, 100)
+        NavigationStack{
+            VStack(){
+                Spacer()
+                locationCard
+                    .padding(.bottom, 100)
+            }
+            .sheet(isPresented: $showingDetails){
+                LocationDetailView(location: location)
+            }
         }
         .navigationTitle("\(location.name)")
-        .navigationDestination(for: HauntedLocation.self) { location in
-            LocationDetailView(location: location)
-        }
     }
 }
 
@@ -35,26 +37,23 @@ struct PreviewCardView: View {
 extension PreviewCardView {
     
     private var locationCard: some View {
-        NavigationStack(path: $path){
-            VStack(spacing: 10){
-                Text(location.name)
-                    .font(.title.bold())
-                Text(location.cityState)
-                    .font(.subheadline)
-                    .padding(.bottom)
-                Button{
-                    path.append(location)
-                } label: {
-                    Label("Investigate", systemImage: "eye")
-                        .darkButtonStyle(foreground: .blue)
-                }
+        VStack(spacing: 10){
+            Text(location.name)
+                .font(.title.bold())
+            Text(location.cityState)
+                .font(.subheadline)
+                .padding(.bottom)
+            Button{
+                showingDetails.toggle()
+            } label: {
+                Label("Investigate", systemImage: "eye")
+                    .darkLabelStyle(foreground: .blue)
             }
-            .frame(width: 300, height: 150)
-            .padding()
-            .background(.ultraThinMaterial)
-            .clipShape(.rect(cornerRadius: 15))
-            .shadow(radius: 5)
         }
-        
+        .frame(width: 300, height: 150)
+        .padding()
+        .background(.ultraThinMaterial)
+        .clipShape(.rect(cornerRadius: 15))
+        .shadow(radius: 5)
     }
 }

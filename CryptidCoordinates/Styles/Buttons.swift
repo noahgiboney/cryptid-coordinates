@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DarkButton: ViewModifier {
+struct DarkLabel: ViewModifier {
     
     var color: Color
     
@@ -20,8 +20,14 @@ struct DarkButton: ViewModifier {
     }
 }
 
+struct AnimatedButton : ButtonStyle{
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label.scaleEffect(configuration.isPressed ? 1.3 : 1.0)
+    }
+}
+
 extension View{
-    func darkButtonStyle(foreground: Color) -> some View {
-        modifier(DarkButton(color: foreground))
+    func darkLabelStyle(foreground: Color) -> some View {
+        modifier(DarkLabel(color: foreground))
     }
 }

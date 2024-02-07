@@ -55,7 +55,7 @@ extension MapView {
                 viewModel.showingUserFavorites.toggle()
             }label: {
                 Image(systemName: "star")
-                    .darkButtonStyle(foreground: .yellow)
+                    .darkLabelStyle(foreground: .yellow)
             }
 
             .scaleEffect(CGSize(width: 0.9, height: 0.9))
@@ -64,7 +64,7 @@ extension MapView {
                 viewModel.showingSearch.toggle()
             }label: {
                 Image(systemName: "magnifyingglass")
-                    .darkButtonStyle(foreground: .white)
+                    .darkLabelStyle(foreground: .white)
             }
             .padding(3)
             .scaleEffect(CGSize(width: 0.9, height: 0.9))
@@ -82,7 +82,7 @@ extension MapView {
                             viewModel.updateCamera(to: selectedLocation.coordinates, span: 0.05)
                         }label: {
                             Image(systemName: "arrow.down.right.and.arrow.up.left")
-                                .darkButtonStyle(foreground: .red)
+                                .darkLabelStyle(foreground: .red)
                         }
                         .font(.caption)
                         .padding(.top, 160)
