@@ -18,7 +18,18 @@ extension SavedLocationsView{
     class ViewModel {
         
         // array of locations loaded from app storage
-        var savedLocations = [HauntedLocation]()
+        var savedLocations = [HauntedLocation]() {
+            didSet {
+                let url = URL.documentsDirectory.appending(component: "savedLocations")
+                let data = try? JSONEncoder().encode(savedLocations)
+                do {
+                    try data?.write(to: url)
+                    
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
         
         // sheet
         var showingDetails = false

@@ -10,9 +10,9 @@ import SwiftUI
 struct SavedLocationsView: View {
     
     @AppStorage("sortBy") var sortSelection: SortType = .newest
-    @Environment(\.editMode) private var editMode
     @Environment(\.dismiss) var dismiss
     @State private var viewModel = ViewModel()
+    @State private var isEditing = false
     
     // sort list based on selection
     var sortedList: [HauntedLocation] {
@@ -39,6 +39,7 @@ struct SavedLocationsView: View {
                 }
             }
             .navigationTitle("SavedLocations")
+            .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
             .toolbar{
                 ToolbarItem(placement: .topBarLeading){
                     
@@ -62,7 +63,15 @@ struct SavedLocationsView: View {
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing){
-                    EditButton()
+                    Button(action: {
+                        
+                        withAnimation(.spring){
+                            isEditing.toggle()
+                        }
+                    }) {
+                        
+                        Text(isEditing ? "Done" : "Edit")
+                    }
                 }
                 
             }
@@ -117,6 +126,5 @@ extension SavedLocationsView {
                 viewModel.savedLocations.remove(atOffsets: indexSet)
             })
         }
-        .listStyle(.plain)
     }
 }
