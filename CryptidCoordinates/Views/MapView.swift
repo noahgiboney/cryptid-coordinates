@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MapView: View {
     
+    
     @State private var clusterManager = ClusterMap()
     @State private var viewModel = ViewModel()
     
@@ -42,6 +43,7 @@ struct MapView: View {
             }
             .sheet(isPresented: $viewModel.showingUserFavorites) {
                 SavedLocationsView()
+                    .navigationBarTitleDisplayMode(.large)
             }
         }
     }

@@ -10,6 +10,7 @@ import SwiftUI
 struct SavedLocationsView: View {
     
     @AppStorage("sortBy") var sortSelection: SortType = .newest
+    @Environment(\.editMode) private var editMode
     @Environment(\.dismiss) var dismiss
     @State private var viewModel = ViewModel()
     
@@ -24,9 +25,7 @@ struct SavedLocationsView: View {
     }
     
     var body: some View {
-        
-        NavigationStack{
-            
+        NavigationView{
             VStack{
                 
                 if viewModel.savedLocations.isEmpty {
@@ -34,15 +33,11 @@ struct SavedLocationsView: View {
                 }
                 else {
                     locationList
+                    
                 }
             }
-            .navigationTitle("Your Locations")
-            .sheet(isPresented: $viewModel.showingDetails, content: {
-                if let location = viewModel.tappedLocation {
-                    LocationDetailView(location: location)
-                }
-            })
-            .toolbar {
+            .navigationTitle("SavedLocations")
+            .toolbar{
                 ToolbarItem(placement: .topBarLeading){
                     
                     Button("Close") {
@@ -52,7 +47,7 @@ struct SavedLocationsView: View {
                 ToolbarItem{
                     
                     if !viewModel.savedLocations.isEmpty {
-        
+                        
                         Menu("Sort By", systemImage: "line.3.horizontal.decrease.circle") {
                             
                             Picker("Sort y", selection: $sortSelection) {
@@ -64,16 +59,23 @@ struct SavedLocationsView: View {
                         }
                     }
                 }
-                ToolbarItem{
+                ToolbarItem(placement: .topBarTrailing){
                     EditButton()
                 }
+                
             }
+            .sheet(isPresented: $viewModel.showingDetails, content: {
+                if let location = viewModel.tappedLocation {
+                    LocationDetailView(location: location)
+                }
+            })
             .onAppear {
                 viewModel.loadSavedLocations()
             }
         }
     }
 }
+    
 
 #Preview {
     SavedLocationsView()
@@ -83,34 +85,31 @@ extension SavedLocationsView {
     
     private var locationList: some View {
         
-        VStack{
-            
-            List {
+        List {
+            ForEach(sortedList) { location in
                 
-                ForEach(sortedList) { location in
-                    
-                    HStack{
-                        NavigationLink{
-                        } label: {
-                            VStack(alignment: .leading){
-                                Text(location.name)
-                                Text(location.cityState)
-                                    .font(.caption.italic())
-                            }
+                HStack{
+                    NavigationLink{
+                    } label: {
+                        VStack(alignment: .leading){
+                            Text(location.name)
+                            Text(location.cityState)
+                                .font(.caption.italic())
                         }
-                        
-                        Spacer()
                     }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        viewModel.showingDetails.toggle()
-                        viewModel.tappedLocation = location
-                    }
+                    
+                    Spacer()
                 }
-                .onDelete(perform: { indexSet in
-                    viewModel.savedLocations.remove(atOffsets: indexSet)
-                })
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    viewModel.showingDetails.toggle()
+                    viewModel.tappedLocation = location
+                }
             }
+            .onDelete(perform: { indexSet in
+                viewModel.savedLocations.remove(atOffsets: indexSet)
+            })
         }
+        .listStyle(.plain)
     }
 }
