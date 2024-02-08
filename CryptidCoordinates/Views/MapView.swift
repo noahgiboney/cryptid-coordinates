@@ -39,7 +39,7 @@ struct MapView: View {
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $viewModel.showingSearch) {
                 SearchListView(cameraPosition: $viewModel.cameraPosition)
-                    .presentationDetents([.fraction(0.25),.medium,.large])
+                    .presentationDetents([.medium,.large])
             }
             .sheet(isPresented: $viewModel.showingUserFavorites) {
                 SavedLocationsView()
