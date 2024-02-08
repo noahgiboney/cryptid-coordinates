@@ -89,11 +89,19 @@ extension SavedLocationsView {
                 
                 ForEach(sortedList) { location in
                     
-                    VStack(alignment: .leading){
-                        Text(location.name)
-                        Text(location.cityState)
-                            .font(.caption.italic())
+                    HStack{
+                        NavigationLink{
+                        } label: {
+                            VStack(alignment: .leading){
+                                Text(location.name)
+                                Text(location.cityState)
+                                    .font(.caption.italic())
+                            }
+                        }
+                        
+                        Spacer()
                     }
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         viewModel.showingDetails.toggle()
                         viewModel.tappedLocation = location
