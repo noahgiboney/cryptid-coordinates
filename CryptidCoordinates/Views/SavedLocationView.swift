@@ -25,7 +25,9 @@ struct SavedLocationsView: View {
     }
     
     var body: some View {
+        
         NavigationView{
+            
             VStack{
                 
                 if viewModel.savedLocations.isEmpty {
@@ -65,8 +67,12 @@ struct SavedLocationsView: View {
                 
             }
             .sheet(isPresented: $viewModel.showingDetails, content: {
+                
                 if let location = viewModel.tappedLocation {
                     LocationDetailView(location: location)
+                        .onDisappear(perform: {
+                            viewModel.loadSavedLocations()
+                        })
                 }
             })
             .onAppear {
@@ -86,9 +92,10 @@ extension SavedLocationsView {
     private var locationList: some View {
         
         List {
-            ForEach(sortedList) { location in
+            ForEach(viewModel.savedLocations) { location in
                 
                 HStack{
+                    Image(systemName: "mappin")
                     NavigationLink{
                     } label: {
                         VStack(alignment: .leading){
