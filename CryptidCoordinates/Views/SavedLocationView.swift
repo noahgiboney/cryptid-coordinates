@@ -104,17 +104,13 @@ extension SavedLocationsView {
             ForEach(viewModel.savedLocations) { location in
                 
                 HStack{
-                    Image(systemName: "mappin")
-                    NavigationLink{
-                    } label: {
-                        VStack(alignment: .leading){
-                            Text(location.name)
-                            Text(location.cityState)
-                                .font(.caption.italic())
-                        }
+                    VStack(alignment: .leading){
+                        Text(location.name)
+                        Text(location.cityState)
+                            .font(.caption.italic())
                     }
-                    
                     Spacer()
+                    Image(systemName: "arrow.down.left.and.arrow.up.right")
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
@@ -126,5 +122,6 @@ extension SavedLocationsView {
                 viewModel.savedLocations.remove(atOffsets: indexSet)
             })
         }
+        .listStyle(.plain)
     }
 }
