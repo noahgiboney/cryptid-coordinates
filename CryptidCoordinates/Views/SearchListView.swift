@@ -104,7 +104,7 @@ extension SearchListView {
     
     private var placeholderImage: some View {
         VStack{
-            
+            Spacer()
             Image(systemName: "magnifyingglass")
                 .resizable()
                 .scaledToFit()
