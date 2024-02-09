@@ -31,7 +31,7 @@ struct SavedLocationsView: View {
             VStack{
                 
                 if viewModel.savedLocations.isEmpty {
-                    ContentUnavailableView("No Locations Saved Yet", image: "ghost")
+                    ContentUnavailableView("No Locations Saved Yet", image: "ghoul")
                 }
                 else {
                     locationList
@@ -122,6 +122,5 @@ extension SavedLocationsView {
                 viewModel.savedLocations.remove(atOffsets: indexSet)
             })
         }
-        .listStyle(.plain)
     }
 }
