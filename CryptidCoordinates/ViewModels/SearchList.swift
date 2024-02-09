@@ -48,7 +48,7 @@ extension SearchListView {
             switch searchSelection {
             case .city:
                 
-                let allCities = Array((Set(HauntedLocation.allLocations.map{ $0.city})))
+                let allCities = Array((Set(HauntedLocation.allLocations.map{ $0.cityState})))
                 
                 list = allCities.map {SearchItem(text: $0)}.sorted()
                 
@@ -69,7 +69,7 @@ extension SearchListView {
             switch searchSelection {
             case .city:
                 if let index = HauntedLocation.allLocations.firstIndex(where: { location in
-                    location.city == place.text
+                    location.cityState == place.text
                 }){
                     return HauntedLocation.allLocations[index].cityCoordinates
                 }

@@ -1,3 +1,4 @@
+
 //
 //  HauntedCitiesListView.swift
 //  CryptidCoordinates
@@ -38,11 +39,13 @@ struct SearchListView: View {
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a \(searchBy.rawValue)")
             // toolbar
             .toolbar {
+                
                 ToolbarItem(placement: .topBarLeading){
                     Button("Close"){
                         dismiss()
                     }
                 }
+                
                 ToolbarItem{
                     Menu("Search by", systemImage: "line.3.horizontal.decrease.circle") {
                         Picker("Search by", selection: $searchBy) {
@@ -52,7 +55,6 @@ struct SearchListView: View {
                                 .tag(SearchType.location)
                         }
                     }
-                    
                 }
             }
             .onChange(of: searchBy){
