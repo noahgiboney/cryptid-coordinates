@@ -8,6 +8,8 @@
 import ClusterMap
 import Foundation
 import MapKit
+import SwiftUI
+
 
 extension MapView {
     struct ExampleClusterAnnotation: Identifiable {
@@ -15,64 +17,47 @@ extension MapView {
         var coordinate: CLLocationCoordinate2D
         var count: Int
     }
-    
+
     @Observable
-    class ClusterMap: NSObject, MKLocalSearchCompleterDelegate {
+    class LocationClusterManager: NSObject, MKLocalSearchCompleterDelegate {
+        private let completer = MKLocalSearchCompleter()
         private let clusterManager = ClusterManager<MKMapItem>()
-        
+
         var mapSize: CGSize = .zero
-        var currentRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.787_994, longitude: -122.407_437),
-                                               span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1))
+        var currentRegion: MKCoordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 33, longitude: -122), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
         var annotations = [MKMapItem]()
         var clusters = [ExampleClusterAnnotation]()
-        
-        func isAMarker(point: CLLocationCoordinate2D) -> Bool {
-            let tolerance = 0.002
 
-            return annotations.contains { item in
-                let lowerBoundLong = item.coordinate.longitude - tolerance
-                let upperBoundLong = item.coordinate.longitude + tolerance
-
-                let lowerBoundLat = item.coordinate.latitude - tolerance
-                let upperBoundLat = item.coordinate.latitude + tolerance
-
-                let isWithinBounds = (point.longitude >= lowerBoundLong && point.longitude <= upperBoundLong) &&
-                                     (point.latitude >= lowerBoundLat && point.latitude <= upperBoundLat)
-
-                return isWithinBounds
-            }
+        func setup() {
+            completer.delegate = self
         }
+
         
-        func getAnnotations(center: CLLocationCoordinate2D) async {
-            let filteredLocations = HauntedLocation.allLocations.filter { location in
-                guard let longitude = Double(location.longitude), let latitude = Double(location.latitude) else {
-                    return false
-                }
-                
-                let lowerBoundLong = longitude - 2
-                let upperBoundLong = longitude + 2
-                
-                let lowerBoundLat = latitude - 2
-                let upperBoundLat = latitude + 2
-                
-                return center.longitude >= lowerBoundLong && center.longitude <= upperBoundLong &&
-                center.latitude >= lowerBoundLat && center.latitude <= upperBoundLat
-            }
+        func loadLocations() async {
             
-            let annotations = filteredLocations.map { location in
-                MKMapItem(placemark: MKPlacemark(coordinate: location.coordinates))
+            var arr = [MKMapItem]()
+            
+            for location in HauntedLocation.allLocations {
+                arr.append(MKMapItem(placemark: MKPlacemark(coordinate: location.coordinates)))
             }
             
             await clusterManager.removeAll()
-            await clusterManager.add(annotations)
+            await clusterManager.add(arr)
             await reloadAnnotations()
+            
         }
-        
+    
         func reloadAnnotations() async {
             async let changes = clusterManager.reload(mapViewSize: mapSize, coordinateRegion: currentRegion)
             await applyChanges(changes)
         }
         
+        func zoomIn(to point: CLLocationCoordinate2D, span: Double) {
+            withAnimation(.smooth(duration: 1.5)){
+                currentRegion = MKCoordinateRegion(center: point, span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span))
+            }
+        }
+
         @MainActor
         private func applyChanges(_ difference: ClusterManager<MKMapItem>.Difference) {
             for removal in difference.removals {
@@ -81,9 +66,10 @@ extension MapView {
                     annotations.removeAll { $0 == annotation }
                 case .cluster(let clusterAnnotation):
                     clusters.removeAll { $0.id == clusterAnnotation.id }
+                @unknown default:
+                    fatalError()
                 }
             }
-            
             for insertion in difference.insertions {
                 switch insertion {
                 case .annotation(let newItem):
@@ -94,20 +80,22 @@ extension MapView {
                         coordinate: newItem.coordinate,
                         count: newItem.memberAnnotations.count
                     ))
+                @unknown default:
+                    fatalError()
                 }
             }
         }
     }
 }
-    
+
 extension MKMapItem: CoordinateIdentifiable, Identifiable {
     public var id: String {
         placemark.region?.identifier ?? UUID().uuidString
     }
-    
+
     public var coordinate: CLLocationCoordinate2D {
         get { placemark.coordinate }
         set(newValue) { }
     }
 }
-    
+

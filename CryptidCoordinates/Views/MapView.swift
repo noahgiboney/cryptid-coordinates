@@ -1,8 +1,8 @@
 //
-//  MapView.swift
-//  CryptidCoordinates
+//  MapKitIntegration.swift
+//  Example-SwiftUI
 //
-//  Created by Noah Giboney on 1/9/24.
+//  Created by Mikhail Vospennikov on 17.10.2023.
 //
 
 import MapKit
@@ -10,12 +10,13 @@ import SwiftUI
 
 struct MapView: View {
     
-    
-    @State private var clusterManager = ClusterMap()
+    @State private var cluserManager = LocationClusterManager()
     @State private var viewModel = ViewModel()
-    
+
     var body: some View {
+        
         NavigationStack{
+            
             ZStack(alignment: .topLeading){
                 
                 mapLayer
@@ -33,6 +34,7 @@ struct MapView: View {
                         Spacer()
                     }
                 }
+                
             }
             .preferredColorScheme(.dark)
             .navigationTitle("Cryptid Coordinates")
@@ -81,7 +83,6 @@ extension MapView {
     }
     
     private var previewLayer: some View {
-        
         VStack{
             
             if let selectedLocation = viewModel.selectedLocation {
@@ -105,57 +106,55 @@ extension MapView {
         }
     }
     
+    
     private var mapLayer: some View {
-        
-        MapReader{ reader in
+        Map(
+            position: $viewModel.cameraPosition,
+            interactionModes: .all
+        ) {
+            ForEach(cluserManager.annotations) { item in
+                
+                Annotation(item.id, coordinate: item.coordinate) {
+                    MapAnnotationView(image: "ghoul")
+                        .scaleEffect(viewModel.selectedLocation?.coordinates == item.coordinate ? 1.3 : 1)
+                        .onTapGesture {
+                            viewModel.updateCamera(to: item.coordinate, span: 0.01)
+                            viewModel.tappedMarker(marker: item)
+                        }
+                }
+                .annotationTitles(.hidden)
+                
+            }
             
-            Map(position: $viewModel.cameraPosition) {
-                
-                UserAnnotation()
-                
-                ForEach(clusterManager.annotations) { item in
-                    
-                    Annotation("\(item.id)", coordinate: item.coordinate) {
-                        
-                        MapAnnotationView()
-                            .scaleEffect(viewModel.selectedLocation?.coordinates == item.coordinate ? 1.3 : 1)
-                            .onTapGesture {
-                                viewModel.updateCamera(to: item.coordinate, span: 0.01)
-                                viewModel.tappedMarker(marker: item)
-                            }
-                    }
-                    .annotationTitles(.hidden)
+            ForEach(cluserManager.clusters) { item in
+                Annotation("\(item.count)", coordinate: item.coordinate) {
+                    MapAnnotationView(image: "square.3.layers.3d")
+                        .onTapGesture {
+                            viewModel.updateCamera(to: item.coordinate, span: 1)
+                        }
                 }
-                
-                ForEach(clusterManager.clusters) { item in
-                    
-                    Annotation("\(item.count)", coordinate: item.coordinate) {
-                        
-                        MapClusterView()
-                            .onTapGesture {
-                                viewModel.updateCamera(to: item.coordinate, span: 0.055)
-                            }
-                    }
-                    .annotationTitles(.hidden)
-                }
-            }
-            .mapControls{
-                MapUserLocationButton()
-                MapPitchToggle()
-            }
-            .onAppear{
-                CLLocationManager().requestWhenInUseAuthorization()
             }
         }
-        .onMapCameraChange { context in
-            clusterManager.currentRegion = context.region
-            Task {
-                await clusterManager.getAnnotations(center: clusterManager.currentRegion.center)
-                await clusterManager.reloadAnnotations()
-            }
+        .mapControls{
+            MapUserLocationButton()
+            MapPitchToggle()
         }
         .readSize(onChange: { newValue in
-            clusterManager.mapSize = newValue
+            cluserManager.mapSize = newValue
         })
+        .onMapCameraChange { context in
+            cluserManager.currentRegion = context.region
+        }
+        .onMapCameraChange(frequency: .onEnd) { context in
+            Task.detached { await cluserManager.reloadAnnotations() }
+        }
+        .onAppear {
+            cluserManager.setup()
+            
+            Task.detached {
+                await cluserManager.loadLocations()
+            }
+        }
     }
 }
+
