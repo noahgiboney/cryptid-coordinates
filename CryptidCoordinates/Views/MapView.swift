@@ -12,6 +12,8 @@ struct MapView: View {
     
     @State private var cluserManager = LocationClusterManager()
     @State private var viewModel = ViewModel()
+    
+    let locationFetcher = LocationFetcher()
 
     var body: some View {
         
@@ -112,6 +114,7 @@ extension MapView {
             position: $viewModel.cameraPosition,
             interactionModes: .all
         ) {
+            UserAnnotation()
             ForEach(cluserManager.annotations) { item in
                 
                 Annotation(item.id, coordinate: item.coordinate) {
@@ -150,6 +153,10 @@ extension MapView {
         }
         .onAppear {
             cluserManager.setup()
+            locationFetcher.start()
+            if let location = locationFetcher.lastKnownLocation {
+                viewModel.cameraPosition = .region(MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)))
+            }
             
             Task.detached {
                 await cluserManager.loadLocations()

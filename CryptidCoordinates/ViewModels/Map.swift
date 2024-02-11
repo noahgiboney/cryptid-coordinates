@@ -11,7 +11,7 @@ import SwiftUI
 
 extension MapView{
     @Observable
-    class ViewModel: NSObject, CLLocationManagerDelegate {
+    class ViewModel{
         
         // region that the camera is showing on the map
         var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
