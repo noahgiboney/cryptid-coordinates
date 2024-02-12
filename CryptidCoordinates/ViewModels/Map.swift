@@ -14,7 +14,7 @@ extension MapView{
     class ViewModel{
         
         // region that the camera is showing on the map
-        var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
+        var cameraPosition: MapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.77494, longitude: -122.4194), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)))
         
         // lcoation to show if the user selects one
         var selectedLocation: HauntedLocation?
