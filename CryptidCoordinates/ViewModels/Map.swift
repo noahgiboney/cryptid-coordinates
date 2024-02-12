@@ -14,7 +14,7 @@ extension MapView{
     class ViewModel{
         
         // region that the camera is showing on the map
-        var cameraPosition: MapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.77494, longitude: -122.4194), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)))
+        var cameraPosition: MapCameraPosition = .userLocation(fallback: .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))))
         
         // lcoation to show if the user selects one
         var selectedLocation: HauntedLocation?
@@ -46,7 +46,7 @@ extension MapView{
         
         // update map camera to some point
         func updateCamera(to point: CLLocationCoordinate2D, span: Double) {
-            withAnimation(.smooth(duration: 1.5)){
+            withAnimation(.easeIn){
                 cameraPosition = .region(MKCoordinateRegion(center: point, span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)))
             }
         }

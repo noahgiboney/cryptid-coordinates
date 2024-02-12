@@ -131,7 +131,7 @@ extension MapView {
                 Annotation("\(item.count)", coordinate: item.coordinate) {
                     MapAnnotationView(image: "square.3.layers.3d")
                         .onTapGesture {
-                            viewModel.updateCamera(to: item.coordinate, span: 1)
+                            viewModel.updateCamera(to: item.coordinate, span: 0.08)
                         }
                 }
             }
