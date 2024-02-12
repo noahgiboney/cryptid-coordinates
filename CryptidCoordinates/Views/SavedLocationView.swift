@@ -31,7 +31,14 @@ struct SavedLocationsView: View {
             VStack{
                 
                 if viewModel.savedLocations.isEmpty {
-                    ContentUnavailableView("No Locations Saved Yet", image: "ghoul")
+                    Image("ghoul")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 50, height: 50)
+                    Text("No Locations saved yet")
+                        .font(.title2)
+                        .bold()
+                
                 }
                 else {
                     locationList
@@ -62,15 +69,17 @@ struct SavedLocationsView: View {
                         }
                     }
                 }
-                ToolbarItem(placement: .topBarTrailing){
-                    Button(action: {
-                        
-                        withAnimation(.spring){
-                            isEditing.toggle()
+                
+                if !viewModel.savedLocations.isEmpty{
+                    ToolbarItem(placement: .topBarTrailing){
+                        Button(action: {
+                            withAnimation(.spring){
+                                isEditing.toggle()
+                            }
+                        }) {
+                            
+                            Text(isEditing ? "Done" : "Edit")
                         }
-                    }) {
-                        
-                        Text(isEditing ? "Done" : "Edit")
                     }
                 }
                 
@@ -87,6 +96,7 @@ struct SavedLocationsView: View {
             .onAppear {
                 viewModel.loadSavedLocations()
             }
+            .preferredColorScheme(.dark)
         }
     }
 }

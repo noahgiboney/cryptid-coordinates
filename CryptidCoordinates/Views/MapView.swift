@@ -23,8 +23,6 @@ struct MapView: View {
                 
                 mapLayer
                 
-                mapButtons
-                
                 if viewModel.selectedLocation != nil{
                     
                     HStack{
@@ -64,7 +62,7 @@ extension MapView {
         VStack(spacing: 1){
             
             Button {
-                viewModel.showingUserFavorites.toggle()
+                
             }label: {
                 Image(systemName: "star")
                     .darkLabelStyle(foreground: .yellow)
@@ -138,6 +136,25 @@ extension MapView {
                 }
             }
         }
+        .overlay(alignment: .bottom, content: {
+            HStack{
+                
+                Button{
+                    viewModel.showingUserFavorites.toggle()
+                } label: {
+                    Label("Favorites", systemImage: "star.fill")
+                        .darkLabelStyle(foreground: .yellow)
+                }
+                
+                Button{
+                    viewModel.showingSearch.toggle()
+                } label: {
+                    Label("Search", systemImage: "magnifyingglass")
+                        .darkLabelStyle(foreground: .blue)
+                }
+            }
+            
+        })
         .mapControls{
             MapUserLocationButton()
             MapPitchToggle()
