@@ -32,9 +32,10 @@ extension SearchListView {
         // text to search for in list
         var searchText = ""
         
-        //
+        // showing details sheet
         var showingDetails = false
         
+        // selected location from search list
         var location: HauntedLocation?
         
         // selection for type of list

@@ -13,7 +13,9 @@ struct MapAnnotationView: View {
     var image: String
     
     var body: some View {
+        
         ZStack {
+            
             Image(systemName: "triangle.fill")
                 .resizable()
                 .scaledToFit()
@@ -29,13 +31,16 @@ struct MapAnnotationView: View {
                 .shadow(radius: 5)
             
             if image == "ghoul" {
+                
                 Image(image)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 24, height: 24)
                     .clipShape(Circle())
                     .shadow(color: .black, radius: 3, x: 0, y: 2)
+                
             } else {
+                
                 Image(systemName: "square.3.layers.3d")
                     .resizable()
                     .scaledToFit()

@@ -37,7 +37,6 @@ struct SearchListView: View {
                 }
             }
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a \(searchBy.rawValue)")
-            // toolbar
             .toolbar {
                 
                 ToolbarItem(placement: .topBarLeading){

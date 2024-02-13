@@ -31,14 +31,15 @@ struct SavedLocationsView: View {
             VStack{
                 
                 if viewModel.savedLocations.isEmpty {
+                    
                     Image("ghoul")
                         .resizable()
                         .scaledToFill()
                         .frame(width: 50, height: 50)
+                    
                     Text("No Locations saved yet")
                         .font(.title2)
                         .bold()
-                
                 }
                 else {
                     locationList

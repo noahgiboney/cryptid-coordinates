@@ -31,7 +31,7 @@ extension SavedLocationsView{
             }
         }
         
-        // sheet
+        // sheets
         var showingDetails = false
         var tappedLocation: HauntedLocation?
         

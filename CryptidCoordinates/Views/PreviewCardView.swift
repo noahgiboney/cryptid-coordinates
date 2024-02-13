@@ -39,11 +39,11 @@ struct PreviewCardView: View {
     
     @MainActor
     func requestReviewIfAppropriate(){
-        if visitCount <= 10{
+        if visitCount <= 5{
             visitCount += 1
         }
         
-        if visitCount == 10 {
+        if visitCount == 5 {
             requestReview()
         }
     }

@@ -108,11 +108,14 @@ extension MapView {
     
     
     private var mapLayer: some View {
+        
         Map(
             position: $viewModel.cameraPosition,
             interactionModes: .all
         ) {
+            
             UserAnnotation()
+            
             ForEach(cluserManager.annotations) { item in
                 
                 Annotation(item.id, coordinate: item.coordinate) {
@@ -124,10 +127,10 @@ extension MapView {
                         }
                 }
                 .annotationTitles(.hidden)
-                
             }
             
             ForEach(cluserManager.clusters) { item in
+                
                 Annotation("\(item.count)", coordinate: item.coordinate) {
                     MapAnnotationView(image: "square.3.layers.3d")
                         .onTapGesture {
@@ -137,6 +140,7 @@ extension MapView {
             }
         }
         .overlay(alignment: .bottom, content: {
+            
             HStack{
                 
                 Button{
@@ -156,7 +160,11 @@ extension MapView {
             
         })
         .mapControls{
-            MapUserLocationButton()
+            
+            if locationFetcher.lastKnownLocation != nil {
+                MapUserLocationButton()
+            }
+            
             MapPitchToggle()
         }
         .readSize(onChange: { newValue in
@@ -174,7 +182,6 @@ extension MapView {
             if let location = locationFetcher.lastKnownLocation {
                 viewModel.cameraPosition = .region(MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)))
             }
-            
             Task.detached {
                 await cluserManager.loadLocations()
             }
