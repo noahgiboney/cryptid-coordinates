@@ -41,7 +41,7 @@ struct MapView: View {
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $viewModel.showingSearch) {
                 SearchListView(cameraPosition: $viewModel.cameraPosition)
-                    .presentationDetents([.medium,.large])
+                    .presentationDetents([.fraction(0.25),.medium,.large])
             }
             .sheet(isPresented: $viewModel.showingUserFavorites) {
                 SavedLocationsView()
@@ -92,7 +92,7 @@ extension MapView {
                         
                         Button {
                             viewModel.selectedLocation = nil
-                            viewModel.updateCamera(to: selectedLocation.coordinates, span: 0.05)
+                            viewModel.updateCamera(to: selectedLocation.coordinates, span: 0.08)
                         }label: {
                             Image(systemName: "arrow.down.left.arrow.up.right")
                                 .foregroundStyle(.red)

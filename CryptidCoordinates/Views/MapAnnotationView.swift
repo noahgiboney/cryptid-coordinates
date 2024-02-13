@@ -43,7 +43,7 @@ struct MapAnnotationView: View {
                     .shadow(color: .black, radius: 3, x: 0, y: 2)
             }
         }
-        .padding(.bottom, 20) 
+        .padding(.bottom, 20)
     }
 }
 
