@@ -66,8 +66,6 @@ extension MapView {
                     annotations.removeAll { $0 == annotation }
                 case .cluster(let clusterAnnotation):
                     clusters.removeAll { $0.id == clusterAnnotation.id }
-                @unknown default:
-                    fatalError()
                 }
             }
             for insertion in difference.insertions {
@@ -80,8 +78,6 @@ extension MapView {
                         coordinate: newItem.coordinate,
                         count: newItem.memberAnnotations.count
                     ))
-                @unknown default:
-                    fatalError()
                 }
             }
         }
