@@ -37,8 +37,6 @@ struct MapView: View {
                 
             }
             .preferredColorScheme(.dark)
-            .navigationTitle("Cryptid Coordinates")
-            .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $viewModel.showingSearch) {
                 SearchListView(cameraPosition: $viewModel.cameraPosition)
                     .presentationDetents([.fraction(0.25),.medium,.large])
@@ -99,7 +97,7 @@ extension MapView {
                         }
                         .font(.title3)
                         .padding(5)
-                        .padding(.top, 195)
+                        .padding(.top, 230)
                         .padding(.leading, 305)
                     }
             }
@@ -179,9 +177,6 @@ extension MapView {
         .onAppear {
             cluserManager.setup()
             locationFetcher.start()
-            if let location = locationFetcher.lastKnownLocation {
-                viewModel.cameraPosition = .region(MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)))
-            }
             Task.detached {
                 await cluserManager.loadLocations()
             }

@@ -85,18 +85,22 @@ extension SearchListView {
         
         List(viewModel.searchList) { item in
             
-            Text(item.text + " " + (item.cityState ?? ""))
-                .onTapGesture {
-                    switch searchBy {
-                    case .city:
-                        updateCamera(to: viewModel.getCordFor(for: item), span: 0.15)
-                        dismiss()
-                    case .location:
-                        viewModel.searchItemToLocation(item: item)
-                        viewModel.showingDetails.toggle()
-                    }
-                    
+            HStack{
+                Text(item.text + " " + (item.cityState ?? ""))
+                Spacer()
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                switch searchBy {
+                case .city:
+                    updateCamera(to: viewModel.getCordFor(for: item), span: 0.15)
+                    dismiss()
+                case .location:
+                    viewModel.searchItemToLocation(item: item)
+                    viewModel.showingDetails.toggle()
                 }
+                
+            }
         }
         .id(UUID())
     }

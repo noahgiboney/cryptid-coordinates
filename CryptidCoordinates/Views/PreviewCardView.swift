@@ -21,29 +21,25 @@ struct PreviewCardView: View {
     
     var body: some View {
         
-        NavigationStack{
+        VStack(){
             
-            VStack(){
-                
-                Spacer()
-                
-                locationCard
-                    .padding(.bottom, 80)
-            }
-            .sheet(isPresented: $showingDetails){
-                LocationDetailView(location: location)
-            }
+            Spacer()
+            
+            locationCard
+                .padding(.bottom, 80)
         }
-        .navigationTitle("\(location.name)")
+        .sheet(isPresented: $showingDetails){
+            LocationDetailView(location: location)
+        }
     }
     
     @MainActor
     func requestReviewIfAppropriate(){
-        if visitCount <= 5{
+        if visitCount <= 8{
             visitCount += 1
         }
         
-        if visitCount == 5 {
+        if visitCount == 8 {
             requestReview()
         }
     }
