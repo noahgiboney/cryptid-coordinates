@@ -17,7 +17,6 @@ struct MapView: View {
     
     var body: some View {
         
-        
         ZStack(alignment: .topLeading){
             
             mapLayer
