@@ -75,7 +75,7 @@ extension LocationDetailView {
             }
         }
         .task {
-            await imageManager.fetchURL(for: location.name)
+            await imageManager.fetchURL(for: location.name + location.cityState)
             await viewModel.loadAndProccessImage(url: imageManager.queryURL)
         }
         
