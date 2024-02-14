@@ -1,8 +1,8 @@
 //
-//  MapKitIntegration.swift
-//  Example-SwiftUI
+//  MapView.swift
+//  CryptidCoordinates
 //
-//  Created by Mikhail Vospennikov on 17.10.2023.
+//  Created by Noah Giboney on 1/9/24.
 //
 
 import MapKit
@@ -14,37 +14,35 @@ struct MapView: View {
     @State private var viewModel = ViewModel()
     
     let locationFetcher = LocationFetcher()
-
+    
     var body: some View {
         
-        NavigationStack{
+        
+        ZStack(alignment: .topLeading){
             
-            ZStack(alignment: .topLeading){
+            mapLayer
+            
+            if viewModel.selectedLocation != nil{
                 
-                mapLayer
-                
-                if viewModel.selectedLocation != nil{
+                HStack{
                     
-                    HStack{
-                        
-                        Spacer()
-                        
-                        previewLayer
-                        
-                        Spacer()
-                    }
+                    Spacer()
+                    
+                    previewLayer
+                    
+                    Spacer()
                 }
-                
             }
-            .preferredColorScheme(.dark)
-            .sheet(isPresented: $viewModel.showingSearch) {
-                SearchListView(cameraPosition: $viewModel.cameraPosition)
-                    .presentationDetents([.fraction(0.25),.medium,.large])
-            }
-            .sheet(isPresented: $viewModel.showingUserFavorites) {
-                SavedLocationsView()
-                    .navigationBarTitleDisplayMode(.large)
-            }
+            
+        }
+        .preferredColorScheme(.dark)
+        .sheet(isPresented: $viewModel.showingSearch) {
+            SearchListView(cameraPosition: $viewModel.cameraPosition)
+                .presentationDetents([.fraction(0.25),.medium,.large])
+        }
+        .sheet(isPresented: $viewModel.showingUserFavorites) {
+            SavedLocationsView()
+                .navigationBarTitleDisplayMode(.large)
         }
     }
 }
@@ -86,7 +84,7 @@ extension MapView {
             if let selectedLocation = viewModel.selectedLocation {
                 
                 PreviewCardView(cameraPosition: $viewModel.cameraPosition, location: selectedLocation)
-                    .overlay {
+                    .overlay(alignment: .bottom){
                         
                         Button {
                             viewModel.selectedLocation = nil
@@ -96,8 +94,7 @@ extension MapView {
                                 .foregroundStyle(.red)
                         }
                         .font(.title3)
-                        .padding(5)
-                        .padding(.top, 230)
+                        .padding(.bottom, 245)
                         .padding(.leading, 305)
                     }
             }

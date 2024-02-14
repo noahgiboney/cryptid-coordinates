@@ -1,8 +1,8 @@
 //
-//  LocalSearchCompleter.swift
-//  Example-SwiftUI
+//  ClusterManager.swift
+//  CryptidCoordinates
 //
-//  Created by Mikhail Vospennikov on 21.10.2023.
+//  Created by Noah Giboney on 1/17/24.
 //
 
 import ClusterMap
