@@ -86,8 +86,21 @@ extension SearchListView {
         List(viewModel.searchList) { item in
             
             HStack{
-                Text(item.text + " " + (item.cityState ?? ""))
+
+                VStack(alignment: .leading){
+                    
+                    Text(item.text)
+                        .font(.headline)
+                    
+                    if let cityState = item.cityState{
+                        Text(cityState)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                
                 Spacer()
+                
+                Image(systemName: "location.magnifyingglass")
             }
             .contentShape(Rectangle())
             .onTapGesture {

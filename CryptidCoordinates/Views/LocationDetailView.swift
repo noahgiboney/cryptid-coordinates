@@ -89,7 +89,7 @@ extension LocationDetailView {
                 .font(.title.bold())
             
             Text("\(location.city), \(location.stateAbbrev)")
-                .font(.subheadline)
+                .foregroundStyle(.secondary)
             
             HStack{
                 
