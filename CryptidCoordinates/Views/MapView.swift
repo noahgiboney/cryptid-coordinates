@@ -52,31 +52,6 @@ struct MapView: View {
 
 extension MapView {
     
-    private var mapButtons: some View {
-        
-        VStack(spacing: 1){
-            
-            Button {
-                
-            }label: {
-                Image(systemName: "star")
-                    .darkLabelStyle(foreground: .yellow)
-            }
-            .scaleEffect(CGSize(width: 0.9, height: 0.9))
-            
-            Button {
-                viewModel.showingSearch.toggle()
-            }label: {
-                Image(systemName: "magnifyingglass")
-                    .darkLabelStyle(foreground: .white)
-            }
-            .padding(3)
-            .scaleEffect(CGSize(width: 0.9, height: 0.9))
-            
-        }
-        .padding(.top, 2)
-    }
-    
     private var previewLayer: some View {
         VStack{
             
@@ -175,6 +150,15 @@ extension MapView {
             locationFetcher.start()
             Task.detached {
                 await cluserManager.loadLocations()
+            }
+            
+        }
+        .onChange(of: locationFetcher.lastKnownLocation) {
+            if !viewModel.userLocationUpdated{
+                if let location = locationFetcher.lastKnownLocation {
+                    viewModel.cameraPosition = .region(MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)))
+                }
+                viewModel.userLocationUpdated = true
             }
         }
     }

@@ -13,6 +13,9 @@ extension MapView{
     @Observable
     class ViewModel{
         
+        // tracks if location has swapped to user location
+        var userLocationUpdated = false
+        
         // region that the camera is showing on the map
         var cameraPosition: MapCameraPosition = .userLocation(fallback: .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))))
         
@@ -48,25 +51,6 @@ extension MapView{
         func updateCamera(to point: CLLocationCoordinate2D, span: Double) {
             withAnimation(.easeIn){
                 cameraPosition = .region(MKCoordinateRegion(center: point, span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)))
-            }
-        }
-        
-        // calculates locations around the center of the map center
-        func getDisplayedLocations(center: CLLocationCoordinate2D) {
-            displayedLocations = HauntedLocation.allLocations.filter { location in
-                
-                guard let longitude = Double(location.longitude), let latitude = Double(location.latitude) else {
-                    return false
-                }
-                
-                let lowerBoundLong = longitude - 2
-                let upperBoundLong = longitude + 2
-                
-                let lowerBoundLat = latitude - 2
-                let upperBoundLat = latitude + 2
-                
-                return center.longitude >= lowerBoundLong && center.longitude <= upperBoundLong &&
-                center.latitude >= lowerBoundLat && center.latitude <= upperBoundLat
             }
         }
     }
