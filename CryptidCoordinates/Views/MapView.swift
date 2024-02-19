@@ -143,7 +143,10 @@ extension MapView {
             cluserManager.currentRegion = context.region
         }
         .onMapCameraChange(frequency: .onEnd) { context in
-            Task.detached { await cluserManager.reloadAnnotations() }
+                        
+            if context.region.span.latitudeDelta < 7.0 && context.region.span.longitudeDelta < 7.0 {
+                Task.detached { await cluserManager.reloadAnnotations() }
+            }
         }
         .onAppear {
             cluserManager.setup()
