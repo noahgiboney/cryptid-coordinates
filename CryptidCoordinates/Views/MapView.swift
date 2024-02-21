@@ -126,6 +126,7 @@ extension MapView {
                         .darkLabelStyle(foreground: .blue)
                 }
             }
+            .padding()
             
         })
         .mapControls{
