@@ -2,7 +2,7 @@
 
 Cryptic Coordinates is a mobile iOS app designed for adventurers and mystery enthusiasts. It turns your locality into a thrilling exploration ground, revealing haunted locations and ancient secrets hidden in plain sight. Here's what makes Cryptic Coordinates an indispensable tool for supernatural exploration and historical discovery:
 
-Available on the app store [here](https://apps.apple.com/us/app/cryptid-coordinates/id6478195420)!
+Available on the [App Store](https://apps.apple.com/us/app/cryptid-coordinates/id6478195420)
 
 ## Features
 
