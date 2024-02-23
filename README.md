@@ -1,6 +1,6 @@
 # Crytpid Coordinates
 
-[app logo](https://github.com/noahgiboney/cryptid-coordinates/blob/main/CryptidCoordinates/Assets.xcassets/AppIcon.appiconset/icon-83_5%402x.png)
+![app logo](https://github.com/noahgiboney/cryptid-coordinates/blob/main/CryptidCoordinates/Assets.xcassets/AppIcon.appiconset/icon-83_5%402x.png)
 
 Cryptic Coordinates is a mobile iOS app designed for adventurers and mystery enthusiasts. It turns your locality into a thrilling exploration ground, revealing haunted locations and ancient secrets hidden in plain sight. Here's what makes Cryptic Coordinates an indispensable tool for supernatural exploration and historical discovery:
 
