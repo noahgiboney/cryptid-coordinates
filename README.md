@@ -2,7 +2,7 @@
 
 Cryptic Coordinates is a iOS app built with SwiftUI and designed for adventurers and mystery enthusiasts. It turns your locality into a thrilling exploration ground, revealing haunted locations and ancient secrets hidden in plain sight. 
 
-Available on the [App Store](https://apps.apple.com/us/app/cryptid-coordinates/id6478195420)!
+Available on the [App Store](https://apps.apple.com/us/app/cryptid-coordinates/id6478195420).
 
 ![app logo](https://github.com/noahgiboney/cryptid-coordinates/blob/main/CryptidCoordinates/Assets.xcassets/AppIcon.appiconset/icon-83_5%402x.png)
 
