@@ -18,7 +18,7 @@ extension SavedLocationsView{
     class ViewModel {
         
         // array of locations loaded from app storage
-        var savedLocations = [HauntedLocation]() {
+        var savedLocations = [Location]() {
             didSet {
                 let url = URL.documentsDirectory.appending(component: "savedLocations")
                 let data = try? JSONEncoder().encode(savedLocations)
@@ -33,7 +33,7 @@ extension SavedLocationsView{
         
         // sheets
         var showingDetails = false
-        var tappedLocation: HauntedLocation?
+        var tappedLocation: Location?
         
         
         // load locations from app storage
@@ -48,7 +48,7 @@ extension SavedLocationsView{
             let decoder = JSONDecoder()
             
             do{
-                savedLocations = try decoder.decode([HauntedLocation].self, from: data)
+                savedLocations = try decoder.decode([Location].self, from: data)
             } catch {
                 print("unable to decode saved locations from documents" + error.localizedDescription)
             }

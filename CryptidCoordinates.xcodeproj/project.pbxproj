@@ -12,7 +12,7 @@
 		E23D30E02C1AC43700025363 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D30DF2C1AC43700025363 /* ContentView.swift */; };
 		E23D30E22C1AC45000025363 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D30E12C1AC45000025363 /* TabBarView.swift */; };
 		E24A43AB2B4E2475006B1B2A /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AA2B4E2475006B1B2A /* Map.swift */; };
-		E24A43AF2B4E2B5C006B1B2A /* HauntedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AE2B4E2B5C006B1B2A /* HauntedLocation.swift */; };
+		E24A43AF2B4E2B5C006B1B2A /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AE2B4E2B5C006B1B2A /* Location.swift */; };
 		E27395CC2B4E391200D70108 /* hauntedplaces.json in Resources */ = {isa = PBXBuildFile; fileRef = E27395CB2B4E391200D70108 /* hauntedplaces.json */; };
 		E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27395D12B4E59BB00D70108 /* LocationDetailView.swift */; };
 		E275B1092B784ADC0012BDF2 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275B1082B784ADC0012BDF2 /* MapView.swift */; };
@@ -41,7 +41,7 @@
 		E23D30DF2C1AC43700025363 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E23D30E12C1AC45000025363 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		E24A43AA2B4E2475006B1B2A /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
-		E24A43AE2B4E2B5C006B1B2A /* HauntedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HauntedLocation.swift; sourceTree = "<group>"; };
+		E24A43AE2B4E2B5C006B1B2A /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		E27395CB2B4E391200D70108 /* hauntedplaces.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hauntedplaces.json; sourceTree = "<group>"; };
 		E27395D12B4E59BB00D70108 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		E275B1082B784ADC0012BDF2 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 		E233E68B2B58E6320040E1B5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E24A43AE2B4E2B5C006B1B2A /* HauntedLocation.swift */,
+				E24A43AE2B4E2B5C006B1B2A /* Location.swift */,
 				E294BD732B50C4D900C5C39C /* GoogleData.swift */,
 			);
 			path = Models;
@@ -310,7 +310,7 @@
 				E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */,
 				E2ECE2EB2B53756600FA4BDB /* SearchListView.swift in Sources */,
 				E2DE85332B6DBB7500D1AF12 /* SavedLocations.swift in Sources */,
-				E24A43AF2B4E2B5C006B1B2A /* HauntedLocation.swift in Sources */,
+				E24A43AF2B4E2B5C006B1B2A /* Location.swift in Sources */,
 				E2BC84252B54A568005681F9 /* SearchList.swift in Sources */,
 				E279044F2B64D0420034939B /* Buttons.swift in Sources */,
 				E23D30E22C1AC45000025363 /* TabBarView.swift in Sources */,

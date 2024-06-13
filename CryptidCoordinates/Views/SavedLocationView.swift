@@ -15,7 +15,7 @@ struct SavedLocationsView: View {
     @State private var isEditing = false
     
     // sort list based on selection
-    var sortedList: [HauntedLocation] {
+    var sortedList: [Location] {
         switch sortSelection {
         case .newest:
             return viewModel.savedLocations.reversed()

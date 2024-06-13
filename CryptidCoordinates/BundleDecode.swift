@@ -8,7 +8,7 @@
 import Foundation
 
 extension Bundle {
-    func decode(file: String) -> [HauntedLocation] {
+    func decode(file: String) -> [Location] {
         
         //ensure json file is in the bundle
         guard let url = self.url(forResource: file, withExtension: nil) else{
@@ -23,7 +23,7 @@ extension Bundle {
         //decode data from json and return arr
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let decodedLocations = try? decoder.decode([HauntedLocation].self, from: data) else{
+        guard let decodedLocations = try? decoder.decode([Location].self, from: data) else{
             fatalError("Unable to decode json from \(file)")
         }
         return decodedLocations
