@@ -15,7 +15,7 @@ struct LocationDetailView: View {
     @State private var imageManager = GoogleAPIManager()
     
     // location to preview
-    var location: Location
+    var location: Locations
     
     var body: some View {
         
@@ -43,7 +43,7 @@ struct LocationDetailView: View {
     }
 }
 #Preview {
-    LocationDetailView(location: Location.allLocations[4234])
+    LocationDetailView(location: Locations.allLocations[4234])
 }
 
 extension LocationDetailView {

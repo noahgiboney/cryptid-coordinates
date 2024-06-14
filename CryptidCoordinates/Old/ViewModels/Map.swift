@@ -20,14 +20,14 @@ extension MapView{
         var cameraPosition: MapCameraPosition = .userLocation(fallback: .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))))
         
         // lcoation to show if the user selects one
-        var selectedLocation: Location?
+        var selectedLocation: Locations?
         
         // sheets to show on toggle
         var showingSearch = false
         var showingUserFavorites = false
         
         // locations to display on map
-        var displayedLocations = [Location]()
+        var displayedLocations = [Locations]()
     
         // manage user location
         var locationManager: CLLocationManager?
@@ -38,11 +38,11 @@ extension MapView{
         }
         
         // converts the marker to the haunted location
-        func getLocation(for item: MKMapItem) -> Location? {
-            if let index = Location.allLocations.firstIndex(where: { location in
+        func getLocation(for item: MKMapItem) -> Locations? {
+            if let index = Locations.allLocations.firstIndex(where: { location in
                 location.coordinates == item.coordinate
             }) {
-                return Location.allLocations[index]
+                return Locations.allLocations[index]
             }
             return nil
         }
