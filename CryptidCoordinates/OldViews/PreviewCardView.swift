@@ -17,7 +17,7 @@ struct PreviewCardView: View {
     @State private var showingDetails = false
     
     // current locaiton to display
-    var location: Location
+    var location: OldLocation
     
     var body: some View {
         
@@ -46,7 +46,7 @@ struct PreviewCardView: View {
 }
 
 #Preview {
-    PreviewCardView(cameraPosition: .constant(.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.787994, longitude: -122.407437), span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)))) ,location : Location.allLocations[33])
+    PreviewCardView(cameraPosition: .constant(.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.787994, longitude: -122.407437), span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)))) ,location : OldLocation.allLocations[33])
 }
 
 extension PreviewCardView {

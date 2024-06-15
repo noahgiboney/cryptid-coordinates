@@ -16,13 +16,12 @@ class ViewModel {
         self.client = client
     }
     
-    var locations: [Location] = []
+    var locations: [OldLocation] = []
     var count = 0
     
     func fetchAllLocations() async throws {
         do {
             count = try await client.fetchAllLocations()
-            print("HELLO")
         } catch {
             print("DEBUG: error fetching all locations: \(error.localizedDescription)")
         }

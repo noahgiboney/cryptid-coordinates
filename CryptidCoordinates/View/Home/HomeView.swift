@@ -5,6 +5,7 @@
 //  Created by Noah Giboney on 6/14/24.
 //
 
+import Firebase
 import SwiftUI
 
 struct HomeView: View {
@@ -21,15 +22,55 @@ struct HomeView: View {
                     
                     ScrollView(.horizontal) {
                         LazyHStack{
-                            ForEach(Location.exampleArray) { location in
+                            ForEach(OldLocation.exampleArray) { location in
                                 TopRatedView(location: location)
                             }
                         }
+                    }
+                    
+                    Button("do") {
+                        uploadJSON()
                     }
                 }
                 .padding(.leading)
             }
             .navigationTitle("Cryptid Coordinates")
+        }
+    }
+    
+    func uploadJSON() {
+        
+        var locations = Bundle.main.newDecode(file: "hauntedplaces.json")
+        
+        do {
+            let db = Firestore.firestore()
+            
+            for var location in locations {
+                do {
+                    let id = UUID().uuidString
+                    location.id = id
+                    
+                    // Ensure the document ID does not contain slashes
+                    let docRef = db.collection("locations").document(id)
+                    if let enc = try? Firestore.Encoder().encode(location) {
+                        docRef.setData(enc) { error in
+                            if let error = error {
+                                print("Error writing document \(id): \(error)")
+                            } else {
+                                print("Document \(id) successfully written!")
+                            }
+                        }
+                    } else {
+                        
+                    }
+                } catch {
+                    print("Error writing document at ")
+                }
+            }
+            
+            print("Data successfully uploaded to Firestore!")
+        } catch {
+            print("Error reading or uploading JSON data: \(error)")
         }
     }
 }

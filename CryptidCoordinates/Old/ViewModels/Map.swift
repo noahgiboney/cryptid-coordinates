@@ -20,14 +20,14 @@ extension OldMap{
         var cameraPosition: MapCameraPosition = .userLocation(fallback: .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))))
         
         // lcoation to show if the user selects one
-        var selectedLocation: Location?
+        var selectedLocation: OldLocation?
         
         // sheets to show on toggle
         var showingSearch = false
         var showingUserFavorites = false
         
         // locations to display on map
-        var displayedLocations = [Location]()
+        var displayedLocations = [OldLocation]()
     
         // manage user location
         var locationManager: CLLocationManager?
@@ -38,11 +38,11 @@ extension OldMap{
         }
         
         // converts the marker to the haunted location
-        func getLocation(for item: MKMapItem) -> Location? {
-            if let index = Location.allLocations.firstIndex(where: { location in
+        func getLocation(for item: MKMapItem) -> OldLocation? {
+            if let index = OldLocation.allLocations.firstIndex(where: { location in
                 location.coordinates == item.coordinate
             }) {
-                return Location.allLocations[index]
+                return OldLocation.allLocations[index]
             }
             return nil
         }

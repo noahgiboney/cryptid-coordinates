@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TopRatedView: View {
-    let location: Location
+    let location: OldLocation
     
     var body: some View {
         VStack {
@@ -27,5 +27,5 @@ struct TopRatedView: View {
 }
 
 #Preview {
-    TopRatedView(location: Location.example)
+    TopRatedView(location: OldLocation.example)
 }

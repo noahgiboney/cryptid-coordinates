@@ -37,7 +37,7 @@ extension OldMap {
             
             var arr = [MKMapItem]()
             
-            for location in Location.allLocations {
+            for location in OldLocation.allLocations {
                 arr.append(MKMapItem(placemark: MKPlacemark(coordinate: location.coordinates)))
             }
             
