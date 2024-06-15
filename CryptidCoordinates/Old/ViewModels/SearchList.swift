@@ -36,7 +36,7 @@ extension SearchListView {
         var showingDetails = false
         
         // selected location from search list
-        var location: Locations?
+        var location: Location?
         
         // selection for type of list
         var searchSelection: SearchType = .city
@@ -49,12 +49,12 @@ extension SearchListView {
             switch searchSelection {
             case .city:
                 
-                let allCities = Array((Set(Locations.allLocations.map{ $0.cityState})))
+                let allCities = Array((Set(Location.allLocations.map{ $0.cityState})))
                 
                 list = allCities.map {SearchItem(text: $0)}.sorted()
                 
             case .location:
-                list = Locations.allLocations.map {
+                list = Location.allLocations.map {
                     SearchItem(text: $0.name, cityState: $0.cityState, coordinates: $0.coordinates)}
             }
             
@@ -69,16 +69,16 @@ extension SearchListView {
             
             switch searchSelection {
             case .city:
-                if let index = Locations.allLocations.firstIndex(where: { location in
+                if let index = Location.allLocations.firstIndex(where: { location in
                     location.cityState == place.text
                 }){
-                    return Locations.allLocations[index].cityCoordinates
+                    return Location.allLocations[index].cityCoordinates
                 }
             case .location:
-                if let index = Locations.allLocations.firstIndex(where: { location in
+                if let index = Location.allLocations.firstIndex(where: { location in
                     location.name == place.text && location.cityState == place.cityState
                 }){
-                    return Locations.allLocations[index].coordinates
+                    return Location.allLocations[index].coordinates
                 }
             }
             return CLLocationCoordinate2D()
@@ -86,7 +86,7 @@ extension SearchListView {
         
         func searchItemToLocation(item: SearchItem){
             if item.coordinates != nil{
-                location =  Locations.allLocations.first{ location in
+                location =  Location.allLocations.first{ location in
                     item.coordinates == location.coordinates
                 }
             }

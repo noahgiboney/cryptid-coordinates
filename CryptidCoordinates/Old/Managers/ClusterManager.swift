@@ -37,7 +37,7 @@ extension MapView {
             
             var arr = [MKMapItem]()
             
-            for location in Locations.allLocations {
+            for location in Location.allLocations {
                 arr.append(MKMapItem(placemark: MKPlacemark(coordinate: location.coordinates)))
             }
             

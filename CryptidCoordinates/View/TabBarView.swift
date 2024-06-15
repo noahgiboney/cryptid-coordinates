@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct TabBarView: View {
+    @State private var viewModel = ViewModel(client: FirestoreClient())
+    
     var body: some View {
         TabView {
-            Text("Home")
+            HomeView()
                 .tabItem {
                     Image(systemName: "house")
                 }
@@ -25,6 +27,7 @@ struct TabBarView: View {
                     Image(systemName: "person")
                 }
         }
+        .environment(viewModel)
     }
 }
 

@@ -21,7 +21,7 @@ extension LocationDetailView{
         // processed image
         var proccessedImage: UIImage?
         
-        func openInMaps(_ location: Locations) {
+        func openInMaps(_ location: Location) {
             let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinates))
             item.openInMaps()
         }
@@ -83,7 +83,7 @@ extension LocationDetailView{
         }
         
         // array of locations to store in app storage
-        var savedLocations = [Locations]() {
+        var savedLocations = [Location]() {
             didSet {
                 let url = URL.documentsDirectory.appending(component: "savedLocations")
                 let data = try? JSONEncoder().encode(savedLocations)
@@ -97,7 +97,7 @@ extension LocationDetailView{
         }
         
         // append or remove location from favorites by pressing star
-        func toggleStar(location: Locations) {
+        func toggleStar(location: Location) {
             if !isInFavorites(location: location) {
                 savedLocations.append(location)
             }
@@ -109,7 +109,7 @@ extension LocationDetailView{
         }
         
         // check if some location is already in array
-        func isInFavorites(location: Locations) -> Bool {
+        func isInFavorites(location: Location) -> Bool {
             for index in savedLocations {
                 if index.coordinates == location.coordinates{
                     return true
@@ -127,7 +127,7 @@ extension LocationDetailView{
             }
             
             do {
-                savedLocations = try JSONDecoder().decode([Locations].self, from: data)
+                savedLocations = try JSONDecoder().decode([Location].self, from: data)
             } catch {
                 print(error.localizedDescription)
             }

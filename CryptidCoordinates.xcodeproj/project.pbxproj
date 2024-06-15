@@ -12,7 +12,7 @@
 		E23D30E02C1AC43700025363 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D30DF2C1AC43700025363 /* ContentView.swift */; };
 		E23D30E22C1AC45000025363 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D30E12C1AC45000025363 /* TabBarView.swift */; };
 		E24A43AB2B4E2475006B1B2A /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AA2B4E2475006B1B2A /* Map.swift */; };
-		E24A43AF2B4E2B5C006B1B2A /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AE2B4E2B5C006B1B2A /* Locations.swift */; };
+		E24A43AF2B4E2B5C006B1B2A /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AE2B4E2B5C006B1B2A /* Location.swift */; };
 		E27395CC2B4E391200D70108 /* hauntedplaces.json in Resources */ = {isa = PBXBuildFile; fileRef = E27395CB2B4E391200D70108 /* hauntedplaces.json */; };
 		E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27395D12B4E59BB00D70108 /* LocationDetailView.swift */; };
 		E275B1092B784ADC0012BDF2 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275B1082B784ADC0012BDF2 /* MapView.swift */; };
@@ -60,6 +60,9 @@
 		E2DE85332B6DBB7500D1AF12 /* SavedLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DE85322B6DBB7500D1AF12 /* SavedLocations.swift */; };
 		E2DEA7362B79857800D71B8B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DEA7352B79857800D71B8B /* LocationManager.swift */; };
 		E2ECE2EB2B53756600FA4BDB /* SearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ECE2EA2B53756600FA4BDB /* SearchListView.swift */; };
+		E2EE30292C1D41B8007F74C6 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE30282C1D41B8007F74C6 /* HomeView.swift */; };
+		E2EE302C2C1D4266007F74C6 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE302B2C1D4266007F74C6 /* ViewModel.swift */; };
+		E2EE302F2C1D4461007F74C6 /* FirestoreClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE302E2C1D4461007F74C6 /* FirestoreClient.swift */; };
 		E2F474DB2B74432900E3D474 /* MapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F474DA2B74432900E3D474 /* MapAnnotationView.swift */; };
 /* End PBXBuildFile section */
 
@@ -69,7 +72,7 @@
 		E23D30DF2C1AC43700025363 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E23D30E12C1AC45000025363 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		E24A43AA2B4E2475006B1B2A /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
-		E24A43AE2B4E2B5C006B1B2A /* Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
+		E24A43AE2B4E2B5C006B1B2A /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		E27395CB2B4E391200D70108 /* hauntedplaces.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hauntedplaces.json; sourceTree = "<group>"; };
 		E27395D12B4E59BB00D70108 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		E275B1082B784ADC0012BDF2 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -89,6 +92,9 @@
 		E2DE85322B6DBB7500D1AF12 /* SavedLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocations.swift; sourceTree = "<group>"; };
 		E2DEA7352B79857800D71B8B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E2ECE2EA2B53756600FA4BDB /* SearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListView.swift; sourceTree = "<group>"; };
+		E2EE30282C1D41B8007F74C6 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		E2EE302B2C1D4266007F74C6 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		E2EE302E2C1D4461007F74C6 /* FirestoreClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreClient.swift; sourceTree = "<group>"; };
 		E2F474DA2B74432900E3D474 /* MapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,19 +138,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E233E68B2B58E6320040E1B5 /* Models */ = {
+		E233E68B2B58E6320040E1B5 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				E24A43AE2B4E2B5C006B1B2A /* Locations.swift */,
+				E24A43AE2B4E2B5C006B1B2A /* Location.swift */,
 				E294BD732B50C4D900C5C39C /* GoogleData.swift */,
 			);
-			path = Models;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		E23D30D92C1AC3FA00025363 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				E23D30DC2C1AC40A00025363 /* TabBar */,
 				E23D30DB2C1AC40600025363 /* Map */,
 				E23D30DA2C1AC40300025363 /* Root */,
 			);
@@ -154,7 +159,6 @@
 		E23D30DA2C1AC40300025363 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				E23D30DF2C1AC43700025363 /* ContentView.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -164,14 +168,6 @@
 			children = (
 			);
 			path = Map;
-			sourceTree = "<group>";
-		};
-		E23D30DC2C1AC40A00025363 /* TabBar */ = {
-			isa = PBXGroup;
-			children = (
-				E23D30E12C1AC45000025363 /* TabBarView.swift */,
-			);
-			path = TabBar;
 			sourceTree = "<group>";
 		};
 		E23D30DE2C1AC42C00025363 /* App */ = {
@@ -234,12 +230,14 @@
 		E2C76C052B4E14550080F669 /* CryptidCoordinates */ = {
 			isa = PBXGroup;
 			children = (
+				E2EE302D2C1D4428007F74C6 /* Service */,
+				E2EE30272C1D417F007F74C6 /* Model */,
+				E2EE30262C1D4169007F74C6 /* View */,
 				E23D30DE2C1AC42C00025363 /* App */,
 				E23D30D92C1AC3FA00025363 /* Core */,
-				E233E68B2B58E6320040E1B5 /* Models */,
 				E2B256472C1BEEB200BD41E0 /* Old */,
 				E2C76C0C2B4E14550080F669 /* Preview Content */,
-				E2C76C182B4E15940080F669 /* Views */,
+				E2C76C182B4E15940080F669 /* OldViews */,
 			);
 			path = CryptidCoordinates;
 			sourceTree = "<group>";
@@ -263,7 +261,7 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		E2C76C182B4E15940080F669 /* Views */ = {
+		E2C76C182B4E15940080F669 /* OldViews */ = {
 			isa = PBXGroup;
 			children = (
 				E275B1082B784ADC0012BDF2 /* MapView.swift */,
@@ -273,7 +271,34 @@
 				E27904502B64D8240034939B /* SavedLocationView.swift */,
 				E2F474DA2B74432900E3D474 /* MapAnnotationView.swift */,
 			);
-			path = Views;
+			path = OldViews;
+			sourceTree = "<group>";
+		};
+		E2EE30262C1D4169007F74C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E23D30DF2C1AC43700025363 /* ContentView.swift */,
+				E23D30E12C1AC45000025363 /* TabBarView.swift */,
+				E2EE30282C1D41B8007F74C6 /* HomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E2EE30272C1D417F007F74C6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E233E68B2B58E6320040E1B5 /* Data */,
+				E2EE302B2C1D4266007F74C6 /* ViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E2EE302D2C1D4428007F74C6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				E2EE302E2C1D4461007F74C6 /* FirestoreClient.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,15 +413,18 @@
 				E275B1092B784ADC0012BDF2 /* MapView.swift in Sources */,
 				E294BD742B50C4D900C5C39C /* GoogleData.swift in Sources */,
 				E28A75DE2B5A460C00B6176A /* PreviewCardView.swift in Sources */,
+				E2EE30292C1D41B8007F74C6 /* HomeView.swift in Sources */,
 				E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */,
 				E23D30E02C1AC43700025363 /* ContentView.swift in Sources */,
 				E286FF912B5614D900C9782A /* SizeReader.swift in Sources */,
 				E275B10B2B784B3E0012BDF2 /* ClusterManager.swift in Sources */,
+				E2EE302F2C1D4461007F74C6 /* FirestoreClient.swift in Sources */,
 				E233E68A2B58E6200040E1B5 /* GoogleImageManager.swift in Sources */,
 				E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */,
+				E2EE302C2C1D4266007F74C6 /* ViewModel.swift in Sources */,
 				E2ECE2EB2B53756600FA4BDB /* SearchListView.swift in Sources */,
 				E2DE85332B6DBB7500D1AF12 /* SavedLocations.swift in Sources */,
-				E24A43AF2B4E2B5C006B1B2A /* Locations.swift in Sources */,
+				E24A43AF2B4E2B5C006B1B2A /* Location.swift in Sources */,
 				E2BC84252B54A568005681F9 /* SearchList.swift in Sources */,
 				E279044F2B64D0420034939B /* Buttons.swift in Sources */,
 				E23D30E22C1AC45000025363 /* TabBarView.swift in Sources */,
