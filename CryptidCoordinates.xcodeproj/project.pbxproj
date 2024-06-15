@@ -65,6 +65,7 @@
 		E2EE302F2C1D4461007F74C6 /* FirestoreClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE302E2C1D4461007F74C6 /* FirestoreClient.swift */; };
 		E2EE30322C1D4F2A007F74C6 /* TopRatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE30312C1D4F2A007F74C6 /* TopRatedView.swift */; };
 		E2EE30352C1D544F007F74C6 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE30342C1D544F007F74C6 /* MapView.swift */; };
+		E2EE30372C1D563F007F74C6 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE30362C1D563F007F74C6 /* LandingView.swift */; };
 		E2F474DB2B74432900E3D474 /* MapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F474DA2B74432900E3D474 /* MapAnnotationView.swift */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,7 @@
 		E2EE302E2C1D4461007F74C6 /* FirestoreClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreClient.swift; sourceTree = "<group>"; };
 		E2EE30312C1D4F2A007F74C6 /* TopRatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRatedView.swift; sourceTree = "<group>"; };
 		E2EE30342C1D544F007F74C6 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		E2EE30362C1D563F007F74C6 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		E2F474DA2B74432900E3D474 /* MapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -277,6 +279,7 @@
 				E2EE30302C1D4F1B007F74C6 /* Home */,
 				E23D30DF2C1AC43700025363 /* ContentView.swift */,
 				E23D30E12C1AC45000025363 /* TabBarView.swift */,
+				E2EE30362C1D563F007F74C6 /* LandingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */,
 				E23D30E02C1AC43700025363 /* ContentView.swift in Sources */,
 				E286FF912B5614D900C9782A /* SizeReader.swift in Sources */,
+				E2EE30372C1D563F007F74C6 /* LandingView.swift in Sources */,
 				E2EE30322C1D4F2A007F74C6 /* TopRatedView.swift in Sources */,
 				E275B10B2B784B3E0012BDF2 /* ClusterManager.swift in Sources */,
 				E2EE302F2C1D4461007F74C6 /* FirestoreClient.swift in Sources */,
