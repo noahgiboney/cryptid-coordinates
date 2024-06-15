@@ -11,7 +11,7 @@ import MapKit
 import SwiftUI
 
 
-extension MapView {
+extension OldMap {
     struct ExampleClusterAnnotation: Identifiable {
         var id = UUID()
         var coordinate: CLLocationCoordinate2D

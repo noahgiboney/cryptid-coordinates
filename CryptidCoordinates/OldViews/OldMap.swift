@@ -8,7 +8,7 @@
 import MapKit
 import SwiftUI
 
-struct MapView: View {
+struct OldMap: View {
     
     @State private var cluserManager = LocationClusterManager()
     @State private var viewModel = ViewModel()
@@ -47,10 +47,10 @@ struct MapView: View {
 }
 
 #Preview {
-    MapView()
+    OldMap()
 }
 
-extension MapView {
+extension OldMap {
     
     private var previewLayer: some View {
         VStack{

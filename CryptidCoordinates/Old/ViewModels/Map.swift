@@ -9,7 +9,7 @@ import Observation
 import MapKit
 import SwiftUI
 
-extension MapView{
+extension OldMap{
     @Observable
     class ViewModel{
         
