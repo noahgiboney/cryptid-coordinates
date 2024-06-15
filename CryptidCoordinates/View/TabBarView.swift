@@ -15,21 +15,30 @@ struct TabBarView: View {
         TabView(selection: $selection) {
             HomeView()
                 .tabItem {
-                    Image(systemName: "house")
+                    VStack {
+                        Image(systemName: "house")
+                        Text("Home")
+                    }
                 }
                 .tag(0)
             
             MapView()
                 .tabItem {
-                    Image(systemName: "map")
+                    VStack {
+                        Image(systemName: "map")
+                        Text("Map")
+                    }
                 }
                 .tag(1)
             
             Text("Profile")
                 .tabItem {
-                    Image(systemName: "person")
+                    VStack {
+                        Image(systemName: "person")
+                        Text("Profile")
+                    }
                 }
-                .tag(1)
+                .tag(2)
         }
         .environment(viewModel)
     }

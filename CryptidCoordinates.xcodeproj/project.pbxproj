@@ -13,6 +13,8 @@
 		E23D30E22C1AC45000025363 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D30E12C1AC45000025363 /* TabBarView.swift */; };
 		E24A43AB2B4E2475006B1B2A /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AA2B4E2475006B1B2A /* Map.swift */; };
 		E24A43AF2B4E2B5C006B1B2A /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AE2B4E2B5C006B1B2A /* Location.swift */; };
+		E24A4D0D2C1DFCD8009D311C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A4D0C2C1DFCD8009D311C /* UserModel.swift */; };
+		E24A4D0F2C1DFCF3009D311C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A4D0E2C1DFCF3009D311C /* User.swift */; };
 		E27395CC2B4E391200D70108 /* hauntedplaces.json in Resources */ = {isa = PBXBuildFile; fileRef = E27395CB2B4E391200D70108 /* hauntedplaces.json */; };
 		E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27395D12B4E59BB00D70108 /* LocationDetailView.swift */; };
 		E275B1092B784ADC0012BDF2 /* OldMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275B1082B784ADC0012BDF2 /* OldMap.swift */; };
@@ -76,6 +78,8 @@
 		E23D30E12C1AC45000025363 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		E24A43AA2B4E2475006B1B2A /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		E24A43AE2B4E2B5C006B1B2A /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		E24A4D0C2C1DFCD8009D311C /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		E24A4D0E2C1DFCF3009D311C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E27395CB2B4E391200D70108 /* hauntedplaces.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hauntedplaces.json; sourceTree = "<group>"; };
 		E27395D12B4E59BB00D70108 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		E275B1082B784ADC0012BDF2 /* OldMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldMap.swift; sourceTree = "<group>"; };
@@ -149,6 +153,7 @@
 			children = (
 				E24A43AE2B4E2B5C006B1B2A /* Location.swift */,
 				E294BD732B50C4D900C5C39C /* GoogleData.swift */,
+				E24A4D0E2C1DFCF3009D311C /* User.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -289,6 +294,7 @@
 			children = (
 				E233E68B2B58E6320040E1B5 /* Data */,
 				E2EE302B2C1D4266007F74C6 /* ViewModel.swift */,
+				E24A4D0C2C1DFCD8009D311C /* UserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -427,11 +433,13 @@
 			files = (
 				E24A43AB2B4E2475006B1B2A /* Map.swift in Sources */,
 				E216EB0D2B4FA4D70006AB32 /* LocationDetail.swift in Sources */,
+				E24A4D0D2C1DFCD8009D311C /* UserModel.swift in Sources */,
 				E275B1092B784ADC0012BDF2 /* OldMap.swift in Sources */,
 				E294BD742B50C4D900C5C39C /* GoogleData.swift in Sources */,
 				E28A75DE2B5A460C00B6176A /* PreviewCardView.swift in Sources */,
 				E2EE30292C1D41B8007F74C6 /* HomeView.swift in Sources */,
 				E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */,
+				E24A4D0F2C1DFCF3009D311C /* User.swift in Sources */,
 				E23D30E02C1AC43700025363 /* ContentView.swift in Sources */,
 				E286FF912B5614D900C9782A /* SizeReader.swift in Sources */,
 				E2EE30372C1D563F007F74C6 /* LandingView.swift in Sources */,

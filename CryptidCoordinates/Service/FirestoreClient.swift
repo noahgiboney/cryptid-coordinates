@@ -11,13 +11,10 @@ import Foundation
 class FirestoreClient {
     private let db = Firestore.firestore()
     
-    func fetchAllLocations() async throws -> [Location] {
+    func fetchAllLocations() async throws -> Int {
         
-        let snapshot = try await db.collection("locations").getDocuments()
-        
-        
-        
-        return snapshot.documents.compactMap({ try? $0.data(as: Location.self) })
-        
+        let snapshot = try await Firestore.firestore().collection("locations").getDocuments()
+
+        return snapshot.documents.count
     }
 }
