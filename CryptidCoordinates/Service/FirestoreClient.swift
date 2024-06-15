@@ -12,7 +12,12 @@ class FirestoreClient {
     private let db = Firestore.firestore()
     
     func fetchAllLocations() async throws -> [Location] {
-        let snapshot = try await db.collection("location").getDocuments()
+        
+        let snapshot = try await db.collection("locations").getDocuments()
+        
+        
+        
         return snapshot.documents.compactMap({ try? $0.data(as: Location.self) })
+        
     }
 }

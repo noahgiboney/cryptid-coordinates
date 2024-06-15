@@ -14,13 +14,14 @@ class ViewModel {
     
     init(client: FirestoreClient) {
         self.client = client
+        Task { try await fetchAllLocations() }
     }
     
     var locations: [Location] = []
     
     func fetchAllLocations() async throws {
         do {
-            locations = try await client.fetchAllLocations()
+            self.locations = try await client.fetchAllLocations()
         } catch {
             print("DEBUG: error fetching all locations: \(error.localizedDescription)")
         }

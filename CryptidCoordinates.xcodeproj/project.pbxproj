@@ -63,6 +63,7 @@
 		E2EE30292C1D41B8007F74C6 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE30282C1D41B8007F74C6 /* HomeView.swift */; };
 		E2EE302C2C1D4266007F74C6 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE302B2C1D4266007F74C6 /* ViewModel.swift */; };
 		E2EE302F2C1D4461007F74C6 /* FirestoreClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE302E2C1D4461007F74C6 /* FirestoreClient.swift */; };
+		E2EE30322C1D4F2A007F74C6 /* TopRatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE30312C1D4F2A007F74C6 /* TopRatedView.swift */; };
 		E2F474DB2B74432900E3D474 /* MapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F474DA2B74432900E3D474 /* MapAnnotationView.swift */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +96,7 @@
 		E2EE30282C1D41B8007F74C6 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E2EE302B2C1D4266007F74C6 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		E2EE302E2C1D4461007F74C6 /* FirestoreClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreClient.swift; sourceTree = "<group>"; };
+		E2EE30312C1D4F2A007F74C6 /* TopRatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRatedView.swift; sourceTree = "<group>"; };
 		E2F474DA2B74432900E3D474 /* MapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,8 +232,8 @@
 		E2C76C052B4E14550080F669 /* CryptidCoordinates */ = {
 			isa = PBXGroup;
 			children = (
-				E2EE302D2C1D4428007F74C6 /* Service */,
 				E2EE30272C1D417F007F74C6 /* Model */,
+				E2EE302D2C1D4428007F74C6 /* Service */,
 				E2EE30262C1D4169007F74C6 /* View */,
 				E23D30DE2C1AC42C00025363 /* App */,
 				E23D30D92C1AC3FA00025363 /* Core */,
@@ -277,9 +279,9 @@
 		E2EE30262C1D4169007F74C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E2EE30302C1D4F1B007F74C6 /* Home */,
 				E23D30DF2C1AC43700025363 /* ContentView.swift */,
 				E23D30E12C1AC45000025363 /* TabBarView.swift */,
-				E2EE30282C1D41B8007F74C6 /* HomeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -299,6 +301,15 @@
 				E2EE302E2C1D4461007F74C6 /* FirestoreClient.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		E2EE30302C1D4F1B007F74C6 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E2EE30282C1D41B8007F74C6 /* HomeView.swift */,
+				E2EE30312C1D4F2A007F74C6 /* TopRatedView.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -417,6 +428,7 @@
 				E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */,
 				E23D30E02C1AC43700025363 /* ContentView.swift in Sources */,
 				E286FF912B5614D900C9782A /* SizeReader.swift in Sources */,
+				E2EE30322C1D4F2A007F74C6 /* TopRatedView.swift in Sources */,
 				E275B10B2B784B3E0012BDF2 /* ClusterManager.swift in Sources */,
 				E2EE302F2C1D4461007F74C6 /* FirestoreClient.swift in Sources */,
 				E233E68A2B58E6200040E1B5 /* GoogleImageManager.swift in Sources */,

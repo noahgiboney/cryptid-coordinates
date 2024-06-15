@@ -14,7 +14,7 @@ struct HomeView: View {
         NavigationStack {
             ScrollView {
                 VStack{
-                    Text("Top Rated")
+                    Text("Trending")
                         .font(.title2)
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -22,7 +22,7 @@ struct HomeView: View {
                     ScrollView(.horizontal) {
                         LazyHStack{
                             ForEach(Location.exampleArray) { location in
-                                Text(location.name)
+                                TopRatedView(location: location)
                             }
                         }
                     }
