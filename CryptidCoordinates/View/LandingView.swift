@@ -39,12 +39,12 @@ struct LandingView: View {
                 SignInWithAppleButton(.continue) { request in
                     request.requestedScopes = [.fullName]
                 } onCompletion: { result in
-    //                switch result {
-    //                case .success(let authorization):
-    //                    print("Hello")
-    //                case .failure(let error):
-    //                    print("Hello")
-    //                }
+                    //                switch result {
+                    //                case .success(let authorization):
+                    //                    print("Hello")
+                    //                case .failure(let error):
+                    //                    print("Hello")
+                    //                }
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 15))
                 .shadow(color: Color.white.opacity(0.25), radius: 10)
@@ -62,9 +62,15 @@ struct LandingView: View {
         }
     }
     
-//    func firebaseSignIn(_ authorization: ASAuthorization) async throws {
-//        let result = Auth.auth().signIn(with: authorization)
-//    }
+    //    func firebaseSignIn(_ authorization: ASAuthorization) async throws {
+    //        let result = Auth.auth().signIn(with: authorization)
+    //    }
+    
+    func signInAnon() {
+        Auth.auth().signInAnonymously { result, error in
+            
+        }
+    }
 }
 
 #Preview {
