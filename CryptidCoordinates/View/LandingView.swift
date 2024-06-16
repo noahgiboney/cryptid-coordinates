@@ -10,7 +10,11 @@ import Firebase
 import SwiftUI
 
 struct LandingView: View {
+    @Environment(UserModel.self) var userModel
     @Environment(\.colorScheme) var colorScheme
+
+    @State private var errorMessage = ""
+    @State private var isShowingError = false
     
     private var darkModeColors: [Color] {
         [Color.red, Color.black.opacity(0.8)]
@@ -36,21 +40,27 @@ struct LandingView: View {
         }
         .overlay(alignment: .bottom) {
             VStack(spacing: 10) {
-                SignInWithAppleButton(.continue) { request in
-                    request.requestedScopes = [.fullName]
+                SignInWithAppleButton { request in
+                    AppleAuthManager.shared.requestAppleAuthorization(request)
                 } onCompletion: { result in
-                    //                switch result {
-                    //                case .success(let authorization):
-                    //                    print("Hello")
-                    //                case .failure(let error):
-                    //                    print("Hello")
-                    //                }
+                    handleAppleID(result)
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 15))
-                .shadow(color: Color.white.opacity(0.25), radius: 10)
+                .overlay {
+                    ZStack {
+                        Capsule()
+                        HStack {
+                            Image(systemName: "applelogo")
+                            Text("Continue with Apple")
+                            
+                        }
+                        .foregroundStyle(colorScheme == .dark ? .black : .white)
+                    }
+                    .allowsHitTesting(false)
+                }
+                .clipShape(Capsule())
                 .frame(height: 50)
                 .padding(.horizontal, 20)
-                
+                    
                 Text("Or")
                     .font(.footnote)
                 
@@ -60,20 +70,45 @@ struct LandingView: View {
                 .foregroundStyle(Color.primary)
             }
         }
+        .alert(errorMessage, isPresented: $isShowingError) { } 
     }
     
-    //    func firebaseSignIn(_ authorization: ASAuthorization) async throws {
-    //        let result = Auth.auth().signIn(with: authorization)
-    //    }
-    
-    func signInAnon() {
-        Auth.auth().signInAnonymously { result, error in
-            
+    func handleAppleID(_ result: Result<ASAuthorization, Error>) {
+        if case let .success(auth) = result {
+            guard let appleIDCredentials = auth.credential as? ASAuthorizationAppleIDCredential else {
+                print("AppleAuthorization failed: AppleID credential not available")
+                return
+            }
+
+            Task {
+                do {
+                    let result = try await userModel.appleAuth(
+                        appleIDCredentials,
+                        nonce: AppleAuthManager.nonce
+                    )
+                    if let result = result {
+                        let id = result.user.uid
+                        let accountExists = try await userModel.checkIfUserExists(userId: id)
+                        
+                        if !accountExists {
+                            try await userModel.createNewUser(id: id, name: appleIDCredentials.displayName())
+                        }
+                        
+                        userModel.userSession = result.user
+                    }
+                } catch {
+                    print("AppleAuthorization failed: \(error)")
+                }
+            }
+        }
+        else if case let .failure(error) = result {
+            print("AppleAuthorization failed: \(error)")
         }
     }
 }
 
 #Preview {
     LandingView()
-        .preferredColorScheme(.light)
+        .preferredColorScheme(.dark)
+        .environment(UserModel())
 }

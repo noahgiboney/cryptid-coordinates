@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TabBarView: View {
-    @State private var viewModel = ViewModel(client: FirestoreClient())
+    @State private var viewModel = ViewModel(client: LocationService())
     @State private var selection = 0
     
     var body: some View {
@@ -31,7 +31,7 @@ struct TabBarView: View {
                 }
                 .tag(1)
             
-            Text("Profile")
+            ProfileView()
                 .tabItem {
                     VStack {
                         Image(systemName: "person")

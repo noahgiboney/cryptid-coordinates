@@ -10,9 +10,9 @@ import SwiftUI
 
 @Observable
 class ViewModel {
-    private let client: FirestoreClient
+    private let client: LocationService
     
-    init(client: FirestoreClient) {
+    init(client: LocationService) {
         self.client = client
     }
     

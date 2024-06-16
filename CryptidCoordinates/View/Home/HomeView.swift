@@ -9,7 +9,8 @@ import Firebase
 import SwiftUI
 
 struct HomeView: View {
-    @Environment(ViewModel.self) var viewModel
+    @Environment(UserModel.self) var userModel
+    @State private var viewModel = ViewModel(client: LocationService())
     
     var body: some View {
         NavigationStack {
@@ -27,55 +28,15 @@ struct HomeView: View {
                             }
                         }
                     }
-                    
-                    Button("do") {
-                        uploadJSON()
-                    }
                 }
                 .padding(.leading)
             }
             .navigationTitle("Cryptid Coordinates")
         }
     }
-    
-    func uploadJSON() {
-        
-        var locations = Bundle.main.newDecode(file: "hauntedplaces.json")
-        
-        do {
-            let db = Firestore.firestore()
-            
-            for var location in locations {
-                do {
-                    let id = UUID().uuidString
-                    location.id = id
-                    
-                    // Ensure the document ID does not contain slashes
-                    let docRef = db.collection("locations").document(id)
-                    if let enc = try? Firestore.Encoder().encode(location) {
-                        docRef.setData(enc) { error in
-                            if let error = error {
-                                print("Error writing document \(id): \(error)")
-                            } else {
-                                print("Document \(id) successfully written!")
-                            }
-                        }
-                    } else {
-                        
-                    }
-                } catch {
-                    print("Error writing document at ")
-                }
-            }
-            
-            print("Data successfully uploaded to Firestore!")
-        } catch {
-            print("Error reading or uploading JSON data: \(error)")
-        }
-    }
 }
 
 #Preview {
     HomeView()
-        .environment(ViewModel(client: FirestoreClient()))
+        .environment(UserModel())
 }

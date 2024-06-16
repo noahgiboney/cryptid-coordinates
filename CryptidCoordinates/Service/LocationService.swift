@@ -8,13 +8,12 @@
 import Firebase
 import Foundation
 
-class FirestoreClient {
+class LocationService {
     private let db = Firestore.firestore()
     
     func fetchAllLocations() async throws -> Int {
         
         let snapshot = try await Firestore.firestore().collection("locations").getDocuments()
-
         return snapshot.documents.count
     }
 }
