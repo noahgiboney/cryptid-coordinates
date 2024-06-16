@@ -9,6 +9,10 @@ import Firebase
 import Foundation
 
 class LocationService {
+    static let shared = LocationService()
+    
+    private init () {}
+    
     private let db = Firestore.firestore()
     
     func fetchAllLocations() async throws -> Int {

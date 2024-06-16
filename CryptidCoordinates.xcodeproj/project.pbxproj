@@ -53,6 +53,10 @@
 		E28A75DE2B5A460C00B6176A /* PreviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28A75DD2B5A460C00B6176A /* PreviewCardView.swift */; };
 		E294BD742B50C4D900C5C39C /* GoogleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E294BD732B50C4D900C5C39C /* GoogleResponse.swift */; };
 		E2A6C0762C1E38F800325471 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6C0752C1E38F700325471 /* Location.swift */; };
+		E2B326AE2C1F978300B0D1B5 /* RequestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B326AD2C1F978300B0D1B5 /* RequestDetailView.swift */; };
+		E2B326B02C1F9BC300B0D1B5 /* RequestMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B326AF2C1F9BC300B0D1B5 /* RequestMapView.swift */; };
+		E2B326B22C1F9CFD00B0D1B5 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B326B12C1F9CFD00B0D1B5 /* RequestModel.swift */; };
+		E2B326B42C1F9DE800B0D1B5 /* RequestSubmitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B326B32C1F9DE800B0D1B5 /* RequestSubmitView.swift */; };
 		E2BC84252B54A568005681F9 /* SearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BC84242B54A568005681F9 /* SearchList.swift */; };
 		E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */; };
 		E2C76C0B2B4E14550080F669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2C76C0A2B4E14550080F669 /* Assets.xcassets */; };
@@ -93,6 +97,10 @@
 		E28A75DD2B5A460C00B6176A /* PreviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCardView.swift; sourceTree = "<group>"; };
 		E294BD732B50C4D900C5C39C /* GoogleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleResponse.swift; sourceTree = "<group>"; };
 		E2A6C0752C1E38F700325471 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		E2B326AD2C1F978300B0D1B5 /* RequestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailView.swift; sourceTree = "<group>"; };
+		E2B326AF2C1F9BC300B0D1B5 /* RequestMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMapView.swift; sourceTree = "<group>"; };
+		E2B326B12C1F9CFD00B0D1B5 /* RequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
+		E2B326B32C1F9DE800B0D1B5 /* RequestSubmitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSubmitView.swift; sourceTree = "<group>"; };
 		E2B7EF5F2C1E7D5500581F74 /* CryptidCoordinates.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CryptidCoordinates.entitlements; sourceTree = "<group>"; };
 		E2BC84242B54A568005681F9 /* SearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchList.swift; sourceTree = "<group>"; };
 		E2C76C032B4E14550080F669 /* CryptidCoordinates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptidCoordinates.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,6 +207,16 @@
 			path = Old;
 			sourceTree = "<group>";
 		};
+		E2B326AC2C1F977900B0D1B5 /* RequestLocation */ = {
+			isa = PBXGroup;
+			children = (
+				E2B326AD2C1F978300B0D1B5 /* RequestDetailView.swift */,
+				E2B326AF2C1F9BC300B0D1B5 /* RequestMapView.swift */,
+				E2B326B32C1F9DE800B0D1B5 /* RequestSubmitView.swift */,
+			);
+			path = RequestLocation;
+			sourceTree = "<group>";
+		};
 		E2C6BA232B58C72700CDB792 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,12 +297,13 @@
 		E2EE30262C1D4169007F74C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E23618642C1E63D1005AF3FB /* Profile */,
-				E2EE30332C1D53A1007F74C6 /* Map */,
-				E2EE30302C1D4F1B007F74C6 /* Home */,
 				E23D30DF2C1AC43700025363 /* ContentView.swift */,
-				E23D30E12C1AC45000025363 /* TabBarView.swift */,
+				E2EE30302C1D4F1B007F74C6 /* Home */,
 				E2EE30362C1D563F007F74C6 /* LandingView.swift */,
+				E2EE30332C1D53A1007F74C6 /* Map */,
+				E23618642C1E63D1005AF3FB /* Profile */,
+				E2B326AC2C1F977900B0D1B5 /* RequestLocation */,
+				E23D30E12C1AC45000025363 /* TabBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -294,6 +313,7 @@
 			children = (
 				E233E68B2B58E6320040E1B5 /* Data */,
 				E2EE302B2C1D4266007F74C6 /* ViewModel.swift */,
+				E2B326B12C1F9CFD00B0D1B5 /* RequestModel.swift */,
 				E24A4D0C2C1DFCD8009D311C /* UserModel.swift */,
 			);
 			path = Model;
@@ -444,11 +464,14 @@
 				E275B10B2B784B3E0012BDF2 /* ClusterManager.swift in Sources */,
 				E2EE302F2C1D4461007F74C6 /* LocationService.swift in Sources */,
 				E233E68A2B58E6200040E1B5 /* GoogleImageManager.swift in Sources */,
+				E2B326B02C1F9BC300B0D1B5 /* RequestMapView.swift in Sources */,
 				E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */,
 				E2EE302C2C1D4266007F74C6 /* ViewModel.swift in Sources */,
+				E2B326B42C1F9DE800B0D1B5 /* RequestSubmitView.swift in Sources */,
 				E2ECE2EB2B53756600FA4BDB /* SearchListView.swift in Sources */,
 				E2DE85332B6DBB7500D1AF12 /* SavedLocations.swift in Sources */,
 				E2EE30352C1D544F007F74C6 /* MapView.swift in Sources */,
+				E2B326B22C1F9CFD00B0D1B5 /* RequestModel.swift in Sources */,
 				E24A43AF2B4E2B5C006B1B2A /* OldLocation.swift in Sources */,
 				E2A6C0762C1E38F800325471 /* Location.swift in Sources */,
 				E2BC84252B54A568005681F9 /* SearchList.swift in Sources */,
@@ -460,6 +483,7 @@
 				E23618662C1E63D9005AF3FB /* ProfileView.swift in Sources */,
 				E2F474DB2B74432900E3D474 /* MapAnnotationView.swift in Sources */,
 				E23154242C1E843F0026F3E8 /* AppleAuthManager.swift in Sources */,
+				E2B326AE2C1F978300B0D1B5 /* RequestDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

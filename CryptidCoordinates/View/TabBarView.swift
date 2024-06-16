@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TabBarView: View {
-    @State private var viewModel = ViewModel(client: LocationService())
+    @State private var viewModel = ViewModel()
     @State private var selection = 0
     
     var body: some View {

@@ -10,7 +10,8 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(UserModel.self) var userModel
-    @State private var viewModel = ViewModel(client: LocationService())
+    @State private var requestModel = RequestModel()
+    @State private var viewModel = ViewModel()
     
     var body: some View {
         NavigationStack {
@@ -30,9 +31,14 @@ struct HomeView: View {
                     }
                 }
                 .padding(.leading)
+                
+                NavigationLink("Reqest") {
+                    RequestDetailView()
+                }
             }
             .navigationTitle("Cryptid Coordinates")
         }
+        .environment(requestModel)
     }
 }
 

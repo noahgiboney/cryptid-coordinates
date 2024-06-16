@@ -10,10 +10,10 @@ import SwiftUI
 
 @Observable
 class ViewModel {
-    private let client: LocationService
+    private let locationService: LocationService
     
-    init(client: LocationService) {
-        self.client = client
+    init(locationService: LocationService = LocationService.shared) {
+        self.locationService = locationService
     }
     
     var locations: [OldLocation] = []
@@ -21,7 +21,7 @@ class ViewModel {
     
     func fetchAllLocations() async throws {
         do {
-            count = try await client.fetchAllLocations()
+            count = try await locationService.fetchAllLocations()
         } catch {
             print("DEBUG: error fetching all locations: \(error.localizedDescription)")
         }
