@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct RequestSubmitView: View {
-    @Environment(RequestModel.self) var requestModel
+struct SubmitView: View {
+    @Environment(SubmitLocationViewModel.self) var requestModel
     
     var body: some View {
         Form {
@@ -38,17 +38,19 @@ struct RequestSubmitView: View {
             } label: {
                 HStack {
                     Text("Submit")
-                    Image(systemName: "arrow.up")
+                    Image(systemName: "paperplane")
                 }
             }
         }
         .navigationTitle("Review")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarRole(.editor)
     }
 }
 
 #Preview {
     NavigationStack{
-        RequestSubmitView()
-            .environment(RequestModel())
+        SubmitView()
+            .environment(SubmitLocationViewModel())
     }
 }

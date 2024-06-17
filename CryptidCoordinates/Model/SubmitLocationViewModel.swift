@@ -9,7 +9,7 @@ import MapKit
 import SwiftUI
 
 @Observable
-class RequestModel {
+class SubmitLocationViewModel {
     var locationName = ""
     var description = ""
     var coordinates: CLLocationCoordinate2D?

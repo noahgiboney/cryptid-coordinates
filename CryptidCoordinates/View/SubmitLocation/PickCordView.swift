@@ -7,9 +7,10 @@
 
 import MapKit
 import SwiftUI
+import TipKit
 
-struct RequestMapView: View {
-    @Environment(RequestModel.self) var requestModel
+struct PickCordView: View {
+    @Environment(SubmitLocationViewModel.self) var requestModel
     
     var body: some View {
         MapReader { reader in
@@ -27,14 +28,19 @@ struct RequestMapView: View {
                 withAnimation {
                     requestModel.coordinates = pinLocation
                 }
+                Task { await PickCordTip.pickCordEvent.donate() }
             })
-            .navigationTitle("Find \(requestModel.locationName)")
+            .navigationTitle("Pick Coordinates")
             .navigationBarTitleDisplayMode(.inline)
+            .overlay(alignment: .top) {
+                TipView(PickCordTip.tip)
+                    .padding()
+            }
             .toolbar {
                 if requestModel.coordinates != nil {
                     ToolbarItem(placement: .topBarTrailing) {
                         NavigationLink("Next") {
-                            RequestSubmitView()
+                            SubmitView()
                         }
                     }
                 }
@@ -44,6 +50,6 @@ struct RequestMapView: View {
 }
 
 #Preview {
-    RequestMapView()
-        .environment(RequestModel())
+    PickCordView()
+        .environment(SubmitLocationViewModel())
 }

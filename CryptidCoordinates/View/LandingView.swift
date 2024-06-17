@@ -10,7 +10,7 @@ import Firebase
 import SwiftUI
 
 struct LandingView: View {
-    @Environment(UserModel.self) var userModel
+    @Environment(UserViewModel.self) var userViewModel
     @Environment(\.colorScheme) var colorScheme
 
     @State private var errorMessage = ""
@@ -82,19 +82,19 @@ struct LandingView: View {
 
             Task {
                 do {
-                    let result = try await userModel.appleAuth(
+                    let result = try await userViewModel.appleAuth(
                         appleIDCredentials,
                         nonce: AppleAuthManager.nonce
                     )
                     if let result = result {
                         let id = result.user.uid
-                        let accountExists = try await userModel.checkIfUserExists(userId: id)
+                        let accountExists = try await userViewModel.checkIfUserExists(userId: id)
                         
                         if !accountExists {
-                            try await userModel.createNewUser(id: id, name: appleIDCredentials.displayName())
+                            try await userViewModel.createNewUser(id: id, name: appleIDCredentials.displayName())
                         }
                         
-                        userModel.userSession = result.user
+                        userViewModel.userSession = result.user
                     }
                 } catch {
                     print("AppleAuthorization failed: \(error)")
@@ -110,5 +110,5 @@ struct LandingView: View {
 #Preview {
     LandingView()
         .preferredColorScheme(.dark)
-        .environment(UserModel())
+        .environment(UserViewModel())
 }

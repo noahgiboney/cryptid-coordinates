@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @Environment(UserModel.self) var userModel
+    @Environment(UserViewModel.self) var userModel
     
     var body: some View {
         Group {
@@ -28,5 +28,5 @@ struct ProfileView: View {
 
 #Preview {
     ProfileView()
-        .environment(UserModel())
+        .environment(UserViewModel())
 }

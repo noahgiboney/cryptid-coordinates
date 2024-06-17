@@ -9,9 +9,9 @@ import Firebase
 import SwiftUI
 
 struct HomeView: View {
-    @Environment(UserModel.self) var userModel
-    @State private var requestModel = RequestModel()
+    @Environment(UserViewModel.self) var userViewModel
     @State private var viewModel = ViewModel()
+    @State private var isShowingSubmitLocationSheet = false
     
     var body: some View {
         NavigationStack {
@@ -32,17 +32,19 @@ struct HomeView: View {
                 }
                 .padding(.leading)
                 
-                NavigationLink("Reqest") {
-                    RequestDetailView()
+                Button("Reqest") {
+                    isShowingSubmitLocationSheet.toggle()
                 }
             }
             .navigationTitle("Cryptid Coordinates")
+            .sheet(isPresented: $isShowingSubmitLocationSheet) {
+                SubmitLocationDetailsView()
+            }
         }
-        .environment(requestModel)
     }
 }
 
 #Preview {
     HomeView()
-        .environment(UserModel())
+        .environment(UserViewModel())
 }

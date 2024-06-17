@@ -10,19 +10,19 @@ import FirebaseCore
 import SwiftUI
 
 struct ContentView: View {
-    @State private var userModel = UserModel()
+    @State private var userViewModel = UserViewModel()
     
     var body: some View {
         Group {
             TabBarView()
-                .environment(userModel)
-//            if userModel.userSession != nil {
+                .environment(userViewModel)
+//            if userViewModel.userSession != nil {
 //                TabBarView()
 //            } else {
 //                LandingView()
 //            }
         }
-//        .environment(userModel)
+//        .environment(userViewModel)
     }
 }
 
