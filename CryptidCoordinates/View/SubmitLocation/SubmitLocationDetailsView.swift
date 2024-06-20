@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SubmitLocationDetailsView: View {
+    @Environment(\.dismiss) var dismiss
     @FocusState private var textEditorFocused: Bool
     @State private var submitViewModel = SubmitLocationViewModel()
     
@@ -53,6 +54,13 @@ struct SubmitLocationDetailsView: View {
             }
             .navigationTitle("Submit Location")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Close") {
+                        dismiss()
+                    }
+                }
+            }
         }
         .environment(submitViewModel)
     }

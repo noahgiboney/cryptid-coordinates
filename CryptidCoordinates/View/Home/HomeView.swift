@@ -30,13 +30,14 @@ struct HomeView: View {
                         }
                     }
                 }
-                .padding(.leading)
                 
-                Button("Reqest") {
-                    isShowingSubmitLocationSheet.toggle()
-                }
+                
+                
+                requestLocation
+                    
             }
-            .navigationTitle("Cryptid Coordinates")
+            .padding(.horizontal)
+            .navigationTitle("Home")
             .sheet(isPresented: $isShowingSubmitLocationSheet) {
                 SubmitLocationDetailsView()
             }
@@ -47,4 +48,16 @@ struct HomeView: View {
 #Preview {
     HomeView()
         .environment(UserViewModel())
+}
+
+extension HomeView {
+    private var requestLocation: some View {
+        VStack(spacing: 10) {
+            Text("Know of a spooky spot that is not on our map? Submit a location to have it featured.")
+            Button("Submit a location") {
+                isShowingSubmitLocationSheet.toggle()
+            }
+        }
+        .font(.footnote)
+    }
 }
