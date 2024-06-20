@@ -49,86 +49,11 @@ struct LocationDetailView: View {
                         .padding(.vertical, 100)
                 }
                 
-                HStack {
-                    Button {
-                        
-                    } label: {
-                        Label("Map", systemImage: "map")
-                    }
-                    .buttonStyle(.bordered)
-                    
-                    if lookAroundPlace == lookAroundPlace{
-                        Button {
-                            
-                        } label: {
-                            Label("Look", systemImage: "eye")
-                        }
-                        .buttonStyle(.bordered)
-                    }
-                }
-                .padding(.leading)
+                actionButtons
+                
+                commentSection()
                 
                 
-                HStack(spacing: 50) {
-                    Button {
-                        likeTapped.toggle()
-                    } label: {
-                        Image(systemName: likeTapped ? "hand.thumbsup.fill" : "hand.thumbsup")
-                            .foregroundStyle(.green)
-                            .symbolEffect(.bounce, value: likeTapped)
-                    }
-                    
-                    Button(role: .destructive) {
-                        
-                    } label: {
-                        Image(systemName: "hand.thumbsdown")
-                    }
-                    .foregroundStyle(.red)
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "square.and.arrow.up")
-                    }
-                    
-                    Spacer()
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "star")
-                            .foregroundStyle(.yellow)
-                    }
-                }
-                .padding(.horizontal)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .imageScale(.large)
-                
-                HStack {
-                    TextField("Share Your Experince", text: $comment)
-                        .overlay(alignment: .bottom) {
-                            Rectangle()
-                                .foregroundStyle(.gray)
-                                .frame(height: 0.5)
-                                .offset(y: 6)
-                        }
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "arrow.up.circle.fill")
-                            .imageScale(.large)
-                            .foregroundStyle(.black)
-                    }
-                }
-                .padding(.horizontal)
-                
-                LazyVStack(alignment: .leading, spacing: 25) {
-                    ForEach(0..<10) { _ in
-                        CommentView(comment: Comment.example)
-                    }
-                }
-                .padding(.leading)
             }
             .task {
                 await fetchImage()
@@ -165,6 +90,102 @@ struct LocationDetailView: View {
 }
 
 extension LocationDetailView {
+    
+    private var actionButtons: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            HStack {
+                Button {
+                    
+                } label: {
+                    Label("Map", systemImage: "map")
+                }
+                .buttonStyle(.bordered)
+                
+                if lookAroundPlace == lookAroundPlace{
+                    Button {
+                        
+                    } label: {
+                        Label("Look", systemImage: "eye")
+                    }
+                    .buttonStyle(.bordered)
+                }
+            }
+            .padding(.leading)
+            
+            HStack(spacing: 30) {
+                HStack {
+                    Button {
+                        likeTapped.toggle()
+                    } label: {
+                        Image(systemName: likeTapped ? "hand.thumbsup.fill" : "hand.thumbsup")
+                            .symbolEffect(.bounce, value: likeTapped)
+                    }
+                    
+                    Text("\(55)")
+                }
+                .foregroundStyle(.green)
+                
+                HStack {
+                    Button(role: .destructive) {
+                        
+                    } label: {
+                        Image(systemName: "hand.thumbsdown")
+                    }
+                    
+                    Text("\(100)")
+                }
+                .foregroundStyle(.red)
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
+                }
+                
+                Spacer()
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "star")
+                        .foregroundStyle(.yellow)
+                }
+            }
+            .font(.subheadline)
+            .padding(.horizontal)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .imageScale(.large)
+        }
+    }
+    
+    @ViewBuilder
+    private func commentSection() -> some View {
+        HStack {
+            TextField("Share Your Experince", text: $comment)
+                .overlay(alignment: .bottom) {
+                    Rectangle()
+                        .foregroundStyle(.gray)
+                        .frame(height: 0.5)
+                        .offset(y: 6)
+                }
+            
+            Button {
+                
+            } label: {
+                Image(systemName: "arrow.up.circle.fill")
+                    .imageScale(.large)
+                    .foregroundStyle(.black)
+            }
+        }
+        .padding(.horizontal)
+        
+        LazyVStack(alignment: .leading, spacing: 25) {
+            ForEach(0..<10) { _ in
+                CommentView(comment: Comment.example)
+            }
+        }
+        .padding(.leading)
+    }
     
     private var imageSection: some View {
         
