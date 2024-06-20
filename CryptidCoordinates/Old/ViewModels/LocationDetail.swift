@@ -26,6 +26,13 @@ extension LocationDetailView{
             item.openInMaps()
         }
         
+        
+        var imageUrl: URL? {
+            didSet {
+                Task { }
+            }
+        }
+        
         // load and apply filter to an image form url
         func loadAndProccessImage(url: String) async {
             

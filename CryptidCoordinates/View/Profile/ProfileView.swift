@@ -23,6 +23,9 @@ struct ProfileView: View {
                 }
             }
         }
+        .onAppear {
+            userModel.currentUser = .example
+        }
     }
 }
 

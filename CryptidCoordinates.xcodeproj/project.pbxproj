@@ -72,6 +72,9 @@
 		E2EE30352C1D544F007F74C6 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE30342C1D544F007F74C6 /* MapView.swift */; };
 		E2EE30372C1D563F007F74C6 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE30362C1D563F007F74C6 /* LandingView.swift */; };
 		E2F474DB2B74432900E3D474 /* MapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F474DA2B74432900E3D474 /* MapAnnotationView.swift */; };
+		E2F9E9572C2296CF00D74D31 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E2F9E9562C2296CF00D74D31 /* Kingfisher */; };
+		E2F9E9592C22A79100D74D31 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F9E9582C22A79100D74D31 /* CommentView.swift */; };
+		E2F9E95B2C22A84200D74D31 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F9E95A2C22A84200D74D31 /* Comment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +122,8 @@
 		E2EE30342C1D544F007F74C6 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		E2EE30362C1D563F007F74C6 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		E2F474DA2B74432900E3D474 /* MapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationView.swift; sourceTree = "<group>"; };
+		E2F9E9582C22A79100D74D31 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		E2F9E95A2C22A84200D74D31 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +143,7 @@
 				E204C1172C1E3EF700688944 /* FirebaseInstallations in Frameworks */,
 				E204C1112C1E3EF700688944 /* FirebaseFirestoreSwift in Frameworks */,
 				E204C0FF2C1E3EF700688944 /* FirebaseAppCheck in Frameworks */,
+				E2F9E9572C2296CF00D74D31 /* Kingfisher in Frameworks */,
 				E204C0F92C1E3EF700688944 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				E204C1152C1E3EF700688944 /* FirebaseFunctionsCombine-Community in Frameworks */,
 				E204C11B2C1E3EF700688944 /* FirebasePerformance in Frameworks */,
@@ -169,6 +175,7 @@
 				E24A4D0E2C1DFCF3009D311C /* User.swift */,
 				E2A6C0752C1E38F700325471 /* Location.swift */,
 				E26F4DD62C1FE0260090D4CF /* Tip.swift */,
+				E2F9E95A2C22A84200D74D31 /* Comment.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -288,7 +295,6 @@
 			isa = PBXGroup;
 			children = (
 				E275B1082B784ADC0012BDF2 /* OldMap.swift */,
-				E27395D12B4E59BB00D70108 /* LocationDetailView.swift */,
 				E28A75DD2B5A460C00B6176A /* PreviewCardView.swift */,
 				E2ECE2EA2B53756600FA4BDB /* SearchListView.swift */,
 				E27904502B64D8240034939B /* SavedLocationView.swift */,
@@ -300,6 +306,8 @@
 		E2EE30262C1D4169007F74C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E27395D12B4E59BB00D70108 /* LocationDetailView.swift */,
+				E2F9E9522C22948F00D74D31 /* Components */,
 				E23D30DF2C1AC43700025363 /* ContentView.swift */,
 				E2EE30302C1D4F1B007F74C6 /* Home */,
 				E2EE30362C1D563F007F74C6 /* LandingView.swift */,
@@ -307,6 +315,7 @@
 				E23618642C1E63D1005AF3FB /* Profile */,
 				E2B326AC2C1F977900B0D1B5 /* SubmitLocation */,
 				E23D30E12C1AC45000025363 /* TabBarView.swift */,
+				E2F9E9582C22A79100D74D31 /* CommentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -349,6 +358,13 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
+		E2F9E9522C22948F00D74D31 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -389,6 +405,7 @@
 				E204C11A2C1E3EF700688944 /* FirebasePerformance */,
 				E204C11C2C1E3EF700688944 /* FirebaseStorage */,
 				E204C11E2C1E3EF700688944 /* FirebaseVertexAI-Preview */,
+				E2F9E9562C2296CF00D74D31 /* Kingfisher */,
 			);
 			productName = CryptidCoordinates;
 			productReference = E2C76C032B4E14550080F669 /* CryptidCoordinates.app */;
@@ -421,6 +438,7 @@
 			packageReferences = (
 				E286FF862B560B4300C9782A /* XCRemoteSwiftPackageReference "ClusterMap" */,
 				E204C0F52C1E3EF700688944 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				E2F9E9552C2296CF00D74D31 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = E2C76C042B4E14550080F669 /* Products */;
 			projectDirPath = "";
@@ -477,6 +495,7 @@
 				E2EE30352C1D544F007F74C6 /* MapView.swift in Sources */,
 				E2B326B22C1F9CFD00B0D1B5 /* SubmitLocationViewModel.swift in Sources */,
 				E24A43AF2B4E2B5C006B1B2A /* OldLocation.swift in Sources */,
+				E2F9E9592C22A79100D74D31 /* CommentView.swift in Sources */,
 				E2A6C0762C1E38F800325471 /* Location.swift in Sources */,
 				E2BC84252B54A568005681F9 /* SearchList.swift in Sources */,
 				E279044F2B64D0420034939B /* Buttons.swift in Sources */,
@@ -484,6 +503,7 @@
 				E27904512B64D8240034939B /* SavedLocationView.swift in Sources */,
 				E279044D2B64CFE40034939B /* BundleDecode.swift in Sources */,
 				E2DEA7362B79857800D71B8B /* LocationManager.swift in Sources */,
+				E2F9E95B2C22A84200D74D31 /* Comment.swift in Sources */,
 				E23618662C1E63D9005AF3FB /* ProfileView.swift in Sources */,
 				E2F474DB2B74432900E3D474 /* MapAnnotationView.swift in Sources */,
 				E23154242C1E843F0026F3E8 /* AppleAuthManager.swift in Sources */,
@@ -721,6 +741,14 @@
 				minimumVersion = 2.1.0;
 			};
 		};
+		E2F9E9552C2296CF00D74D31 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -838,6 +866,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E286FF862B560B4300C9782A /* XCRemoteSwiftPackageReference "ClusterMap" */;
 			productName = ClusterMapSwiftUI;
+		};
+		E2F9E9562C2296CF00D74D31 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2F9E9552C2296CF00D74D31 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
