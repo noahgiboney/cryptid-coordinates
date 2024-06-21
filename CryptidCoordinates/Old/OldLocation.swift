@@ -57,7 +57,9 @@ extension OldLocation {
 extension OldLocation {
     static let example = OldLocation(location: "Rosemount Museum", country: "United States", city: "Pueblo", state: "Colorado", description: "The museum was home to the prominent Pueblo family, the Thatcher’s, during the 1800's. There are noises and movements all over the property as well as a real Egyptian Mummy in one of the top stories. Under their house there are extensive tunnels not open to the public.", longitude: "-104.6121005", latitude: "38.2805245", cityLongitude: "-104.6091409", cityLatitude: "38.2544472", stateAbbrev: "CO")
     
-    static let exampleArray = Array<OldLocation>.init(repeating: example, count: 10)
+    static let example2 = OldLocation(location: "Rosemount Museum", country: "United States", city: "Pueblo", state: "Colorado", description: "The museum was home to the prominent Pueblo family, the Thatcher’s, during the 1800's. There are noises and movements all over the property as well as a real Egyptian Mummy in one of the top stories. Under their house there are extensive tunnels not open to the public.", longitude: "-104.6121005", latitude: "38.2805245", cityLongitude: "-104.6091409", cityLatitude: "38.2544472", stateAbbrev: "CO")
+    
+    static let exampleArray = [example]
     
     static let allLocations: [OldLocation] = Bundle.main.decode(file: "hauntedplaces.json")
 }
