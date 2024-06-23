@@ -61,7 +61,6 @@ struct MenuBar: View {
         }
         .background(Capsule()
             .fill(.ultraThickMaterial)
-                    // .fill(colorScheme == .dark ? .gray.opacity(0.9) : .gray.opacity(0.8))
             .frame(width: 290, height: 45))
         .padding(.bottom)
     }
@@ -101,16 +100,16 @@ struct MenuItemsPreferenceKey: PreferenceKey {
 struct TabBarItemViewModifier: ViewModifier {
     let tab: MenuBarItem
     @Binding var selection: MenuBarItem
-
+    
     func body(content: Content) -> some View {
-    content
-        .opacity(selection == tab ? 1.0 : 0.0)
-        .preference(key: MenuItemsPreferenceKey.self, value: [tab])
+        content
+            .opacity(selection == tab ? 1.0 : 0.0)
+            .preference(key: MenuItemsPreferenceKey.self, value: [tab])
     }
 }
 
 extension View {
     func tabBarItem(tab: MenuBarItem, selection: Binding<MenuBarItem>) -> some View {
-    self.modifier(TabBarItemViewModifier(tab: tab, selection: selection))
+        self.modifier(TabBarItemViewModifier(tab: tab, selection: selection))
     }
 }

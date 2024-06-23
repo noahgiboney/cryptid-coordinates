@@ -30,6 +30,7 @@
 		E204C11D2C1E3EF700688944 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E204C11C2C1E3EF700688944 /* FirebaseStorage */; };
 		E204C11F2C1E3EF700688944 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = E204C11E2C1E3EF700688944 /* FirebaseVertexAI-Preview */; };
 		E204C1212C1E4B2000688944 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E204C1202C1E4B2000688944 /* UserService.swift */; };
+		E2145EB02C27B4360085C94F /* CommentSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2145EAF2C27B4360085C94F /* CommentSection.swift */; };
 		E216EB0D2B4FA4D70006AB32 /* LocationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216EB0C2B4FA4D70006AB32 /* LocationDetail.swift */; };
 		E23154242C1E843F0026F3E8 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23154232C1E843F0026F3E8 /* AppleAuthManager.swift */; };
 		E233E68A2B58E6200040E1B5 /* GoogleImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233E6892B58E6200040E1B5 /* GoogleImageManager.swift */; };
@@ -81,6 +82,7 @@
 /* Begin PBXFileReference section */
 		E204C0F32C1E3E9A00688944 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E204C1202C1E4B2000688944 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		E2145EAF2C27B4360085C94F /* CommentSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSection.swift; sourceTree = "<group>"; };
 		E216EB0C2B4FA4D70006AB32 /* LocationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetail.swift; sourceTree = "<group>"; };
 		E23154232C1E843F0026F3E8 /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		E233E6892B58E6200040E1B5 /* GoogleImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleImageManager.swift; sourceTree = "<group>"; };
@@ -168,6 +170,15 @@
 			children = (
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		E2145EB12C27B6C30085C94F /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				E2F9E9582C22A79100D74D31 /* CommentView.swift */,
+				E2145EAF2C27B4360085C94F /* CommentSection.swift */,
+			);
+			path = Comments;
 			sourceTree = "<group>";
 		};
 		E233E68B2B58E6320040E1B5 /* Data */ = {
@@ -305,21 +316,10 @@
 			path = OldViews;
 			sourceTree = "<group>";
 		};
-		E2CB983B2C267B3100FDD4F8 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				E2EE30282C1D41B8007F74C6 /* HomeView.swift */,
-				E2EE30312C1D4F2A007F74C6 /* LocationPreviewView.swift */,
-				E2CB98392C26771800FDD4F8 /* MenuBar.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		E2EE30262C1D4169007F74C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E27395D12B4E59BB00D70108 /* LocationDetailView.swift */,
-				E2F9E9522C22948F00D74D31 /* Components */,
+				E2145EB12C27B6C30085C94F /* Comments */,
 				E23D30DF2C1AC43700025363 /* ContentView.swift */,
 				E2EE30302C1D4F1B007F74C6 /* Home */,
 				E2EE30362C1D563F007F74C6 /* LandingView.swift */,
@@ -327,7 +327,6 @@
 				E23618642C1E63D1005AF3FB /* Profile */,
 				E2B326AC2C1F977900B0D1B5 /* SubmitLocation */,
 				E23D30E12C1AC45000025363 /* TabBarView.swift */,
-				E2F9E9582C22A79100D74D31 /* CommentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -356,7 +355,10 @@
 		E2EE30302C1D4F1B007F74C6 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				E2CB983B2C267B3100FDD4F8 /* View */,
+				E27395D12B4E59BB00D70108 /* LocationDetailView.swift */,
+				E2EE30282C1D41B8007F74C6 /* HomeView.swift */,
+				E2EE30312C1D4F2A007F74C6 /* LocationPreviewView.swift */,
+				E2CB98392C26771800FDD4F8 /* MenuBar.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -367,13 +369,6 @@
 				E2EE30342C1D544F007F74C6 /* MapView.swift */,
 			);
 			path = Map;
-			sourceTree = "<group>";
-		};
-		E2F9E9522C22948F00D74D31 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -482,6 +477,7 @@
 				E24A43AB2B4E2475006B1B2A /* Map.swift in Sources */,
 				E216EB0D2B4FA4D70006AB32 /* LocationDetail.swift in Sources */,
 				E24A4D0D2C1DFCD8009D311C /* UserViewModel.swift in Sources */,
+				E2145EB02C27B4360085C94F /* CommentSection.swift in Sources */,
 				E275B1092B784ADC0012BDF2 /* OldMap.swift in Sources */,
 				E294BD742B50C4D900C5C39C /* GoogleResponse.swift in Sources */,
 				E28A75DE2B5A460C00B6176A /* PreviewCardView.swift in Sources */,
