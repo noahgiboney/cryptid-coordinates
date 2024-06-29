@@ -16,7 +16,9 @@ class UserViewModel {
     
     var userSession: Firebase.User? {
         didSet {
-            Task { try await fetchCurrentUser() }
+            if let userSession {
+                Task { try await fetchCurrentUser() }
+            }
         }
     }
     
@@ -33,7 +35,7 @@ class UserViewModel {
     }
 }
 
-// MARK: Firebase
+// MARK: Firebase User
 extension UserViewModel {
     func fetchCurrentUser() async throws {
         do {
@@ -45,7 +47,7 @@ extension UserViewModel {
     
     func createNewUser(id: String, name: String) async throws {
         do {
-            try await UserService.shared.createNewUser(id: id, name: name)
+            try await userService.createNewUser(id: id, name: name)
         } catch {
             print("DEBUG: error creating user: \(error.localizedDescription)")
         }
@@ -64,6 +66,16 @@ extension UserViewModel {
         userSession = nil
         currentUser = nil
     }
+    
+    func deleteAccount() async throws{
+        do {
+            try await userService.deleteCurrentUser()
+        } catch {
+            print("FirebaseAuthError: deleteAccount() failed. \(error)")
+        }
+        userSession = nil
+        currentUser = nil
+    }
 }
 
 // MARK: Apple Authentication
@@ -78,12 +90,10 @@ extension UserViewModel {
                 case .authorized:
                     break
                 case .revoked:
-                        try signOut()
+                    try signOut()
                 case .notFound:
-                    if let userId = Auth.auth().currentUser?.uid {
-                        userService.deleteUser(userId: userId)
-                        try signOut()
-                    }
+                    try await userService.deleteCurrentUser()
+                    try signOut()
                 default:
                     break
                 }
@@ -98,21 +108,21 @@ extension UserViewModel {
         guard let nonce = nonce else {
             fatalError("Invalid state: A login callback was received, but no login request was sent.")
         }
-
+        
         guard let appleIDToken = appleIDCredential.identityToken else {
             print("Unable to fetch identity token")
             return nil
         }
-
+        
         guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
             print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
             return nil
         }
-
+        
         let credentials = OAuthProvider.appleCredential(withIDToken: idTokenString,
-                                                       rawNonce: nonce,
-                                                       fullName: appleIDCredential.fullName)
-
+                                                        rawNonce: nonce,
+                                                        fullName: appleIDCredential.fullName)
+        
         do {
             return try await Auth.auth().signIn(with: credentials)
         }
@@ -124,10 +134,10 @@ extension UserViewModel {
 }
 
 extension ASAuthorizationAppleIDCredential {
-  func displayName() -> String {
-    return [self.fullName?.givenName, self.fullName?.familyName]
-      .compactMap( {$0})
-      .joined(separator: " ")
-  }
+    func displayName() -> String {
+        return [self.fullName?.givenName, self.fullName?.familyName]
+            .compactMap( {$0})
+            .joined(separator: " ")
+    }
 }
 

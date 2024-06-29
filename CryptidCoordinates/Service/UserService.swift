@@ -27,8 +27,10 @@ class UserService {
         try await db.document(id).setData(encodedUser)
     }
     
-    func deleteUser(userId: String) {
-        db.document(userId).delete()
+    func deleteCurrentUser() async throws {
+        guard let user = Auth.auth().currentUser else { return }
+        try await db.document(user.uid).delete()
+        try await user.delete()
     }
     
     func checkIfUserExists(userId: String) async throws -> Bool {
