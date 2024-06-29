@@ -15,11 +15,14 @@ struct HomeView: View {
     @State private var selection: MenuBarItem = .trending
     @State private var viewModel = ViewModel()
     @State private var isShowingSubmitLocationSheet = false
+    @State private var isShowingMenu = false
     
     var body: some View {
-        MenuBarContainer(selection: $selection) {
-            Text("1")
+        MenuBarContainer(isShowingMenu: $isShowingMenu, selection: $selection) {
+            requestLocation
                 .tabBarItem(tab: .trending, selection: $selection)
+                .onAppear { isShowingMenu = false }
+                .onDisappear { isShowingMenu = true }
             
             Text("2")
                 .tabBarItem(tab: .nearYou, selection: $selection)
@@ -27,11 +30,15 @@ struct HomeView: View {
             Text("2")
                 .tabBarItem(tab: .topRated, selection: $selection)
         }
+        .sheet(isPresented: $isShowingSubmitLocationSheet, content: {
+            SubmitLocationDetailsView()
+        })
     }
 }
 
 #Preview {
     HomeView()
+        .preferredColorScheme(.dark)
         .environment(UserViewModel())
 }
 

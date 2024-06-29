@@ -10,14 +10,15 @@ import SwiftUI
 
 @Observable
 class ViewModel {
-    private let locationService: LocationService
+    private let locationService: FirebaseService
     
-    init(locationService: LocationService = LocationService.shared) {
+    init(locationService: FirebaseService = FirebaseService.shared) {
         self.locationService = locationService
     }
     
     var locations: [OldLocation] = []
     var count = 0
+    var tabSelection = 0
     
     func fetchAllLocations() async throws {
         do {

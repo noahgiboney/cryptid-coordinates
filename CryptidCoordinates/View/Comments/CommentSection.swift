@@ -10,7 +10,7 @@ import SwiftUI
 struct CommentSection: View {
     @FocusState private var isFocused: Bool
     @State private var comment = ""
-    let location: OldLocation
+    let location: Location
     
     var body: some View {
         VStack(spacing: 30){
@@ -58,5 +58,5 @@ struct CommentSection: View {
 }
 
 #Preview {
-    CommentSection(location: OldLocation.example)
+    CommentSection(location: Location.example)
 }

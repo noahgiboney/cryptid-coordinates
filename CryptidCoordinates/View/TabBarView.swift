@@ -9,10 +9,9 @@ import SwiftUI
 
 struct TabBarView: View {
     @State private var viewModel = ViewModel()
-    @State private var selection = 0
     
     var body: some View {
-        TabView(selection: $selection) {
+        TabView(selection: $viewModel.tabSelection) {
             HomeView()
                 .tabItem {
                     VStack {

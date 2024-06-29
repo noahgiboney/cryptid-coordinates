@@ -12,10 +12,12 @@ enum MenuBarItem: Hashable {
 }
 
 struct MenuBarContainer<Content: View>: View {
+    @Binding var isShowingMenu: Bool
     @Binding var selection: MenuBarItem
     var content: () -> Content
     
-    init(selection: Binding<MenuBarItem>, @ViewBuilder content: @escaping () -> Content) {
+    init(isShowingMenu: Binding<Bool> ,selection: Binding<MenuBarItem>, @ViewBuilder content: @escaping () -> Content) {
+        self._isShowingMenu = isShowingMenu
         self._selection = selection
         self.content = content
     }
@@ -28,6 +30,7 @@ struct MenuBarContainer<Content: View>: View {
                 Spacer()
                 MenuBar(selection: $selection)
             }
+            .opacity(isShowingMenu ? 1 : 0)
         }
     }
 }
@@ -52,7 +55,7 @@ struct MenuBar: View {
                 
             }
             
-            menuButton(text: "Top", isSelected: selection == .topRated) {
+            menuButton(text: "Top Rated", isSelected: selection == .topRated) {
                 withAnimation {
                     selection = .topRated
                 }
@@ -61,7 +64,7 @@ struct MenuBar: View {
         }
         .background(Capsule()
             .fill(.ultraThickMaterial)
-            .frame(width: 290, height: 45))
+            .frame(width: 310, height: 45))
         .padding(.bottom)
     }
     
@@ -72,7 +75,7 @@ struct MenuBar: View {
                     .padding(.horizontal, 10)
                     .padding(.vertical, 3)
                     .background(
-                        Capsule().fill(.gray.opacity(0.6)).matchedGeometryEffect(id: "menu", in: menuNamespace))
+                        Capsule().fill(Color("AccentColor").opacity(0.9)).matchedGeometryEffect(id: "menu", in: menuNamespace))
             } else {
                 Text(text)
                     .padding(.horizontal, 10)

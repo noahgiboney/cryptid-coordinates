@@ -29,7 +29,7 @@ struct PreviewCardView: View {
                 .padding(.bottom, 80)
         }
         .sheet(isPresented: $showingDetails){
-            LocationDetailView(location: location)
+            //LocationDetailView(location: location)
         }
     }
     

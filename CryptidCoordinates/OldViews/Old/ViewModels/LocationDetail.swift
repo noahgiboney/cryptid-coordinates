@@ -13,7 +13,7 @@ import CoreImage.CIFilterBuiltins
 extension LocationDetailView{
     
     @Observable
-    class ViewModel {
+    class OldViewModel {
         
         // some citys do not have look around support
         var lookAroundPlace: MKLookAroundScene?

@@ -14,15 +14,14 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            TabBarView()
-                .environment(userViewModel)
-//            if userViewModel.userSession != nil {
-//                TabBarView()
-//            } else {
-//                LandingView()
-//            }
+            if userViewModel.userSession != nil {
+                TabBarView()
+                
+            } else {
+                LandingView()
+            }
         }
-//        .environment(userViewModel)
+        .environment(userViewModel)
     }
 }
 

@@ -8,18 +8,17 @@
 import SwiftUI
 
 struct LocationPreviewView: View {
-    let location: OldLocation
+    let location: Location
     
     var body: some View {
         VStack(alignment: .leading) {
-            
             NavigationLink {
                 LocationDetailView(location: location)
             } label: {
                 Image(._360F527962462ZBAIJXHDfHGdnwLrOs2QrJkETb9Kah4B)
                     .resizable()
                     .scaledToFit()
-                    .shadow(radius: 5)
+                    .shadow(color: Color.black.opacity(0.6), radius: 10, x: 0, y: 5)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
             }
             
@@ -31,13 +30,21 @@ struct LocationPreviewView: View {
                     Spacer()
                     
                     HStack {
-                        Image(systemName: "hand.thumbsup")
+                        Text("523")
+                        Image(systemName: "message")
+                            .foregroundStyle(Color("AccentColor"))
+                    }
+                    
+                    HStack {
                         Text("\(55)")
+                        Image(systemName: "hand.thumbsup")
+                            .foregroundStyle(Color("AccentColor"))
                     }
                 }
                 
                 Text(location.cityState)
                     .foregroundStyle(.gray)
+                    .font(.subheadline)
                 
                 Text(location.description)
                     .font(.footnote)
@@ -47,10 +54,9 @@ struct LocationPreviewView: View {
             }
         }
         .padding(.horizontal, 25)
-        .foregroundStyle(.black)
     }
 }
 
 #Preview {
-    LocationPreviewView(location: OldLocation.example)
+    LocationPreviewView(location: Location.example)
 }

@@ -12,65 +12,57 @@ import SwiftUI
 struct LandingView: View {
     @Environment(UserViewModel.self) var userViewModel
     @Environment(\.colorScheme) var colorScheme
-
     @State private var errorMessage = ""
     @State private var isShowingError = false
     
     private var darkModeColors: [Color] {
-        [Color.red, Color.black.opacity(0.8)]
+        [Color("AccentColor"), Color.black]
     }
     
     private var lightModeColors: [Color] {
-        [Color.red, Color.white.opacity(0.8)]
+        [ Color("AccentColor"), Color.white]
     }
+    @State var colors: [(id: Int, color: UIColor, frequency: CGFloat)] = []
+    @State var gradietnModel = AnimatedGradient.Model(colors: [])
     
     var body: some View {
-        LinearGradient(
-            gradient: Gradient(colors: colorScheme == .dark ? darkModeColors : lightModeColors),
-            startPoint: .top,
-            endPoint: .bottom
-        )
-        .ignoresSafeArea(.all)
-        .overlay(alignment: .center) {
-            VStack(spacing: 20){
-                Text("Cryptid Coordinates")
-                    .font(.title.bold())
-                Text("Discover the Haunt, Share the Thrill")
+        GradientEffectView($gradietnModel)
+            .ignoresSafeArea()
+            .onAppear {
+                gradietnModel.colors = colorScheme == .dark ? darkModeColors : lightModeColors
             }
-        }
-        .overlay(alignment: .bottom) {
-            VStack(spacing: 10) {
-                SignInWithAppleButton { request in
-                    AppleAuthManager.shared.requestAppleAuthorization(request)
-                } onCompletion: { result in
-                    handleAppleID(result)
+            .overlay(alignment: .center) {
+                VStack(spacing: 20) {
+                    Image(.nounScaryFace6151321)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 200)
+                    Text("Cryptid Coordinates")
+                        .font(.title.bold())
+                    Text("Uncover what lurks in the shadows.")
                 }
-                .overlay {
-                    ZStack {
-                        Capsule()
-                        HStack {
-                            Image(systemName: "applelogo")
-                            Text("Continue with Apple")
-                            
-                        }
-                        .foregroundStyle(colorScheme == .dark ? .black : .white)
+            }
+            .overlay(alignment: .bottom) {
+                VStack(spacing: 10) {
+                    SignInWithAppleButton { request in
+                        AppleAuthManager.shared.requestAppleAuthorization(request)
+                    } onCompletion: { result in
+                        handleAppleID(result)
                     }
-                    .allowsHitTesting(false)
-                }
-                .clipShape(Capsule())
-                .frame(height: 50)
-                .padding(.horizontal, 20)
+                    .clipShape(Capsule())
+                    .frame(height: 50)
+                    .padding(.horizontal, 20)
                     
-                Text("Or")
-                    .font(.footnote)
-                
-                Button("Continue without an account") {
+                    Text("Or")
+                        .font(.footnote)
                     
+                    Button("Continue without an account") {
+                        
+                    }
+                    .foregroundStyle(.black)
                 }
-                .foregroundStyle(Color.primary)
             }
-        }
-        .alert(errorMessage, isPresented: $isShowingError) { } 
+            .alert(errorMessage, isPresented: $isShowingError) { }
     }
     
     func handleAppleID(_ result: Result<ASAuthorization, Error>) {
@@ -79,7 +71,7 @@ struct LandingView: View {
                 print("AppleAuthorization failed: AppleID credential not available")
                 return
             }
-
+            
             Task {
                 do {
                     let result = try await userViewModel.appleAuth(
@@ -109,6 +101,6 @@ struct LandingView: View {
 
 #Preview {
     LandingView()
-        .preferredColorScheme(.dark)
+        .preferredColorScheme(.light)
         .environment(UserViewModel())
 }

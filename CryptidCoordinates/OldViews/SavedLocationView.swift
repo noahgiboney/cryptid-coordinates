@@ -88,10 +88,10 @@ struct SavedLocationsView: View {
             .sheet(isPresented: $viewModel.showingDetails, content: {
                 
                 if let location = viewModel.tappedLocation {
-                    LocationDetailView(location: location)
-                        .onDisappear(perform: {
-                            viewModel.loadSavedLocations()
-                        })
+//                    LocationDetailView(location: location)
+//                        .onDisappear(perform: {
+//                            viewModel.loadSavedLocations()
+//                        })
                 }
             })
             .onAppear {

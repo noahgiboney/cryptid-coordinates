@@ -10,8 +10,9 @@ import Kingfisher
 import SwiftUI
 
 struct LocationDetailView: View {
+    @Environment(\.colorScheme) var colorScheme
+    @Environment(ViewModel.self) var viewModel
     @Environment(\.dismiss) var dismiss
-    @State private var viewModel = ViewModel()
     @State private var imageUrl: URL?
     @State private var lookAroundPlace: MKLookAroundScene?
     @State private var isShowingLookAround = false
@@ -20,10 +21,24 @@ struct LocationDetailView: View {
     @State private var didLike = false
     @State private var didFavorite = false
     
-    let location: OldLocation
+    let location: Location
     
     var body: some View {
         ScrollView{
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .imageScale(.large)
+                        .padding(7)
+                        .background(.ultraThickMaterial)
+                        .clipShape(Circle())
+                }
+                Spacer()
+            }
+            .padding(.leading)
+            
             VStack(alignment: .leading, spacing: 30){
                 
                 if didLoadImage {
@@ -31,30 +46,16 @@ struct LocationDetailView: View {
                         KFImage(imageUrl)
                             .resizable()
                             .scaledToFill()
-                    } else {
-                        Label("No Image Available", systemImage: "camera")
-                            .foregroundStyle(.gray)
-                            .font(.footnote)
-                            .frame(maxWidth: .infinity, alignment: .center)
                     }
-                } else {
-                    ProgressView()
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.vertical, 100)
                 }
                 
                 locationHeader
-                
-                Divider().padding(.horizontal, 50)
                 
                 Text(location.description)
                     .padding(.horizontal)
                 
                 VStack(spacing: 15){
-                    Divider().padding(.horizontal, 50)
-                    
                     actionButton
-                    
                     Divider()
                 }
                 
@@ -69,7 +70,6 @@ struct LocationDetailView: View {
                 LookAroundPreview(initialScene: lookAroundPlace)
             }
         }
-        .ignoresSafeArea(edges: .top)
     }
     
     var locationHeader: some View {
@@ -84,12 +84,15 @@ struct LocationDetailView: View {
     }
     
     var actionButton: some View {
-        HStack(spacing: 30){
+        HStack(spacing: 25){
             Button{
                 didLike.toggle()
             } label: {
                 Image(systemName: didLike ? "heart.fill" : "heart")
                     .symbolEffect(.bounce, value: didLike)
+                    .padding(7)
+                    .background(.ultraThickMaterial)
+                    .clipShape(Circle())
             }
             
             Button {
@@ -97,24 +100,36 @@ struct LocationDetailView: View {
             } label: {
                 Image(systemName: didFavorite ? "bookmark.fill" : "bookmark")
                     .symbolEffect(.bounce, value: didFavorite)
+                    .padding(7)
+                    .background(.ultraThickMaterial)
+                    .clipShape(Circle())
             }
             
             Button {
-                
+                viewModel.tabSelection = 1
             } label: {
                 Image(systemName: "map")
+                    .padding(7)
+                    .background(.ultraThickMaterial)
+                    .clipShape(Circle())
             }
             
             Button {
                 
             } label: {
                 Image(systemName: "eye")
+                    .padding(7)
+                    .background(.ultraThickMaterial)
+                    .clipShape(Circle())
             }
             
             Button {
                 
             } label: {
                 Image(systemName: "square.and.arrow.up")
+                    .padding(7)
+                    .background(.ultraThickMaterial)
+                    .clipShape(Circle())
             }
         }
         .imageScale(.large)
@@ -142,27 +157,29 @@ struct LocationDetailView: View {
 }
 
 #Preview {
-    LocationDetailView(location: OldLocation.allLocations[4234])
+    LocationDetailView(location: Location.example)
+        .environment(ViewModel())
+        .preferredColorScheme(.dark)
 }
 
-extension LocationDetailView{
-    private var lookAroundSection: some View {
-        
-        ZStack{
-            
-            if viewModel.lookAroundPlace == nil {
-                
-                Label("No Lookaround Available", systemImage: "eye.slash")
-            }
-            else {
-                
-                VStack(alignment: .leading){
-                    LookAroundPreview(scene: $viewModel.lookAroundPlace)
-                        .clipShape(.rect(cornerRadius: 10))
-                }
-                .frame(height: 200)
-            }
-        }
-        .padding()
-    }
-}
+//extension LocationDetailView{
+//    private var lookAroundSection: some View {
+//        
+//        ZStack{
+//            
+//            if viewModel.lookAroundPlace == nil {
+//                
+//                Label("No Lookaround Available", systemImage: "eye.slash")
+//            }
+//            else {
+//                
+//                VStack(alignment: .leading){
+//                    LookAroundPreview(scene: $viewModel.lookAroundPlace)
+//                        .clipShape(.rect(cornerRadius: 10))
+//                }
+//                .frame(height: 200)
+//            }
+//        }
+//        .padding()
+//    }
+//}

@@ -15,7 +15,9 @@ struct SubmitLocationDetailsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Details") {
+                Section {
+                    Text("In order to submit a request, we will need a few peices of information about the location.")
+                    
                     TextField("What is the name of the location?", text: Bindable(submitViewModel).locationName)
                     
                     Group {
@@ -46,10 +48,11 @@ struct SubmitLocationDetailsView: View {
                     }
                 }
                 
-                NavigationLink("Pick Coordinates") {
+                NavigationLink {
                     PickCordView()
+                } label: {
+                    Label("Pick Coordinates", systemImage: "mappin.and.ellipse")
                 }
-                .foregroundStyle(.blue)
                 .disabled(submitViewModel.locationName.isEmpty || submitViewModel.description.isEmpty)
             }
             .navigationTitle("Submit Location")

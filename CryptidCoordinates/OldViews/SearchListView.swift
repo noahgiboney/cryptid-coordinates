@@ -33,7 +33,7 @@ struct SearchListView: View {
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $viewModel.showingDetails){
                 if let location = viewModel.location{
-                    LocationDetailView(location: location)
+                    //LocationDetailView(location: location)
                 }
             }
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a \(searchBy.rawValue)")
