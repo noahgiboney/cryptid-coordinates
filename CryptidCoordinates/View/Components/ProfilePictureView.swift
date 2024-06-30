@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum ProfilePicType {
-    case profile, editProfile
+    case profile, editProfile, comment
     
     var size: CGFloat {
         switch self {
@@ -16,16 +16,20 @@ enum ProfilePicType {
             100
         case .editProfile:
             90
+        case .comment:
+            35
         }
+        
     }
 }
 
 struct ProfilePictureView: View {
-    @Environment(\.colorScheme) var scheme
     var type: ProfilePicType
-
+    var user: User
+    @Environment(\.colorScheme) var scheme
+    
     var body: some View {
-        Image(.mask)
+        user.profilePicture.image
             .resizable()
             .scaledToFit()
             .foregroundStyle(scheme == .dark ? .white : .black)
@@ -34,6 +38,6 @@ struct ProfilePictureView: View {
 }
 
 #Preview {
-    ProfilePictureView(type: .profile)
+    ProfilePictureView(type: .profile, user: .example)
         .preferredColorScheme(.light)
 }

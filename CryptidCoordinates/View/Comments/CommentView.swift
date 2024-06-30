@@ -12,15 +12,21 @@ struct CommentView: View {
     let comment: Comment
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 5){
-            HStack(alignment: .bottom) {
-                Text(comment.userName)
-                Text(comment.timestamp.timeAgo())
-                    .font(.caption)
-                    .foregroundStyle(.gray)
+        HStack {
+            ProfilePictureView(type: .comment, user: .example)
+            
+            VStack(alignment: .leading, spacing: 5) {
+                HStack(alignment: .bottom) {
+                    Text(comment.userName)
+                        .fontWeight(.semibold)
+                    
+                    Text(comment.timestamp.timeAgo())
+                        .font(.caption)
+                        .foregroundStyle(.gray)
+                }
+                Text(comment.content)
+                    .font(.footnote)
             }
-            Text(comment.content)
-                .font(.footnote)   
         }
     }
 }

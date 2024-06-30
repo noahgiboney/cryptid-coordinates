@@ -14,8 +14,9 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            if userViewModel.userSession != nil {
-                TabBarView()
+            if userViewModel.userSession != nil,
+               let user = userViewModel.currentUser {
+                TabBarView(currentUser: user)
                 
             } else {
                 LandingView()

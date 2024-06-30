@@ -9,11 +9,10 @@ import Firebase
 import SwiftUI
 
 struct HomeView: View {
-    @Environment(UserViewModel.self) var userViewModel
+    @Environment(ViewModel.self) var viewModel
     @Environment(\.colorScheme) var colorScheme
     @Namespace private var menuNamespace
     @State private var selection: MenuBarItem = .trending
-    @State private var viewModel = ViewModel()
     @State private var isShowingSubmitLocationSheet = false
     @State private var isShowingMenu = false
     
@@ -39,13 +38,10 @@ struct HomeView: View {
 #Preview {
     HomeView()
         .preferredColorScheme(.dark)
-        .environment(UserViewModel())
+        .environment(ViewModel(user: .example))
 }
 
 extension HomeView {
-    
-    
-    
     private var requestLocation: some View {
         VStack(spacing: 55) {
             Text("Know of a spooky spot that is not on our map? Submit a location to have it featured.")

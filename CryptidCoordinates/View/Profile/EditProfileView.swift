@@ -8,43 +8,63 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @State private var displayName = ""
+    @Environment(\.dismiss) var dismiss
+    @Binding var user: User
+    @State private var tempUser: User
     @State private var selectedPfp: ProfilePicture = .killer
+    @State private var scrollPosition: ProfilePicture?
     @Namespace var nsPfp
+    
+    init(user: Binding<User>) {
+        self._user = user
+        self._tempUser = State(initialValue: user.wrappedValue)
+    }
     
     var body: some View {
         Form {
-            Section{
-                TextField(displayName, text: $displayName)
-                
-                pfpScrollView
+            Section("Display Name") {
+                    TextField(tempUser.name, text: $tempUser.name)
             }
             
-            Section {
+            Section("Avatar") {
+                pfpScrollView
+            }
+        }
+        .toolbarRole(.editor)
+        .navigationTitle("Edit Profile")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
                 Button("Save") {
-                    
+                    dismiss()
                 }
             }
         }
-        .navigationTitle("Edit Profile")
-        .navigationBarTitleDisplayMode(.inline)
     }
     
     var pfpScrollView: some View {
-        ScrollView(.horizontal, showsIndicators: false){
-            HStack(spacing: 20){
-                ForEach(ProfilePicture.allCases, id: \.self) { pfp in
-                    ProfilePictureRowItem(isSelected: selectedPfp == pfp, profilePicture: pfp, nsPfp: nsPfp)
-                        .onTapGesture{
-                            withAnimation(.snappy){
-                                selectedPfp = pfp
+        ScrollViewReader { scrollView in
+            ScrollView(.horizontal, showsIndicators: false){
+                HStack(spacing: 20){
+                    ForEach(ProfilePicture.allCases, id: \.self) { pfp in
+                        ProfilePictureRowItem(isSelected: selectedPfp == pfp, profilePicture: pfp, nsPfp: nsPfp)
+                            .id(pfp)
+                            .onTapGesture{
+                                withAnimation(.snappy){
+                                    selectedPfp = pfp
+                                }
                             }
-                        }
+                    }
+                }
+                .padding(.vertical, 50)
+            }
+            .listRowInsets(.init())
+            .onChange(of: selectedPfp) { oldValue, newValue in
+                withAnimation {
+                    scrollView.scrollTo(selectedPfp, anchor: .center)
                 }
             }
-            .padding(.vertical, 50)
         }
-        .listRowInsets(.init())
     }
 }
 
@@ -57,7 +77,7 @@ struct ProfilePictureRowItem: View {
     
     var glowColor: Color {
         if scheme == .dark{
-            return .white
+            return .black
         } else {
             return .black
         }
@@ -67,10 +87,10 @@ struct ProfilePictureRowItem: View {
             profilePicture.image
                 .resizable()
                 .scaledToFit()
-                .foregroundStyle(scheme == .dark ? .white : .black)
+                .foregroundStyle(.black)
                 .frame(width: 90, height: 90)
                 .scaleEffect(isSelected ? 1.1 : 1)
-                .shadow(color: !isSelected ? glowColor.opacity(0.5) : Color.clear, radius: 20, x: 0, y: 0)
+//                .shadow(color: !isSelected ? glowColor.opacity(0.5) : Color.clear, radius: 20, x: 0, y: 0)
                 .overlay(alignment: .top) {
                     if isSelected {
                         Image(systemName: "triangle.fill")
@@ -84,6 +104,7 @@ struct ProfilePictureRowItem: View {
 
 #Preview {
     NavigationStack {
-        EditProfileView()
+        EditProfileView(user: .constant(.example))
+            .environment(ViewModel(user: .example))
     }
 }

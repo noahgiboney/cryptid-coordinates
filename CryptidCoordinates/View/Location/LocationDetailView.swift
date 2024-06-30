@@ -158,7 +158,7 @@ struct LocationDetailView: View {
 
 #Preview {
     LocationDetailView(location: Location.example)
-        .environment(ViewModel())
+        .environment(ViewModel(user: .example))
         .preferredColorScheme(.dark)
 }
 

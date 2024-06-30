@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-enum ProfilePicture: Codable, CaseIterable {
-    case killer, mummy ,mask, spider, scream, vampire ,person
+enum ProfilePicture: Codable, CaseIterable, Hashable {
+    case person, killer, nun , mummy, spider, scream, vampire
     
     var image: Image {
         switch self {
         case .killer:
             Image(.killer)
-        case .mask:
-            Image(.mask)
+        case .nun:
+            Image(.nun)
         case .spider:
             Image(.spider)
         case .scream:

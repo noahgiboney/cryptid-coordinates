@@ -8,7 +8,14 @@
 import SwiftUI
 
 struct TabBarView: View {
-    @State private var viewModel = ViewModel()
+    var currentUser: User
+    @State private var viewModel: ViewModel
+    
+    init(currentUser: User) {
+        self.currentUser = currentUser
+        let viewModel = ViewModel(user: currentUser)
+        self._viewModel = State(initialValue: viewModel)
+    }
     
     var body: some View {
         TabView(selection: $viewModel.tabSelection) {
@@ -44,5 +51,5 @@ struct TabBarView: View {
 }
 
 #Preview {
-    TabBarView()
+    TabBarView(currentUser: .example)
 }

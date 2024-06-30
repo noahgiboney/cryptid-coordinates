@@ -1,5 +1,5 @@
 //
-//  Client.swift
+//  ViewModel.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 6/14/24.
@@ -11,9 +11,11 @@ import SwiftUI
 @Observable
 class ViewModel {
     private let locationService: FirebaseService
+    var user: User
     
-    init(locationService: FirebaseService = FirebaseService.shared) {
+    init(locationService: FirebaseService = FirebaseService.shared, user: User) {
         self.locationService = locationService
+        self.user = user
     }
     
     var locations: [OldLocation] = []
