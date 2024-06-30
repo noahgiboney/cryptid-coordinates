@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @Environment(UserViewModel.self) var userModel
+    @Environment(UserModel.self) var userModel
     @Environment(ViewModel.self) var viewModel
     @State private var isShowingSignOutAlert = false
     @State private var isShowingDeleteAccAlert = false
@@ -97,6 +97,6 @@ struct ProfileView: View {
 
 #Preview {
     ProfileView()
-        .environment(UserViewModel())
+        .environment(UserModel())
         .environment(ViewModel(user: .example))
 }

@@ -10,7 +10,7 @@ import FirebaseCore
 import SwiftUI
 
 struct ContentView: View {
-    @State private var userViewModel = UserViewModel()
+    @State private var userViewModel = UserModel()
     
     var body: some View {
         Group {

@@ -11,7 +11,7 @@ import AuthenticationServices
 import SwiftUI
 
 @Observable
-class UserViewModel {
+class UserModel {
     private let userService: UserService
     
     var userSession: Firebase.User? {
@@ -33,10 +33,18 @@ class UserViewModel {
     func updateUserSession() {
         userSession = Auth.auth().currentUser
     }
+    
+    func updateUser(updatedUser: User) async throws {
+        do {
+            try await userService.updateUser(updatedUser: updatedUser)
+        } catch {
+            print("DEBUG: failed to update user. \(error.localizedDescription)")
+        }
+    }
 }
 
 // MARK: Firebase User
-extension UserViewModel {
+extension UserModel {
     func fetchCurrentUser() async throws {
         do {
             currentUser = try await userService.fetchCurrentUser()
@@ -79,7 +87,7 @@ extension UserViewModel {
 }
 
 // MARK: Apple Authentication
-extension UserViewModel {
+extension UserModel {
     func verifySignInWithAppleID() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let providerData = Auth.auth().currentUser?.providerData

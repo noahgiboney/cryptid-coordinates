@@ -19,6 +19,7 @@ struct Location: Codable, Identifiable, Hashable {
     let cityLongitude: Double
     let cityLatitude: Double
     let stateAbbrev: String
+    var imageUrl: String?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -32,6 +33,7 @@ struct Location: Codable, Identifiable, Hashable {
         case cityLongitude
         case cityLatitude
         case stateAbbrev
+        case imageUrl
     }
     
     init(from decoder: Decoder) throws {
@@ -47,6 +49,7 @@ struct Location: Codable, Identifiable, Hashable {
         self.cityLongitude = try container.decode(Double.self, forKey: .cityLongitude)
         self.cityLatitude = try container.decode(Double.self, forKey: .cityLatitude)
         self.stateAbbrev = try container.decode(String.self, forKey: .stateAbbrev)
+        self.imageUrl = try? container.decode(String?.self, forKey: .imageUrl)
     }
     
     init(
@@ -60,7 +63,8 @@ struct Location: Codable, Identifiable, Hashable {
         latitude: Double,
         cityLongitude: Double,
         cityLatitude: Double,
-        stateAbbrev: String
+        stateAbbrev: String,
+        imageUrl: String? = nil
     ) {
         self.id = id
         self.name = name
@@ -73,6 +77,7 @@ struct Location: Codable, Identifiable, Hashable {
         self.cityLongitude = cityLongitude
         self.cityLatitude = cityLatitude
         self.stateAbbrev = stateAbbrev
+        self.imageUrl = imageUrl
     }
 }
 
@@ -89,11 +94,18 @@ extension Location {
     var cityState: String {
         "\(city), " + "\(stateAbbrev)"
     }
+    
+    var url: URL? {
+        if let imageUrl{
+            return URL(string: imageUrl)
+        }
+        return nil
+    }
 }
 
 // MARK: Developer
 extension Location {
-    static let example = Location(id: UUID().uuidString, name: "Rosemount Museum", country: "United States", city: "Pueblo", state: "Colorado", description: "The museum was home to the prominent Pueblo family, the Thatcher’s, during the 1800's. There are noises and movements all over the property as well as a real Egyptian Mummy in one of the top stories. Under their house there are extensive tunnels not open to the public.", longitude: -104.6121005, latitude: 38.2805245, cityLongitude: -104.6091409, cityLatitude: 38.2544472, stateAbbrev: "CO")
+    static let example = Location(id: UUID().uuidString, name: "Rosemount Museum", country: "United States", city: "Pueblo", state: "Colorado", description: "The museum was home to the prominent Pueblo family, the Thatcher’s, during the 1800's. There are noises and movements all over the property as well as a real Egyptian Mummy in one of the top stories. Under their house there are extensive tunnels not open to the public.", longitude: -104.6121005, latitude: 38.2805245, cityLongitude: -104.6091409, cityLatitude: 38.2544472, stateAbbrev: "CO", imageUrl: "https://visitoconeesc.com/wp-content/uploads/2022/10/camping-tents-640-%C3%97-370-px.jpg")
     
     static let exampleArray = Array<Location>.init(repeating: example, count: 10)
 }

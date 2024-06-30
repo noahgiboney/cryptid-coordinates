@@ -34,6 +34,7 @@
 		E216EB0D2B4FA4D70006AB32 /* LocationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216EB0C2B4FA4D70006AB32 /* LocationDetail.swift */; };
 		E21E87172C291BAF0017D9CF /* TrendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21E87162C291BAF0017D9CF /* TrendingView.swift */; };
 		E222D9052C27CCF400FA427D /* GradientEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222D9042C27CCF400FA427D /* GradientEffectView.swift */; };
+		E23021AC2C320CFA00435D6C /* Merge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23021AB2C320CFA00435D6C /* Merge.swift */; };
 		E23154242C1E843F0026F3E8 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23154232C1E843F0026F3E8 /* AppleAuthManager.swift */; };
 		E233E68A2B58E6200040E1B5 /* GoogleImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233E6892B58E6200040E1B5 /* GoogleImageManager.swift */; };
 		E23618662C1E63D9005AF3FB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23618652C1E63D9005AF3FB /* ProfileView.swift */; };
@@ -41,7 +42,7 @@
 		E23D30E22C1AC45000025363 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D30E12C1AC45000025363 /* TabBarView.swift */; };
 		E24A43AB2B4E2475006B1B2A /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AA2B4E2475006B1B2A /* Map.swift */; };
 		E24A43AF2B4E2B5C006B1B2A /* OldLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AE2B4E2B5C006B1B2A /* OldLocation.swift */; };
-		E24A4D0D2C1DFCD8009D311C /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A4D0C2C1DFCD8009D311C /* UserViewModel.swift */; };
+		E24A4D0D2C1DFCD8009D311C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A4D0C2C1DFCD8009D311C /* UserModel.swift */; };
 		E24A4D0F2C1DFCF3009D311C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A4D0E2C1DFCF3009D311C /* User.swift */; };
 		E26F4DD72C1FE0260090D4CF /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26F4DD62C1FE0260090D4CF /* Tip.swift */; };
 		E27395CC2B4E391200D70108 /* hauntedplaces.json in Resources */ = {isa = PBXBuildFile; fileRef = E27395CB2B4E391200D70108 /* hauntedplaces.json */; };
@@ -92,6 +93,7 @@
 		E216EB0C2B4FA4D70006AB32 /* LocationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetail.swift; sourceTree = "<group>"; };
 		E21E87162C291BAF0017D9CF /* TrendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingView.swift; sourceTree = "<group>"; };
 		E222D9042C27CCF400FA427D /* GradientEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientEffectView.swift; sourceTree = "<group>"; };
+		E23021AB2C320CFA00435D6C /* Merge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Merge.swift; sourceTree = "<group>"; };
 		E23154232C1E843F0026F3E8 /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		E233E6892B58E6200040E1B5 /* GoogleImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleImageManager.swift; sourceTree = "<group>"; };
 		E23618652C1E63D9005AF3FB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -99,7 +101,7 @@
 		E23D30E12C1AC45000025363 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		E24A43AA2B4E2475006B1B2A /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		E24A43AE2B4E2B5C006B1B2A /* OldLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldLocation.swift; sourceTree = "<group>"; };
-		E24A4D0C2C1DFCD8009D311C /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		E24A4D0C2C1DFCD8009D311C /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		E24A4D0E2C1DFCF3009D311C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E26F4DD62C1FE0260090D4CF /* Tip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
 		E27395CB2B4E391200D70108 /* hauntedplaces.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hauntedplaces.json; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				E2EE30262C1D4169007F74C6 /* View */,
 				E23D30DF2C1AC43700025363 /* ContentView.swift */,
 				E23D30E12C1AC45000025363 /* TabBarView.swift */,
+				E23021AB2C320CFA00435D6C /* Merge.swift */,
 				E2C76C0C2B4E14550080F669 /* Preview Content */,
 			);
 			path = CryptidCoordinates;
@@ -372,7 +375,7 @@
 				E233E68B2B58E6320040E1B5 /* Data */,
 				E2EE302B2C1D4266007F74C6 /* ViewModel.swift */,
 				E2B326B12C1F9CFD00B0D1B5 /* SubmitLocationViewModel.swift */,
-				E24A4D0C2C1DFCD8009D311C /* UserViewModel.swift */,
+				E24A4D0C2C1DFCD8009D311C /* UserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -510,7 +513,7 @@
 			files = (
 				E24A43AB2B4E2475006B1B2A /* Map.swift in Sources */,
 				E216EB0D2B4FA4D70006AB32 /* LocationDetail.swift in Sources */,
-				E24A4D0D2C1DFCD8009D311C /* UserViewModel.swift in Sources */,
+				E24A4D0D2C1DFCD8009D311C /* UserModel.swift in Sources */,
 				E2145EB02C27B4360085C94F /* CommentSection.swift in Sources */,
 				E275B1092B784ADC0012BDF2 /* OldMap.swift in Sources */,
 				E294BD742B50C4D900C5C39C /* GoogleResponse.swift in Sources */,
@@ -539,6 +542,7 @@
 				E2D80E5A2C30F05F0077D763 /* ProfilePicture.swift in Sources */,
 				E2B326B22C1F9CFD00B0D1B5 /* SubmitLocationViewModel.swift in Sources */,
 				E24A43AF2B4E2B5C006B1B2A /* OldLocation.swift in Sources */,
+				E23021AC2C320CFA00435D6C /* Merge.swift in Sources */,
 				E2F9E9592C22A79100D74D31 /* CommentView.swift in Sources */,
 				E2A6C0762C1E38F800325471 /* Location.swift in Sources */,
 				E2BC84252B54A568005681F9 /* SearchList.swift in Sources */,

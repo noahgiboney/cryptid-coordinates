@@ -23,12 +23,13 @@ struct CryptidCoordinatesApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .task {
-                    try? Tips.configure([
-                        .displayFrequency(.immediate),
-                        .datastoreLocation(.applicationDefault)])
-                }
+            Tester()
+//            ContentView()
+//                .task {
+//                    try? Tips.configure([
+//                        .displayFrequency(.immediate),
+//                        .datastoreLocation(.applicationDefault)])
+//                }
         }
     }
 }

@@ -10,7 +10,7 @@ import Firebase
 import SwiftUI
 
 struct LandingView: View {
-    @Environment(UserViewModel.self) var userViewModel
+    @Environment(UserModel.self) var userViewModel
     @Environment(\.colorScheme) var colorScheme
     @State private var errorMessage = ""
     @State private var isShowingError = false
@@ -102,5 +102,5 @@ struct LandingView: View {
 #Preview {
     LandingView()
         .preferredColorScheme(.light)
-        .environment(UserViewModel())
+        .environment(UserModel())
 }

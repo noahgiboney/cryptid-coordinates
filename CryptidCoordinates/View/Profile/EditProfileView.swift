@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct EditProfileView: View {
+    @Environment(UserModel.self) var userModel
     @Environment(\.dismiss) var dismiss
     @Binding var user: User
     @State private var tempUser: User
-    @State private var selectedPfp: ProfilePicture = .killer
+    @State private var selectedPfp: ProfilePicture
     @State private var scrollPosition: ProfilePicture?
     @Namespace var nsPfp
     
     init(user: Binding<User>) {
         self._user = user
         self._tempUser = State(initialValue: user.wrappedValue)
+        self._selectedPfp = State(initialValue: user.profilePicture.wrappedValue)
     }
     
     var body: some View {
@@ -35,8 +37,12 @@ struct EditProfileView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button("Save") {
-                    dismiss()
+                if tempUser != user {
+                    Button("Save") {
+                        user = tempUser
+                        Task { try await userModel.updateUser(updatedUser: user) }
+                        dismiss()
+                    }
                 }
             }
         }
@@ -105,6 +111,6 @@ struct ProfilePictureRowItem: View {
 #Preview {
     NavigationStack {
         EditProfileView(user: .constant(.example))
-            .environment(ViewModel(user: .example))
+            .environment(UserModel())
     }
 }

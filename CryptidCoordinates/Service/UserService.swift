@@ -33,6 +33,12 @@ class UserService {
         try await user.delete()
     }
     
+    func updateUser(updatedUser: User) async throws {
+        guard let user = Auth.auth().currentUser else { return }
+        let encodedUser = try Firestore.Encoder().encode(updatedUser)
+        try await db.document(user.uid).setData(encodedUser)
+    }
+    
     func checkIfUserExists(userId: String) async throws -> Bool {
         return try await db.document(userId).getDocument().exists
     }

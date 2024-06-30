@@ -12,7 +12,7 @@ struct TrendingView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVStack {
+                LazyVStack(spacing: 30){
                     LocationPreviewView(location: Location.example)
                     
                     LocationPreviewView(location: Location.example)
@@ -20,6 +20,10 @@ struct TrendingView: View {
                     LocationPreviewView(location: Location.example)
                     
                     LocationPreviewView(location: Location.example)
+                    
+//                    Button("Load More", systemImage: "ellipsis") {
+//                        //
+//                    }
                 }
                 .padding(.top)
             }

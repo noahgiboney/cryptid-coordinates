@@ -22,32 +22,27 @@ struct LocationDetailView: View {
     @State private var didFavorite = false
     
     let location: Location
-    
+
     var body: some View {
-        ScrollView{
-            HStack {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .imageScale(.large)
-                        .padding(7)
-                        .background(.ultraThickMaterial)
-                        .clipShape(Circle())
-                }
-                Spacer()
-            }
-            .padding(.leading)
-            
+        ScrollView {
             VStack(alignment: .leading, spacing: 30){
-                
-                if didLoadImage {
-                    if let imageUrl = imageUrl {
-                        KFImage(imageUrl)
-                            .resizable()
-                            .scaledToFill()
+                KFImage(location.url)
+                    .resizable()
+                    .scaledToFill()
+                    .overlay(alignment: .topLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "chevron.left")
+                                .imageScale(.large)
+                                .padding(7)
+                                .background(.ultraThickMaterial)
+                                .clipShape(Circle())
+                        }
+                        .padding(.leading, 30)
+                        .padding(.top, 30)
                     }
-                }
+                    .clipShape(RoundedRectangle(cornerRadius: 5))
                 
                 locationHeader
                 
@@ -70,6 +65,7 @@ struct LocationDetailView: View {
                 LookAroundPreview(initialScene: lookAroundPlace)
             }
         }
+        .ignoresSafeArea()
     }
     
     var locationHeader: some View {

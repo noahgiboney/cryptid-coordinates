@@ -1,10 +1,11 @@
 //
-//  TopRatedView.swift
+//  LocationPreviewView.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 6/14/24.
 //
 
+import Kingfisher
 import SwiftUI
 
 struct LocationPreviewView: View {
@@ -12,15 +13,11 @@ struct LocationPreviewView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            NavigationLink {
-                LocationDetailView(location: location)
-            } label: {
-                Image(._360F527962462ZBAIJXHDfHGdnwLrOs2QrJkETb9Kah4B)
-                    .resizable()
-                    .scaledToFit()
-                    .shadow(color: Color.black.opacity(0.6), radius: 10, x: 0, y: 5)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-            }
+            KFImage(location.url)
+                .resizable()
+                .scaledToFit()
+                .shadow(color: Color.black.opacity(0.6), radius: 10, x: 0, y: 5)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
             
             VStack(alignment: .leading) {
                 HStack{
@@ -37,7 +34,7 @@ struct LocationPreviewView: View {
                     
                     HStack {
                         Text("\(55)")
-                        Image(systemName: "hand.thumbsup")
+                        Image(systemName: "heart")
                             .foregroundStyle(Color("AccentColor"))
                     }
                 }
@@ -53,7 +50,17 @@ struct LocationPreviewView: View {
                     .padding(.top, 1)
             }
         }
+        .padding(.vertical, 25)
         .padding(.horizontal, 25)
+        .contextMenu {
+            Button("View On Map", systemImage: "map") {
+                //
+            }
+            
+            Button("Favorite", systemImage: "heart") {
+                //
+            }
+        }
     }
 }
 
