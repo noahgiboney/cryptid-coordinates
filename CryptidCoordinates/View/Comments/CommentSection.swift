@@ -14,19 +14,8 @@ struct CommentSection: View {
     
     var body: some View {
         VStack(spacing: 30){
-            HStack {
-                Text("156 comments")
-                    .font(.headline)
-                    
-                Spacer()
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "line.3.horizontal.decrease.circle")
-                        .imageScale(.large)
-                }
-            }
+            Text("156 comments")
+                .font(.headline)
             
             HStack {
                 TextField("Share Your Experince", text: $comment)

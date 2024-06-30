@@ -33,7 +33,7 @@ struct LandingView: View {
             }
             .overlay(alignment: .center) {
                 VStack(spacing: 20) {
-                    Image(.nounScaryFace6151321)
+                    Image(.nun)
                         .resizable()
                         .scaledToFit()
                         .frame(height: 200)

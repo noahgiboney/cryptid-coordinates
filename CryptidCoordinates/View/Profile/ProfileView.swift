@@ -15,13 +15,21 @@ struct ProfileView: View {
     
     var body: some View {
         Group {
-            if let user = userModel.currentUser {
+            if true {
                 NavigationStack {
-                    VStack {
-                        
+                    VStack(alignment: .trailing) {
+                        ProfilePictureView(type: .profile)
                     }
                     .navigationTitle("Noah Giboney")
                     .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "pencil")
+                            }
+                        }
+                        
                         ToolbarItem(placement: .topBarTrailing) {
                             Menu {
                                 Button {
@@ -38,7 +46,6 @@ struct ProfileView: View {
                             } label: {
                                 Image(systemName: "gearshape")
                             }
-
                         }
                     }
                     .alert("Confirm Sign Out", isPresented: $isShowingSignOutAlert) {

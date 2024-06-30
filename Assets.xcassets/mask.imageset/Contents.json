@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "noun-spooky-3157240.svg",
+      "filename" : "noun-jack-662553.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -17,5 +17,8 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }
