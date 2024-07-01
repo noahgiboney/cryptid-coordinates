@@ -10,11 +10,11 @@ import SwiftUI
 
 @Observable
 class ViewModel {
-    private let locationService: FirebaseService
+    private let firebaseService: FirebaseService
     var user: User
     
-    init(locationService: FirebaseService = FirebaseService.shared, user: User) {
-        self.locationService = locationService
+    init(firebaseService: FirebaseService = FirebaseService.shared, user: User) {
+        self.firebaseService = firebaseService
         self.user = user
     }
     
@@ -24,9 +24,40 @@ class ViewModel {
     
     func fetchAllLocations() async throws {
         do {
-            count = try await locationService.fetchAllLocations()
+            count = try await firebaseService.fetchAllLocations()
         } catch {
             print("DEBUG: error fetching all locations: \(error.localizedDescription)")
+        }
+    }
+}
+
+// MARK: comments
+extension ViewModel {
+    func fetchComments(locationId: String) async throws -> [Comment]{
+        do {
+            return try await firebaseService.fetchComments(locationId: locationId)
+        } catch {
+            print("DEBUG: error fetching comments: \(error.localizedDescription)")
+            throw error
+        }
+    }
+    
+    func addComment(content: String, locationId: String) async throws {
+        guard let user = Auth.auth().currentUser else { return }
+        let newComment = Comment(userId: user.uid, locationId: locationId, content: content)
+        
+        do {
+            try await firebaseService.addComment(comment: newComment)
+        } catch {
+            print("DEBUG: error adding comment: \(error.localizedDescription)")
+        }
+    }
+    
+    func deleteComment(_ comment: Comment) async throws{
+        do {
+            try await firebaseService.deleteComment(locationId: comment.locationId, commentId: comment.id)
+        } catch {
+            print("DEBUG: error deleting comment: \(error.localizedDescription)")
         }
     }
 }

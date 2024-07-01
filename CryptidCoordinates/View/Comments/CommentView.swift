@@ -9,6 +9,7 @@ import Firebase
 import SwiftUI
 
 struct CommentView: View {
+    @Environment(ViewModel.self) var viewModel
     let comment: Comment
     
     var body: some View {
@@ -17,15 +18,23 @@ struct CommentView: View {
             
             VStack(alignment: .leading, spacing: 5) {
                 HStack(alignment: .bottom) {
-                    Text(comment.userName)
+                    Text(User.example.name)
                         .fontWeight(.semibold)
                     
                     Text(comment.timestamp.timeAgo())
                         .font(.caption)
                         .foregroundStyle(.gray)
                 }
+                
                 Text(comment.content)
                     .font(.footnote)
+            }
+        }
+        .contextMenu {
+            if comment.userId == Auth.auth().currentUser?.uid {
+                Button("Delete", systemImage: "trash", role: .destructive) {
+                    Task { try await viewModel.deleteComment(comment) }
+                }
             }
         }
     }
@@ -33,6 +42,7 @@ struct CommentView: View {
 
 #Preview {
     CommentView(comment: .example)
+        .environment(ViewModel(user: .example))
 }
 
 extension Timestamp {

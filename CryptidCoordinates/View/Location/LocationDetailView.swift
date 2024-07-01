@@ -10,39 +10,39 @@ import Kingfisher
 import SwiftUI
 
 struct LocationDetailView: View {
+    let location: Location
     @Environment(\.colorScheme) var colorScheme
     @Environment(ViewModel.self) var viewModel
     @Environment(\.dismiss) var dismiss
     @State private var imageUrl: URL?
     @State private var lookAroundPlace: MKLookAroundScene?
     @State private var isShowingLookAround = false
-    @State private var didLoadImage = false
     @State private var comment = ""
     @State private var didLike = false
     @State private var didFavorite = false
+    @State private var comments: [Comment] = []
     
-    let location: Location
-
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 30){
                 KFImage(location.url)
                     .resizable()
                     .scaledToFill()
-                    .overlay(alignment: .topLeading) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "chevron.left")
-                                .imageScale(.large)
-                                .padding(7)
-                                .background(.ultraThickMaterial)
-                                .clipShape(Circle())
-                        }
-                        .padding(.leading, 30)
-                        .padding(.top, 30)
-                    }
                     .clipShape(RoundedRectangle(cornerRadius: 5))
+//                    .overlay(alignment: .topLeading) {
+//                        Button {
+//                            dismiss()
+//                        } label: {
+//                            Image(systemName: "chevron.left")
+//                                .imageScale(.large)
+//                                .padding(7)
+//                                .background(.ultraThickMaterial)
+//                                .clipShape(Circle())
+//                        }
+//                        .padding(.leading, 30)
+//                        .padding(.top, 30)
+//                    }
+
                 
                 locationHeader
                 
@@ -54,12 +54,11 @@ struct LocationDetailView: View {
                     Divider()
                 }
                 
-                
                 CommentSection(location: location)
             }
             .task {
-                await fetchImage()
                 await fetchLookAround()
+                comments = try! await viewModel.fetchComments(locationId: location.id)
             }
             .fullScreenCover(isPresented: $isShowingLookAround) {
                 LookAroundPreview(initialScene: lookAroundPlace)
@@ -86,16 +85,6 @@ struct LocationDetailView: View {
             } label: {
                 Image(systemName: didLike ? "heart.fill" : "heart")
                     .symbolEffect(.bounce, value: didLike)
-                    .padding(7)
-                    .background(.ultraThickMaterial)
-                    .clipShape(Circle())
-            }
-            
-            Button {
-                didFavorite.toggle()
-            } label: {
-                Image(systemName: didFavorite ? "bookmark.fill" : "bookmark")
-                    .symbolEffect(.bounce, value: didFavorite)
                     .padding(7)
                     .background(.ultraThickMaterial)
                     .clipShape(Circle())
@@ -131,21 +120,7 @@ struct LocationDetailView: View {
         .imageScale(.large)
         .frame(maxWidth: .infinity, alignment: .center)
     }
-    
-    private func fetchImage() async {
-        didLoadImage = false
-        do {
-            let url = try await GoolgeImageService.shared.fetchImageUrl(for: location.name + location.cityState)
-            
-            if let url = url {
-                
-            }
-        } catch {
-            print("DEBUG: error fetching image with error: \(error.localizedDescription)")
-        }
-        didLoadImage = true
-    }
-    
+        
     private func fetchLookAround() async {
         let request = MKLookAroundSceneRequest(coordinate: location.coordinates)
         lookAroundPlace = try? await request.scene
