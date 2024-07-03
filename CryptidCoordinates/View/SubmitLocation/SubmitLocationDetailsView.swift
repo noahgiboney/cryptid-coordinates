@@ -16,8 +16,13 @@ struct SubmitLocationDetailsView: View {
         NavigationStack {
             Form {
                 Section {
-                    Text("In order to submit a request, we will need a few peices of information about the location.")
+                    Text("If you konw of a spooky spot that is not on our map, let us know!")
+                        .listRowSeparator(.hidden)
                     
+                    Text("We will just need a few quick peices of information about the location.")
+                }
+                
+                Section {
                     TextField("What is the name of the location?", text: Bindable(submitViewModel).locationName)
                     
                     Group {
@@ -57,13 +62,7 @@ struct SubmitLocationDetailsView: View {
             }
             .navigationTitle("Submit Location")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Close") {
-                        dismiss()
-                    }
-                }
-            }
+            .toolbarRole(.editor)
         }
         .environment(submitViewModel)
     }

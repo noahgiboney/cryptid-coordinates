@@ -44,6 +44,8 @@
 		E24A43AF2B4E2B5C006B1B2A /* OldLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A43AE2B4E2B5C006B1B2A /* OldLocation.swift */; };
 		E24A4D0D2C1DFCD8009D311C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A4D0C2C1DFCD8009D311C /* UserModel.swift */; };
 		E24A4D0F2C1DFCF3009D311C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24A4D0E2C1DFCF3009D311C /* User.swift */; };
+		E2583F0E2C326D08002B1FA5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2583F0D2C326D08002B1FA5 /* SettingsView.swift */; };
+		E2583F102C326D1D002B1FA5 /* ConfirmDeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2583F0F2C326D1D002B1FA5 /* ConfirmDeleteView.swift */; };
 		E26F4DD72C1FE0260090D4CF /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26F4DD62C1FE0260090D4CF /* Tip.swift */; };
 		E27395CC2B4E391200D70108 /* hauntedplaces.json in Resources */ = {isa = PBXBuildFile; fileRef = E27395CB2B4E391200D70108 /* hauntedplaces.json */; };
 		E27395D22B4E59BB00D70108 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27395D12B4E59BB00D70108 /* LocationDetailView.swift */; };
@@ -103,6 +105,8 @@
 		E24A43AE2B4E2B5C006B1B2A /* OldLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldLocation.swift; sourceTree = "<group>"; };
 		E24A4D0C2C1DFCD8009D311C /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		E24A4D0E2C1DFCF3009D311C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E2583F0D2C326D08002B1FA5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E2583F0F2C326D1D002B1FA5 /* ConfirmDeleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteView.swift; sourceTree = "<group>"; };
 		E26F4DD62C1FE0260090D4CF /* Tip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
 		E27395CB2B4E391200D70108 /* hauntedplaces.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hauntedplaces.json; sourceTree = "<group>"; };
 		E27395D12B4E59BB00D70108 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
@@ -223,8 +227,10 @@
 		E23618642C1E63D1005AF3FB /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				E23618652C1E63D9005AF3FB /* ProfileView.swift */,
+				E2583F0F2C326D1D002B1FA5 /* ConfirmDeleteView.swift */,
 				E2D80E572C30EC2F0077D763 /* EditProfileView.swift */,
+				E23618652C1E63D9005AF3FB /* ProfileView.swift */,
+				E2583F0D2C326D08002B1FA5 /* SettingsView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -235,6 +241,13 @@
 				E2C76C062B4E14550080F669 /* CryptidCoordinatesApp.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		E2583F0C2C326CF0002B1FA5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		E27904492B64CE990034939B /* Styles */ = {
@@ -365,6 +378,7 @@
 				E2EE30332C1D53A1007F74C6 /* Map */,
 				E23618642C1E63D1005AF3FB /* Profile */,
 				E2B326AC2C1F977900B0D1B5 /* SubmitLocation */,
+				E2583F0C2C326CF0002B1FA5 /* Settings */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -526,6 +540,7 @@
 				E26F4DD72C1FE0260090D4CF /* Tip.swift in Sources */,
 				E2EE30372C1D563F007F74C6 /* LandingView.swift in Sources */,
 				E2EE30322C1D4F2A007F74C6 /* LocationPreviewView.swift in Sources */,
+				E2583F0E2C326D08002B1FA5 /* SettingsView.swift in Sources */,
 				E204C1212C1E4B2000688944 /* UserService.swift in Sources */,
 				E275B10B2B784B3E0012BDF2 /* ClusterManager.swift in Sources */,
 				E2CB983A2C26771800FDD4F8 /* MenuBar.swift in Sources */,
@@ -536,6 +551,7 @@
 				E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */,
 				E2EE302C2C1D4266007F74C6 /* ViewModel.swift in Sources */,
 				E2B326B42C1F9DE800B0D1B5 /* SubmitView.swift in Sources */,
+				E2583F102C326D1D002B1FA5 /* ConfirmDeleteView.swift in Sources */,
 				E2ECE2EB2B53756600FA4BDB /* SearchListView.swift in Sources */,
 				E2DE85332B6DBB7500D1AF12 /* SavedLocations.swift in Sources */,
 				E2EE30352C1D544F007F74C6 /* MapView.swift in Sources */,
