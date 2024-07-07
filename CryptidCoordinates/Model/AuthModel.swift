@@ -1,5 +1,5 @@
 //
-//  UserManager.swift
+//  UserModel.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 6/15/24.
@@ -11,7 +11,7 @@ import AuthenticationServices
 import SwiftUI
 
 @Observable
-class UserModel {
+class AuthModel {
     private let userService: UserService
     
     var userSession: Firebase.User? {
@@ -44,7 +44,7 @@ class UserModel {
 }
 
 // MARK: Firebase User
-extension UserModel {
+extension AuthModel {
     func fetchCurrentUser() async throws {
         do {
             currentUser = try await userService.fetchCurrentUser()
@@ -87,7 +87,7 @@ extension UserModel {
 }
 
 // MARK: Apple Authentication
-extension UserModel {
+extension AuthModel {
     func verifySignInWithAppleID() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let providerData = Auth.auth().currentUser?.providerData

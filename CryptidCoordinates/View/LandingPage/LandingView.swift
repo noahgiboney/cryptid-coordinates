@@ -10,7 +10,7 @@ import Firebase
 import SwiftUI
 
 struct LandingView: View {
-    @Environment(UserModel.self) var userViewModel
+    @Environment(AuthModel.self) var authModel
     @Environment(\.colorScheme) var colorScheme
     @State private var errorMessage = ""
     @State private var isShowingError = false
@@ -42,25 +42,16 @@ struct LandingView: View {
                     Text("Uncover what lurks in the shadows.")
                 }
             }
+            .foregroundStyle(.black)
             .overlay(alignment: .bottom) {
-                VStack(spacing: 10) {
-                    SignInWithAppleButton { request in
-                        AppleAuthManager.shared.requestAppleAuthorization(request)
-                    } onCompletion: { result in
-                        handleAppleID(result)
-                    }
-                    .clipShape(Capsule())
-                    .frame(height: 50)
-                    .padding(.horizontal, 20)
-                    
-                    Text("Or")
-                        .font(.footnote)
-                    
-                    Button("Continue without an account") {
-                        
-                    }
-                    .foregroundStyle(.black)
+                SignInWithAppleButton { request in
+                    AppleAuthManager.shared.requestAppleAuthorization(request)
+                } onCompletion: { result in
+                    handleAppleID(result)
                 }
+                .clipShape(Capsule())
+                .frame(height: 50)
+                .padding(.horizontal, 20)
             }
             .alert(errorMessage, isPresented: $isShowingError) { }
     }
@@ -74,19 +65,19 @@ struct LandingView: View {
             
             Task {
                 do {
-                    let result = try await userViewModel.appleAuth(
+                    let result = try await authModel.appleAuth(
                         appleIDCredentials,
                         nonce: AppleAuthManager.nonce
                     )
                     if let result = result {
                         let id = result.user.uid
-                        let accountExists = try await userViewModel.checkIfUserExists(userId: id)
+                        let accountExists = try await authModel.checkIfUserExists(userId: id)
                         
                         if !accountExists {
-                            try await userViewModel.createNewUser(id: id, name: appleIDCredentials.displayName())
+                            try await authModel.createNewUser(id: id, name: appleIDCredentials.displayName())
                         }
                         
-                        userViewModel.userSession = result.user
+                        authModel.userSession = result.user
                     }
                 } catch {
                     print("AppleAuthorization failed: \(error)")
@@ -101,6 +92,6 @@ struct LandingView: View {
 
 #Preview {
     LandingView()
-        .preferredColorScheme(.light)
-        .environment(UserModel())
+        .preferredColorScheme(.dark)
+        .environment(AuthModel())
 }

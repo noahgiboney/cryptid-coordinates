@@ -7,7 +7,7 @@
 
 import CoreLocation
 
-class LocationFetcher: NSObject, CLLocationManagerDelegate {
+class LocationManager: NSObject, CLLocationManagerDelegate {
     let manager = CLLocationManager()
     var lastKnownLocation: CLLocationCoordinate2D?
 
