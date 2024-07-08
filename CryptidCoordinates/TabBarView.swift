@@ -37,6 +37,15 @@ struct TabBarView: View {
                 }
                 .tag(1)
             
+            LeaderboardView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "medal")
+                        Text("Leadboard")
+                    }
+                }
+                .tag(2)
+            
             ProfileView()
                 .tabItem {
                     VStack {
@@ -44,7 +53,7 @@ struct TabBarView: View {
                         Text("Profile")
                     }
                 }
-                .tag(2)
+                .tag(3)
         }
         .environment(viewModel)
     }
