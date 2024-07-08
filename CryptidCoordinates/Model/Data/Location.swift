@@ -122,7 +122,7 @@ extension Location {
 
 // MARK: Developer
 extension Location {
-    static let example = Location(id: UUID().uuidString, name: "Rosemount Museum", country: "United States", city: "Pueblo", state: "Colorado", description: "The museum was home to the prominent Pueblo family, the Thatcher’s, during the 1800's. There are noises and movements all over the property as well as a real Egyptian Mummy in one of the top stories. Under their house there are extensive tunnels not open to the public.", longitude: -104.6121005, latitude: 38.2805245, cityLongitude: -104.6091409, cityLatitude: 38.2544472, stateAbbrev: "CO", imageUrl: "https://frightfind.com/wp-content/uploads/2014/10/waynes-red-apple-resturant-and-inn-haunted-hotel.jpg")
+    static let example = Location(id: UUID().uuidString, name: "Rosemount Museum", country: "United States", city: "Pueblo", state: "Colorado", description: "The museum was home to the prominent Pueblo family, the Thatcher’s, during the 1800's. There are noises and movements all over the property as well as a real Egyptian Mummy in one of the top stories. Under their house there are extensive tunnels not open to the public.", longitude: -104.6121005, latitude: 38.2805245, cityLongitude: -104.6091409, cityLatitude: 38.2544472, stateAbbrev: "CO", imageUrl: "https://www.pottsmerc.com/wp-content/uploads/migration/2018/10/0e93522487ba32f386c498d93b4b8659.jpg?w=780")
     
     static let exampleArray = Array<Location>.init(repeating: example, count: 10)
 }
