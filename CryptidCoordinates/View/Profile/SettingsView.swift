@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Environment(UserModel.self) var userModel
+    @Environment(AuthModel.self) var userModel
     @State private var isShowingSignOutAlert = false
     @State private var isShowingDeleteAccAlert = false
     @State private var isShowingDeleteAccDialog = false
@@ -29,6 +29,7 @@ struct SettingsView: View {
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
         .alert("Sign Out", isPresented: $isShowingSignOutAlert) {
             Button("Sign Out", role: .destructive) {
                 try? userModel.signOut()
@@ -56,10 +57,15 @@ struct SettingsView: View {
                 isShowingDeleteAccAlert.toggle()
             }
         })
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                BackButton()
+            }
+        }
     }
 }
 
 #Preview {
     SettingsView()
-        .environment(UserModel())
+        .environment(AuthModel())
 }

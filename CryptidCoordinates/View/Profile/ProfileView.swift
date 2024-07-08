@@ -8,47 +8,21 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @Environment(UserModel.self) var userModel
     @Environment(ViewModel.self) var viewModel
+    @Environment(AuthModel.self) var authModel
     @Environment(\.colorScheme) var colorScheme
     @State private var isShowingSignOutAlert = false
-    @State private var offsetX = 0.0
-    @State private var offsetY = 0.0
-    
-    var drag: some Gesture {
-        DragGesture()
-            .onChanged { gesture in
-                offsetX = gesture.translation.width
-                offsetY = gesture.translation.height
-            }
-            .onEnded { _ in
-                withAnimation(.bouncy(duration: 0.6)){
-                    offsetX = 0.0
-                    offsetY = 0.0
-                }
-            }
-    }
-    
-    private var darkModeColors: [Color] {
-        [Color("AccentColor"), Color.black]
-    }
-    
-    private var lightModeColors: [Color] {
-        [ Color("AccentColor"), Color.white]
-    }
-    @State var colors: [(id: Int, color: UIColor, frequency: CGFloat)] = []
-    @State var gradietnModel = AnimatedGradient.Model(colors: [])
     
     var body: some View {
         NavigationStack {
             List {
                 Section {
                     ProfilePictureView(type: .profile, user: .example)
-                        .offset(x: offsetX, y: offsetY)
-                        .gesture(drag)
                         .listRowBackground(Color.clear)
                         .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical)
                 }
+                .listRowSeparator(.hidden)
                 
                 NavigationLink {
                     EditProfileView(user: Bindable(viewModel).user)
@@ -69,18 +43,19 @@ struct ProfileView: View {
                 }
                 
                 NavigationLink {
+                    //
+                } label: {
+                    Label("Comments", systemImage: "message")
+                }
+                
+                NavigationLink {
                     SubmitLocationDetailsView()
                 } label: {
                     Label("Submit Location", systemImage: "map")
                 }
             }
-            .navigationTitle("Noah Giboney")
-            .scrollContentBackground(.hidden)
-            .background(GradientEffectView($gradietnModel)
-                .ignoresSafeArea()
-                .onAppear {
-                    gradietnModel.colors = colorScheme == .dark ? darkModeColors : lightModeColors
-                })
+            .listStyle(InsetListStyle())
+            .navigationTitle(viewModel.user.name)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -92,7 +67,7 @@ struct ProfileView: View {
             }
             .alert("Sign Out", isPresented: $isShowingSignOutAlert) {
                 Button("Sign Out", role: .destructive) {
-                    try? userModel.signOut()
+                    try? authModel.signOut()
                 }
             } message: {
                 Text("Are you sure you want to sign out? You will have to sign back in next visit.")
@@ -111,6 +86,6 @@ struct ProfileView: View {
 
 #Preview {
     ProfileView()
-        .environment(UserModel())
+        .environment(AuthModel())
         .environment(ViewModel(user: .example))
 }

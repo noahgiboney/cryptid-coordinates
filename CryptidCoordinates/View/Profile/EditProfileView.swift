@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @Environment(UserModel.self) var userModel
+    @Environment(ViewModel.self) var viewModel
     @Environment(\.dismiss) var dismiss
     @Binding var user: User
     @State private var tempUser: User
@@ -32,16 +32,22 @@ struct EditProfileView: View {
                 pfpScrollView
             }
         }
-        .toolbarRole(.editor)
         .navigationTitle("Edit Profile")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                BackButton()
+            }
+            
             ToolbarItem(placement: .topBarTrailing) {
                 if tempUser != user {
                     Button("Save") {
-                        user = tempUser
-                        Task { try await userModel.updateUser(updatedUser: user) }
-                        dismiss()
+                        Task {
+                            user = tempUser
+                            try await viewModel.updateUser(updatedUser: user)
+                            dismiss()
+                        }
                     }
                 }
             }
@@ -80,15 +86,6 @@ struct ProfilePictureRowItem: View {
     @Environment(\.colorScheme) var scheme
     var nsPfp: Namespace.ID
     
-    
-    var glowColor: Color {
-        if scheme == .dark{
-            return .black
-        } else {
-            return .black
-        }
-    }
-    
     var body: some View {
             profilePicture.image
                 .resizable()
@@ -96,7 +93,6 @@ struct ProfilePictureRowItem: View {
                 .foregroundStyle(.black)
                 .frame(width: 90, height: 90)
                 .scaleEffect(isSelected ? 1.1 : 1)
-//                .shadow(color: !isSelected ? glowColor.opacity(0.5) : Color.clear, radius: 20, x: 0, y: 0)
                 .overlay(alignment: .top) {
                     if isSelected {
                         Image(systemName: "triangle.fill")
@@ -111,6 +107,6 @@ struct ProfilePictureRowItem: View {
 #Preview {
     NavigationStack {
         EditProfileView(user: .constant(.example))
-            .environment(UserModel())
+            .environment(ViewModel(user: .example))
     }
 }
