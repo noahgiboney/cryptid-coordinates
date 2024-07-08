@@ -10,7 +10,7 @@ import SwiftUI
 import FirebaseFirestore
 
 @MainActor
-class LocationUpdater {
+class UpdateService {
     let db = Firestore.firestore()
     
     func updateLocationsWithImageUrl() async throws {
@@ -49,7 +49,7 @@ class LocationUpdater {
     
     private func updateLocationInFirebase(_ location: Location) async throws {
         let docRef = db.collection("locations").document(location.id)
-        try await docRef.setData(from: location, merge: true)
+        try docRef.setData(from: location, merge: true)
     }
 }
 
@@ -64,7 +64,7 @@ class LocationUpdateManager: ObservableObject {
         
         Task {
             do {
-                let updater = LocationUpdater()
+                let updater = UpdateService()
                 try await updater.updateLocationsWithImageUrl()
                 DispatchQueue.main.async {
                     self.isUpdating = false

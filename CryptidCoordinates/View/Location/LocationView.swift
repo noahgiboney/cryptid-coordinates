@@ -9,11 +9,10 @@ import MapKit
 import Kingfisher
 import SwiftUI
 
-struct LocationDetailView: View {
-    let location: Location
+struct LocationView: View {
+    var location: Location
     @Environment(\.colorScheme) var colorScheme
     @Environment(ViewModel.self) var viewModel
-    @Environment(\.dismiss) var dismiss
     @State private var imageUrl: URL?
     @State private var lookAroundPlace: MKLookAroundScene?
     @State private var isShowingLookAround = false
@@ -28,22 +27,13 @@ struct LocationDetailView: View {
                 KFImage(location.url)
                     .resizable()
                     .scaledToFill()
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
-//                    .overlay(alignment: .topLeading) {
-//                        Button {
-//                            dismiss()
-//                        } label: {
-//                            Image(systemName: "chevron.left")
-//                                .imageScale(.large)
-//                                .padding(7)
-//                                .background(.ultraThickMaterial)
-//                                .clipShape(Circle())
-//                        }
-//                        .padding(.leading, 30)
-//                        .padding(.top, 30)
-//                    }
-
-                
+                    .overlay(alignment: .topLeading){
+                        BackButton()
+                            .padding(7)
+                            .background(.ultraThickMaterial, in: Circle())
+                            .padding(25)
+                    }
+ 
                 locationHeader
                 
                 Text(location.description)
@@ -58,12 +48,17 @@ struct LocationDetailView: View {
             }
             .task {
                 await fetchLookAround()
-                comments = try! await viewModel.fetchComments(locationId: location.id)
+                do {
+                    comments = try await viewModel.fetchComments(locationId: location.id)
+                } catch {
+                    print("Error fechComments(): \(error.localizedDescription)")
+                }
             }
             .fullScreenCover(isPresented: $isShowingLookAround) {
                 LookAroundPreview(initialScene: lookAroundPlace)
             }
         }
+        .navigationBarBackButtonHidden()
         .ignoresSafeArea()
     }
     
@@ -91,7 +86,9 @@ struct LocationDetailView: View {
             }
             
             Button {
-                viewModel.tabSelection = 1
+                withAnimation(.easeInOut){
+                    viewModel.selectedLocation = location
+                }
             } label: {
                 Image(systemName: "map")
                     .padding(7)
@@ -103,15 +100,6 @@ struct LocationDetailView: View {
                 
             } label: {
                 Image(systemName: "eye")
-                    .padding(7)
-                    .background(.ultraThickMaterial)
-                    .clipShape(Circle())
-            }
-            
-            Button {
-                
-            } label: {
-                Image(systemName: "square.and.arrow.up")
                     .padding(7)
                     .background(.ultraThickMaterial)
                     .clipShape(Circle())
@@ -128,9 +116,10 @@ struct LocationDetailView: View {
 }
 
 #Preview {
-    LocationDetailView(location: Location.example)
-        .environment(ViewModel(user: .example))
-        .preferredColorScheme(.dark)
+    NavigationStack {
+        LocationView(location: Location.example)
+            .environment(ViewModel(user: .example))
+    }
 }
 
 //extension LocationDetailView{
