@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct BackButton: View {
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button {
+            dismiss()
+        } label: {
+            Image(systemName: "chevron.left")
+        }
     }
 }
 
