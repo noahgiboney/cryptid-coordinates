@@ -1,5 +1,5 @@
 //
-//  LocationUpdater.swift
+//  UpdateService.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 6/30/24.
@@ -16,15 +16,11 @@ class UpdateService {
     func updateLocationsWithImageUrl() async throws {
         let locations = try await fetchLocations()
         var updateCount = 0
+        print(locations.count)
         
-        for var location in locations.shuffled() {
-            
-//            if location.imageUrl != nil {
-//                updateCount += 1
-//                print(updateCount)
-//            }
-            
+        for var location in locations {
             if location.imageUrl == nil {
+                print(location.id)
                 if let imageUrl = try await GoogleImageService.shared.fetchImageUrl(for: location.name + " " + location.city + " haunted") {
                     location.imageUrl = imageUrl
                     location.stats = LocationStats(likes: 0, comments: 0)
@@ -34,15 +30,40 @@ class UpdateService {
                         print(updateCount)
                         print("updated: \(location.id)")
                     }
-                   
                 }
             }
         }
     }
     
     private func fetchLocations() async throws -> [Location] {
-        let snapshot = try await db.collection("locations").getDocuments()
-        return snapshot.documents.compactMap { document in
+            let snapshot = try await db.collection("locations").getDocuments()
+            return snapshot.documents.compactMap { document in
+                try? document.data(as: Location.self)
+            }
+        }
+    
+    private func fetchRandomLocations() async throws -> [Location] {
+        let randomUUID = UUID().uuidString
+        let firstQuery = db.collection("locations")
+            .whereField("id", isGreaterThanOrEqualTo: UUID().uuidString)
+            .order(by: "id")
+            .limit(to: 100)
+
+        let firstSnapshot = try await firstQuery.getDocuments()
+        var documents = firstSnapshot.documents
+
+        if documents.count < 100 {
+            let remainingCount = 100 - documents.count
+            let secondQuery = db.collection("locations")
+                .whereField("id", isLessThan: UUID().uuidString)
+                .order(by: "id")
+                .limit(to: remainingCount)
+
+            let secondSnapshot = try await secondQuery.getDocuments()
+            documents.append(contentsOf: secondSnapshot.documents)
+        }
+
+        return documents.compactMap { document in
             try? document.data(as: Location.self)
         }
     }
