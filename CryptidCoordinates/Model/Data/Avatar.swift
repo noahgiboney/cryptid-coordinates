@@ -7,8 +7,29 @@
 
 import SwiftUI
 
-enum ProfilePicture: Codable, CaseIterable, Hashable {
-    case person, killer, nun , mummy, spider, scream, vampire
+enum Avatar: Codable, CaseIterable, Hashable {
+    case person, killer, mummy, spider, vampire, scream, satan, nun
+    
+    var cost: Int {
+        switch self {
+        case .person:
+            0
+        case .killer:
+            0
+        case .mummy:
+            5
+        case .spider:
+            10
+        case .vampire:
+            15
+        case .scream:
+            25
+        case .satan:
+            35
+        case .nun:
+            50
+        }
+    }
     
     var image: Image {
         switch self {
@@ -26,6 +47,8 @@ enum ProfilePicture: Codable, CaseIterable, Hashable {
             Image(.vampire)
         case .mummy:
             Image(.mummy)
+        case .satan:
+            Image(.satan)
         }
     }
 }

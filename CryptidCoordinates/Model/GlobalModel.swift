@@ -9,18 +9,30 @@ import Firebase
 import SwiftUI
 
 @Observable
-class ViewModel {
+class GlobalModel {
     private let firebaseService: FirebaseService
+    private let userService: UserService
     var user: User
     
-    init(firebaseService: FirebaseService = FirebaseService.shared, user: User) {
+    init(
+        firebaseService: FirebaseService = .shared,
+        userService: UserService = .shared ,
+        user: User
+    ) {
         self.firebaseService = firebaseService
+        self.userService = userService
         self.user = user
     }
     
     var locations: [OldLocation] = []
     var count = 0
     var tabSelection = 0
+    
+    var selectedLocation: Location? {
+        didSet {
+            tabSelection = 1
+        }
+    }
     
     func fetchAllLocations() async throws {
         do {
@@ -31,8 +43,19 @@ class ViewModel {
     }
 }
 
+// MARK: profile
+extension GlobalModel {
+//    func updateUser(updatedUser: User) async throws {
+//        do {
+//            try await userService.updateUser(updatedUser: updatedUser)
+//        } catch {
+//            print("DEBUG: failed to update user. \(error.localizedDescription)")
+//        }
+//    }
+}
+
 // MARK: comments
-extension ViewModel {
+extension GlobalModel {
     func fetchComments(locationId: String) async throws -> [Comment]{
         do {
             return try await firebaseService.fetchComments(locationId: locationId)

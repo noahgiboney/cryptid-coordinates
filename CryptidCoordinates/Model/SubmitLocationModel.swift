@@ -10,7 +10,7 @@ import MapKit
 import SwiftUI
 
 @Observable
-class SubmitLocationViewModel {
+class SubmitLocationModel {
     private let firebaseService = FirebaseService.shared
     
     var locationName = ""
