@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @Environment(ViewModel.self) var viewModel
+    @Environment(GlobalModel.self) var global
     @Environment(AuthModel.self) var authModel
     @Environment(\.colorScheme) var colorScheme
     @State private var isShowingSignOutAlert = false
@@ -17,7 +17,7 @@ struct ProfileView: View {
         NavigationStack {
             List {
                 Section {
-                    ProfilePictureView(type: .profile, user: .example)
+                    AvatarView(type: .profile, user: .example)
                         .listRowBackground(Color.clear)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.vertical)
@@ -25,7 +25,7 @@ struct ProfileView: View {
                 .listRowSeparator(.hidden)
                 
                 NavigationLink {
-                    EditProfileView(user: Bindable(viewModel).user)
+                    EditProfileView(user: Bindable(global).user)
                 } label: {
                     Label("Edit Profile", systemImage: "pencil")
                 }
@@ -37,7 +37,7 @@ struct ProfileView: View {
                 }
                 
                 NavigationLink {
-                    //
+                    FavoritesView()
                 } label: {
                     Label("Favorites", systemImage: "heart.fill")
                 }
@@ -53,9 +53,16 @@ struct ProfileView: View {
                 } label: {
                     Label("Submit Location", systemImage: "map")
                 }
+                
+                VStack {
+                    Text("157 Locations Visited")
+                        .font(.title3.bold()) 
+                }
+                .padding(.top)
+                .listRowSeparator(.hidden, edges: .bottom)
             }
             .listStyle(InsetListStyle())
-            .navigationTitle(viewModel.user.name)
+            .navigationTitle(global.user.name)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -77,7 +84,7 @@ struct ProfileView: View {
     
     private var requestLocation: some View {
         VStack(spacing: 10) {
-
+            
         }
         .padding(.horizontal)
         .font(.footnote)
@@ -87,5 +94,5 @@ struct ProfileView: View {
 #Preview {
     ProfileView()
         .environment(AuthModel())
-        .environment(ViewModel(user: .example))
+        .environment(GlobalModel(user: .example))
 }
