@@ -16,7 +16,7 @@ struct AvatarView: View {
         user.avatar.image
             .resizable()
             .scaledToFit()
-            .foregroundStyle(scheme == .dark ? .gray : .black)
+            .foregroundStyle(scheme == .dark ? .white : .black)
             .frame(width: type.size, height: type.size)
     }
 }

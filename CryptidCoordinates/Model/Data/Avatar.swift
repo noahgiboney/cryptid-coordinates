@@ -15,21 +15,21 @@ enum Avatar: Codable, CaseIterable, Hashable {
         case .killer:
             0
         case .ghost:
-            0
+            5
         case .alien:
-            0
+            10
         case .skeleton:
-            0
+            15
         case .goblin:
-            0
+            20
         case .clown:
-            0
+            25
         case .reaper:
-            35
+            30
         case .satan:
-            40
+            35
         case .nun:
-            45
+            40
         }
     }
     
