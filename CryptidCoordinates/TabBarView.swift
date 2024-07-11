@@ -9,16 +9,16 @@ import SwiftUI
 
 struct TabBarView: View {
     var currentUser: User
-    @State private var viewModel: ViewModel
+    @State private var global: GlobalModel
     
     init(currentUser: User) {
         self.currentUser = currentUser
-        let viewModel = ViewModel(user: currentUser)
-        self._viewModel = State(initialValue: viewModel)
+        let global = GlobalModel(user: currentUser)
+        self._global = State(initialValue: global)
     }
     
     var body: some View {
-        TabView(selection: $viewModel.tabSelection) {
+        TabView(selection: $global.tabSelection) {
             HomeView()
                 .tabItem {
                     VStack {
@@ -55,7 +55,7 @@ struct TabBarView: View {
                 }
                 .tag(3)
         }
-        .environment(viewModel)
+        .environment(global)
     }
 }
 
