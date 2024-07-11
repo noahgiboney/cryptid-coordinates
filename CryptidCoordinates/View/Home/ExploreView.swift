@@ -1,5 +1,5 @@
 //
-//  TrendingView.swift
+//  ExploreView.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 6/23/24.
@@ -8,26 +8,73 @@
 import SwiftUI
 
 struct ExploreView: View {
-    @State private var page = 0
+    @State private var exploreModel = ExploreModel()
+    @Binding var isShowingMenu: Bool
     
     var body: some View {
         NavigationStack {
-            VStack {                
-                ScrollView {
-                    LazyVStack(spacing: 30){
-                        LocationPreviewView(location: Location.example)
-                        
-                        LocationPreviewView(location: Location.example)
-                        
-                        LocationPreviewView(location: Location.example)
-                        
-                        LocationPreviewView(location: Location.example)
-                        
-    //                    Button("Load More", systemImage: "ellipsis") {
-    //                        //
-    //                    }
+            Group{
+                switch exploreModel.loadState {
+                case .loading:
+                    ProgressView()
+                case .loaded:
+                    listView
+                case .error:
+                    Text("Hel")
+                }
+            }
+            .navigationTitle("Explore")
+            .task {
+                try? await exploreModel.populateLocations()
+            }
+        }
+    }
+    
+    private var listView: some View {
+        List {
+            ForEach(exploreModel.locations) { location in
+                LocationPreviewView(location: location)
+                    .background {
+                        NavigationLink("") {
+                            LocationView(location: location)
+                                .onAppear { isShowingMenu = false }
+                                .onDisappear { isShowingMenu = true }
+                        }
+                        .opacity(0.0)
                     }
-                    .padding(.top)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets())
+                    .task {
+                        if location == exploreModel.locations.last {
+                            try? await exploreModel.populateLocations()
+                        }
+                    }
+            }
+        }
+        .listStyle(.plain)
+        .listRowSpacing(30)
+    }
+    
+    private var scrollView: some View {
+        ScrollView {
+            LazyVStack(spacing: 40){
+                ForEach(exploreModel.locations) { location in
+                    LocationPreviewView(location: location)
+                        .background {
+                            NavigationLink("") {
+                                LocationView(location: location)
+                                    .onAppear { isShowingMenu = false }
+                                    .onDisappear { isShowingMenu = true }
+                            }
+                            .opacity(0.0)
+                        }
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets())
+                        .task {
+                            if location == exploreModel.locations.last {
+                                try? await exploreModel.populateLocations()
+                            }
+                        }
                 }
             }
         }
@@ -35,5 +82,5 @@ struct ExploreView: View {
 }
 
 #Preview {
-    ExploreView()
+    ExploreView(isShowingMenu: .constant(false))
 }
