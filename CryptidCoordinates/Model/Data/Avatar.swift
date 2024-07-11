@@ -8,26 +8,28 @@
 import SwiftUI
 
 enum Avatar: Codable, CaseIterable, Hashable {
-    case person, killer, mummy, spider, vampire, scream, satan, nun
+    case killer, ghost, alien, skeleton, goblin, clown, reaper, satan, nun
     
     var cost: Int {
         switch self {
-        case .person:
-            0
         case .killer:
             0
-        case .mummy:
-            5
-        case .spider:
-            10
-        case .vampire:
-            15
-        case .scream:
-            25
-        case .satan:
+        case .ghost:
+            0
+        case .alien:
+            0
+        case .skeleton:
+            0
+        case .goblin:
+            0
+        case .clown:
+            0
+        case .reaper:
             35
+        case .satan:
+            40
         case .nun:
-            50
+            45
         }
     }
     
@@ -35,20 +37,43 @@ enum Avatar: Codable, CaseIterable, Hashable {
         switch self {
         case .killer:
             Image(.killer)
-        case .nun:
-            Image(.nun)
-        case .spider:
-            Image(.spider)
-        case .scream:
-            Image(.scream)
-        case .person:
-            Image(.person)
-        case .vampire:
-            Image(.vampire)
-        case .mummy:
-            Image(.mummy)
+        case .ghost:
+            Image(.ghost)
+        case .alien:
+            Image(.alien)
+        case .skeleton:
+            Image(.skeleton)
+        case .goblin:
+            Image(.goblin)
+        case .clown:
+            Image(.clown)
+        case .reaper:
+            Image(.reaper)
         case .satan:
             Image(.satan)
+        case .nun:
+            Image(.nun)
+        }
+    }
+    
+    
+}
+
+enum AvatarSize {
+    case profile, editProfile, comment, leaderboard, medium
+    
+    var size: CGFloat {
+        switch self {
+        case .profile:
+            100
+        case .editProfile:
+            90
+        case .comment:
+            35
+        case .leaderboard:
+            20
+        case .medium:
+            40
         }
     }
 }
