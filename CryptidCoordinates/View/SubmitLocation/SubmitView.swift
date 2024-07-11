@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SubmitView: View {
-    @Environment(SubmitLocationViewModel.self) var requestModel
+    @Environment(SubmitLocationModel.self) var requestModel
     
     var body: some View {
         Form {
@@ -58,6 +58,6 @@ struct SubmitView: View {
 #Preview {
     NavigationStack{
         SubmitView()
-            .environment(SubmitLocationViewModel())
+            .environment(SubmitLocationModel())
     }
 }

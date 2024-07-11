@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SubmitLocationDetailsView: View {
     @FocusState private var textEditorFocused: Bool
-    @State private var submitViewModel = SubmitLocationViewModel()
+    @State private var submitViewModel = SubmitLocationModel()
     
     var body: some View {
         NavigationStack {
