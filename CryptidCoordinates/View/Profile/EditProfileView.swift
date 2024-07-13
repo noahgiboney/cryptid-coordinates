@@ -22,14 +22,16 @@ struct EditProfileView: View {
         self._selectedAvatar = State(initialValue: user.avatar.wrappedValue)
     }
     
+    private let columns = [GridItem(), GridItem(), GridItem()]
+    
     var body: some View {
         Form {
-            Section("Display Name") {
+            Section("Name") {
                 TextField(tempUser.name, text: $tempUser.name)
             }
             
             Section("Avatar") {
-                pfpScrollView
+                avatarGrid
             }
         }
         .navigationTitle("Edit Profile")
@@ -54,48 +56,40 @@ struct EditProfileView: View {
         }
     }
     
-    var pfpScrollView: some View {
-        ScrollViewReader { scrollView in
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 25){
-                    ForEach(Avatar.allCases, id: \.self) { avatar in
-                        
-                        let isLocked = user.visits < avatar.cost
-                        VStack {
-                            AvatarRowItem(isSelected: selectedAvatar == avatar, isLocked: isLocked, avatar: avatar, nsPfp: nsPfp)
-                                .id(avatar)
-                                .onTapGesture{
-                                    if !isLocked {
-                                        withAnimation(.snappy){
-                                            selectedAvatar = avatar
-                                        }
-                                    }
+    var avatarGrid: some View {
+        LazyVGrid(columns: columns, spacing: 85) {
+            ForEach(Avatar.allCases, id: \.self) { avatar in
+                let isLocked = user.visits < avatar.cost
+                VStack {
+                    AvatarRowItem(isSelected: selectedAvatar == avatar, isLocked: isLocked, avatar: avatar, nsPfp: nsPfp)
+                        .id(avatar)
+                        .onTapGesture{
+                            if !isLocked {
+                                withAnimation(.snappy){
+                                    selectedAvatar = avatar
                                 }
-                                .overlay(alignment: .bottom) {
-                                    if isLocked {
-                                        VStack {
-                                            Label("Locked", systemImage: "lock.fill")
-                                            Text("\(avatar.cost) Visits")
-                                        }
-                                        .font(.footnote)
-                                        .foregroundStyle(.gray)
-                                        .offset(y: 40)
-                                    }
-                                }
+                            }
                         }
-                    }
-                }
-                .scrollTargetLayout()
-                .padding(.vertical, 50)
-            }
-            .scrollTargetBehavior(.viewAligned)
-            .listRowInsets(.init())
-            .onChange(of: selectedAvatar) { _, _ in
-                withAnimation {
-                    scrollView.scrollTo(selectedAvatar, anchor: .center)
+                        .overlay(alignment: .bottom) {
+                            if isLocked {
+                                VStack {
+                                    HStack(spacing: 3){
+                                        Image(systemName: "lock.fill")
+                                        Text("Locked")
+                                    }
+                                    Text("\(avatar.cost) Visits")
+                                }
+                                .font(.footnote)
+                                .foregroundStyle(.gray)
+                                .offset(y: 45)
+                            }
+                        }
                 }
             }
         }
+        .padding(.vertical, 50)
+        .padding(.bottom)
+        .listRowInsets(.init())
     }
 }
 
@@ -118,7 +112,7 @@ struct AvatarRowItem: View {
                     Image(systemName: "triangle.fill")
                         .rotationEffect(.degrees(180))
                         .matchedGeometryEffect(id: "PFP", in: nsPfp)
-                        .offset(y: -40)
+                        .offset(y: -30)
                 }
             }
             .lockedModifier(isLocked: isLocked)
@@ -129,6 +123,7 @@ struct AvatarRowItem: View {
     NavigationStack {
         EditProfileView(user: .constant(.example))
             .environment(GlobalModel(user: .example))
+
     }
 }
 
