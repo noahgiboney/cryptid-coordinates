@@ -10,7 +10,7 @@ import SwiftUI
 import TipKit
 
 struct PickCordView: View {
-    @Environment(SubmitLocationViewModel.self) var requestModel
+    @Environment(SubmitLocationModel.self) var requestModel
     @State private var position: MapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 39, longitude: -98), span: MKCoordinateSpan(latitudeDelta: 40, longitudeDelta: 40)))
     
     var body: some View {
@@ -55,5 +55,5 @@ struct PickCordView: View {
 
 #Preview {
     PickCordView()
-        .environment(SubmitLocationViewModel())
+        .environment(SubmitLocationModel())
 }
