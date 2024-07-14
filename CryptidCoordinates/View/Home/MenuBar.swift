@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum MenuBarItem: Hashable {
-    case trending, nearYou, topRated
+    case explore, nearby
 }
 
 struct MenuBarContainer<Content: View>: View {
@@ -25,7 +25,6 @@ struct MenuBarContainer<Content: View>: View {
     var body: some View {
         ZStack{
             content()
-            
             VStack {
                 Spacer()
                 MenuBar(selection: $selection)
@@ -41,30 +40,22 @@ struct MenuBar: View {
     
     var body: some View {
         HStack(spacing: 10){
-            menuButton(text: "Trending", isSelected: selection == .trending) {
+            menuButton(text: "Explore", isSelected: selection == .explore) {
                 withAnimation {
-                    selection = .trending
+                    selection = .explore
                 }
                 
             }
             
-            menuButton(text: "Near You", isSelected: selection == .nearYou) {
+            menuButton(text: "Near You", isSelected: selection == .nearby) {
                 withAnimation {
-                    selection = .nearYou
+                    selection = .nearby
                 }
-                
-            }
-            
-            menuButton(text: "Top Rated", isSelected: selection == .topRated) {
-                withAnimation {
-                    selection = .topRated
-                }
-                
             }
         }
         .background(Capsule()
             .fill(.ultraThickMaterial)
-            .frame(width: 310, height: 45))
+            .frame(width: 225, height: 45))
         .padding(.bottom)
     }
     
@@ -89,7 +80,7 @@ struct MenuBar: View {
 }
 
 #Preview {
-    MenuBar(selection: .constant(.nearYou))
+    MenuBar(selection: .constant(.nearby))
 }
 
 struct MenuItemsPreferenceKey: PreferenceKey {
