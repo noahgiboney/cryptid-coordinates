@@ -8,7 +8,7 @@
 import Kingfisher
 import SwiftUI
 
-struct FavoritesView: View {
+struct SavedView: View {
     @State private var locations: [Location] = Array(repeating: .example, count: 20)
     //@State private var locations: [Location] = []
     @State private var searchText = ""
@@ -64,6 +64,6 @@ struct FavoritesView: View {
 
 #Preview {
     NavigationStack {
-        FavoritesView()
+        SavedView()
     }
 }
