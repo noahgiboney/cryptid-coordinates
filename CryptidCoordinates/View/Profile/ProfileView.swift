@@ -37,9 +37,9 @@ struct ProfileView: View {
                 }
                 
                 NavigationLink {
-                    FavoritesView()
+                    SavedView()
                 } label: {
-                    Label("Favorites", systemImage: "heart.fill")
+                    Label("Saved", systemImage: "bookmark")
                 }
                 
                 NavigationLink {
