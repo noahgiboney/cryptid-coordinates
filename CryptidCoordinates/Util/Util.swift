@@ -8,6 +8,15 @@
 import CoreLocation
 import UIKit
 
+func roundToTenth(_ number: Double) -> String {
+    let roundedNumber = (number * 10).rounded() / 10
+    let formatter = NumberFormatter()
+    formatter.minimumFractionDigits = 0
+    formatter.maximumFractionDigits = 1
+    formatter.numberStyle = .decimal
+    return formatter.string(from: NSNumber(value: roundedNumber)) ?? "\(roundedNumber)"
+}
+
 extension UINavigationController: UIGestureRecognizerDelegate {
     override open func viewDidLoad() {
         super.viewDidLoad()
