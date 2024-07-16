@@ -14,6 +14,8 @@ struct LocationStats: Codable, Equatable, Hashable {
 }
 
 struct Location: Codable, Identifiable, Hashable {
+    
+    /// firestore data
     var id: String
     let name: String
     let country: String
@@ -27,6 +29,11 @@ struct Location: Codable, Identifiable, Hashable {
     let stateAbbrev: String
     var imageUrl: String?
     var geohash: String
+    var stats: LocationStats?
+    var done: String?
+    
+    /// local properties
+    var didSave = false
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -42,6 +49,8 @@ struct Location: Codable, Identifiable, Hashable {
         case stateAbbrev
         case imageUrl
         case geohash
+        case stats
+        case done
     }
     
     init(from decoder: Decoder) throws {
@@ -59,6 +68,8 @@ struct Location: Codable, Identifiable, Hashable {
         self.stateAbbrev = try container.decode(String.self, forKey: .stateAbbrev)
         self.imageUrl = try? container.decode(String?.self, forKey: .imageUrl)
         self.geohash = try container.decode(String.self, forKey: .geohash)
+        self.stats = try? container.decode(LocationStats?.self, forKey: .stats)
+        self.done = try? container.decode(String?.self, forKey: .done)
     }
     
     init(
@@ -74,7 +85,9 @@ struct Location: Codable, Identifiable, Hashable {
         cityLatitude: Double,
         stateAbbrev: String,
         imageUrl: String? = nil,
-        geohash: String
+        geohash: String,
+        stats: LocationStats? = nil,
+        done: String? = nil
     ) {
         self.id = id
         self.name = name
@@ -120,11 +133,20 @@ extension Location {
     var cameraPosition: MapCameraPosition {
         .region(MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)))
     }
+    
+    var location: CLLocation {
+        CLLocation(latitude: latitude, longitude: longitude)
+    }
+    
+    func distanceAway(userCords: CLLocationCoordinate2D) -> String {
+        let distance = userCords.distance(from: location)
+        return roundToTenth((distance / 1609))
+    }
 }
 
 // MARK: Developer
 extension Location {
-    static let example = Location(id: UUID().uuidString, name: "Rosemount Museum", country: "United States", city: "Pueblo", state: "Colorado", description: "The museum was home to the prominent Pueblo family, the Thatcher’s, during the 1800's. There are noises and movements all over the property as well as a real Egyptian Mummy in one of the top stories. Under their house there are extensive tunnels not open to the public.", longitude: -104.6121005, latitude: 38.2805245, cityLongitude: -104.6091409, cityLatitude: 38.2544472, stateAbbrev: "CO", imageUrl: "https://www.pottsmerc.com/wp-content/uploads/migration/2018/10/0e93522487ba32f386c498d93b4b8659.jpg?w=780", geohash: "")
+    static let example = Location(id: UUID().uuidString, name: "Rosemount Museum", country: "United States", city: "Pueblo", state: "Colorado", description: "The museum was home to the prominent Pueblo family, the Thatcher’s, during the 1800's. There are noises and movements all over the property as well as a real Egyptian Mummy in one of the top stories. Under their house there are extensive tunnels not open to the public.", longitude: -104.6121005, latitude: 38.2805245, cityLongitude: -104.6091409, cityLatitude: 38.2544472, stateAbbrev: "CO", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Newberry_College_Historic_District.jpg", geohash: "")
     
     static let exampleArray = Array<Location>.init(repeating: example, count: 10)
 }

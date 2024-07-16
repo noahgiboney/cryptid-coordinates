@@ -36,13 +36,7 @@ struct SavedView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .searchable(text: $searchText)
-        .toolbar {
-            if !store.savedLocations.isEmpty {
-                ToolbarItem(placement: .topBarTrailing){
-                    EditButton()
-                }
-            }
-            
+        .toolbar {            
             ToolbarItem(placement: .topBarLeading){
                 BackButton()
             }
@@ -72,12 +66,26 @@ struct SavedView: View {
                                 .foregroundStyle(.gray)
                         }
                     }
+                    .swipeActions {
+                        Button(role: .destructive) {
+                            unsave(location)
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+
+                    }
                 }
             }
         } else if store.savedLocations.isEmpty {
             ContentUnavailableView("Nothing saved yet", systemImage: "house.lodge")
         } else {
             ContentUnavailableView.search
+        }
+    }
+        
+    func unsave(_ location: Location) {
+        Task {
+            try? await store.unsave(locationId: location.id)
         }
     }
 }

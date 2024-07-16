@@ -44,9 +44,9 @@ extension LocationStore {
 extension LocationStore {
     func fetchSaved() async throws {
         do {
-            nearLocations = try await LocationService.shared.fetchedSaved()
+            savedLocations = try await LocationService.shared.fetchedSaved()
         } catch {
-            print("Error: favorite() : \(error.localizedDescription)")
+            print("Error: fetchSaved() : \(error.localizedDescription)")
         }
     }
     
@@ -54,7 +54,7 @@ extension LocationStore {
         do {
             try await LocationService.shared.save(locationId: id)
         } catch {
-            print("Error: favorite() : \(error.localizedDescription)")
+            print("Error: save() : \(error.localizedDescription)")
         }
     }
     

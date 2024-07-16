@@ -11,6 +11,7 @@ import Foundation
 
 class LocationService {
     static let shared = LocationService()
+    var nearestLocations: [Location] = []
     
     private init () {}
     
@@ -24,24 +25,51 @@ class LocationService {
         let encodedLocation = try Firestore.Encoder().encode(location)
         try await Firestore.firestore().collection("locationRequests").document(location.locationName).setData(encodedLocation)
     }
-    
-    // fetch all locations in current and neighboring geohashes
+}
+
+// MARK: - nearest locations
+extension LocationService {
     func fetchNearestLocations(for userCords: CLLocationCoordinate2D) async throws -> [Location] {
-        let geohash = Geohash(coordinates: (userCords.latitude, userCords.longitude), precision: 4)
+        let geohashes = geohashNeighbors(cords: userCords)
+        
+        let snapshot = try await locationRef.whereField("geohash", in: geohashes).getDocuments()
+        
+        nearestLocations = snapshot.documents.compactMap( { try? $0.data(as: Location.self) })
+        
+        // check if user saved post
+        await withThrowingTaskGroup(of: Void.self) { groupTask in
+            for location in nearestLocations {
+                groupTask.addTask {
+                    let didSave = try await self.didSave(locationId: location.id)
+                    await MainActor.run {
+                        self.updateDidSave(didSave: didSave, id: location.id)
+                    }
+                }
+            }
+        }
+        
+        // sort by closest location
+        return nearestLocations.sorted { location1, location2 in
+            let distance1 = userCords.distance(from: CLLocation(latitude: location1.latitude, longitude: location1.longitude))
+            let distance2 = userCords.distance(from: CLLocation(latitude: location2.latitude, longitude: location2.longitude))
+            
+            return distance1 < distance2
+        }
+    }
+    
+    private func geohashNeighbors(cords: CLLocationCoordinate2D) -> [Geohash.Hash] {
+        let geohash = Geohash(coordinates: (cords.latitude, cords.longitude), precision: 4)
         
         guard let currentGeohash = geohash?.geohash else { return [] }
         guard var neighbors = geohash?.neighbors?.all.compactMap( { $0.geohash }) else { return [] }
         neighbors.append(currentGeohash)
         
-        let snapshot = try await locationRef.whereField("geohash", in: neighbors).getDocuments()
-        
-        let locations = snapshot.documents.compactMap( { try? $0.data(as: Location.self) })
-        
-        return locations.sorted { location1, location2 in
-            let distance1 = userCords.distance(from: CLLocation(latitude: location1.latitude, longitude: location1.longitude))
-            let distance2 = userCords.distance(from: CLLocation(latitude: location2.latitude, longitude: location2.longitude))
-            
-            return distance1 < distance2
+        return neighbors
+    }
+    
+    private func updateDidSave(didSave: Bool, id: String) {
+        if let index = nearestLocations.firstIndex(where: { $0.id == id }) {
+            nearestLocations[index].didSave = didSave
         }
     }
 }
@@ -65,7 +93,8 @@ extension LocationService {
                 }
             }
             
-            for try await location in taskGroup {
+            for try await var location in taskGroup {
+                location.didSave = true
                 locations.append(location)
             }
             
