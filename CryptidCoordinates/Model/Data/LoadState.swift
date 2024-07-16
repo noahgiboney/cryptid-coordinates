@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+enum LoadState {
+    case loading, loaded, error
+}

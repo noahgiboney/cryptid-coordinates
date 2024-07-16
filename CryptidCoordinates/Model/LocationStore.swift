@@ -6,19 +6,63 @@
 //
 
 import CoreLocation
+import Firebase
 import Foundation
 
 @Observable
 class LocationStore {
-    var locations: [Location] = []
-    var loadState: LoadState = .loading
+    var nearLocations: [Location] = []
+    var savedLocations: [Location] = []
+    var didLoadNearLocations = false
     
     func fetchNearLocations(userCords: CLLocationCoordinate2D) async throws {
         do {
-            locations = try await LocationService.shared.fetchNearestLocations(for: userCords)
-            print(locations.count)
+            nearLocations = try await LocationService.shared.fetchNearestLocations(for: userCords)
+            didLoadNearLocations = true
         } catch {
             print("ERROR: \(error.localizedDescription)")
+        }
+    }
+}
+
+// MARK: - visits
+extension LocationStore {
+    func logVisit(locationId: String) async throws {
+        guard let user = Auth.auth().currentUser else { return}
+        let newVisit = Visit(userId: user.uid, locationId: locationId)
+        
+        do {
+            try await VisitService.shared.logVisit(visit: newVisit)
+        } catch {
+            print("Error: logVisit() : \(error.localizedDescription)")
+        }
+    }
+}
+
+
+// MARK: - saves
+extension LocationStore {
+    func fetchSaved() async throws {
+        do {
+            nearLocations = try await LocationService.shared.fetchedSaved()
+        } catch {
+            print("Error: favorite() : \(error.localizedDescription)")
+        }
+    }
+    
+    func save(locationId id: String) async throws {
+        do {
+            try await LocationService.shared.save(locationId: id)
+        } catch {
+            print("Error: favorite() : \(error.localizedDescription)")
+        }
+    }
+    
+    func unsave(locationId id: String) async throws {
+        do {
+            try await LocationService.shared.unsave(locationId: id)
+        } catch {
+            print("Error: unsave() : \(error.localizedDescription)")
         }
     }
 }
