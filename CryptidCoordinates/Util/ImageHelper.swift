@@ -55,11 +55,11 @@ class ImageHelper {
         noiseFilter.setValue(0.02, forKey: "inputNoiseLevel")
         noiseFilter.setValue(0.4, forKey: "inputSharpness")
         
-        // Apply a slight green tint
+        // Apply a blue monotone tint
         guard let tintFilter = CIFilter(name: "CIColorMonochrome") else { return nil }
         tintFilter.setValue(noiseFilter.outputImage, forKey: kCIInputImageKey)
-        tintFilter.setValue(CIColor(color: UIColor(red: 0.7, green: 0.8, blue: 0.6, alpha: 1.0)), forKey: kCIInputColorKey)
-        tintFilter.setValue(0.3, forKey: kCIInputIntensityKey)
+        tintFilter.setValue(CIColor(color: UIColor(red: 0.3, green: 0.3, blue: 0.5, alpha: 1.0)), forKey: kCIInputColorKey)
+        tintFilter.setValue(0.7, forKey: kCIInputIntensityKey)
         
         if let outputImage = tintFilter.outputImage,
            let cgOutputImage = context.createCGImage(outputImage, from: ciImage.extent) {
