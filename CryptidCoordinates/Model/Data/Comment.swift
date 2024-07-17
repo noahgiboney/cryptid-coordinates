@@ -29,3 +29,27 @@ extension Comment {
     
     static let exampleArray: [Comment] = Array.init(repeating: .example, count: 5)
 }
+
+extension Timestamp {
+    func timeAgo() -> String {
+        let now = Date()
+        let timeInterval = now.timeIntervalSince(self.dateValue())
+        
+        let minute: Double = 60
+        let hour: Double = 3600
+        let day: Double = 86400
+        let week: Double = 604800
+        
+        if timeInterval < minute {
+            return "\(Int(timeInterval))s"
+        } else if timeInterval < hour {
+            return "\(Int(timeInterval / minute))m"
+        } else if timeInterval < day {
+            return "\(Int(timeInterval / hour))h"
+        } else if timeInterval < week {
+            return "\(Int(timeInterval / day))d"
+        } else {
+            return "\(Int(timeInterval / week))w"
+        }
+    }
+}
