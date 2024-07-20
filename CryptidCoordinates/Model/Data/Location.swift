@@ -134,12 +134,12 @@ extension Location {
         .region(MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)))
     }
     
-    var location: CLLocation {
+    var clLocation: CLLocation {
         CLLocation(latitude: latitude, longitude: longitude)
     }
     
     func distanceAway(userCords: CLLocationCoordinate2D) -> String {
-        let distance = userCords.distance(from: location)
+        let distance = userCords.distance(from: clLocation)
         return roundToTenth((distance / 1609))
     }
 }
