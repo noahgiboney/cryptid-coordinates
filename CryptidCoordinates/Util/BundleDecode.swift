@@ -8,7 +8,7 @@
 import Foundation
 
 extension Bundle {
-    func decode(file: String) -> [OldLocation] {
+    func decode(file: String) -> [Locat] {
         
         //ensure json file is in the bundle
         guard let url = self.url(forResource: file, withExtension: nil) else{

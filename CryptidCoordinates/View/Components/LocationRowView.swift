@@ -1,18 +1,18 @@
 //
-//  ExploreView.swift
+//  LocationRowView.swift
 //  CryptidCoordinates
 //
-//  Created by Noah Giboney on 7/13/24.
+//  Created by Noah Giboney on 7/22/24.
 //
 
 import SwiftUI
 
-struct ExploreView: View {
+struct LocationRowView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    ExploreView()
+    LocationRowView()
 }
