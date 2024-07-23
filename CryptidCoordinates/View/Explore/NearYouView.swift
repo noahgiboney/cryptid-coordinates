@@ -33,8 +33,9 @@ struct NearYouView: View {
     }
     
     var body: some View {
-        LocationScrollView(locations: sortedLocations)
+        LocationScrollView(locations: Array(sortedLocations.prefix(25)))
             .listRowSeparator(.hidden)
+            .listRowInsets(EdgeInsets())
     }
 }
 

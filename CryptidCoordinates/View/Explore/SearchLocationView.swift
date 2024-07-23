@@ -28,6 +28,12 @@ struct SearchLocationView: View {
                                 try? fetchLocations()
                             }
                         }
+                        .swipeActions {
+                            Button("Save", systemImage: "bookmark") {
+                               
+                            }
+                            .tint(Color("AccentColor"))
+                        }
                 }
             }
         }

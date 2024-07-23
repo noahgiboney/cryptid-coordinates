@@ -12,27 +12,20 @@ struct TrendingView: View {
     @Environment(\.modelContext) var modelContext
     @State private var trendingIds: [String] = []
     @State private var trendingLocations: [Location] = []
-    @State private var isLoading = false
     
     var body: some View {
-        Group {
-            if isLoading {
-                ProgressView()
-            } else {
-                LocationScrollView(locations: trendingLocations)
+        LocationScrollView(locations: trendingLocations)
+            .listRowSeparator(.hidden)
+            .listRowInsets(EdgeInsets())
+            .task {
+                await fetchTrending()
             }
-        }
-        .task {
-            await fetchTrending()
-        }
     }
     
     func fetchTrending() async {
-        isLoading = true
         do {
             trendingIds = try await LocationService.shared.fetchTrending()
             try fetchLocations()
-            isLoading = false
         } catch {
             print("Error: fetchTrending(): \(error.localizedDescription)")
         }
