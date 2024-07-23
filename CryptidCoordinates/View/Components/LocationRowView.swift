@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct LocationRowView: View {
+    var location: Location
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationLink {
+            LocationView(location: location)
+        } label: {
+            VStack(alignment: .leading) {
+                Text(location.name)
+                Text(location.cityState)
+                    .font(.footnote)
+                    .foregroundStyle(.gray)
+            }
+        }
     }
-}
-
-#Preview {
-    LocationRowView()
 }
