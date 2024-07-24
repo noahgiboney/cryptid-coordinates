@@ -2,47 +2,58 @@
 //  MapView.swift
 //  CryptidCoordinates
 //
-//  Created by Noah Giboney on 6/14/24.
+//  Created by Noah Giboney on 7/23/24.
 //
 
 import MapKit
+import SwiftData
 import SwiftUI
 
 struct MapView: View {
-    @Environment(GlobalModel.self) var global
-    @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))))
-    @State private var geohashes: [String] = []
+    var geohashes: [String]
+    @Binding var cameraPosition: MapCameraPosition
+    @State private var selectedLocation: Location?
+    @Query var annotations: [Location]
     
-    var body: some View {
-        MapReader { reader in
-            FetchAnnotationView(cameraPosition: $cameraPosition, geohashes: geohashes)
-                .onMapCameraChange { context in
-                    updateGeohash(context: context)
-                }
-        }
+    init(cameraPosition: Binding<MapCameraPosition>, geohashes: [String]) {
+        self._cameraPosition = cameraPosition
+        self.geohashes = geohashes
+        
+        self._annotations = .init(filter: #Predicate {
+            geohashes.contains($0.geohash)
+        }, animation: .default)
     }
     
-    func updateGeohash(context: MapCameraUpdateContext) {
-        let center = context.camera.centerCoordinate
-        let centerGeohash = Geohash(coordinates: (center.latitude, center.longitude), precision: 4)
-        
-        if var neighbors = centerGeohash?.neighbors?.all.compactMap( { $0.geohash }) {
-            if let centerGeohash = centerGeohash?.geohash {
-                neighbors.append(centerGeohash)
-                geohashes = neighbors
+    var body: some View {
+        Map(position: $cameraPosition, interactionModes: .all) {
+            UserAnnotation()
+            
+            ForEach(annotations) { location in
+                Annotation("", coordinate: location.coordinates) {
+                    LocationMarkerView(url: location.url)
+                        .onTapGesture {
+                            selectedLocation = location
+                        }
+                }
+            }
+        }
+        .mapControls {
+            MapUserLocationButton()
+        }
+        .sheet(item: $selectedLocation) { location in
+            NavigationStack {
+                LocationView(location: location)
+                    .overlay(alignment: .topTrailing) {
+                        Button {
+                            selectedLocation = nil
+                        } label: {
+                            Image(systemName: "xmark")
+                                .padding(10)
+                                .background(.ultraThinMaterial, in: Circle())
+                                .padding()
+                        }
+                    }
             }
         }
     }
-    
-    func selectedLocation(currentCordinates: CLLocationCoordinate2D) {
-        withAnimation(.easeInOut(duration: 0.1)){
-            cameraPosition = .region(MKCoordinateRegion(center: currentCordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
-
-        }
-    }
-}
-
-#Preview {
-    MapView()
-        .environment(GlobalModel(user: .example))
 }
