@@ -25,11 +25,11 @@ struct CommentSection: View {
                 ProgressView()
             case .empty:
                 Label("Be the first", systemImage: "bubble")
-                    .padding(.bottom, 50)
                     .foregroundStyle(.gray)
             }
         }
         .padding(.horizontal)
+        .padding(.bottom, 35)
         .onChange(of: model.comments) { oldValue, newValue in
             if !model.comments.isEmpty {
                 model.loadState = .loaded
@@ -54,7 +54,6 @@ struct CommentSection: View {
             }
         }
         .padding(.trailing, 25)
-        .padding(.bottom, 50)
     }
     
     var textField: some View {
