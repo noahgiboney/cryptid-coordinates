@@ -18,7 +18,9 @@ struct LocationUnavailableView: View {
             Text(message)
         }, actions: {
             Button {
-                locationManager.start()
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url)
+                }
             } label: {
                 Label("Current Location", systemImage: "location.fill")
             }

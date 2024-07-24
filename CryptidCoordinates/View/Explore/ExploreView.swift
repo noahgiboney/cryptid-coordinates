@@ -17,9 +17,12 @@ struct ExploreView: View {
         NavigationStack {
             List {
                 if searchText.isEmpty {
-                    if locationManager.lastKnownLocation != nil {
-                        Section("Near You"){
+                    Section("Near You"){
+                        if locationManager.lastKnownLocation != nil {
                             NearYouView(geohashes: locationManager.geohashes)
+                        } else {
+                            LocationUnavailableView(message: "Share your location to explore in your vicinity")
+                                .listRowSeparator(.hidden)
                         }
                     }
                     
