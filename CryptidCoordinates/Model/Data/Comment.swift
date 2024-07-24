@@ -8,7 +8,7 @@
 import Firebase
 import Foundation
 
-struct Comment: Codable, Identifiable {
+struct Comment: Codable, Identifiable, Equatable {
     var id = UUID().uuidString
     var userId: String
     var locationId: String
