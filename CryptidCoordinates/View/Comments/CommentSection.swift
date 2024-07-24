@@ -9,86 +9,103 @@ import Firebase
 import SwiftUI
 
 struct CommentSection: View {
-    var location: Location
+    var locationId: String
     @Environment(GlobalModel.self) var global
     @FocusState private var isFocused: Bool
-    @State private var commentModel = CommentModel()
+    @State private var model = CommentModel()
     
     var body: some View {
         VStack(spacing: 30) {
-            HStack {
-                TextEditor(text: $commentModel.comment)
-                    .frame(minHeight: 50)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .background(Color(UIColor.systemGray6), in: RoundedRectangle(cornerRadius: 15))
-                    .overlay {
-                        if commentModel.comment.isEmpty && !isFocused {
-                            Text("Share an experience")
-                                .fixedSize(horizontal: false, vertical: true)
-                                .foregroundStyle(Color.gray.opacity(0.5))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                    }
-                    .onTapGesture {
-                        isFocused = true
-                    }
-                    .focused($isFocused)
-                    .onReceive(commentModel.comment.publisher.last()) {
-                        if ($0 as Character).asciiValue == 10 {
-                            isFocused = false
-                            commentModel.comment.removeLast()
-                        }
-                    }
-                    
-                if !commentModel.comment.isEmpty {
-                    Button(action: addComment, label: {
-                        Image(systemName: "arrow.up.circle.fill")
-                            .imageScale(.large)
-                    })
-                }
-            }
-            .padding(4)
+            textField
             
-            if !commentModel.comments.isEmpty  {
-                LazyVStack(alignment: .leading, spacing: 25) {
-                    ForEach(commentModel.comments) { comment in
-                        CommentView(comment: comment)
-                            .contextMenu {
-                                if comment.userId == Auth.auth().currentUser?.uid {
-                                    Button("Delete", systemImage: "trash", role: .destructive) {
-                                        Task { try await commentModel.deleteComment(comment) }
-                                    }
-                                }
-                            }
-                    }
-                }
-                .padding(.trailing, 25)
-            } else {
-                VStack(spacing: 35){
-                    Image(systemName: "bubble")
-                        .foregroundStyle(.gray)
-                        .scaleEffect(4.0)
-                    Text("No comments yet")
-                        .font(.title3.bold())
-                }
-                .padding(.vertical, 50)
+            switch model.loadState {
+            case .loaded:
+                commentScrollView
+            case .loading:
+                ProgressView()
+            case .empty:
+                Label("Be the first", systemImage: "bubble")
+                    .padding(.bottom, 50)
+                    .foregroundStyle(.gray)
             }
         }
         .padding(.horizontal)
-        .task {
-            try? await commentModel.fetchComments(locationId: location.id)
+        .onChange(of: model.comments) { oldValue, newValue in
+            if !model.comments.isEmpty {
+                model.loadState = .loaded
+            }
         }
+        .task {
+            try? await model.fetchComments(locationId: locationId)
+        }
+    }
+    
+    var commentScrollView: some View {
+        LazyVStack(alignment: .leading, spacing: 25) {
+            ForEach(model.comments) { comment in
+                CommentView(comment: comment)
+                    .contextMenu {
+                        if comment.userId == Auth.auth().currentUser?.uid {
+                            Button("Delete", systemImage: "trash", role: .destructive) {
+                                Task { try await model.deleteComment(comment) }
+                            }
+                        }
+                    }
+            }
+        }
+        .padding(.trailing, 25)
+        .padding(.bottom, 50)
+    }
+    
+    var textField: some View {
+        HStack(alignment: .bottom) {
+            TextEditor(text: $model.comment)
+                .frame(minHeight: 40)
+                .fixedSize(horizontal: false, vertical: true)
+                .scrollContentBackground(.hidden)
+                .overlay {
+                    if model.comment.isEmpty && !isFocused {
+                        Text("Share an experience")
+                            .fixedSize(horizontal: false, vertical: true)
+                            .foregroundStyle(Color.gray.opacity(0.5))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 10)
+                    }
+                }
+                .onTapGesture {
+                    isFocused = true
+                }
+                .focused($isFocused)
+                .onReceive(model.comment.publisher.last()) {
+                    if ($0 as Character).asciiValue == 10 {
+                        isFocused = false
+                        model.comment.removeLast()
+                    }
+                }
+                
+            if !model.comment.isEmpty {
+                Button(action: addComment, label: {
+                    Image(systemName: "arrow.up.circle.fill")
+                        .imageScale(.large)
+                })
+                .padding(.bottom, 5)
+            }
+        }
+        .padding(.horizontal, 10)
+        .background(Color(uiColor: .systemFill), in: RoundedRectangle(cornerRadius: 15))
     }
     
     func addComment() {
         Task {
-            try await commentModel.addComment(locationId: location.id)
+            try await model.addComment(locationId: locationId)
             isFocused = false
         }
     }
 }
 
 #Preview {
-    CommentSection(location: Location.example)
+    
+    
+    CommentSection(locationId: UUID().uuidString)
         .environment(GlobalModel(user: .example))
 }
