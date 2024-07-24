@@ -104,8 +104,6 @@ struct CommentSection: View {
 }
 
 #Preview {
-    
-    
     CommentSection(locationId: UUID().uuidString)
         .environment(GlobalModel(user: .example))
 }
