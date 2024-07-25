@@ -40,7 +40,7 @@ struct LeaderboardView: View {
                 }
                 .navigationTitle("Leaderboard")
             } else {
-                ProgressView()
+                LoadingView()
             }
         }
         .task { try? await model.fetchLeadboard() }
