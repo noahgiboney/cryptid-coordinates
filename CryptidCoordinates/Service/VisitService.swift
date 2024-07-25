@@ -26,6 +26,11 @@ class VisitService {
         return snapshot.documents.compactMap { try? $0.data(as: User.self)}
     }
     
+    func checkDidVisist(userId: String, locationId: String) async throws -> Bool {
+        let document = try await vistRef(userId: userId).document(locationId).getDocument()
+        return document.exists
+    }
+    
     func fetchVisits(userId: String) async throws -> [Visit] {
         let snapshot = try await vistRef(userId: userId).getDocuments()
         return snapshot.documents.compactMap( { try? $0.data(as: Visit.self) })
@@ -33,7 +38,7 @@ class VisitService {
     
     func logVisit(visit: Visit, visitCount: Int) async throws {
         let encodedVisit = try Firestore.Encoder().encode(visit)
-        try await vistRef(userId: visit.userId).document(visit.id).setData(encodedVisit)
+        try await vistRef(userId: visit.userId).document(visit.locationId).setData(encodedVisit)
         try await UserService.shared.updateUser(field: "visits", value: visitCount)
     }
 }

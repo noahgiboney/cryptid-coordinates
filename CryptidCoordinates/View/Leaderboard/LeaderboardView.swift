@@ -28,8 +28,10 @@ struct LeaderboardView: View {
                             
                             Spacer()
                             
-                            VStack {
-                                Text("\(model.leaderboard[index].visits) Visits")
+                            HStack(spacing: 4) {
+                                Text("\(model.leaderboard[index].visits)")
+                                    .contentTransition(.numericText())
+                                Text("Visits")
                             }
                             .font(.caption2)
                             .foregroundStyle(.gray)

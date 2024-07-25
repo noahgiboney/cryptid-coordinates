@@ -8,15 +8,16 @@
 import Firebase
 import SwiftUI
 
+enum VisitState {
+    case scanning, newVisit, notInProximity, alreadyVisited
+}
+
 struct VisitView: View {
     var location: Location
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var locationManager: LocationManager
     @Environment(GlobalModel.self) var global
-    @State private var showCheckmark = false
-    @State private var showRader = true
-    @State private var didVisit = false
-    @State private var visits = 0
+    @State private var visitState: VisitState = .scanning
     
     var body: some View {
         NavigationStack {
@@ -24,27 +25,23 @@ struct VisitView: View {
                 if locationManager.lastKnownLocation == nil {
                     LocationUnavailableView(message: "Share your location to visit")
                 } else {
-                    if showRader {
+                    switch visitState {
+                    case .scanning:
                         RadarView()
-                            .onAppear {
-                                checkDidVisit()
-                            }
-                    } else {
-                        if didVisit {
-                            successView
-                        } else {
-                            failView
-                        }
+                    case .newVisit:
+                        successView
+                    case .notInProximity:
+                        failView
+                    case .alreadyVisited:
+                        alreadyVisitedView
                     }
                 }
             }
-            .navigationTitle(showRader ? "Scanning" : "Visit")
+            .navigationTitle(visitState == .scanning ? "Scanning" : "Visit")
             .navigationBarTitleDisplayMode(.inline)
             .padding(.horizontal)
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                    showRader = false
-                }
+            .task {
+                await checkDidVisit()
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -56,15 +53,22 @@ struct VisitView: View {
         }
     }
     
-    var checkmark: some View {
-        Image(systemName: "checkmark")
-            .scaleEffect(1.5)
-            .foregroundStyle(.green)
-            .imageScale(.large)
-            .padding(25)
-            .background {
-                RoundedRectangle(cornerRadius: 15)
+    var alreadyVisitedView: some View {
+        VStack(spacing: 25) {
+            Image(systemName: "house.lodge")
+                .foregroundStyle(.gray)
+                .imageScale(.large)
+                .scaleEffect(2)
+            
+            VStack(alignment: .center, spacing: 4) {
+                Text("You Already Visted This Location")
+                    .font(.title2.bold())
+                
+                Text("Visit other haunted locations to earn more visits.")
+                    .font(.subheadline)
+                    .foregroundStyle(.gray)
             }
+        }
     }
     
     var successView: some View {
@@ -78,17 +82,18 @@ struct VisitView: View {
                 Text("Paranormal Activity Detected")
                     .font(.title2.bold())
                 
-                Text("Watch your back and don't forget to share your experience on the location.")
+                Text("You have now entered the realm of the paranormal. Watch your back and don't forget to share your experience on the location.")
                     .font(.subheadline)
                     .foregroundStyle(.gray)
             }
             
-            VStack {
+            VStack(spacing: 10){
                 Text("+1 Visit")
                     .font(.headline)
                     .transition(.scale)
                 
-                Text("You have visited 10 haunted locations!")
+                Text("You have now visited \(global.user.visits) haunted locations.")
+                    .contentTransition(.numericText(value: Double(global.user.visits)))
             }
         }
         .task {
@@ -129,15 +134,35 @@ struct VisitView: View {
         }
     }
     
-    func checkDidVisit() {
+    func checkDidVisit() async {
+        guard let user = Auth.auth().currentUser else { return }
         guard let userCords = locationManager.lastKnownLocation else { return }
         
-        /// 0.3 miles
-        let minDistance = 483.0
-        
-        let distanceFromLocation = userCords.distance(from: location.clLocation)
+        do {
+            let alreadyVisited = try await VisitService.shared.checkDidVisist(userId: user.uid, locationId: location.id)
+            
+            if alreadyVisited {
+                visitState = .alreadyVisited
+                return
+            }
+            
+            try await Task.sleep(nanoseconds: 1_500_000_000)
+            
+            /// 0.3 miles 483
+            let minDistance = 10000.0
+            
+            let distanceFromLocation = userCords.distance(from: location.clLocation)
 
-        didVisit = (distanceFromLocation <= minDistance)
+            if distanceFromLocation <= minDistance {
+                visitState = .newVisit
+            } else {
+                visitState = .notInProximity
+            }
+            
+            
+        } catch {
+            print("Error: checkDidVisit(): \(error.localizedDescription)")
+        }
     }
     
     func logVisit(_ locationId: String) async throws {
