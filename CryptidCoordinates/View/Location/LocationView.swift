@@ -1,5 +1,5 @@
 //
-//  LocationDetail.swift
+//  LocationView.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 1/9/24.
@@ -10,136 +10,122 @@ import Kingfisher
 import SwiftUI
 
 struct LocationView: View {
-    var location: Location
+    @Bindable var location: Location
     @Environment(\.colorScheme) var colorScheme
-    @Environment(ViewModel.self) var viewModel
-    @State private var imageUrl: URL?
+    @Environment(GlobalModel.self) var global
+    @Environment(LocationStore.self) var store
+    @EnvironmentObject var locationManager: LocationManager
     @State private var lookAroundPlace: MKLookAroundScene?
-    @State private var isShowingLookAround = false
-    @State private var comment = ""
-    @State private var didLike = false
-    @State private var didFavorite = false
-    @State private var comments: [Comment] = []
+    @State private var showVisitSheet = false
+    @State private var showLookAround = false
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 30){
-                KFImage(location.url)
-                    .resizable()
-                    .scaledToFill()
-                    .overlay(alignment: .topLeading){
-                        BackButton()
-                            .padding(7)
-                            .background(.ultraThickMaterial, in: Circle())
-                            .padding(25)
-                    }
- 
-                locationHeader
+            VStack(alignment: .leading, spacing: 25){
+                VStack {
+                    KFImage(location.url)
+                        .loadDiskFileSynchronously()
+                        .cacheMemoryOnly()
+                        .fade(duration: 0.25)
+                        .resizable()
+                        .frame(maxWidth: .infinity, maxHeight: 400)
+                    
+                    locationHeader
+                }
                 
-                Text(location.description)
-                    .padding(.horizontal)
+                actionButtons
                 
                 VStack(spacing: 15){
-                    actionButton
+                    Text(location.detail)
+                        .padding(.horizontal)
                     Divider()
                 }
                 
-                CommentSection(location: location)
-            }
-            .task {
-                await fetchLookAround()
-                do {
-                    comments = try await viewModel.fetchComments(locationId: location.id)
-                } catch {
-                    print("Error fechComments(): \(error.localizedDescription)")
-                }
-            }
-            .fullScreenCover(isPresented: $isShowingLookAround) {
-                LookAroundPreview(initialScene: lookAroundPlace)
+                CommentSection(locationId: location.id)
             }
         }
-        .navigationBarBackButtonHidden()
-        .ignoresSafeArea()
+        .navigationBarTitleDisplayMode(.inline)
+        .task {
+            await fetchLookAround()
+        }
+        .fullScreenCover(isPresented: $showLookAround) {
+            LookAroundPreview(initialScene: lookAroundPlace)
+                .ignoresSafeArea()
+        }
+        .sheet(isPresented: $showVisitSheet) {
+            VisitView(location: location)
+                .presentationDetents([.medium])
+                .presentationCornerRadius(20)
+        }
     }
     
     var locationHeader: some View {
-        VStack(spacing: 3){
-            Text(location.name)
-                .font(.title.bold())
-            
-            Text(location.cityState)
-                .foregroundStyle(.secondary)
-        }
-        .frame(maxWidth: .infinity, alignment: .center)
+            VStack(alignment: .leading ,spacing: 3){
+                Text(location.name)
+                    .font(.title.bold())
+                
+                Text(location.cityState)
+                    .foregroundStyle(.secondary)
+            }
+        .padding(.horizontal)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    var actionButton: some View {
-        HStack(spacing: 25){
-            Button{
-                didLike.toggle()
-            } label: {
-                Image(systemName: didLike ? "heart.fill" : "heart")
-                    .symbolEffect(.bounce, value: didLike)
-                    .padding(7)
-                    .background(.ultraThickMaterial)
-                    .clipShape(Circle())
-            }
-            
+    var actionButtons: some View {
+        HStack(spacing: 20){
             Button {
-                withAnimation(.easeInOut){
-                    viewModel.selectedLocation = location
-                }
+                global.selectedLocation = location
             } label: {
                 Image(systemName: "map")
-                    .padding(7)
-                    .background(.ultraThickMaterial)
-                    .clipShape(Circle())
             }
             
             Button {
-                
+                openInMaps(location)
             } label: {
-                Image(systemName: "eye")
-                    .padding(7)
-                    .background(.ultraThickMaterial)
-                    .clipShape(Circle())
+                Image(systemName: "location")
             }
+            
+            if lookAroundPlace != nil {
+                Button {
+                    showLookAround.toggle()
+                } label: {
+                    Image(systemName: "eye")
+                }
+            }
+            
+            Spacer()
+            
+            Button {
+
+            } label: {
+                Image(systemName: "bookmark")
+            }
+            
+            Button("Visit") {
+                showVisitSheet.toggle()
+            }
+            .buttonStyle(.bordered)
         }
         .imageScale(.large)
-        .frame(maxWidth: .infinity, alignment: .center)
+        .padding(.horizontal, 20)
     }
         
-    private func fetchLookAround() async {
+    func fetchLookAround() async {
         let request = MKLookAroundSceneRequest(coordinate: location.coordinates)
         lookAroundPlace = try? await request.scene
     }
+    
+    func openInMaps(_ location: Location) {
+        let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinates))
+        item.openInMaps()
+    }
+    
 }
 
 #Preview {
     NavigationStack {
         LocationView(location: Location.example)
-            .environment(ViewModel(user: .example))
+            .environment(GlobalModel(user: .example))
+            .environmentObject(LocationManager())
     }
 }
-
-//extension LocationDetailView{
-//    private var lookAroundSection: some View {
-//        
-//        ZStack{
-//            
-//            if viewModel.lookAroundPlace == nil {
-//                
-//                Label("No Lookaround Available", systemImage: "eye.slash")
-//            }
-//            else {
-//                
-//                VStack(alignment: .leading){
-//                    LookAroundPreview(scene: $viewModel.lookAroundPlace)
-//                        .clipShape(.rect(cornerRadius: 10))
-//                }
-//                .frame(height: 200)
-//            }
-//        }
-//        .padding()
-//    }
-//}

@@ -5,37 +5,50 @@
 //  Created by Noah Giboney on 7/16/24.
 //
 
+import Firebase
 import SwiftUI
 
 struct VisitView: View {
     var location: Location
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var locationManager: LocationManager
+    @Environment(GlobalModel.self) var global
     @State private var showCheckmark = false
     @State private var showRader = true
+    @State private var didVisit = false
+    @State private var visits = 0
     
     var body: some View {
         NavigationStack {
-            VStack {
-                if locationManager.lastKnownLocation != nil {
+            VStack(spacing: 40) {
+                if locationManager.lastKnownLocation == nil {
                     LocationUnavailableView(message: "Share your location to visit")
                 } else {
                     if showRader {
                         RadarView()
+                            .onAppear {
+                                checkDidVisit()
+                            }
+                    } else {
+                        if didVisit {
+                            successView
+                        } else {
+                            failView
+                        }
                     }
                 }
             }
-            .padding(.horizontal)
             .navigationTitle(showRader ? "Scanning" : "Visit")
             .navigationBarTitleDisplayMode(.inline)
+            .padding(.horizontal)
             .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                     showRader = false
                 }
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Close") {
+                    Button("Done") {
                         dismiss()
                     }
                 }
@@ -55,21 +68,56 @@ struct VisitView: View {
     }
     
     var successView: some View {
-        VStack(alignment: .leading, spacing: 10){
-            Text("Paranormal Activity Detected!")
-                .font(.title2.bold())
+        VStack(spacing: 25) {
+            Image(systemName: "exclamationmark.triangle")
+                .foregroundStyle(.gray)
+                .imageScale(.large)
+                .scaleEffect(2)
             
-            Text("You are currently in proximity of paranomal activity. Watch your back and don't forget to share your experience on the location.")
+            VStack(alignment: .center, spacing: 4) {
+                Text("Paranormal Activity Detected")
+                    .font(.title2.bold())
+                
+                Text("Watch your back and don't forget to share your experience on the location.")
+                    .font(.subheadline)
+                    .foregroundStyle(.gray)
+            }
+            
+            VStack {
+                Text("+1 Visit")
+                    .font(.headline)
+                    .transition(.scale)
+                
+                Text("You have visited 10 haunted locations!")
+            }
+        }
+        .task {
+            try? await logVisit(location.id)
         }
     }
     
     var failView: some View {
-        VStack(spacing: 30){
-            VStack(alignment: .leading, spacing: 10) {
-                Text("You are too far away.")
+        VStack(spacing: 20) {
+            Image(systemName: "waveform.badge.magnifyingglass")
+                .foregroundStyle(.gray)
+                .imageScale(.large)
+                .scaleEffect(2)
+            
+            VStack(alignment: .center, spacing: 4) {
+                Text("Keep Searching")
                     .font(.title2.bold())
                 
-                Text("Move closer to seek paranormal activity. You are 15 miles away.")
+                Text("Move closer to find paranormal activity.")
+                    .font(.subheadline)
+                    .foregroundStyle(.gray)
+            }
+            
+            
+            if let userCords = locationManager.lastKnownLocation {
+                VStack {
+                    Text("\(location.distanceAway(userCords)) miles away from")
+                    Text(("\(location.name)"))
+                }
             }
             
             Button {
@@ -78,6 +126,31 @@ struct VisitView: View {
                 Label("Directions", systemImage: "location")
             }
             .buttonStyle(.bordered)
+        }
+    }
+    
+    func checkDidVisit() {
+        guard let userCords = locationManager.lastKnownLocation else { return }
+        
+        /// 0.3 miles
+        let minDistance = 483.0
+        
+        let distanceFromLocation = userCords.distance(from: location.clLocation)
+
+        didVisit = (distanceFromLocation <= minDistance)
+    }
+    
+    func logVisit(_ locationId: String) async throws {
+        guard let user = Auth.auth().currentUser else { return }
+        
+        let newVisit = Visit(userId: user.uid, locationId: locationId)
+        
+        do {
+            global.user.visits += 1
+            
+            try await VisitService.shared.logVisit(visit: newVisit, visitCount: global.user.visits)
+        } catch {
+            print("Error: logVisit() : \(error.localizedDescription)")
         }
     }
 }

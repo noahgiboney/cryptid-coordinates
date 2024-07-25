@@ -14,32 +14,35 @@ class UserService {
     
     private init() {}
     
-    private let db = Firestore.firestore().collection("users")
+    private let userRef = Firestore.firestore().collection("users")
     
     func fetchCurrentUser() async throws -> User? {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return nil }
-        return try await db.document(currentUserId).getDocument(as: User.self)
+        return try await userRef.document(currentUserId).getDocument(as: User.self)
+    }
+    
+    func fetchUser(userId: String) async throws -> User {
+        return try await userRef.document(userId).getDocument(as: User.self)
     }
     
     func createNewUser(id: String, name: String) async throws {
         let newUser = User(id: id, name: name)
         let encodedUser = try Firestore.Encoder().encode(newUser)
-        try await db.document(id).setData(encodedUser)
+        try await userRef.document(id).setData(encodedUser)
     }
     
     func deleteCurrentUser() async throws {
         guard let user = Auth.auth().currentUser else { return }
-        try await db.document(user.uid).delete()
+        try await userRef.document(user.uid).delete()
         try await user.delete()
     }
     
-    func updateUser(updatedUser: User) async throws {
+    func updateUser(field: String, value: Any) async throws {
         guard let user = Auth.auth().currentUser else { return }
-        let encodedUser = try Firestore.Encoder().encode(updatedUser)
-        try await db.document(user.uid).setData(encodedUser)
+        try await userRef.document(user.uid).updateData([field: value])
     }
     
     func checkIfUserExists(userId: String) async throws -> Bool {
-        return try await db.document(userId).getDocument().exists
+        return try await userRef.document(userId).getDocument().exists
     }
 }

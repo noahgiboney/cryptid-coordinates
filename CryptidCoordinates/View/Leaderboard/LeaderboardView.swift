@@ -8,35 +8,88 @@
 import SwiftUI
 
 struct LeaderboardView: View {
-    @State private var users: [User] = Array(repeating: .example, count: 10)
+    @State private var model = LeaderboardModel()
     
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(users.indices, id: \.self) { index in
-                    HStack(spacing: 10) {
-                        Text("\(index + 1)")
-                            .font(.title2)
-                        
-                        HStack {
-                            ProfilePictureView(type: .medium, user: users[index])
+            if model.didLoad {
+                List {
+                    ForEach(model.leaderboard.indices, id: \.self) { index in
+                        HStack(spacing: 20) {
+                            MedalView(index: index)
                             
-                            Text(users[index].name)
-                        }
-                        
-                        Spacer()
-                        
-                        Text("423 points")
-                            .font(.footnote )
+                            HStack {
+                                AvatarView(type: .medium, user: model.leaderboard[index])
+                                
+                                Text(model.leaderboard[index].name)
+                                    .lineLimit(1)
+                                    .truncationMode(.tail)
+                            }
+                            
+                            Spacer()
+                            
+                            VStack {
+                                Text("\(model.leaderboard[index].visits) Visits")
+                            }
+                            .font(.caption2)
                             .foregroundStyle(.gray)
+                        }
+                        .padding(.leading, index > 2 && index != 9 ? 9 : 0)
+                        .padding(.leading, index == 9 ? 3 : 0)
                     }
                 }
+                .navigationTitle("Leaderboard")
+            } else {
+                ProgressView()
             }
-            .navigationTitle("Leaderboard")
         }
+        .task { try? await model.fetchLeadboard() }
     }
 }
 
 #Preview {
     LeaderboardView()
+        .preferredColorScheme(.dark)
+}
+
+struct MedalView: View {
+    var index: Int
+    
+    var opacity: Double {
+        switch index {
+        case 0:
+            return 1
+        case 1:
+            return 1
+        case 2:
+            return 1
+        default:
+            return 0
+        }
+    }
+    
+    var color: Color {
+        switch index {
+        case 0:
+            return .gold
+        case 1:
+            return .silver
+        case 2:
+            return .bronze
+        default:
+            return .clear
+        }
+    }
+    
+    var body: some View {
+        Group {
+            if index < 3{
+                Image(systemName: "medal.fill")
+                    .opacity(opacity)
+                    .foregroundStyle(color)
+            } else {
+                Text("\(index + 1)")
+            }
+        }
+    }
 }

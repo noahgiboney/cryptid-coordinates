@@ -85,7 +85,7 @@ struct Dot: View {
     @State private var scale = 1.0
     @State private var opacity = 1.0
     
-    let delay = Double.random(in: 0...0.7)
+    let delay = Double.random(in: 0...0.5)
     
     var body: some View {
         Color("AccentColor")
@@ -101,7 +101,6 @@ struct Dot: View {
                     }
                 }
             }
-            .blur(radius: 1)
             .position(x: point.x, y: point.y)
     }
 }
