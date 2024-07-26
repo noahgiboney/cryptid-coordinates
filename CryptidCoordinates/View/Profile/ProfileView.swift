@@ -5,13 +5,20 @@
 //  Created by Noah Giboney on 6/15/24.
 //
 
+import Collections
+import Firebase
+import SwiftData
 import SwiftUI
 
 struct ProfileView: View {
+    @Environment(\.modelContext) var modelContext
     @Environment(GlobalModel.self) var global
     @Environment(AuthModel.self) var authModel
     @Environment(\.colorScheme) var colorScheme
     @State private var isShowingSignOutAlert = false
+    @State private var visitedLocations: [Location : Timestamp] = [:]
+    @State private var didLoadVisits = false
+    @State private var visitCount = 0
     
     var body: some View {
         NavigationStack {
@@ -24,42 +31,9 @@ struct ProfileView: View {
                 }
                 .listRowSeparator(.hidden)
                 
-                NavigationLink {
-                    EditProfileView(user: Bindable(global).user)
-                } label: {
-                    Label("Edit Profile", systemImage: "pencil")
-                }
+                navLinks
                 
-                NavigationLink {
-                    SettingsView()
-                } label: {
-                    Label("Settings", systemImage: "gearshape")
-                }
-                
-                NavigationLink {
-                    SavedView()
-                } label: {
-                    Label("Saved", systemImage: "bookmark")
-                }
-                
-                NavigationLink {
-                    //
-                } label: {
-                    Label("Comments", systemImage: "message")
-                }
-                
-                NavigationLink {
-                    SubmitLocationDetailsView()
-                } label: {
-                    Label("Submit Location", systemImage: "map")
-                }
-                
-                VStack {
-                    Text("157 Locations Visited")
-                        .font(.title3.bold()) 
-                }
-                .padding(.top)
-                .listRowSeparator(.hidden, edges: .bottom)
+                vistitedLocationsView
             }
             .listStyle(InsetListStyle())
             .navigationTitle(global.user.name)
@@ -79,15 +53,114 @@ struct ProfileView: View {
             } message: {
                 Text("Are you sure you want to sign out? You will have to sign back in next visit.")
             }
+            .task {
+                try? await fetchUserVisits()
+            }
+            .onAppear {
+                withAnimation {
+                    visitCount = global.user.visits
+                }
+            }
         }
     }
     
-    private var requestLocation: some View {
-        VStack(spacing: 10) {
-            
+    @ViewBuilder
+    var navLinks: some View {
+        NavigationLink {
+            EditProfileView(user: Bindable(global).user)
+        } label: {
+            Label("Edit Profile", systemImage: "pencil")
         }
-        .padding(.horizontal)
-        .font(.footnote)
+        
+        NavigationLink {
+            SettingsView()
+        } label: {
+            Label("Settings", systemImage: "gearshape")
+        }
+        
+        NavigationLink {
+            SavedView()
+        } label: {
+            Label("Saved", systemImage: "bookmark")
+        }
+        
+        NavigationLink {
+            SubmitLocationDetailsView()
+        } label: {
+            Label("Submit Location", systemImage: "map")
+        }
+    }
+    
+    @ViewBuilder
+    var vistitedLocationsView: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text("\(visitCount)")
+                    .contentTransition(.numericText())
+                Text("Locations Visited ")
+            }
+            .padding(.top)
+            .font(.title3.bold())
+            
+            Text("Earn points for visiting haunted locations, climb the leaderboard, and unlock exclusive rewards.")
+                .font(.footnote)
+                .foregroundStyle(.gray)
+        }
+        
+        if visitedLocations.isEmpty {
+            
+        } else {
+            ForEach(Array(visitedLocations.keys), id: \.id) { location in
+                NavigationLink {
+                    LocationView(location: location)
+                } label: {
+                    HStack(alignment: .bottom) {
+                        VStack {
+                            VStack(alignment: .leading) {
+                                Text(location.name)
+                                Text(location.cityState)
+                                    .font(.footnote)
+                                    .foregroundStyle(.gray)
+                            }
+                        }
+                        
+                        Spacer()
+                        
+                        if let date = visitedLocations[location] {
+                            Text("Visited \(date.dateValue().formatted(date: .abbreviated, time: .omitted))")
+                                .font(.footnote)
+                                .foregroundStyle(.gray)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func fetchUserVisits() async throws {
+        do {
+            guard let user = Auth.auth().currentUser else { return }
+            
+            var locationVisits: [Location : Timestamp] = [:]
+            
+            let visits = try await VisitService.shared.fetchVisits(userId: user.uid)
+            let locationIds = visits.compactMap { $0.locationId }
+            
+            let locations = try modelContext.fetch(FetchDescriptor(predicate: #Predicate<Location> {
+                locationIds.contains($0.id)
+            }))
+            
+            for visit in visits {
+                if let index = locations.firstIndex(where: { $0.id == visit.locationId } ) {
+                    locationVisits[locations[index]] = visit.timestamp
+                }
+            }
+            
+            visitedLocations = locationVisits
+            didLoadVisits = true
+        } catch {
+            print("Error: fetchUserVisits(): \(error.localizedDescription)")
+        }
     }
 }
 
