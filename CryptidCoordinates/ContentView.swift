@@ -7,22 +7,37 @@
 
 import FirebaseFirestore
 import FirebaseCore
+import SwiftData
 import SwiftUI
 
 struct ContentView: View {
-    @State private var userViewModel = UserModel()
+    @AppStorage("isFirstSession") var isFirstSession = true
+    @Environment(\.modelContext) var modelContext
+    @State private var authModel = AuthModel()
     
     var body: some View {
         Group {
-            if userViewModel.userSession != nil,
-               let user = userViewModel.currentUser {
+            if authModel.userSession != nil,
+               let user = authModel.currentUser {
                 TabBarView(currentUser: user)
                 
             } else {
                 LandingView()
             }
         }
-        .environment(userViewModel)
+        .environment(authModel)
+        .onAppear {
+            if isFirstSession {
+                let locations = Bundle.main.decode(file: "locationData.json")
+                
+                locations.forEach { location in
+                    let newLocation = Location(id: location.id, name: location.name, country: location.country, city: location.city, state: location.state, detail: location.detail, longitude: location.longitude, latitude: location.latitude, cityLongitude: location.cityLongitude, cityLatitude: location.cityLatitude, stateAbbrev: location.stateAbbrev, imageUrl: location.imageUrl, geohash: location.geohash)
+                    
+                    modelContext.insert(newLocation)
+                }
+                isFirstSession = false
+            }
+        }
     }
 }
 

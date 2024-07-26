@@ -6,3 +6,19 @@
 //
 
 import Foundation
+
+struct DecodableLocation: Codable {
+    var id: String
+    var name: String
+    var country: String
+    var city: String
+    var state: String
+    var detail: String
+    var longitude: Double
+    var latitude: Double
+    var cityLongitude: Double
+    var cityLatitude: Double
+    var stateAbbrev: String
+    var imageUrl: String
+    var geohash: String
+}

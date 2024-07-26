@@ -6,15 +6,16 @@
 //
 
 import FirebaseCore
+import SwiftData
 import SwiftUI
 import TipKit
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-    return true
-  }
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
+    }
 }
 
 @main
@@ -23,13 +24,13 @@ struct CryptidCoordinatesApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Tester()
-//            ContentView()
-//                .task {
-//                    try? Tips.configure([
-//                        .displayFrequency(.immediate),
-//                        .datastoreLocation(.applicationDefault)])
-//                }
+            ContentView()
+                .task {
+                    try? Tips.configure([
+                        .displayFrequency(.immediate),
+                        .datastoreLocation(.applicationDefault)])
+                }
+                .modelContainer(for: Location.self)
         }
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 import MapKit
 
 @Model
-class Location: Identifiable, Hashable, Codable {
+class Location: Identifiable, Hashable {
     var id: String
     var name: String
     var country: String
@@ -24,55 +24,6 @@ class Location: Identifiable, Hashable, Codable {
     var stateAbbrev: String
     var imageUrl: String
     var geohash: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case country
-        case city
-        case state
-        case detail
-        case longitude
-        case latitude
-        case cityLongitude
-        case cityLatitude
-        case stateAbbrev
-        case imageUrl
-        case geohash
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(String.self, forKey: .id)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.country = try container.decode(String.self, forKey: .country)
-        self.city = try container.decode(String.self, forKey: .city)
-        self.state = try container.decode(String.self, forKey: .state)
-        self.detail = try container.decode(String.self, forKey: .detail)
-        self.longitude = try container.decode(Double.self, forKey: .longitude)
-        self.latitude = try container.decode(Double.self, forKey: .latitude)
-        self.cityLongitude = try container.decode(Double.self, forKey: .cityLongitude)
-        self.cityLatitude = try container.decode(Double.self, forKey: .cityLatitude)
-        self.stateAbbrev = try container.decode(String.self, forKey: .stateAbbrev)
-        self.imageUrl = try container.decode(String.self, forKey: .imageUrl)
-        self.geohash = try container.decode(String.self, forKey: .geohash)
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(name, forKey: .name)
-        try container.encode(country, forKey: .country)
-        try container.encode(city, forKey: .city)
-        try container.encode(state, forKey: .state)
-        try container.encode(detail, forKey: .detail)
-        try container.encode(longitude, forKey: .longitude)
-        try container.encode(latitude, forKey: .latitude)
-        try container.encode(cityLongitude, forKey: .cityLongitude)
-        try container.encode(stateAbbrev, forKey: .stateAbbrev)
-        try container.encode(imageUrl, forKey: .imageUrl)
-        try container.encode(geohash, forKey: .geohash )
-    }
     
     init(id: String, name: String, country: String, city: String, state: String, detail: String, longitude: Double, latitude: Double, cityLongitude: Double, cityLatitude: Double, stateAbbrev: String, imageUrl: String, geohash: String) {
         self.id = id
@@ -121,7 +72,7 @@ extension Location {
         CLLocation(latitude: latitude, longitude: longitude)
     }
     
-    func distanceAway(userCords: CLLocationCoordinate2D) -> String {
+    func distanceAway(_ userCords: CLLocationCoordinate2D) -> String {
         let distance = userCords.distance(from: clLocation)
         return roundToTenth((distance / 1609))
     }
