@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SearchLocationView: View {
     var searchText: String
+    @Environment(Saved.self) var saved
     @Environment(\.modelContext) var modelContext
     @State private var locations: [Location] = []
     @State private var offset = 0
@@ -29,8 +30,10 @@ struct SearchLocationView: View {
                             }
                         }
                         .swipeActions {
-                            Button("Save", systemImage: "bookmark") {
-                               
+                            Button {
+                                saved.update(location)
+                            } label: {
+                                Image(systemName: saved.contains(location) ? "bookmark.slash.fill" : "bookmark")
                             }
                             .tint(Color("AccentColor"))
                         }

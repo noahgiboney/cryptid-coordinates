@@ -6,86 +6,70 @@
 //
 
 import Kingfisher
+import SwiftData
 import SwiftUI
 
 struct SavedView: View {
-    @Environment(LocationStore.self) var store
+    @Environment(Saved.self) var saved
     @State private var searchText = ""
-    @State private var loadState = LoadState.loading
-    
-    var filteredList: [Location] {
-        if searchText.isEmpty {
-            return store.savedLocations
-        } else {
-            return store.savedLocations.filter { $0.name.localizedStandardContains(searchText) }
-        }
-    }
     
     var body: some View {
         Group {
-            switch loadState {
-            case .loading:
-                ProgressView()
-            case .loaded:
-                listView
-            case .error:
-                ProgressView()
+            if saved.locations.isEmpty {
+                ContentUnavailableView("No Locations Saved", systemImage: "house.lodge")
+            } else{
+                SavedListView(locations: saved.locations, searchText: searchText)
             }
         }
         .navigationTitle("Saved")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .searchable(text: $searchText)
-        .toolbar {            
+        .toolbar {
             ToolbarItem(placement: .topBarLeading){
                 BackButton()
             }
         }
-        .task {
-            do {
-                try await store.fetchSaved()
-                loadState = .loaded
-            } catch {
-                loadState = .error
+    }
+}
+
+struct SavedListView: View {
+    var locations: Set<String>
+    var searchText: String
+    @Environment(Saved.self) var saved
+    @Query var savedLocations: [Location]
+    
+    init(locations: Set<String>, searchText: String) {
+        self.locations = locations
+        self.searchText = searchText
+        
+        var predicate: Predicate<Location>
+        
+        if searchText.isEmpty {
+            predicate = #Predicate { locations.contains($0.id) }
+        } else {
+            predicate = #Predicate { location in
+                return locations.contains(location.id) &&
+                location.name.localizedStandardContains(searchText)
             }
         }
+        
+        self._savedLocations = .init(filter: predicate, sort: [SortDescriptor(\Location.name)], animation: .default)
     }
     
-    @ViewBuilder
-    var listView: some View {
-        if !filteredList.isEmpty {
-            List {
-                ForEach(store.savedLocations) { location in
-                    NavigationLink {
-                        LocationView(location: location)
-                    } label: {
-                        VStack(alignment: .leading) {
-                            Text(location.name)
-                            Text(location.cityState)
-                                .font(.footnote)
-                                .foregroundStyle(.gray)
-                        }
-                    }
+    var body: some View {
+        List {
+            ForEach(savedLocations) { location in
+                LocationRowView(location: location)
                     .swipeActions {
-                        Button(role: .destructive) {
-                            unsave(location)
+                        Button {
+                            saved.update(location)
                         } label: {
-                            Image(systemName: "trash")
+                            Image(systemName: "bookmark.slash.fill")
                         }
-
+                        .tint(Color("AccentColor"))
                     }
-                }
             }
-        } else if store.savedLocations.isEmpty {
-            ContentUnavailableView("Nothing saved yet", systemImage: "house.lodge")
-        } else {
-            ContentUnavailableView.search
-        }
-    }
-        
-    func unsave(_ location: Location) {
-        Task {
-            try? await store.unsave(locationId: location.id)
         }
     }
 }
@@ -94,5 +78,7 @@ struct SavedView: View {
     NavigationStack {
         SavedView()
             .environment(LocationStore())
+            .environment(Saved())
     }
 }
+

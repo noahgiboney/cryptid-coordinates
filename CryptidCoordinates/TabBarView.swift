@@ -10,6 +10,9 @@ import SwiftUI
 struct TabBarView: View {
     var currentUser: User
     @State private var global: GlobalModel
+    @StateObject private var locationManager = LocationManager()
+    @State private var store = LocationStore()
+    @State private var saved = Saved()
     
     init(currentUser: User) {
         self.currentUser = currentUser
@@ -19,16 +22,16 @@ struct TabBarView: View {
     
     var body: some View {
         TabView(selection: $global.tabSelection) {
-            HomeView()
+            ExploreView()
                 .tabItem {
                     VStack {
-                        Image(systemName: "house")
-                        Text("Home")
+                        Image(systemName: "eye")
+                        Text("Explore")
                     }
                 }
                 .tag(0)
             
-            MapView()
+            MapContainerView()
                 .tabItem {
                     VStack {
                         Image(systemName: "map")
@@ -40,8 +43,8 @@ struct TabBarView: View {
             LeaderboardView()
                 .tabItem {
                     VStack {
-                        Image(systemName: "medal")
-                        Text("Leadboard")
+                        Image(systemName: "point.3.filled.connected.trianglepath.dotted")
+                        Text("Leaderboard")
                     }
                 }
                 .tag(2)
@@ -55,7 +58,13 @@ struct TabBarView: View {
                 }
                 .tag(3)
         }
+        .onAppear {
+            locationManager.start()
+        }
         .environment(global)
+        .environment(store)
+        .environment(saved)
+        .environmentObject(locationManager)
     }
 }
 

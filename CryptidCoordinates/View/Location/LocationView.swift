@@ -14,6 +14,7 @@ struct LocationView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(GlobalModel.self) var global
     @Environment(LocationStore.self) var store
+    @Environment(Saved.self) var saved
     @EnvironmentObject var locationManager: LocationManager
     @State private var lookAroundPlace: MKLookAroundScene?
     @State private var showVisitSheet = false
@@ -96,9 +97,9 @@ struct LocationView: View {
             Spacer()
             
             Button {
-
+                saved.update(location)
             } label: {
-                Image(systemName: "bookmark")
+                Image(systemName: saved.contains(location) ? "bookmark.fill" : "bookmark")
             }
             
             Button("Visit") {
@@ -119,13 +120,13 @@ struct LocationView: View {
         let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinates))
         item.openInMaps()
     }
-    
 }
 
 #Preview {
     NavigationStack {
         LocationView(location: Location.example)
             .environment(GlobalModel(user: .example))
+            .environment(Saved())
             .environmentObject(LocationManager())
     }
 }
