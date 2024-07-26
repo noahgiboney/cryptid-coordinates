@@ -13,11 +13,9 @@ struct Visit: Identifiable, Codable {
     var timestamp = Timestamp()
     var userId: String
     var locationId: String
-    
-    var location: Location?
 }
 
 // MARK: Developer
 extension Visit  {
-    static let example = Visit(userId: UUID().uuidString, locationId: Location.example.id, location: Location.example)
+    static let example = Visit(userId: UUID().uuidString, locationId: Location.example.id)
 }
