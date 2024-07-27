@@ -77,7 +77,6 @@ struct SavedListView: View {
 #Preview {
     NavigationStack {
         SavedView()
-            .environment(LocationStore())
             .environment(Saved())
     }
 }
