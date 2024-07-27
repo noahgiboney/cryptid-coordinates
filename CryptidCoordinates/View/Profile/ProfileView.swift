@@ -110,7 +110,10 @@ struct ProfileView: View {
         }
         
         if visitedLocations.isEmpty {
-            
+            Label("No Visits Yet", systemImage: "house.lodge")
+                .frame(maxWidth: .infinity, alignment: .center)
+                .listRowSeparator(.hidden, edges: .bottom)
+                .foregroundStyle(.primary)
         } else {
             ForEach(Array(visitedLocations.keys), id: \.id) { location in
                 NavigationLink {
