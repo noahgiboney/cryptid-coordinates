@@ -13,7 +13,6 @@ struct LocationView: View {
     @Bindable var location: Location
     @Environment(\.colorScheme) var colorScheme
     @Environment(GlobalModel.self) var global
-    @Environment(LocationStore.self) var store
     @Environment(Saved.self) var saved
     @EnvironmentObject var locationManager: LocationManager
     @State private var lookAroundPlace: MKLookAroundScene?
@@ -101,6 +100,7 @@ struct LocationView: View {
             } label: {
                 Image(systemName: saved.contains(location) ? "bookmark.fill" : "bookmark")
             }
+            .symbolEffect(.bounce, value: saved.contains(location))
             
             Button("Visit") {
                 showVisitSheet.toggle()
