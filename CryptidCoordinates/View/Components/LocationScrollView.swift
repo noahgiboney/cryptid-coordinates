@@ -5,38 +5,26 @@
 //  Created by Noah Giboney on 7/19/24.
 //
 
+import Kingfisher
 import SwiftUI
 
 struct LocationScrollView: View {
     var locations: [Location]
+    @EnvironmentObject var locationManager: LocationManager
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
+            LazyHStack {
                 ForEach(locations) { location in
-                    VStack(spacing: 10) {
-                        FilteredImage(url: location.url, size: .scroll)
-                            .containerRelativeFrame(.horizontal, count: 1, span: 1, spacing: 10)
-                        
-                        VStack(alignment: .leading) {
-                            Text(location.name)
-                                .font(.headline)
-                            
-                            Text(location.cityState)
-                                .font(.footnote)
-                        }
-                        .padding(.horizontal)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    NavigationLink {
+                        LocationView(location: location)
+                    } label: {
+                        LocationPreviewView(location: location)
                     }
                     .scrollTargetLayout()
                     .padding(.bottom)
                     .background(Color(uiColor: UIColor.systemGray6))
                     .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .scrollTransition { content, phase in
-                        content
-                            .opacity(phase.isIdentity ? 1.0 : 0.8)
-                            .offset(y: phase.isIdentity ? 0 : 5)
-                    }
                 }
             }
         }
@@ -48,4 +36,5 @@ struct LocationScrollView: View {
 
 #Preview {
     LocationScrollView(locations: [.example, .example, .example, .example, .example])
+        .environmentObject(LocationManager())
 }

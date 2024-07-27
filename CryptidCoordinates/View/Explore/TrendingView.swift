@@ -15,7 +15,6 @@ struct TrendingView: View {
     
     var body: some View {
         LocationScrollView(locations: trendingLocations)
-            .listRowSeparator(.hidden)
             .listRowInsets(EdgeInsets())
             .task {
                 await fetchTrending()

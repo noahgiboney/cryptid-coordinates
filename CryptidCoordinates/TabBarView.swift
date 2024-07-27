@@ -11,7 +11,6 @@ struct TabBarView: View {
     var currentUser: User
     @State private var global: GlobalModel
     @StateObject private var locationManager = LocationManager()
-    @State private var store = LocationStore()
     @State private var saved = Saved()
     
     init(currentUser: User) {
@@ -62,7 +61,6 @@ struct TabBarView: View {
             locationManager.start()
         }
         .environment(global)
-        .environment(store)
         .environment(saved)
         .environmentObject(locationManager)
     }

@@ -31,35 +31,35 @@ class ImageHelper {
         guard let cgImage = inputImage.cgImage else { return nil }
         let ciImage = CIImage(cgImage: cgImage)
         
-        // Desaturate the image more heavily
+        // Desaturate the image less heavily
         guard let desaturateFilter = CIFilter(name: "CIColorControls") else { return nil }
         desaturateFilter.setValue(ciImage, forKey: kCIInputImageKey)
-        desaturateFilter.setValue(0.4, forKey: kCIInputSaturationKey)
-        desaturateFilter.setValue(-0.1, forKey: kCIInputBrightnessKey)
-        desaturateFilter.setValue(1.2, forKey: kCIInputContrastKey)
+        desaturateFilter.setValue(0.7, forKey: kCIInputSaturationKey) // less desaturation
+        desaturateFilter.setValue(0.0, forKey: kCIInputBrightnessKey) // no brightness change
+        desaturateFilter.setValue(1.1, forKey: kCIInputContrastKey) // mild contrast increase
         
-        // Apply a vignette
+        // Apply a vignette with less intensity
         guard let vignetteFilter = CIFilter(name: "CIVignette") else { return nil }
         vignetteFilter.setValue(desaturateFilter.outputImage, forKey: kCIInputImageKey)
-        vignetteFilter.setValue(1.0, forKey: kCIInputIntensityKey)
-        vignetteFilter.setValue(2.0, forKey: kCIInputRadiusKey)
+        vignetteFilter.setValue(0.5, forKey: kCIInputIntensityKey) // less intense vignette
+        vignetteFilter.setValue(1.5, forKey: kCIInputRadiusKey) // smaller radius
         
-        // Add a sepia tone
+        // Add a sepia tone with less intensity
         guard let sepiaFilter = CIFilter(name: "CISepiaTone") else { return nil }
         sepiaFilter.setValue(vignetteFilter.outputImage, forKey: kCIInputImageKey)
-        sepiaFilter.setValue(0.8, forKey: kCIInputIntensityKey)
+        sepiaFilter.setValue(0.5, forKey: kCIInputIntensityKey) // less intense sepia
         
-        // Add noise
+        // Add noise with less intensity
         guard let noiseFilter = CIFilter(name: "CINoiseReduction") else { return nil }
         noiseFilter.setValue(sepiaFilter.outputImage, forKey: kCIInputImageKey)
-        noiseFilter.setValue(0.02, forKey: "inputNoiseLevel")
-        noiseFilter.setValue(0.4, forKey: "inputSharpness")
+        noiseFilter.setValue(0.01, forKey: "inputNoiseLevel") // less noise
+        noiseFilter.setValue(0.3, forKey: "inputSharpness") // less sharpness
         
-        // Apply a blue monotone tint
+        // Apply a blue monotone tint with less intensity
         guard let tintFilter = CIFilter(name: "CIColorMonochrome") else { return nil }
         tintFilter.setValue(noiseFilter.outputImage, forKey: kCIInputImageKey)
-        tintFilter.setValue(CIColor(color: UIColor(red: 0.3, green: 0.3, blue: 0.5, alpha: 1.0)), forKey: kCIInputColorKey)
-        tintFilter.setValue(0.7, forKey: kCIInputIntensityKey)
+        tintFilter.setValue(CIColor(color: UIColor(red: 0.4, green: 0.4, blue: 0.6, alpha: 1.0)), forKey: kCIInputColorKey)
+        tintFilter.setValue(0.5, forKey: kCIInputIntensityKey) // less intense tint
         
         if let outputImage = tintFilter.outputImage,
            let cgOutputImage = context.createCGImage(outputImage, from: ciImage.extent) {
