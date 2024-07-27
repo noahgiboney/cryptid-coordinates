@@ -8,56 +8,51 @@
 import SwiftUI
 
 struct SubmitView: View {
-    @Environment(SubmitLocationModel.self) var requestModel
+    @Binding var showCover: Bool
+    @Environment(\.dismiss) var dismiss
+    @Environment(SubmitLocationModel.self) var submitModel
     
     var body: some View {
         Form {
             Section {
                 Text("Take a moment to review the information to ensure it is correct. When are you done submit below.")
+            }
+            
+            Section {
+                Text("Name: \(submitModel.locationName)")
                 
-                Text("Name: \(requestModel.locationName)")
+                Text("Description: \(submitModel.description)")
                 
-                Text("Description: \(requestModel.description)")
-                
-                if let cords = requestModel.coordinates {
-                    Text("Coordinates: ")
-                        .font(.headline)
-                    
-                    Text("x: \(cords.latitude)")
-                        .listRowSeparator(.hidden)
-                    
-                    Text("y: \(cords.longitude)")
-                        .listRowSeparator(.hidden)
+                if let cords = submitModel.coordinates {
+                    Text("Coordinates: (\(cords.latitude), \(cords.longitude))")
                 }
             }
             
             Button {
-                Task { try await requestModel.sumbitRequest() }
+                Task { try await submitModel.sumbitRequest() }
             } label: {
                 HStack {
                     Text("Submit")
                     Image(systemName: "paperplane")
                 }
             }
-            .buttonStyle(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=Button Style@*/DefaultButtonStyle()/*@END_MENU_TOKEN@*/)
         }
         .navigationTitle("Review")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbarRole(.editor)
-        .alert("Done", isPresented: Bindable(requestModel).isShowingAlert) {
+        .alert("Request Sent", isPresented: Bindable(submitModel).isShowingAlert) {
             Button("Ok") {
-                // dismiss
+                showCover = false
             }
-
+            
         } message: {
-            Text(requestModel.alertMessage)
+            Text(submitModel.alertMessage)
         }
     }
 }
 
 #Preview {
     NavigationStack{
-        SubmitView()
+        SubmitView(showCover: .constant(true))
             .environment(SubmitLocationModel())
     }
 }

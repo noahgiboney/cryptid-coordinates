@@ -15,6 +15,7 @@ struct ProfileView: View {
     @Environment(GlobalModel.self) var global
     @Environment(AuthModel.self) var authModel
     @Environment(\.colorScheme) var colorScheme
+    @State private var showSubmitRequest = false
     @State private var isShowingSignOutAlert = false
     @State private var visitedLocations: [Location : Timestamp] = [:]
     @State private var didLoadVisits = false
@@ -61,6 +62,9 @@ struct ProfileView: View {
                     visitCount = global.user.visits
                 }
             }
+            .fullScreenCover(isPresented: $showSubmitRequest) {
+                SubmitLocationDetailsView(showCover: $showSubmitRequest)
+            }
         }
     }
     
@@ -84,10 +88,8 @@ struct ProfileView: View {
             Label("Saved", systemImage: "bookmark")
         }
         
-        NavigationLink {
-            SubmitLocationDetailsView()
-        } label: {
-            Label("Submit Location", systemImage: "map")
+        Button("Submit Location", systemImage: "map") {
+            showSubmitRequest.toggle()
         }
     }
     

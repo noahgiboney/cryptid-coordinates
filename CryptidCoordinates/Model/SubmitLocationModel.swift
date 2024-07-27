@@ -5,14 +5,13 @@
 //  Created by Noah Giboney on 6/16/24.
 //
 
+import Firebase
 import FirebaseAuth
 import MapKit
 import SwiftUI
 
 @Observable
 class SubmitLocationModel {
-    private let firebaseService = FirebaseService.shared
-    
     var locationName = ""
     var description = ""
     var coordinates: CLLocationCoordinate2D?
@@ -26,7 +25,8 @@ class SubmitLocationModel {
         let newRequest = LocationRequest(user: currentUserId, locationName: locationName, description: description, latitude: cords.latitude, longitude: cords.latitude)
         
         do {
-            try await firebaseService.submitRequest(location: newRequest)
+            let requestData = try Firestore.Encoder().encode(newRequest)
+            try await Firestore.firestore().collection("locationRequests").document(newRequest.locationName).setData(requestData)
             alertMessage = "Your request for \(locationName) has been sent. Keep an eye out for it be featured on the platform!"
             isShowingAlert.toggle()
         } catch {

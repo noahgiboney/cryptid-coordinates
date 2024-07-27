@@ -8,70 +8,53 @@
 import SwiftUI
 
 struct SubmitLocationDetailsView: View {
+    @Binding var showCover: Bool
+    @Environment(\.dismiss) var dismiss
     @FocusState private var textEditorFocused: Bool
-    @State private var submitViewModel = SubmitLocationModel()
+    @State private var submitModel = SubmitLocationModel()
     
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    Text("If you konw of a spooky spot that is not on our map, let us know!")
+                    Text("If you know of a spooky spot that is not on our map, let us know!")
                         .listRowSeparator(.hidden)
                     
                     Text("We will just need a few quick peices of information about the location.")
                 }
                 
                 Section {
-                    TextField("What is the name of the location?", text: Bindable(submitViewModel).locationName)
-                    
-                    Group {
-                        if submitViewModel.description.isEmpty {
-                            TextEditor(text: Bindable(submitViewModel).description)
-                                .frame(height: 65)
-                        } else {
-                            TextEditor(text: Bindable(submitViewModel).description)
-                        }
-                    }
-                    .overlay {
-                        if submitViewModel.description == "" && !textEditorFocused {
-                            Text("Provide an overview of the history. Include chilling tales, errie history, and haunted lore.")
-                                .fixedSize(horizontal: false, vertical: true)
-                                .foregroundStyle(Color.gray.opacity(0.5))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                    }
-                    .onTapGesture {
-                        textEditorFocused = true
-                    }
-                    .focused($textEditorFocused)
-                    .onReceive(submitViewModel.description.publisher.last()) {
-                        if ($0 as Character).asciiValue == 10 {
-                            textEditorFocused = false
-                            submitViewModel.description.removeLast()
-                        }
-                    }
+                    TextField("What is the name of the location?", text: Bindable(submitModel).locationName)
+                }
+                
+                Section {
+                    Text("Provide an overview of the history. Include chilling tales, errie history, and haunted lore.")
+                    TextField("Description", text: Bindable(submitModel).description, axis: .vertical)
                 }
                 
                 NavigationLink {
-                    PickCordView()
+                    PickCordView(showCover: $showCover)
                 } label: {
                     Label("Pick Coordinates", systemImage: "mappin.and.ellipse")
                 }
-                .disabled(submitViewModel.locationName.isEmpty || submitViewModel.description.isEmpty)
+                .disabled(submitModel.locationName.isEmpty || submitModel.description.isEmpty)
             }
             .navigationTitle("Submit Location")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
+            .toolbar(.hidden, for: .tabBar)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    BackButton()
+                    Button("Cancel") {
+                        dismiss()
+                    }
                 }
             }
         }
-        .environment(submitViewModel)
+        .environment(submitModel)
     }
 }
 
 #Preview {
-    SubmitLocationDetailsView()
+    SubmitLocationDetailsView(showCover: .constant(true))
 }
