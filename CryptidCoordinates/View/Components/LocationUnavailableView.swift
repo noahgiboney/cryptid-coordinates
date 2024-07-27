@@ -22,7 +22,7 @@ struct LocationUnavailableView: View {
                     UIApplication.shared.open(url)
                 }
             } label: {
-                Label("Current Location", systemImage: "location.fill")
+                Label("Share Location", systemImage: "location.fill")
             }
             .buttonStyle(.bordered)
         })
