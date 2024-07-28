@@ -116,29 +116,18 @@ struct ProfileView: View {
                 .foregroundStyle(.primary)
         } else {
             ForEach(Array(visitedLocations.keys), id: \.id) { location in
-                NavigationLink {
-                    LocationView(location: location)
-                } label: {
-                    HStack(alignment: .bottom) {
-                        VStack {
-                            VStack(alignment: .leading) {
-                                Text(location.name)
-                                Text(location.cityState)
-                                    .font(.footnote)
-                                    .foregroundStyle(.gray)
-                            }
+                if let date = visitedLocations[location] {
+                    ZStack(alignment: .leading) {
+                        VistItemView(location: location, visitDate: date)
+                        NavigationLink(destination: LocationView(location: location)) {
+                            EmptyView()
                         }
-                        
-                        Spacer()
-                        
-                        if let date = visitedLocations[location] {
-                            Text("Visited \(date.dateValue().formatted(date: .abbreviated, time: .omitted))")
-                                .font(.footnote)
-                                .foregroundStyle(.gray)
-                        }
+                        .opacity(0.0)
                     }
                 }
             }
+            .listRowSeparator(.hidden)
+            .listRowInsets(EdgeInsets())
         }
     }
     
