@@ -24,7 +24,7 @@ struct TabBarView: View {
             ExploreView()
                 .tabItem {
                     VStack {
-                        Image(systemName: "eye")
+                        Image(systemName: "house")
                         Text("Explore")
                     }
                 }
@@ -42,7 +42,7 @@ struct TabBarView: View {
             LeaderboardView()
                 .tabItem {
                     VStack {
-                        Image(systemName: "point.3.filled.connected.trianglepath.dotted")
+                        Image(systemName: "medal")
                         Text("Leaderboard")
                     }
                 }
