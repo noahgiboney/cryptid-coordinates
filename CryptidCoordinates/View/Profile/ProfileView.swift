@@ -17,7 +17,7 @@ struct ProfileView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var showSubmitRequest = false
     @State private var isShowingSignOutAlert = false
-    @State private var visitedLocations: [Location : Timestamp] = [:]
+    @State private var visits: [Location : Timestamp] = [:]
     @State private var didLoadVisits = false
     @State private var visitCount = 0
     
@@ -109,25 +109,31 @@ struct ProfileView: View {
                 .foregroundStyle(.gray)
         }
         
-        if visitedLocations.isEmpty {
-            Label("No Visits Yet", systemImage: "house.lodge")
-                .frame(maxWidth: .infinity, alignment: .center)
-                .listRowSeparator(.hidden, edges: .bottom)
-                .foregroundStyle(.primary)
-        } else {
-            ForEach(Array(visitedLocations.keys), id: \.id) { location in
-                if let date = visitedLocations[location] {
-                    ZStack(alignment: .leading) {
-                        VistItemView(location: location, visitDate: date)
-                        NavigationLink(destination: LocationView(location: location)) {
-                            EmptyView()
+        if didLoadVisits {
+            if visits.isEmpty {
+                Label("No Visits Yet", systemImage: "house.lodge")
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .listRowSeparator(.hidden, edges: .bottom)
+                    .foregroundStyle(.primary)
+            } else {
+                ForEach(visits.keys.sorted { visits[$0]!.dateValue() > visits[$1]!.dateValue() }, id: \.id) { location in
+                    if let date = visits[location] {
+                        ZStack(alignment: .leading) {
+                            VisitPreviewView(location: location, visitDate: date)
+                            NavigationLink(destination: LocationView(location: location)) {
+                                EmptyView()
+                            }
+                            .opacity(0.0)
                         }
-                        .opacity(0.0)
                     }
                 }
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets())
             }
-            .listRowSeparator(.hidden)
-            .listRowInsets(EdgeInsets())
+        } else {
+            ProgressView()
+                .frame(maxWidth: .infinity, alignment: .center)
+                .listRowSeparator(.hidden, edges: .bottom)
         }
     }
     
@@ -137,20 +143,20 @@ struct ProfileView: View {
             
             var locationVisits: [Location : Timestamp] = [:]
             
-            let visits = try await VisitService.shared.fetchVisits(userId: user.uid)
-            let locationIds = visits.compactMap { $0.locationId }
+            let userVisits = try await VisitService.shared.fetchVisits(userId: user.uid)
+            let locationIds = userVisits.compactMap { $0.locationId }
             
             let locations = try modelContext.fetch(FetchDescriptor(predicate: #Predicate<Location> {
                 locationIds.contains($0.id)
             }))
             
-            for visit in visits {
+            for visit in userVisits {
                 if let index = locations.firstIndex(where: { $0.id == visit.locationId } ) {
                     locationVisits[locations[index]] = visit.timestamp
                 }
             }
             
-            visitedLocations = locationVisits
+            visits = locationVisits
             didLoadVisits = true
         } catch {
             print("Error: fetchUserVisits(): \(error.localizedDescription)")

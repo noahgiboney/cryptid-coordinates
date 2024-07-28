@@ -1,5 +1,5 @@
 //
-//  VistItemView.swift
+//  VisitPreviewView.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 7/28/24.
@@ -10,7 +10,7 @@ import Firebase
 import SwiftData
 import SwiftUI
 
-struct VistItemView: View {
+struct VisitPreviewView: View {
     var location: Location
     var visitDate: Timestamp
     @State private var loadState: LoadState = .loading
@@ -93,5 +93,5 @@ struct VistItemView: View {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Location.self, configurations: config)
     
-    return VistItemView(location: .example, visitDate: Timestamp()).modelContainer(container)
+    return VisitPreviewView(location: .example, visitDate: Timestamp()).modelContainer(container)
 }
