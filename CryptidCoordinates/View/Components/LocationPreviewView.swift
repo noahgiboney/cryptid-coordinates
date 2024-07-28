@@ -12,73 +12,85 @@ import SwiftUI
 struct LocationPreviewView: View {
     var location: Location
     @EnvironmentObject var locationManager: LocationManager
-    @State private var averageColor: UIColor?
+    @State private var image: UIImage?
+    @State private var loadState: LoadState = .loading
+    
+    var averageColor: UIColor {
+        image?.findAverageColor(algorithm: .simple) ?? .gray
+    }
     
     var body: some View {
-        VStack(spacing: 10) {
-            KFImage(location.url)
-                .placeholder { _ in
-                    VStack {
-                        Image(systemName: "camera")
-                            .imageScale(.large)
-                            .scaleEffect(2)
-                            .foregroundStyle(.black)
-                    }
-                    .frame(height: 160)
-                }
-                .loadDiskFileSynchronously()
-                .cacheMemoryOnly()
-                .fade(duration: 0.25)
-                .resizable()
-                .frame(maxWidth: .infinity, maxHeight: 160)
-                .containerRelativeFrame(.horizontal, count: 1, span: 1, spacing: 10)
-            
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(location.name)
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                    
-                    Text(location.cityState)
-                        .font(.footnote)
-                        .foregroundStyle(.white)
-                }
-                
-                Spacer()
-                
-                if let userCords = locationManager.lastKnownLocation {
-                    VStack {
-                        Text("\(location.distanceAway(userCords))")
-                            .font(.footnote)
-                        Text("Miles Away")
-                            .font(.caption)
-                    }
-                    .foregroundStyle(.white)
-                }
+        Group {
+            switch loadState {
+            case .loading:
+                ProgressView()
+                    .frame(height: 234)
+                    .containerRelativeFrame([.horizontal])
+            case .loaded:
+                previewView
+            case .error:
+                Image(systemName: "camera")
             }
-            .padding(.horizontal)
         }
-        .padding(.bottom)
-        .background(Color(uiColor: averageColor ?? .white))
-        .clipShape(RoundedRectangle(cornerRadius: 15))
         .onAppear {
-            loadImage()
+            downloadImage()
         }
     }
     
-    func loadImage() {
-        guard let url = location.url else { return }
-        
-        DispatchQueue.global(qos: .background).async {
-            do {
-                let data = try Data(contentsOf: url)
-                DispatchQueue.main.async {
-                    if let uiImage = UIImage(data: data) {
-                        averageColor = uiImage.averageColor
+    var previewView: some View {
+        VStack {
+            if let uiImage = image {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxHeight: 160)
+            }
+            
+            VStack(spacing: 0) {
+                Rectangle()
+                    .fill(Color(uiColor: .systemBackground))
+                    .frame(height: 3)
+                
+                HStack(alignment: .bottom) {
+                    VStack(alignment: .leading) {
+                        Text(location.name)
+                            .fontWeight(.semibold)
+                        Text(location.cityState)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .overlay(alignment:.bottomTrailing) {
+                        if let userCords = locationManager.lastKnownLocation {
+                            Text("\(location.distanceAway(userCords)) Miles Away")
+                                .font(.footnote)
+                        }
                     }
                 }
-            } catch {
-                
+                .padding(10)
+                .padding(.horizontal, 5)
+                .foregroundStyle(.white)
+                .background(Color(uiColor: averageColor))
+            }
+        }
+        .containerRelativeFrame([.horizontal])
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 0)
+    }
+    
+    func downloadImage() {
+        guard loadState == .loading else { return }
+        
+        guard let url = URL(string: location.imageUrl) else { return }
+        let resource = ImageResource(downloadURL: url)
+
+        KingfisherManager.shared.retrieveImage(with: resource, options: [.cacheOriginalImage], progressBlock: nil) { result in
+            switch result {
+            case .success(let value):
+                DispatchQueue.main.async {
+                    image = value.image
+                    loadState = .loaded
+                }
+            case .failure(_):
+                loadState = .error
             }
         }
     }

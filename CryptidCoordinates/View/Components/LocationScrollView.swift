@@ -6,6 +6,7 @@
 //
 
 import Kingfisher
+import SwiftData
 import SwiftUI
 
 struct LocationScrollView: View {
@@ -21,20 +22,19 @@ struct LocationScrollView: View {
                     } label: {
                         LocationPreviewView(location: location)
                     }
-                    .scrollTargetLayout()
-                    .padding(.bottom)
-                    .background(Color(uiColor: UIColor.systemGray6))
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
                 }
             }
         }
-        .scrollTargetBehavior(.paging)
         .contentMargins(15, for: .scrollContent)
         .listRowInsets(EdgeInsets())
     }
 }
 
 #Preview {
-    LocationScrollView(locations: [.example, .example, .example, .example, .example])
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Location.self, configurations: config)
+    
+    return LocationScrollView(locations: [.example, .example, .example, .example, .example])
+    
         .environmentObject(LocationManager())
 }

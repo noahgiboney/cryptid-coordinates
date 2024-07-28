@@ -11,7 +11,7 @@ import SwiftData
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage("isFirstSession") var isFirstSession = true
+    @AppStorage("isContextPopulated") var isContextPopulated = false
     @Environment(\.modelContext) var modelContext
     @State private var authModel = AuthModel()
     
@@ -27,16 +27,42 @@ struct ContentView: View {
         }
         .environment(authModel)
         .onAppear {
-            if isFirstSession {
-                let locations = Bundle.main.decode(file: "locationData.json")
-                
-                locations.forEach { location in
-                    let newLocation = Location(id: location.id, name: location.name, country: location.country, city: location.city, state: location.state, detail: location.detail, longitude: location.longitude, latitude: location.latitude, cityLongitude: location.cityLongitude, cityLatitude: location.cityLatitude, stateAbbrev: location.stateAbbrev, imageUrl: location.imageUrl, geohash: location.geohash)
-                    
-                    modelContext.insert(newLocation)
-                }
-                isFirstSession = false
+            if !isContextPopulated {
+                populateModelContext()
             }
+        }
+    }
+    
+    func populateModelContext() {
+        let locations = Bundle.main.decode(file: "locationData.json")
+        
+        locations.forEach { location in
+            let newLocation = Location(
+                id: location.id,
+                name: location.name,
+                country: location.country,
+                city: location.city,
+                state: location.state,
+                detail: location.detail,
+                longitude: location.longitude,
+                latitude: location.latitude,
+                cityLongitude: location.cityLongitude,
+                cityLatitude: location.cityLatitude,
+                stateAbbrev: location.stateAbbrev,
+                imageUrl: location.imageUrl,
+                geohash: location.geohash
+            )
+            
+            modelContext.insert(newLocation)
+        }
+        isContextPopulated = true
+    }
+    
+    func wipeModelContext() {
+        do {
+            try modelContext.delete(model: Location.self)
+        } catch {
+            fatalError("Error: wipeModelContext(): \(error.localizedDescription)")
         }
     }
 }
