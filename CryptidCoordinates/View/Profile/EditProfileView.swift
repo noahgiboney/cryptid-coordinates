@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct EditProfileView: View {
+    @Binding var user: User
     @Environment(GlobalModel.self) var global
     @Environment(\.dismiss) var dismiss
-    @Binding var user: User
     @State private var tempUser: User
     @State private var selectedAvatar: Avatar
     @State private var scrollPosition: Avatar?
@@ -44,16 +44,25 @@ struct EditProfileView: View {
             
             ToolbarItem(placement: .topBarTrailing) {
                 if tempUser != user {
-                    Button("Save") {
-                        Task {
-                            user = tempUser
-                            //try await viewModel.updateUser(updatedUser: user)
-                            dismiss()
-                        }
-                    }
+                    Button("Save", action: updateUser)
                 }
             }
         }
+        .onChange(of: selectedAvatar) { _, _ in
+            tempUser.avatar = selectedAvatar
+        }
+    }
+    
+    func updateUser() {
+        user = tempUser
+        Task {
+            do {
+                try await UserService.shared.updateWholeUser(updateUser: tempUser)
+            } catch {
+                print("Error: updateUser(): \(error.localizedDescription)")
+            }
+        }
+        dismiss()
     }
     
     var avatarGrid: some View {

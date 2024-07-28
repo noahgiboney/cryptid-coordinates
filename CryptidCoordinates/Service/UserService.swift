@@ -37,6 +37,11 @@ class UserService {
         try await user.delete()
     }
     
+    func updateWholeUser(updateUser: User) async throws{
+        let userData = try Firestore.Encoder().encode(updateUser)
+        try await userRef.document(updateUser.id).updateData(userData)
+    }
+    
     func updateUser(field: String, value: Any) async throws {
         guard let user = Auth.auth().currentUser else { return }
         try await userRef.document(user.uid).updateData([field: value])

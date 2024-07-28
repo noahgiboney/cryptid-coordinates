@@ -25,7 +25,7 @@ struct ProfileView: View {
         NavigationStack {
             List {
                 Section {
-                    AvatarView(type: .profile, user: .example)
+                    AvatarView(type: .profile, user: global.user)
                         .listRowBackground(Color.clear)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.vertical)
