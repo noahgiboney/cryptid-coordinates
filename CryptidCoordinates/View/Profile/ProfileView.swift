@@ -58,8 +58,10 @@ struct ProfileView: View {
                 try? await fetchUserVisits()
             }
             .onAppear {
-                withAnimation {
-                    visitCount = global.user.visits
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    withAnimation {
+                        visitCount = global.user.visits
+                    }
                 }
             }
             .fullScreenCover(isPresented: $showSubmitRequest) {
@@ -98,7 +100,7 @@ struct ProfileView: View {
         VStack(alignment: .leading) {
             HStack {
                 Text("\(visitCount)")
-                    .contentTransition(.numericText())
+                    .contentTransition(.numericText(value: Double(visitCount)))
                 Text("Locations Visited ")
             }
             .padding(.top)

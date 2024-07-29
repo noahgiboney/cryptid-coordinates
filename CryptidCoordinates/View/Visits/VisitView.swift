@@ -18,6 +18,7 @@ struct VisitView: View {
     @EnvironmentObject var locationManager: LocationManager
     @Environment(GlobalModel.self) var global
     @State private var visitState: VisitState = .scanning
+    @State private var visitCount = 0
     
     var body: some View {
         NavigationStack {
@@ -92,8 +93,15 @@ struct VisitView: View {
                     .font(.headline)
                     .transition(.scale)
                 
-                Text("You have now visited \(global.user.visits) haunted locations.")
-                    .contentTransition(.numericText(value: Double(global.user.visits)))
+                Text("You have now visited \(visitCount) haunted locations.")
+                    .contentTransition(.numericText(value: Double(visitCount)))
+            }
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    withAnimation {
+                        visitCount = global.user.visits
+                    }
+                }
             }
         }
         .task {
