@@ -206,8 +206,8 @@
 		E2145EB12C27B6C30085C94F /* Comments */ = {
 			isa = PBXGroup;
 			children = (
-				E2F9E9582C22A79100D74D31 /* CommentView.swift */,
 				E2145EAF2C27B4360085C94F /* CommentSection.swift */,
+				E2F9E9582C22A79100D74D31 /* CommentView.swift */,
 			);
 			path = Comments;
 			sourceTree = "<group>";
@@ -215,9 +215,9 @@
 		E21E87182C291ED00017D9CF /* Location */ = {
 			isa = PBXGroup;
 			children = (
+				E2EE30312C1D4F2A007F74C6 /* LocationPreviewView.swift */,
 				E24AE7552C5762C500B5D741 /* LocationScrollView.swift */,
 				E24AE7562C5762C500B5D741 /* LocationView.swift */,
-				E2EE30312C1D4F2A007F74C6 /* LocationPreviewView.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -225,8 +225,8 @@
 		E222D9032C27CCE000FA427D /* LandingPage */ = {
 			isa = PBXGroup;
 			children = (
-				E2EE30362C1D563F007F74C6 /* LandingView.swift */,
 				E222D9042C27CCF400FA427D /* GradientEffectView.swift */,
+				E2EE30362C1D563F007F74C6 /* LandingView.swift */,
 			);
 			path = LandingPage;
 			sourceTree = "<group>";
@@ -234,9 +234,9 @@
 		E23618642C1E63D1005AF3FB /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				E24AE7412C57610900B5D741 /* SavedView.swift */,
 				E2D80E572C30EC2F0077D763 /* EditProfileView.swift */,
 				E23618652C1E63D9005AF3FB /* ProfileView.swift */,
+				E24AE7412C57610900B5D741 /* SavedView.swift */,
 				E2583F0D2C326D08002B1FA5 /* SettingsView.swift */,
 			);
 			path = Profile;
@@ -254,11 +254,11 @@
 			isa = PBXGroup;
 			children = (
 				E24AE7042C5760A200B5D741 /* Data */,
-				E24AE6FF2C5760A200B5D741 /* SubmitLocationModel.swift */,
-				E24AE7002C5760A200B5D741 /* CommentModel.swift */,
 				E24AE7012C5760A200B5D741 /* AuthModel.swift */,
+				E24AE7002C5760A200B5D741 /* CommentModel.swift */,
 				E24AE7022C5760A200B5D741 /* GlobalModel.swift */,
 				E24AE7032C5760A200B5D741 /* LeaderboardModel.swift */,
+				E24AE6FF2C5760A200B5D741 /* SubmitLocationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -283,10 +283,10 @@
 			isa = PBXGroup;
 			children = (
 				E24AE71F2C5760CF00B5D741 /* BundleDecode.swift */,
+				E24AE7232C5760CF00B5D741 /* Geohash.swift */,
+				E24AE7222C5760CF00B5D741 /* ImageHelper.swift */,
 				E24AE7202C5760CF00B5D741 /* Saved.swift */,
 				E24AE7212C5760CF00B5D741 /* Util.swift */,
-				E24AE7222C5760CF00B5D741 /* ImageHelper.swift */,
-				E24AE7232C5760CF00B5D741 /* Geohash.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -294,12 +294,12 @@
 		E24AE7292C5760E600B5D741 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				E24AE72A2C5760E600B5D741 /* LocationRowView.swift */,
-				E24AE72B2C5760E600B5D741 /* MenuBar.swift */,
-				E24AE72C2C5760E600B5D741 /* BackButton.swift */,
 				E24AE72D2C5760E600B5D741 /* AvatarView.swift */,
+				E24AE72C2C5760E600B5D741 /* BackButton.swift */,
 				E24AE72E2C5760E600B5D741 /* LoadingView.swift */,
+				E24AE72A2C5760E600B5D741 /* LocationRowView.swift */,
 				E24AE72F2C5760E600B5D741 /* LocationUnavailableView.swift */,
+				E24AE72B2C5760E600B5D741 /* MenuBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -335,9 +335,9 @@
 			isa = PBXGroup;
 			children = (
 				E24AE7602C5763A500B5D741 /* ExploreView.swift */,
+				E24AE7632C5763A500B5D741 /* NearYouView.swift */,
 				E24AE7612C5763A500B5D741 /* SearchLocationView.swift */,
 				E24AE7622C5763A500B5D741 /* TrendingView.swift */,
-				E24AE7632C5763A500B5D741 /* NearYouView.swift */,
 			);
 			path = Explore;
 			sourceTree = "<group>";
@@ -345,8 +345,8 @@
 		E2B326AC2C1F977900B0D1B5 /* SubmitLocation */ = {
 			isa = PBXGroup;
 			children = (
-				E2B326AD2C1F978300B0D1B5 /* SubmitLocationDetailsView.swift */,
 				E2B326AF2C1F9BC300B0D1B5 /* PickCordView.swift */,
+				E2B326AD2C1F978300B0D1B5 /* SubmitLocationDetailsView.swift */,
 				E2B326B32C1F9DE800B0D1B5 /* SubmitView.swift */,
 			);
 			path = SubmitLocation;
@@ -404,9 +404,9 @@
 				E2EE30332C1D53A1007F74C6 /* Map */,
 				E23618642C1E63D1005AF3FB /* Profile */,
 				E2B326AC2C1F977900B0D1B5 /* SubmitLocation */,
+				E24AE7432C57615C00B5D741 /* Visits */,
 				E23D30DF2C1AC43700025363 /* ContentView.swift */,
 				E23D30E12C1AC45000025363 /* TabBarView.swift */,
-				E24AE7432C57615C00B5D741 /* Visits */,
 			);
 			path = View;
 			sourceTree = "<group>";
