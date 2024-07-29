@@ -5,9 +5,9 @@
 //  Created by Noah Giboney on 6/15/24.
 //
 
+import AuthenticationServices
 import CryptoKit
 import Firebase
-import AuthenticationServices
 import SwiftUI
 
 @Observable
@@ -16,7 +16,7 @@ class AuthModel {
     
     var userSession: Firebase.User? {
         didSet {
-            if let userSession {
+            if userSession != nil {
                 Task { try await fetchCurrentUser() }
             }
         }
@@ -32,14 +32,6 @@ class AuthModel {
     
     func updateUserSession() {
         userSession = Auth.auth().currentUser
-    }
-    
-    func updateUser(updatedUser: User) async throws {
-        do {
-            try await userService.updateUser(updatedUser: updatedUser)
-        } catch {
-            print("DEBUG: failed to update user. \(error.localizedDescription)")
-        }
     }
 }
 
