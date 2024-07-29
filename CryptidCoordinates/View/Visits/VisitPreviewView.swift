@@ -39,7 +39,9 @@ struct VisitPreviewView: View {
     var previewView: some View {
         VStack(alignment: .center) {
             if let uiImage = image {
-                NavigationLink(value: location) {
+                NavigationLink {
+                    LocationView(location: location)
+                } label: {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFill()
@@ -66,9 +68,6 @@ struct VisitPreviewView: View {
         }
         .padding(.vertical)
         .containerRelativeFrame(.horizontal, count: 2, spacing: 10)
-        .navigationDestination(for: Location.self) { location in
-            LocationView(location: location)
-        }
     }
     
     func downloadImage() {
