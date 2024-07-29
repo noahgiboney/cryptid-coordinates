@@ -7,6 +7,7 @@
 
 import MapKit
 import Kingfisher
+import SwiftData
 import SwiftUI
 
 struct LocationView: View {
@@ -74,17 +75,25 @@ struct LocationView: View {
     var actionButtons: some View {
         HStack(spacing: 20){
             Button {
-                global.selectedLocation = location
+                saved.update(location)
             } label: {
-                Image(systemName: "map")
+                Image(systemName: saved.contains(location) ? "bookmark.fill" : "bookmark")
             }
+            .symbolEffect(.bounce, value: saved.contains(location))
             
-            Button {
-                openInMaps(location)
+            Menu {
+                Button("Get Directions", systemImage: "map") {
+                    openInMaps(location)
+                }
+                
+                Button("View On Map", systemImage: "location")  {
+                    
+                }
+                
             } label: {
-                Image(systemName: "location")
+                Image(systemName: "list.bullet")
             }
-            
+
             if lookAroundPlace != nil {
                 Button {
                     showLookAround.toggle()
@@ -94,13 +103,6 @@ struct LocationView: View {
             }
             
             Spacer()
-            
-            Button {
-                saved.update(location)
-            } label: {
-                Image(systemName: saved.contains(location) ? "bookmark.fill" : "bookmark")
-            }
-            .symbolEffect(.bounce, value: saved.contains(location))
             
             Button("Visit") {
                 showVisitSheet.toggle()
@@ -123,8 +125,12 @@ struct LocationView: View {
 }
 
 #Preview {
-    NavigationStack {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Location.self, configurations: config)
+    
+    return NavigationStack {
         LocationView(location: Location.example)
+            .modelContainer(container)
             .environment(GlobalModel(user: .example))
             .environment(Saved())
             .environmentObject(LocationManager())
