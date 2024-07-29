@@ -19,12 +19,18 @@ struct SubmitView: View {
             }
             
             Section {
-                Text("Name: \(submitModel.locationName)")
+                Text("Name: ")
+                    .bold() +
+                Text("\(submitModel.locationName)")
                 
-                Text("Description: \(submitModel.description)")
+                Text("Description: ")
+                    .bold() +
+                Text("\(submitModel.description)")
                 
                 if let cords = submitModel.coordinates {
-                    Text("Coordinates: (\(cords.latitude), \(cords.longitude))")
+                    Text("Coordinates: ")
+                        .bold() +
+                    Text("(\(cords.latitude), \(cords.longitude))")
                 }
             }
             

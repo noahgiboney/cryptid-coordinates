@@ -18,7 +18,7 @@ struct PickCordTip: Tip {
     }
     
     var message: Text? {
-        Text("Tap your location on the map. Be as precise as possible.")
+        Text("Find and tap location on the map. Try to be as precise as possible.")
     }
     
     var image: Image? {

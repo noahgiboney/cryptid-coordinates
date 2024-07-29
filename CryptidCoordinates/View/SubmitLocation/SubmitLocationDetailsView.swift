@@ -10,7 +10,7 @@ import SwiftUI
 struct SubmitLocationDetailsView: View {
     @Binding var showCover: Bool
     @Environment(\.dismiss) var dismiss
-    @FocusState private var textEditorFocused: Bool
+    @FocusState private var descriptionFocused: Bool
     @State private var submitModel = SubmitLocationModel()
     
     var body: some View {
@@ -30,6 +30,7 @@ struct SubmitLocationDetailsView: View {
                 Section {
                     Text("Provide an overview of the history. Include chilling tales, errie history, and haunted lore.")
                     TextField("Description", text: Bindable(submitModel).description, axis: .vertical)
+                        .focused($descriptionFocused)
                 }
                 
                 NavigationLink {
@@ -47,6 +48,12 @@ struct SubmitLocationDetailsView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") {
                         dismiss()
+                    }
+                }
+                
+                ToolbarItem(placement: .keyboard) {
+                    Button("Done") {
+                        descriptionFocused.toggle()
                     }
                 }
             }

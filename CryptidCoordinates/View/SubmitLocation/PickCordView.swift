@@ -21,7 +21,7 @@ struct PickCordView: View {
                     Annotation("", coordinate: cordinates) {
                         Image(systemName: "mappin")
                             .scaleEffect(2.0)
-                            .foregroundStyle(.black)
+                            .foregroundStyle(.white)
                     }
                 }
             }
