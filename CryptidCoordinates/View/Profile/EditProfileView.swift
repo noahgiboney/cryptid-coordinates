@@ -113,7 +113,7 @@ struct AvatarRowItem: View {
         avatar.image
             .resizable()
             .scaledToFit()
-            .foregroundStyle(.black)
+            .foregroundStyle(.primary)
             .frame(width: 90, height: 90)
             .scaleEffect(isSelected && !isLocked ? 1.1 : 1)
             .overlay(alignment: .top) {
@@ -132,6 +132,7 @@ struct AvatarRowItem: View {
     NavigationStack {
         EditProfileView(user: .constant(.example))
             .environment(GlobalModel(user: .example))
+            .preferredColorScheme(.dark)
 
     }
 }
