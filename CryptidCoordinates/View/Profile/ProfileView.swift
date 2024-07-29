@@ -118,19 +118,26 @@ struct ProfileView: View {
                     .listRowSeparator(.hidden, edges: .bottom)
                     .foregroundStyle(.primary)
             } else {
-                ForEach(visits.keys.sorted { visits[$0]!.dateValue() > visits[$1]!.dateValue() }, id: \.id) { location in
-                    if let date = visits[location] {
-                        ZStack(alignment: .leading) {
-                            VisitPreviewView(location: location, visitDate: date)
-                            NavigationLink(destination: LocationView(location: location)) {
-                                EmptyView()
+                ScrollView(.horizontal,  showsIndicators: false) {
+                    LazyHStack {
+                        ForEach(visits.keys.sorted { visits[$0]!.dateValue() > visits[$1]!.dateValue() }, id: \.id) { location in
+                            if let date = visits[location] {
+                                    VisitPreviewView(location: location, visitDate: date)
+                                    .scrollTransition { content, phase in
+                                        content
+                                            .scaleEffect(phase.isIdentity ? 1 : 0.75)
+                                            .offset(y: phase.isIdentity ? 0 : 5)
+                                            .opacity(phase.isIdentity ? 1 : 0.5)
+                                    }
                             }
-                            .opacity(0.0)
                         }
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets())
                     }
                 }
-                .listRowSeparator(.hidden)
+                .contentMargins(5, for: .scrollContent)
                 .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
             }
         } else {
             ProgressView()

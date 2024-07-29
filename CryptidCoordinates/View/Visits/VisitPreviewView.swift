@@ -26,39 +26,7 @@ struct VisitPreviewView: View {
             case .loading:
                 ProgressView()
             case .loaded:
-                HStack(spacing: 20) {
-                    if let uiImage = image {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 75, height: 75)
-                            .clipShape(Circle())
-                            .overlay(
-                                Circle().stroke(Color.white, lineWidth: 0.75)
-                            )
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        Text(location.name)
-                            .lineLimit(1)
-                            .truncationMode(.tail)
-                            .fontWeight(.semibold)
-                        
-                        Text("Visited \(visitDate.dateValue().formatted(date: .abbreviated, time: .shortened))")
-                            .font(.footnote)
-                    }
-                    
-                    Spacer()
-                }
-                .foregroundStyle(.white)
-                .padding()
-                .listRowInsets(EdgeInsets())
-                .frame(maxWidth: .infinity)
-                .background(Color(uiColor: averageColor))
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .padding(.horizontal)
-                .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 0)
-                .padding(.vertical, 5)
+                previewView
             case .error:
                 Image(systemName: "camera")
             }
@@ -66,7 +34,41 @@ struct VisitPreviewView: View {
         .onAppear {
             downloadImage()
         }
-        
+    }
+    
+    var previewView: some View {
+        VStack(alignment: .center) {
+            if let uiImage = image {
+                NavigationLink(value: location) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 75, height: 75)
+                        .clipShape(Circle())
+                        .overlay(
+                            Circle().stroke(Color(uiColor: averageColor), lineWidth: 3)
+                        )
+                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
+                }
+            }
+            
+            VStack(alignment: .center) {
+                Text(location.name)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.primary)
+                
+                Text("Visited \(visitDate.dateValue().formatted(date: .abbreviated, time: .shortened))")
+                    .font(.caption2)
+                    .foregroundStyle(.gray)
+            }
+        }
+        .padding(.vertical)
+        .containerRelativeFrame(.horizontal, count: 2, spacing: 10)
+        .navigationDestination(for: Location.self) { location in
+            LocationView(location: location)
+        }
     }
     
     func downloadImage() {
