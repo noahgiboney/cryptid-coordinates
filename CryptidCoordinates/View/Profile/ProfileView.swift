@@ -112,7 +112,7 @@ struct ProfileView: View {
             } else {
                 ScrollView(.horizontal,  showsIndicators: false) {
                     LazyHStack {
-                        ForEach(Array(visits.keys.sorted { visits[$0]!.dateValue() > visits[$1]!.dateValue() }).prefix(upTo: 5), id: \.id) { location in
+                        ForEach(Array(visits.keys.sorted { visits[$0]!.dateValue() > visits[$1]!.dateValue() }).prefix(upTo: visits.count < 5 ? visits.count : 5), id: \.id) { location in
                             if let date = visits[location] {
                                     VisitPreviewView(location: location, visitDate: date)
                                     .scrollTransition { content, phase in

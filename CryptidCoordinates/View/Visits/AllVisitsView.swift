@@ -22,10 +22,16 @@ struct AllVisitsView: View {
     }
     
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: [GridItem(), GridItem()]) {
-                ForEach(sortedVisits, id: \.key.id) { key, value in
-                    VisitPreviewView(location: key, visitDate: value)
+        Group {
+            if sortedVisits.isEmpty {
+                ContentUnavailableView("No Visist Yet", systemImage: "house.lodge")
+            } else {
+                ScrollView {
+                    LazyVGrid(columns: [GridItem(), GridItem()]) {
+                        ForEach(sortedVisits, id: \.key.id) { key, value in
+                            VisitPreviewView(location: key, visitDate: value)
+                        }
+                    }
                 }
             }
         }
@@ -35,8 +41,8 @@ struct AllVisitsView: View {
         .toolbar {
             Menu("Sort", systemImage: "arrow.up.arrow.down") {
                 Picker("Sort Order", selection: $sortOrder) {
-                    Text("Chronological").tag(SortOrder.chronological)
                     Text("Latest First").tag(SortOrder.latest)
+                    Text("Chronological").tag(SortOrder.chronological)
                 }
             }
         }
