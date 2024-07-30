@@ -43,9 +43,8 @@ struct EditProfileView: View {
             }
             
             ToolbarItem(placement: .topBarTrailing) {
-                if tempUser != user {
-                    Button("Save", action: updateUser)
-                }
+                Button("Save", action: updateUser)
+                    .disabled(tempUser == user || tempUser.name.isEmpty)
             }
         }
         .onChange(of: selectedAvatar) { _, _ in
