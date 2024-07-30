@@ -20,10 +20,11 @@ class VisitService {
     func fetchLeaderboard() async throws -> [User] {
         let snapshot = try await Firestore.firestore().collection("users")
             .order(by: "visits", descending: true)
+            .whereField("visits", isNotEqualTo: 0)
             .limit(to: 10)
             .getDocuments()
         
-        return snapshot.documents.compactMap { try? $0.data(as: User.self)}
+        return snapshot.documents.compactMap { try? $0.data(as: User.self) }
     }
     
     func checkDidVisist(userId: String, locationId: String) async throws -> Bool {
