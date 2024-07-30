@@ -31,10 +31,6 @@ struct LocationScrollView: View {
 }
 
 #Preview {
-    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: Location.self, configurations: config)
-    
-    return LocationScrollView(locations: [.example, .example, .example, .example, .example])
-    
+    LocationScrollView(locations: [.example, .example, .example, .example, .example])
         .environmentObject(LocationManager())
 }

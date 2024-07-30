@@ -44,7 +44,7 @@ class UpdateService {
         var updateCount = 0
         print("Updating \(locations.count) locations")
         
-        for var location in locations {
+        for location in locations {
             try await updateLocationInFirebase(location)
             print(updateCount)
             updateCount += 1
@@ -63,7 +63,7 @@ class UpdateService {
             } else {
                 var allData = [[String: Any]]()
                 for document in querySnapshot!.documents {
-                    if let location = try? document.data(as: DecodableLocation.self) {
+                    if (try? document.data(as: DecodableLocation.self)) != nil {
                         allData.append(document.data())
                     }
                 }
@@ -129,7 +129,7 @@ class UpdateService {
     
     private func updateLocationInFirebase(_ location: DecodableLocation) async throws {
         let docRef = db.collection("locations").document(location.id)
-        try await docRef.setData(from: location, merge: false)
+        try docRef.setData(from: location, merge: false)
     }
 }
 
