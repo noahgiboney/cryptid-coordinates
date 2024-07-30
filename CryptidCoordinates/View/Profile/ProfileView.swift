@@ -19,7 +19,6 @@ struct ProfileView: View {
     @State private var isShowingSignOutAlert = false
     @State private var visits: [Location : Timestamp] = [:]
     @State private var didLoadVisits = false
-    @State private var visitCount = 0
     
     var body: some View {
         NavigationStack {
@@ -57,13 +56,6 @@ struct ProfileView: View {
             .task {
                 try? await fetchUserVisits()
             }
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    withAnimation {
-                        visitCount = global.user.visits
-                    }
-                }
-            }
             .fullScreenCover(isPresented: $showSubmitRequest) {
                 SubmitLocationDetailsView(showCover: $showSubmitRequest)
             }
@@ -98,14 +90,14 @@ struct ProfileView: View {
     @ViewBuilder
     var vistitedLocationsView: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Text("\(visitCount)")
-                    .contentTransition(.numericText(value: Double(visitCount)))
-                Text("Locations Visited ")
+            NavigationLink {
+                AllVisitsView(visits: visits)
+            } label: {
+                Text("\(global.user.visits) Locations Visited")
+                .padding(.top)
+                .font(.title3.bold())
             }
-            .padding(.top)
-            .font(.title3.bold())
-            
+
             Text("Earn points for visiting haunted locations, climb the leaderboard, and unlock exclusive rewards.")
                 .font(.footnote)
                 .foregroundStyle(.gray)
@@ -120,7 +112,7 @@ struct ProfileView: View {
             } else {
                 ScrollView(.horizontal,  showsIndicators: false) {
                     LazyHStack {
-                        ForEach(visits.keys.sorted { visits[$0]!.dateValue() > visits[$1]!.dateValue() }, id: \.id) { location in
+                        ForEach(Array(visits.keys.sorted { visits[$0]!.dateValue() > visits[$1]!.dateValue() }).prefix(upTo: 5), id: \.id) { location in
                             if let date = visits[location] {
                                     VisitPreviewView(location: location, visitDate: date)
                                     .scrollTransition { content, phase in
