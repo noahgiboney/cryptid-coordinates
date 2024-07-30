@@ -32,6 +32,7 @@
 		E204C1212C1E4B2000688944 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E204C1202C1E4B2000688944 /* UserService.swift */; };
 		E2145EB02C27B4360085C94F /* CommentSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2145EAF2C27B4360085C94F /* CommentSection.swift */; };
 		E222D9052C27CCF400FA427D /* GradientEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222D9042C27CCF400FA427D /* GradientEffectView.swift */; };
+		E22BFCED2C584B1B00EF462B /* AllVisitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BFCEC2C584B1B00EF462B /* AllVisitsView.swift */; };
 		E23154242C1E843F0026F3E8 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23154232C1E843F0026F3E8 /* AppleAuthManager.swift */; };
 		E23618662C1E63D9005AF3FB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23618652C1E63D9005AF3FB /* ProfileView.swift */; };
 		E23D30E02C1AC43700025363 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D30DF2C1AC43700025363 /* ContentView.swift */; };
@@ -103,6 +104,7 @@
 		E204C1202C1E4B2000688944 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		E2145EAF2C27B4360085C94F /* CommentSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSection.swift; sourceTree = "<group>"; };
 		E222D9042C27CCF400FA427D /* GradientEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientEffectView.swift; sourceTree = "<group>"; };
+		E22BFCEC2C584B1B00EF462B /* AllVisitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllVisitsView.swift; sourceTree = "<group>"; };
 		E23154232C1E843F0026F3E8 /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		E23618652C1E63D9005AF3FB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E23D30DF2C1AC43700025363 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 		E24AE7432C57615C00B5D741 /* Visits */ = {
 			isa = PBXGroup;
 			children = (
+				E22BFCEC2C584B1B00EF462B /* AllVisitsView.swift */,
 				E24AE7442C57615C00B5D741 /* RadarView.swift */,
 				E24AE7452C57615C00B5D741 /* VisitPreviewView.swift */,
 				E24AE7462C57615C00B5D741 /* VisitView.swift */,
@@ -595,6 +598,7 @@
 				E24AE73D2C5760F400B5D741 /* CommentService.swift in Sources */,
 				E24AE76B2C57645900B5D741 /* LocationRequest.swift in Sources */,
 				E24AE75E2C57638900B5D741 /* LocationMarkerView.swift in Sources */,
+				E22BFCED2C584B1B00EF462B /* AllVisitsView.swift in Sources */,
 				E23618662C1E63D9005AF3FB /* ProfileView.swift in Sources */,
 				E24AE7102C5760A200B5D741 /* CommentModel.swift in Sources */,
 				E23154242C1E843F0026F3E8 /* AppleAuthManager.swift in Sources */,

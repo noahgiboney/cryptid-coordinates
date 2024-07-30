@@ -87,7 +87,7 @@ struct LocationView: View {
                 }
                 
                 Button("View On Map", systemImage: "location")  {
-                    
+                    global.selectedLocation = location
                 }
                 
             } label: {

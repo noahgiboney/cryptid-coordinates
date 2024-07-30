@@ -11,6 +11,7 @@ import SwiftUI
 
 struct MapView: View {
     var geohashes: [String]
+    @Environment(GlobalModel.self) var global
     @Binding var cameraPosition: MapCameraPosition
     @State private var selectedLocation: Location?
     @Query var annotations: [Location]
@@ -53,6 +54,21 @@ struct MapView: View {
                                 .padding()
                         }
                     }
+            }
+        }
+        .onChange(of: global.selectedLocation) { oldValue, newValue in
+            if let location = global.selectedLocation {
+                goToSelectedLocation(location)
+            }
+        }
+    }
+    
+    func goToSelectedLocation(_ location: Location) {
+        cameraPosition = location.cameraPosition
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation {
+                cameraPosition = .region(MKCoordinateRegion(center: location.coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
             }
         }
     }

@@ -18,5 +18,9 @@ class GlobalModel {
     var user: User
     var tabSelection = 0
     
-    var selectedLocation: Location?
+    var selectedLocation: Location? {
+        didSet {
+            tabSelection = 1
+        }
+    }
 }
