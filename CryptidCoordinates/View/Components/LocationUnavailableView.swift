@@ -10,6 +10,7 @@ import SwiftUI
 struct LocationUnavailableView: View {
     var message: String
     @EnvironmentObject var locationManager: LocationManager
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ContentUnavailableView(label: {
@@ -21,6 +22,7 @@ struct LocationUnavailableView: View {
                 if let url = URL(string: UIApplication.openSettingsURLString) {
                     UIApplication.shared.open(url)
                 }
+                dismiss()
             } label: {
                 Label("Share Location", systemImage: "location.fill")
             }

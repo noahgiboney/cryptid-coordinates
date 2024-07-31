@@ -38,7 +38,7 @@ struct VisitView: View {
                     }
                 }
             }
-            .navigationTitle(visitState == .scanning ? "Scanning" : "Visit")
+            .navigationTitle(visitState == .scanning ? "Scanning" : "Visit \(location.name)")
             .navigationBarTitleDisplayMode(.inline)
             .padding(.horizontal)
             .task {
@@ -117,10 +117,10 @@ struct VisitView: View {
                 .scaleEffect(2)
             
             VStack(alignment: .center, spacing: 4) {
-                Text("Keep Searching")
+                Text("Nothing Here")
                     .font(.title2.bold())
                 
-                Text("Move closer to find paranormal activity.")
+                Text("Keep Searching. Move closer to find paranormal activity.")
                     .font(.subheadline)
                     .foregroundStyle(.gray)
             }
