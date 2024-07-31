@@ -15,16 +15,26 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
-            Button {
-                isShowingSignOutAlert.toggle()
-            } label: {
-                Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
+            Section {
+                Button("Manage Location Settings", systemImage: "location") {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                }
             }
             
-            Button(role: .destructive) {
-                isShowingDeleteAccDialog.toggle()
-            } label: {
-                Label("Delete Account", systemImage: "trash")
+            Section {
+                Button {
+                    isShowingSignOutAlert.toggle()
+                } label: {
+                    Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
+                }
+                
+                Button(role: .destructive) {
+                    isShowingDeleteAccDialog.toggle()
+                } label: {
+                    Label("Delete Account", systemImage: "trash")
+                }
             }
         }
         .navigationTitle("Settings")
