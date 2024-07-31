@@ -25,6 +25,9 @@ struct AnnotationView: View {
                         .foregroundStyle(.black)
                 }
             }
+            .onSuccess { _ in
+                didFail = false
+            }
             .onFailure { _ in
                 didFail  = true
             }
@@ -43,5 +46,4 @@ struct AnnotationView: View {
 
 #Preview {
     AnnotationView()
-        .preferredColorScheme(.dark)
 }
