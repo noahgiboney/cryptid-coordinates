@@ -2,67 +2,97 @@
 //  MapView.swift
 //  CryptidCoordinates
 //
-//  Created by Noah Giboney on 7/23/24.
+//  Created by Noah Giboney on 6/14/24.
 //
 
+import ClusterMapSwiftUI
 import MapKit
 import SwiftData
 import SwiftUI
 
 struct MapView: View {
-    var geohashes: [String]
+    var defaultCords: CLLocationCoordinate2D
     @Environment(GlobalModel.self) var global
-    @Binding var cameraPosition: MapCameraPosition
+    @Environment(\.modelContext) var modelContext
     @State private var selectedLocation: Location?
-    @Query var annotations: [Location]
+    @State private var model: MapModel
+    @State private var cameraPosition: MapCameraPosition
+    @State private var didLoadAnnotations = false
+    @Query var testQuery: [Location]
     
-    init(cameraPosition: Binding<MapCameraPosition>, geohashes: [String]) {
-        self._cameraPosition = cameraPosition
-        self.geohashes = geohashes
+    init(defaultCords: CLLocationCoordinate2D) {
+        self.defaultCords = defaultCords
+        let defaultRegion = MKCoordinateRegion(center: defaultCords, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+        let mapModel = MapModel(defaultRegion: defaultRegion)
         
-        self._annotations = .init(filter: #Predicate {
-            geohashes.contains($0.geohash)
-        }, animation: .default)
+        self._cameraPosition = State(initialValue: .region(defaultRegion))
+        self._model = State(initialValue: mapModel)
     }
     
     var body: some View {
-        Map(position: $cameraPosition, interactionModes: .all) {
-            UserAnnotation()
-            
-            ForEach(annotations) { location in
-                Annotation("", coordinate: location.coordinates) {
-                    LocationMarkerView(url: location.url)
-                        .onTapGesture {
-                            selectedLocation = location
+        GeometryReader { proxy in
+            Map(position: $cameraPosition, interactionModes: .all) {
+                UserAnnotation()
+                
+                ForEach(model.annotations) { annotation in
+                    let location = annotation.location
+                    Annotation("", coordinate: location.coordinates) {
+                        AnnotationView(url: location.url)
+                            .onTapGesture {
+                                selectedLocation = location
+                            }
+                    }
+                }
+                
+                ForEach(model.clusters) { cluster in
+                    Marker(
+                        "\(cluster.count)",
+                        systemImage: "square.3.layers.3d",
+                        coordinate: cluster.coordinate
+                    )
+                    .tint(.black)
+                }
+            }
+            .mapControls {
+                MapUserLocationButton()
+            }
+            .onMapCameraChange { context in
+                model.currentRegion = context.region
+            }
+            .onMapCameraChange(frequency: .onEnd, {
+                Task.detached { await model.reloadAnnotations() }
+            })
+            .readSize(onChange: { newValue in
+                model.mapSize = newValue
+            })
+            .onChange(of: global.selectedLocation) { oldValue, newValue in
+                if let location = global.selectedLocation {
+                    goToSelectedLocation(location)
+                }
+            }
+            .sheet(item: $selectedLocation) { location in
+                NavigationStack {
+                    LocationView(location: location)
+                        .overlay(alignment: .topTrailing) {
+                            Button {
+                                selectedLocation = nil
+                            } label: {
+                                Image(systemName: "xmark")
+                                    .padding(10)
+                                    .background(.ultraThinMaterial, in: Circle())
+                                    .padding()
+                            }
                         }
                 }
             }
-        }
-        .mapControls {
-            MapUserLocationButton()
-        }
-        .sheet(item: $selectedLocation) { location in
-            NavigationStack {
-                LocationView(location: location)
-                    .overlay(alignment: .topTrailing) {
-                        Button {
-                            selectedLocation = nil
-                        } label: {
-                            Image(systemName: "xmark")
-                                .padding(10)
-                                .background(.ultraThinMaterial, in: Circle())
-                                .padding()
-                        }
-                    }
-            }
-        }
-        .onChange(of: global.selectedLocation) { oldValue, newValue in
-            if let location = global.selectedLocation {
-                goToSelectedLocation(location)
+            .task {
+                guard !didLoadAnnotations else { return }
+                await model.addAnnotations(locations: testQuery)
+                didLoadAnnotations = true
             }
         }
     }
-    
+
     func goToSelectedLocation(_ location: Location) {
         cameraPosition = location.cameraPosition
         
@@ -72,4 +102,10 @@ struct MapView: View {
             }
         }
     }
+}
+
+#Preview {
+    MapView(defaultCords: Location.example.coordinates)
+        .environment(GlobalModel(user: .example))
+        .environmentObject(LocationManager())
 }

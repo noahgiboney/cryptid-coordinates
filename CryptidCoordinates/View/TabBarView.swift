@@ -5,6 +5,7 @@
 //  Created by Noah Giboney on 6/12/24.
 //
 
+import MapKit
 import SwiftUI
 
 struct TabBarView: View {
@@ -30,7 +31,7 @@ struct TabBarView: View {
                 }
                 .tag(0)
             
-            MapContainerView()
+            MapView(defaultCords: locationManager.lastKnownLocation ?? CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194))
                 .tabItem {
                     VStack {
                         Image(systemName: "map")
