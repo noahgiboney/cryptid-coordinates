@@ -12,6 +12,7 @@ import SwiftUI
 
 struct AnnotationView: View {
     var url: URL?
+    @State private var didFail = false
     
     var body: some View {
         KFImage(url)
@@ -21,7 +22,11 @@ struct AnnotationView: View {
                         .frame(width: 50, height: 50)
                     
                     Image(systemName: "camera")
+                        .foregroundStyle(.black)
                 }
+            }
+            .onFailure { _ in
+                didFail  = true
             }
             .loadDiskFileSynchronously()
             .cacheMemoryOnly()
@@ -30,7 +35,7 @@ struct AnnotationView: View {
             .frame(maxWidth: 50, maxHeight: 50)
             .clipShape(Circle())
             .overlay(
-                Circle().stroke(Color.white, lineWidth: 2.5)
+                Circle().stroke(didFail ? .gray.opacity(0.5) : .white, lineWidth: 2.5)
             )
             .shadow(radius: 10)
     }

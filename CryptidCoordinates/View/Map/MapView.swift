@@ -18,11 +18,11 @@ struct MapView: View {
     @State private var model: MapModel
     @State private var cameraPosition: MapCameraPosition
     @State private var didLoadAnnotations = false
-    @Query var testQuery: [Location]
+    @Query var locations: [Location]
     
     init(defaultCords: CLLocationCoordinate2D) {
         self.defaultCords = defaultCords
-        let defaultRegion = MKCoordinateRegion(center: defaultCords, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+        let defaultRegion = MKCoordinateRegion(center: defaultCords, span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15))
         let mapModel = MapModel(defaultRegion: defaultRegion)
         
         self._cameraPosition = State(initialValue: .region(defaultRegion))
@@ -87,7 +87,7 @@ struct MapView: View {
             }
             .task {
                 guard !didLoadAnnotations else { return }
-                await model.addAnnotations(locations: testQuery)
+                await model.addAnnotations(locations: locations)
                 didLoadAnnotations = true
             }
         }
