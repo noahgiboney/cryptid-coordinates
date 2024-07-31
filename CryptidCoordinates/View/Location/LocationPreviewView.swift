@@ -11,6 +11,7 @@ import SwiftUI
 
 struct LocationPreviewView: View {
     var location: Location
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var locationManager: LocationManager
     @State private var image: UIImage?
     @State private var loadState: LoadState = .loading
@@ -29,7 +30,7 @@ struct LocationPreviewView: View {
             case .loaded:
                 previewView
             case .error:
-                Image(systemName: "camera")
+                previewView
             }
         }
         .onAppear {
@@ -44,6 +45,11 @@ struct LocationPreviewView: View {
                     .resizable()
                     .scaledToFill()
                     .frame(maxHeight: 160)
+            } else {
+                Image(systemName: "camera")
+                    .imageScale(.large)
+                    .frame(height: 160)
+                    .foregroundStyle(colorScheme == .light ? .black : .white)
             }
             
             VStack(spacing: 0) {
@@ -73,7 +79,10 @@ struct LocationPreviewView: View {
         }
         .containerRelativeFrame([.horizontal])
         .clipShape(RoundedRectangle(cornerRadius: 20))
-        .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 0)
+        .overlay {
+            RoundedRectangle(cornerRadius: 20).stroke(colorScheme == .light ? .black : .white, lineWidth: loadState == .error ? 1 : 0)
+        }
+        .shadow(color: .black.opacity(0.3), radius: loadState == .loaded ? 5 : 0 , x: 0, y: 0)
     }
     
     func downloadImage() {
