@@ -6,6 +6,7 @@
 //
 
 import Firebase
+import StoreKit
 import SwiftUI
 
 enum VisitState {
@@ -14,8 +15,10 @@ enum VisitState {
 
 struct VisitView: View {
     var location: Location
+    @AppStorage("lastVersionPromptedForReview") var lastVersionPromptedForReview = ""
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var locationManager: LocationManager
+    @Environment(\.requestReview) var requestReview
     @Environment(GlobalModel.self) var global
     @State private var visitState: VisitState = .scanning
     @State private var visitCount = 0
@@ -28,7 +31,7 @@ struct VisitView: View {
                 } else {
                     switch visitState {
                     case .scanning:
-                        RadarView()
+                        ScanningView()
                     case .newVisit:
                         successView
                     case .notInProximity:
@@ -157,7 +160,7 @@ struct VisitView: View {
             try await Task.sleep(nanoseconds: 1_500_000_000)
             
             /// 0.3 miles 483
-            let minDistance = 10000.0
+            let minDistance = 10_000.0
             
             let distanceFromLocation = userCords.distance(from: location.clLocation)
 
@@ -182,8 +185,21 @@ struct VisitView: View {
             global.user.visits += 1
             
             try await VisitService.shared.logVisit(visit: newVisit, visitCount: global.user.visits)
+            
+            if global.user.visits >= 2 && lastVersionPromptedForReview != "2.0" {
+                presentReview()
+            }
+            
         } catch {
             print("Error: logVisit() : \(error.localizedDescription)")
+        }
+    }
+    
+    func presentReview() {
+        Task {
+            try await Task.sleep(for: .seconds(2.0))
+            requestReview()
+            lastVersionPromptedForReview = "2.0"
         }
     }
 }

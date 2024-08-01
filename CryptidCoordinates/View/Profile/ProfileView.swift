@@ -17,7 +17,6 @@ struct ProfileView: View {
     @State private var showSubmitRequest = false
     @State private var isShowingSignOutAlert = false
     @State private var visits: [Location : Timestamp] = [:]
-    @State private var didLoadVisits = false
     
     var body: some View {
         NavigationStack {
@@ -102,38 +101,32 @@ struct ProfileView: View {
                 .foregroundStyle(.gray)
         }
         
-        if didLoadVisits {
-            if visits.isEmpty {
-                Label("No Visits Yet", systemImage: "house.lodge")
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .listRowSeparator(.hidden, edges: .bottom)
-                    .foregroundStyle(.primary)
-            } else {
-                ScrollView(.horizontal,  showsIndicators: false) {
-                    LazyHStack {
-                        ForEach(Array(visits.keys.sorted { visits[$0]!.dateValue() > visits[$1]!.dateValue() }).prefix(upTo: visits.count < 5 ? visits.count : 5), id: \.id) { location in
-                            if let date = visits[location] {
-                                    VisitPreviewView(location: location, visitDate: date)
-                                    .scrollTransition { content, phase in
-                                        content
-                                            .scaleEffect(phase.isIdentity ? 1 : 0.75)
-                                            .offset(y: phase.isIdentity ? 0 : 5)
-                                            .opacity(phase.isIdentity ? 1 : 0.5)
-                                    }
-                            }
-                        }
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets())
-                    }
-                }
-                .contentMargins(5, for: .scrollContent)
-                .listRowInsets(EdgeInsets())
-                .listRowSeparator(.hidden)
-            }
-        } else {
-            ProgressView()
+        if visits.isEmpty {
+            Label("No Visits Yet", systemImage: "house.lodge")
                 .frame(maxWidth: .infinity, alignment: .center)
                 .listRowSeparator(.hidden, edges: .bottom)
+                .foregroundStyle(.primary)
+        } else {
+            ScrollView(.horizontal,  showsIndicators: false) {
+                LazyHStack {
+                    ForEach(Array(visits.keys.sorted { visits[$0]!.dateValue() > visits[$1]!.dateValue() }).prefix(upTo: visits.count < 5 ? visits.count : 5), id: \.id) { location in
+                        if let date = visits[location] {
+                                VisitPreviewView(location: location, visitDate: date)
+                                .scrollTransition { content, phase in
+                                    content
+                                        .scaleEffect(phase.isIdentity ? 1 : 0.75)
+                                        .offset(y: phase.isIdentity ? 0 : 5)
+                                        .opacity(phase.isIdentity ? 1 : 0.5)
+                                }
+                        }
+                    }
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets())
+                }
+            }
+            .contentMargins(5, for: .scrollContent)
+            .listRowInsets(EdgeInsets())
+            .listRowSeparator(.hidden)
         }
     }
     
@@ -157,7 +150,6 @@ struct ProfileView: View {
             }
             
             visits = locationVisits
-            didLoadVisits = true
         } catch {
             print("Error: fetchUserVisits(): \(error.localizedDescription)")
         }
