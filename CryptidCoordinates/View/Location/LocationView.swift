@@ -22,33 +22,32 @@ struct LocationView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 25){
-                VStack {
-                    KFImage(location.url)
-                        .loadDiskFileSynchronously()
-                        .cacheMemoryOnly()
-                        .fade(duration: 0.25)
-                        .resizable()
-                        .frame(maxWidth: .infinity, maxHeight: 400)
+            ScrollViewReader { proxy in
+                VStack(alignment: .leading, spacing: 25){
+                    VStack {
+                        KFImage(location.url)
+                            .loadDiskFileSynchronously()
+                            .cacheMemoryOnly()
+                            .fade(duration: 0.25)
+                            .resizable()
+                            .frame(maxWidth: .infinity, maxHeight: 400)
+                        
+                        locationHeader
+                    }
                     
-                    locationHeader
+                    actionButtons
+                    
+                    VStack(spacing: 15){
+                        Text(location.detail)
+                            .padding(.horizontal)
+                        Divider()
+                    }
+                    
+                    CommentSection(locationId: location.id, scrollProxy: proxy)
                 }
-                
-                actionButtons
-                
-                VStack(spacing: 15){
-                    Text(location.detail)
-                        .padding(.horizontal)
-                    Divider()
-                }
-                
-                CommentSection(locationId: location.id)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .task {
-            await fetchLookAround()
-        }
         .fullScreenCover(isPresented: $showLookAround) {
             LookAroundPreview(initialScene: lookAroundPlace)
                 .ignoresSafeArea()
@@ -58,6 +57,7 @@ struct LocationView: View {
                 .presentationDetents([.medium])
                 .presentationCornerRadius(20)
         }
+        .task { await fetchLookAround() }
     }
     
     var locationHeader: some View {

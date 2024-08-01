@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CommentSection: View {
     var locationId: String
+    var scrollProxy: ScrollViewProxy
     @Environment(GlobalModel.self) var global
     @FocusState private var isFocused: Bool
     @State private var model = CommentModel()
@@ -38,6 +39,11 @@ struct CommentSection: View {
         .task {
             try? await model.fetchComments(locationId: locationId)
         }
+        .onChange(of: isFocused) { _, newValue in
+            if newValue == true {
+                scrollProxy.scrollTo("text_field", anchor: .bottom)
+            }
+        }
     }
     
     var commentScrollView: some View {
@@ -59,6 +65,7 @@ struct CommentSection: View {
     var textField: some View {
         HStack(alignment: .bottom) {
             TextEditor(text: $model.comment)
+                .id("text_field")
                 .frame(minHeight: 40)
                 .fixedSize(horizontal: false, vertical: true)
                 .scrollContentBackground(.hidden)
@@ -103,6 +110,8 @@ struct CommentSection: View {
 }
 
 #Preview {
-    CommentSection(locationId: UUID().uuidString)
-        .environment(GlobalModel(user: .example))
+    ScrollViewReader { proxy in
+        CommentSection(locationId: UUID().uuidString, scrollProxy: proxy)
+            .environment(GlobalModel(user: .example))
+    }
 }

@@ -19,7 +19,7 @@ class CommentService {
     
     func fetchComments(locationId: String) async throws -> [Comment] {
         try await withThrowingTaskGroup(of: (Comment, User).self) { taskGroup in
-            let snapshot = try await commentCollection(locationId).order(by: "timestamp", descending: true).getDocuments()
+            let snapshot = try await commentCollection(locationId).getDocuments()
             let comments = snapshot.documents.compactMap( { try? $0.data(as: Comment.self)} )
             for comment in comments {
                 taskGroup.addTask {
@@ -35,7 +35,7 @@ class CommentService {
                 updatedComments.append(updatedCommnet)
             }
             
-            return updatedComments
+            return updatedComments.sorted { $0.timestamp.dateValue() > $1.timestamp.dateValue() }
         }
     }
     
