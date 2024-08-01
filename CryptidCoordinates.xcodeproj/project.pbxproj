@@ -34,6 +34,7 @@
 		E2145EB02C27B4360085C94F /* CommentSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2145EAF2C27B4360085C94F /* CommentSection.swift */; };
 		E222D9052C27CCF400FA427D /* GradientEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222D9042C27CCF400FA427D /* GradientEffectView.swift */; };
 		E222F7292C5C21EE004643B7 /* ScanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222F7282C5C21EE004643B7 /* ScanningView.swift */; };
+		E222F72B2C5C5424004643B7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222F72A2C5C5424004643B7 /* LocationManager.swift */; };
 		E22BFCED2C584B1B00EF462B /* AllVisitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BFCEC2C584B1B00EF462B /* AllVisitsView.swift */; };
 		E23154242C1E843F0026F3E8 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23154232C1E843F0026F3E8 /* AppleAuthManager.swift */; };
 		E23618662C1E63D9005AF3FB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23618652C1E63D9005AF3FB /* ProfileView.swift */; };
@@ -59,7 +60,6 @@
 		E24AE7332C5760E600B5D741 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE72D2C5760E600B5D741 /* AvatarView.swift */; };
 		E24AE7342C5760E600B5D741 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE72E2C5760E600B5D741 /* LoadingView.swift */; };
 		E24AE7352C5760E600B5D741 /* LocationUnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE72F2C5760E600B5D741 /* LocationUnavailableView.swift */; };
-		E24AE73C2C5760F400B5D741 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE7362C5760F400B5D741 /* LocationManager.swift */; };
 		E24AE73D2C5760F400B5D741 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE7372C5760F400B5D741 /* CommentService.swift */; };
 		E24AE73E2C5760F400B5D741 /* GoogleImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE7392C5760F400B5D741 /* GoogleImageService.swift */; };
 		E24AE73F2C5760F400B5D741 /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE73A2C5760F400B5D741 /* UpdateService.swift */; };
@@ -107,6 +107,7 @@
 		E2145EAF2C27B4360085C94F /* CommentSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSection.swift; sourceTree = "<group>"; };
 		E222D9042C27CCF400FA427D /* GradientEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientEffectView.swift; sourceTree = "<group>"; };
 		E222F7282C5C21EE004643B7 /* ScanningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningView.swift; sourceTree = "<group>"; };
+		E222F72A2C5C5424004643B7 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E22BFCEC2C584B1B00EF462B /* AllVisitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllVisitsView.swift; sourceTree = "<group>"; };
 		E23154232C1E843F0026F3E8 /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		E23618652C1E63D9005AF3FB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -132,7 +133,6 @@
 		E24AE72D2C5760E600B5D741 /* AvatarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		E24AE72E2C5760E600B5D741 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E24AE72F2C5760E600B5D741 /* LocationUnavailableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationUnavailableView.swift; sourceTree = "<group>"; };
-		E24AE7362C5760F400B5D741 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E24AE7372C5760F400B5D741 /* CommentService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
 		E24AE7392C5760F400B5D741 /* GoogleImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleImageService.swift; sourceTree = "<group>"; };
 		E24AE73A2C5760F400B5D741 /* UpdateService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
@@ -260,8 +260,9 @@
 				E24AE7042C5760A200B5D741 /* Data */,
 				E20179FD2C5ADEB500D0A1AA /* AuthModel.swift */,
 				E24AE7002C5760A200B5D741 /* CommentModel.swift */,
-				E24AE7022C5760A200B5D741 /* GlobalModel.swift */,
+				E222F72A2C5C5424004643B7 /* LocationManager.swift */,
 				E24AE7032C5760A200B5D741 /* LeaderboardModel.swift */,
+				E24AE7022C5760A200B5D741 /* GlobalModel.swift */,
 				E2C5BB5A2C59D0CC003DD640 /* MapModel.swift */,
 				E24AE6FF2C5760A200B5D741 /* SubmitLocationModel.swift */,
 			);
@@ -424,7 +425,6 @@
 				E24AE7382C5760F400B5D741 /* Util */,
 				E23154232C1E843F0026F3E8 /* AppleAuthManager.swift */,
 				E24AE7372C5760F400B5D741 /* CommentService.swift */,
-				E24AE7362C5760F400B5D741 /* LocationManager.swift */,
 				E24AE7682C57640F00B5D741 /* LocationService.swift */,
 				E24AE76A2C57645900B5D741 /* LocationRequest.swift */,
 				E204C1202C1E4B2000688944 /* UserService.swift */,
@@ -555,7 +555,6 @@
 				E23D30E02C1AC43700025363 /* ContentView.swift in Sources */,
 				E24AE70F2C5760A200B5D741 /* SubmitLocationModel.swift in Sources */,
 				E222F7292C5C21EE004643B7 /* ScanningView.swift in Sources */,
-				E24AE73C2C5760F400B5D741 /* LocationManager.swift in Sources */,
 				E24AE7242C5760CF00B5D741 /* BundleDecode.swift in Sources */,
 				E24AE7312C5760E600B5D741 /* MenuBar.swift in Sources */,
 				E24AE7672C5763A500B5D741 /* NearYouView.swift in Sources */,
@@ -563,6 +562,7 @@
 				E2EE30372C1D563F007F74C6 /* LandingView.swift in Sources */,
 				E24AE7642C5763A500B5D741 /* ExploreView.swift in Sources */,
 				E2EE30322C1D4F2A007F74C6 /* LocationPreviewView.swift in Sources */,
+				E222F72B2C5C5424004643B7 /* LocationManager.swift in Sources */,
 				E24AE7652C5763A500B5D741 /* SearchLocationView.swift in Sources */,
 				E24AE75D2C57638900B5D741 /* MapView.swift in Sources */,
 				E24AE7282C5760CF00B5D741 /* Geohash.swift in Sources */,

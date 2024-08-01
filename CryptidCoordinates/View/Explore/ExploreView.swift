@@ -21,11 +21,10 @@ struct ExploreView: View {
                         Text("Near You")
                             .font(.title2.bold())
                         
-                        if locationManager.lastKnownLocation != nil {
-                            NearYouView(geohashes: locationManager.geohashes)
-                        } else {
+                        if locationManager.lastKnownLocation == nil && !locationManager.isLoadingLocation {
                             LocationUnavailableView(message: "Share your location to explore in your vicinity")
-                                
+                        } else {
+                            NearYouView(geohashes: locationManager.geohashes)
                         }
                     }
                     .listRowSeparator(.hidden)
