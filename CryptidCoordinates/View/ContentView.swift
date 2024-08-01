@@ -17,10 +17,10 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            if authModel.userSession != nil,
-               let user = authModel.currentUser {
-                TabBarView(currentUser: user)
-                
+            if authModel.userSession != nil {
+                if let user = authModel.currentUser {
+                    TabBarView(currentUser: user)
+                }
             } else {
                 LandingView()
             }
