@@ -17,6 +17,7 @@ struct LocationView: View {
     @AppStorage("lastVersionPromptedForReview") var lastVersionPromptedForReview = ""
     @Environment(\.requestReview) var requestReview
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dismiss) var dismiss
     @Environment(GlobalModel.self) var global
     @Environment(Saved.self) var saved
     @EnvironmentObject var locationManager: LocationManager
@@ -98,7 +99,7 @@ struct LocationView: View {
                 }
                 
                 Button("View On Map", systemImage: "location")  {
-                    global.selectedLocation = location
+                    viewOnMap()
                 }
                 
             } label: {
@@ -134,6 +135,13 @@ struct LocationView: View {
         item.openInMaps()
     }
     
+    func viewOnMap() {
+        global.selectedLocation = location
+        if global.tabSelection == 1 {
+            dismiss()
+        }
+    }
+    
     func presentReview() {
         Task {
             try await Task.sleep(for: .seconds(2.0))
@@ -150,7 +158,7 @@ struct LocationView: View {
     return NavigationStack {
         LocationView(location: Location.example)
             .modelContainer(container)
-            .environment(GlobalModel(user: .example))
+            .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
             .environment(Saved())
             .environmentObject(LocationManager())
     }

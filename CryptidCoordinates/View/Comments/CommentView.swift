@@ -35,5 +35,5 @@ struct CommentView: View {
 
 #Preview {
     CommentView(comment: .example)
-        .environment(GlobalModel(user: .example))
+        .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
 }

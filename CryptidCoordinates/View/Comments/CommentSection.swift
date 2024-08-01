@@ -112,6 +112,6 @@ struct CommentSection: View {
 #Preview {
     ScrollViewReader { proxy in
         CommentSection(locationId: UUID().uuidString, scrollProxy: proxy)
-            .environment(GlobalModel(user: .example))
+            .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
     }
 }

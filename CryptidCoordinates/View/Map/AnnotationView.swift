@@ -23,6 +23,7 @@ struct AnnotationView: View {
                     
                     Image(systemName: "camera")
                         .foregroundStyle(.black)
+                        .symbolVariant(.slash)
                 }
             }
             .onSuccess { _ in

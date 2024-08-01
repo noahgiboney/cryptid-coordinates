@@ -16,7 +16,6 @@ struct MapView: View {
     @Environment(\.modelContext) var modelContext
     @State private var selectedLocation: Location?
     @State private var model: MapModel
-    @State private var cameraPosition: MapCameraPosition
     @State private var didLoadAnnotations = false
     @Query var locations: [Location]
     
@@ -24,14 +23,12 @@ struct MapView: View {
         self.defaultCords = defaultCords
         let defaultRegion = MKCoordinateRegion(center: defaultCords, span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15))
         let mapModel = MapModel(defaultRegion: defaultRegion)
-        
-        self._cameraPosition = State(initialValue: .region(defaultRegion))
         self._model = State(initialValue: mapModel)
     }
     
     var body: some View {
         GeometryReader { proxy in
-            Map(position: $cameraPosition, interactionModes: .all) {
+            Map(position: Bindable(global).cameraPosition, interactionModes: .all) {
                 UserAnnotation()
                 
                 ForEach(model.annotations) { annotation in
@@ -65,11 +62,6 @@ struct MapView: View {
             .readSize(onChange: { newValue in
                 model.mapSize = newValue
             })
-            .onChange(of: global.selectedLocation) { oldValue, newValue in
-                if let location = global.selectedLocation {
-                    goToSelectedLocation(location)
-                }
-            }
             .sheet(item: $selectedLocation) { location in
                 NavigationStack {
                     LocationView(location: location)
@@ -92,20 +84,10 @@ struct MapView: View {
             }
         }
     }
-
-    func goToSelectedLocation(_ location: Location) {
-        cameraPosition = location.cameraPosition
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            withAnimation {
-                cameraPosition = .region(MKCoordinateRegion(center: location.coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
-            }
-        }
-    }
 }
 
 #Preview {
     MapView(defaultCords: Location.example.coordinates)
-        .environment(GlobalModel(user: .example))
+        .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
         .environmentObject(LocationManager())
 }

@@ -10,13 +10,14 @@ import SwiftUI
 
 struct TabBarView: View {
     var currentUser: User
+    var defaultCords: CLLocationCoordinate2D
     @State private var global: GlobalModel
-    @StateObject private var locationManager = LocationManager()
     @State private var saved = Saved()
     
-    init(currentUser: User) {
+    init(currentUser: User, defaultCords: CLLocationCoordinate2D) {
         self.currentUser = currentUser
-        let global = GlobalModel(user: currentUser)
+        self.defaultCords = defaultCords
+        let global = GlobalModel(user: currentUser, defaultCords: defaultCords)
         self._global = State(initialValue: global)
     }
     
@@ -31,7 +32,7 @@ struct TabBarView: View {
                 }
                 .tag(0)
             
-            MapView(defaultCords: locationManager.lastKnownLocation ?? CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194))
+            MapView(defaultCords: defaultCords)
                 .tabItem {
                     VStack {
                         Image(systemName: "map")
@@ -58,15 +59,11 @@ struct TabBarView: View {
                 }
                 .tag(3)
         }
-        .onAppear {
-            locationManager.start()
-        }
         .environment(global)
         .environment(saved)
-        .environmentObject(locationManager)
     }
 }
 
 #Preview {
-    TabBarView(currentUser: .example)
+    TabBarView(currentUser: .example, defaultCords: Location.example.coordinates)
 }

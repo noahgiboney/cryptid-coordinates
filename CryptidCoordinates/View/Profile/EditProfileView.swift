@@ -130,7 +130,7 @@ struct AvatarRowItem: View {
 #Preview {
     NavigationStack {
         EditProfileView(user: .constant(.example))
-            .environment(GlobalModel(user: .example))
+            .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
             .preferredColorScheme(.dark)
 
     }

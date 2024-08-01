@@ -7,25 +7,33 @@
 
 import FirebaseFirestore
 import FirebaseCore
+import MapKit
 import SwiftData
 import SwiftUI
 
 struct ContentView: View {
     @AppStorage("isContextPopulated") var isContextPopulated = false
     @Environment(\.modelContext) var modelContext
+    @StateObject private var locationManager = LocationManager()
     @State private var authModel = AuthModel()
+    
+    var defaultCords: CLLocationCoordinate2D {
+        locationManager.lastKnownLocation ?? CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+    }
     
     var body: some View {
         Group {
             if authModel.userSession != nil {
                 if let user = authModel.currentUser {
-                    TabBarView(currentUser: user)
+                    TabBarView(currentUser: user, defaultCords: defaultCords)
+                        .onAppear { locationManager.start() }
                 }
             } else {
                 LandingView()
             }
         }
         .environment(authModel)
+        .environmentObject(locationManager)
         .onAppear {
             if !isContextPopulated {
                 populateModelContext()

@@ -6,21 +6,38 @@
 //
 
 import Firebase
+import MapKit
 import SwiftUI
 
 @Observable
 class GlobalModel {
     
-    init(user: User) {
-        self.user = user
-    }
-    
     var user: User
     var tabSelection = 0
+    var cameraPosition: MapCameraPosition
+    
+    init(user: User, defaultCords: CLLocationCoordinate2D) {
+        self.user = user
+        self.cameraPosition = .region(MKCoordinateRegion(center: defaultCords, span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)))
+    }
     
     var selectedLocation: Location? {
         didSet {
-            tabSelection = 1
+            if let location = selectedLocation {
+                tabSelection = 1
+                goToSelectedLocation(location)
+            }
+        }
+    }
+    
+    private func goToSelectedLocation(_ location: Location) {
+        self.cameraPosition = location.cameraPosition
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+            withAnimation {
+                self.cameraPosition = .region(MKCoordinateRegion(center: location.coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+            }
+            self.selectedLocation = nil
         }
     }
 }

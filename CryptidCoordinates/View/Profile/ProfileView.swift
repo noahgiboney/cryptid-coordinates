@@ -159,5 +159,6 @@ struct ProfileView: View {
 #Preview {
     ProfileView()
         .environment(AuthModel())
-        .environment(GlobalModel(user: .example))
+        .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
+    
 }
