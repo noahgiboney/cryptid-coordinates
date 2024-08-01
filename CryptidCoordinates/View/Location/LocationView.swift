@@ -7,11 +7,15 @@
 
 import MapKit
 import Kingfisher
+import StoreKit
 import SwiftData
 import SwiftUI
 
 struct LocationView: View {
     @Bindable var location: Location
+    @AppStorage("locationViewCount") var locationViewCount = 0
+    @AppStorage("lastVersionPromptedForReview") var lastVersionPromptedForReview = ""
+    @Environment(\.requestReview) var requestReview
     @Environment(\.colorScheme) var colorScheme
     @Environment(GlobalModel.self) var global
     @Environment(Saved.self) var saved
@@ -56,6 +60,13 @@ struct LocationView: View {
             VisitView(location: location)
                 .presentationDetents([.medium])
                 .presentationCornerRadius(20)
+        }
+        .onAppear{
+            if locationViewCount >= 10 && lastVersionPromptedForReview != "2.0" {
+                presentReview()
+            } else {
+                locationViewCount += 1
+            }
         }
         .task { await fetchLookAround() }
     }
@@ -121,6 +132,14 @@ struct LocationView: View {
     func openInMaps(_ location: Location) {
         let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinates))
         item.openInMaps()
+    }
+    
+    func presentReview() {
+        Task {
+            try await Task.sleep(for: .seconds(2.0))
+            requestReview()
+            lastVersionPromptedForReview = "2.0"
+        }
     }
 }
 
