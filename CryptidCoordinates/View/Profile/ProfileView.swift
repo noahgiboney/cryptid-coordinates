@@ -17,6 +17,7 @@ struct ProfileView: View {
     @State private var showSubmitRequest = false
     @State private var isShowingSignOutAlert = false
     @State private var visits: [Location : Timestamp] = [:]
+    @State private var didAppear = false
     
     var body: some View {
         NavigationStack {
@@ -51,12 +52,10 @@ struct ProfileView: View {
             } message: {
                 Text("Are you sure you want to sign out? You will have to sign back in next visit.")
             }
-            .task {
-                try? await fetchUserVisits()
-            }
             .fullScreenCover(isPresented: $showSubmitRequest) {
                 SubmitLocationDetailsView(showCover: $showSubmitRequest)
             }
+            .task { try? await fetchUserVisits() }
         }
     }
     

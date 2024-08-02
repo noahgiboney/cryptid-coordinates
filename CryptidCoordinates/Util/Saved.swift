@@ -5,7 +5,7 @@
 //  Created by Noah Giboney on 7/26/24.
 //
 
-import Foundation
+import SwiftUI
 
 @Observable
 class Saved {
@@ -30,10 +30,12 @@ class Saved {
     }
     
     func update(_ location: Location) {
-        if contains(location) {
-            locations.remove(location.id)
-        } else {
-            locations.insert(location.id)
+        withAnimation {
+            if contains(location) {
+                locations.remove(location.id)
+            } else {
+                locations.insert(location.id)
+            }
         }
     }
     

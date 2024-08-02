@@ -13,21 +13,25 @@ struct CommentView: View {
     @Environment(GlobalModel.self) var viewModel
     
     var body: some View {
-        HStack(alignment: .top){
-            AvatarView(type: .comment, user: .example)
-            
-            VStack(alignment: .leading, spacing: 5) {
-                HStack(alignment: .bottom) {
-                    Text(User.example.name)
-                        .fontWeight(.semibold)
+        Group {
+            if let user = comment.user {
+                HStack(alignment: .top){
+                    AvatarView(type: .comment, user: user)
                     
-                    Text(comment.timestamp.timeAgo())
-                        .font(.caption)
-                        .foregroundStyle(.gray)
+                    VStack(alignment: .leading, spacing: 5) {
+                        HStack(alignment: .bottom) {
+                            Text(user.name)
+                                .fontWeight(.semibold)
+                            
+                            Text(comment.timestamp.timeAgo())
+                                .font(.caption)
+                                .foregroundStyle(.gray)
+                        }
+                        
+                        Text(comment.content)
+                            .font(.footnote)
+                    }
                 }
-                
-                Text(comment.content)
-                    .font(.footnote)
             }
         }
     }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LeaderboardView: View {
+    @State private var didAppear = false
     @State private var model = LeaderboardModel()
     
     var body: some View {
@@ -41,11 +42,19 @@ struct LeaderboardView: View {
                     }
                 }
                 .navigationTitle("Leaderboard")
+                .refreshable {
+                    Task { try? await model.fetchLeadboard() }
+                }
             } else {
                 LoadingView()
             }
         }
-        .task { try? await model.fetchLeadboard() }
+        .task {
+            if !didAppear {
+                try? await model.fetchLeadboard()
+            }
+            didAppear = true
+        }
     }
 }
 

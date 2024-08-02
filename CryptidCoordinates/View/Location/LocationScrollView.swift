@@ -24,13 +24,19 @@ struct LocationScrollView: View {
                     }
                 }
             }
+            .scrollTargetLayout()
         }
+        .scrollTargetBehavior(.viewAligned)
         .contentMargins(15, for: .scrollContent)
         .listRowInsets(EdgeInsets())
     }
 }
 
 #Preview {
-    LocationScrollView(locations: [.example, .example, .example, .example, .example])
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Location.self, configurations: config)
+    
+    return LocationScrollView(locations: [.example, .example3, .example2])
+        .modelContainer(container)
         .environmentObject(LocationManager())
 }

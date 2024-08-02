@@ -12,11 +12,13 @@ import SwiftUI
 
 struct MapView: View {
     var defaultCords: CLLocationCoordinate2D
+    @EnvironmentObject var locationManager: LocationManager
     @Environment(GlobalModel.self) var global
     @Environment(\.modelContext) var modelContext
     @State private var selectedLocation: Location?
     @State private var model: MapModel
     @State private var didLoadAnnotations = false
+    @State private var didAppear = false
     @Query var locations: [Location]
     
     init(defaultCords: CLLocationCoordinate2D) {
@@ -50,6 +52,7 @@ struct MapView: View {
                     .tint(.black)
                 }
             }
+            .mapStyle(.hybrid)
             .mapControls {
                 MapUserLocationButton()
             }
@@ -77,11 +80,19 @@ struct MapView: View {
                         }
                 }
             }
-            .task {
-                guard !didLoadAnnotations else { return }
-                await model.addAnnotations(locations: locations)
-                didLoadAnnotations = true
+        }
+        .onAppear {
+            if !didAppear && global.selectedLocation == nil {
+                if let userLocation = locationManager.lastKnownLocation {
+                    global.cameraPosition = .region(MKCoordinateRegion(center: userLocation, span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)))
+                }
             }
+            didAppear = true
+        }
+        .task {
+            guard !didLoadAnnotations else { return }
+            await model.addAnnotations(locations: locations)
+            didLoadAnnotations = true
         }
     }
 }

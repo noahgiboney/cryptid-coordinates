@@ -26,7 +26,7 @@ struct ContentView: View {
             if authModel.userSession != nil {
                 if let user = authModel.currentUser {
                     TabBarView(currentUser: user, defaultCords: defaultCords)
-                        .onAppear { locationManager.start() }
+                        .onAppear {  locationManager.start() }
                 }
             } else {
                 LandingView()

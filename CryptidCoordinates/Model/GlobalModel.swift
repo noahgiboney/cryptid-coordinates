@@ -1,10 +1,11 @@
 //
-//  ViewModel.swift
+//  GlobalModel.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 6/14/24.
 //
 
+import Combine
 import Firebase
 import MapKit
 import SwiftUI

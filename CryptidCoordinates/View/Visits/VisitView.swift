@@ -120,20 +120,17 @@ struct VisitView: View {
                 .scaleEffect(2)
             
             VStack(alignment: .center, spacing: 4) {
-                Text("Nothing Here")
+                Text("You are too far away")
                     .font(.title2.bold())
                 
-                Text("Keep Searching. Move closer to find paranormal activity.")
+                Text("Move closer to \(location.name) to find paranormal activity.")
                     .font(.subheadline)
                     .foregroundStyle(.gray)
             }
             
             
             if let userCords = locationManager.lastKnownLocation {
-                VStack {
-                    Text("\(location.distanceAway(userCords)) miles away from")
-                    Text(("\(location.name)"))
-                }
+                Text("You are \(location.distanceAway(userCords)) miles away.")
             }
             
             Button {

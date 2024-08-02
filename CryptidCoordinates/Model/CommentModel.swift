@@ -33,18 +33,20 @@ class CommentModel {
         }
     }
     
-    func addComment(locationId: String) async throws {
-        guard let user = Auth.auth().currentUser else { return }
-        let newComment = Comment(userId: user.uid, locationId: locationId, content: comment)
+    func addComment(locationId: String, currentUser: User) async throws -> String? {
+        guard let user = Auth.auth().currentUser else { return nil }
+        var newComment = Comment(userId: user.uid, locationId: locationId, content: comment)
         
         do {
             try await CommentService.shared.addComment(comment: newComment)
-            
+            newComment.user = currentUser
             comments.insert(newComment, at: 0)
             comment = ""
+            return newComment.id
         } catch {
             print("Error: addComment(): \(error.localizedDescription)")
         }
+        return nil
     }
     
     func deleteComment(_ comment: Comment) async throws{

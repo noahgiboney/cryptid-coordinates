@@ -25,8 +25,8 @@ struct LocationPreviewView: View {
             switch loadState {
             case .loading:
                 ProgressView()
-                    .frame(height: 234)
-                    .containerRelativeFrame([.horizontal])
+                    .frame(height: 249)
+                    .frame(width: 350)
             case .loaded:
                 previewView
             case .error:
@@ -44,24 +44,25 @@ struct LocationPreviewView: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
-                    .frame(maxHeight: 160)
+                    .frame(maxHeight: 170)
             } else {
                 Image(systemName: "camera")
                     .imageScale(.large)
-                    .frame(height: 160)
+                    .frame(height: 170)
                     .foregroundStyle(colorScheme == .light ? .black : .white)
             }
             
             VStack(spacing: 0) {
                 Rectangle()
                     .fill(Color(uiColor: .systemBackground))
-                    .frame(height: 3)
+                    .frame(height: 2.5)
                 
                 HStack(alignment: .bottom) {
                     VStack(alignment: .leading) {
                         Text(location.name)
                             .fontWeight(.semibold)
                         Text(location.cityState)
+                            .font(.footnote)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .overlay(alignment:.bottomTrailing) {
@@ -71,18 +72,17 @@ struct LocationPreviewView: View {
                         }
                     }
                 }
-                .padding(10)
-                .padding(.horizontal, 5)
+                .padding(15)
                 .foregroundStyle(.white)
                 .background(Color(uiColor: averageColor))
             }
         }
-        .containerRelativeFrame([.horizontal])
+        .frame(width: 350)
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .overlay {
             RoundedRectangle(cornerRadius: 20).stroke(colorScheme == .light ? .black : .white, lineWidth: loadState == .error ? 1 : 0)
         }
-        .shadow(color: .black.opacity(0.3), radius: loadState == .loaded ? 5 : 0 , x: 0, y: 0)
+        .shadow(color: .black.opacity(0.3), radius: loadState == .loaded ? 5 : 0, x: 0, y: loadState == .loaded ? 5 : 0)
     }
     
     func downloadImage() {

@@ -41,7 +41,9 @@ struct CommentSection: View {
         }
         .onChange(of: isFocused) { _, newValue in
             if newValue == true {
-                scrollProxy.scrollTo("text_field", anchor: .bottom)
+                withAnimation {
+                    scrollProxy.scrollTo("text_field")
+                }
             }
         }
     }
@@ -50,6 +52,7 @@ struct CommentSection: View {
         LazyVStack(alignment: .leading, spacing: 25) {
             ForEach(model.comments) { comment in
                 CommentView(comment: comment)
+                    .id(comment.id)
                     .contextMenu {
                         if comment.userId == Auth.auth().currentUser?.uid {
                             Button("Delete", systemImage: "trash", role: .destructive) {
@@ -63,48 +66,53 @@ struct CommentSection: View {
     }
     
     var textField: some View {
-        HStack(alignment: .bottom) {
-            TextEditor(text: $model.comment)
-                .id("text_field")
-                .frame(minHeight: 40)
-                .fixedSize(horizontal: false, vertical: true)
-                .scrollContentBackground(.hidden)
-                .overlay {
-                    if model.comment.isEmpty && !isFocused {
-                        Text("Share an experience")
-                            .fixedSize(horizontal: false, vertical: true)
-                            .foregroundStyle(Color.gray.opacity(0.5))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal, 10)
+            HStack(alignment: .bottom) {
+                TextEditor(text: $model.comment)
+                    .id("text_field")
+                    .frame(minHeight: 40)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .scrollContentBackground(.hidden)
+                    .overlay {
+                        if model.comment.isEmpty && !isFocused {
+                            Label("Share an experience", systemImage: "bubble")
+                                .fixedSize(horizontal: false, vertical: true)
+                                .foregroundStyle(Color.gray.opacity(0.5))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 5)
+                        }
                     }
-                }
-                .onTapGesture {
-                    isFocused = true
-                }
-                .focused($isFocused)
-                .onReceive(model.comment.publisher.last()) {
-                    if ($0 as Character).asciiValue == 10 {
-                        isFocused = false
-                        model.comment.removeLast()
+                    .onTapGesture {
+                        isFocused = true
                     }
+                    .focused($isFocused)
+                    .onReceive(model.comment.publisher.last()) {
+                        if ($0 as Character).asciiValue == 10 {
+                            isFocused = false
+                            model.comment.removeLast()
+                        }
+                    }
+                    
+                if !model.comment.isEmpty {
+                    Button(action: addComment, label: {
+                        Image(systemName: "arrow.up.circle.fill")
+                            .imageScale(.large)
+                    })
+                    .padding(.bottom, 5)
                 }
-                
-            if !model.comment.isEmpty {
-                Button(action: addComment, label: {
-                    Image(systemName: "arrow.up.circle.fill")
-                        .imageScale(.large)
-                })
-                .padding(.bottom, 5)
             }
-        }
-        .padding(.horizontal, 10)
-        .background(Color(uiColor: .systemFill), in: RoundedRectangle(cornerRadius: 15))
+            .padding(.horizontal, 10)
     }
     
     func addComment() {
         Task {
-            try await model.addComment(locationId: locationId)
+            let commentId = try await model.addComment(locationId: locationId, currentUser: global.user)
             isFocused = false
+            
+            if let id = commentId {
+                withAnimation {
+                    scrollProxy.scrollTo(id)
+                }
+            }
         }
     }
 }
