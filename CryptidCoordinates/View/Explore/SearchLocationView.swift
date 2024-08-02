@@ -35,7 +35,7 @@ struct SearchLocationView: View {
                             } label: {
                                 Image(systemName: saved.contains(location) ? "bookmark.slash.fill" : "bookmark")
                             }
-                            .tint(Color("AccentColor"))
+                            .tint(saved.contains(location) ? .red : .accent)
                         }
                 }
             }

@@ -48,9 +48,9 @@ struct SavedListView: View {
                     Button {
                         saved.update(location)
                     } label: {
-                        Image(systemName: "bookmark.slash.fill")
+                        Image(systemName: "trash")
                     }
-                    .tint(Color("AccentColor"))
+                    .tint(.red)
                 }
         }
     }
