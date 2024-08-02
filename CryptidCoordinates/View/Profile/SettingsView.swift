@@ -21,6 +21,7 @@ struct SettingsView: View {
                         UIApplication.shared.open(url)
                     }
                 }
+                .foregroundStyle(.blue)
             }
             
             Section {
@@ -29,12 +30,14 @@ struct SettingsView: View {
                 } label: {
                     Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
                 }
+                .foregroundStyle(.blue)
                 
                 Button(role: .destructive) {
                     isShowingDeleteAccDialog.toggle()
                 } label: {
                     Label("Delete Account", systemImage: "trash")
                 }
+                .foregroundStyle(.red)
             }
         }
         .navigationTitle("Settings")

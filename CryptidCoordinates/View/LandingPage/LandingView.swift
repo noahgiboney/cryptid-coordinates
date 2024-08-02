@@ -11,26 +11,14 @@ import SwiftUI
 
 struct LandingView: View {
     @Environment(AuthModel.self) var authModel
-    @Environment(\.colorScheme) var colorScheme
     @State private var errorMessage = ""
     @State private var isShowingError = false
-    
-    private var darkModeColors: [Color] {
-        [Color("AccentColor"), Color.black]
-    }
-    
-    private var lightModeColors: [Color] {
-        [ Color("AccentColor"), Color.white]
-    }
     @State var colors: [(id: Int, color: UIColor, frequency: CGFloat)] = []
-    @State var gradietnModel = AnimatedGradient.Model(colors: [])
+    @State var gradietnModel = AnimatedGradient.Model(colors: [.accent, .black.opacity(0.3)])
     
     var body: some View {
         GradientEffectView($gradietnModel)
             .ignoresSafeArea()
-            .onAppear {
-                gradietnModel.colors = colorScheme == .dark ? darkModeColors : lightModeColors
-            }
             .overlay(alignment: .center) {
                 VStack(spacing: 20) {
                     Image(.nun)
@@ -39,7 +27,9 @@ struct LandingView: View {
                         .frame(height: 200)
                     Text("Cryptid Coordinates")
                         .font(.title.bold())
+                        .foregroundStyle(.white)
                     Text("Uncover what lurks in the shadows.")
+                        .foregroundStyle(.white)
                 }
             }
             .foregroundStyle(.black)
