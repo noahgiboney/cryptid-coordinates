@@ -123,7 +123,7 @@ struct LocationView: View {
             Button("Visit") {
                 showVisitSheet.toggle()
             }
-            .buttonStyle(.bordered)
+            .buttonStyle(.borderedProminent)
             .popoverTip(VisitTip.tip)
         }
         .imageScale(.large)

@@ -42,6 +42,7 @@ struct SubmitView: View {
                     Image(systemName: "paperplane")
                 }
             }
+            .foregroundStyle(.blue)
         }
         .navigationTitle("Review")
         .navigationBarTitleDisplayMode(.inline)
@@ -49,7 +50,6 @@ struct SubmitView: View {
             Button("Ok") {
                 showCover = false
             }
-            
         } message: {
             Text(submitModel.alertMessage)
         }

@@ -27,6 +27,7 @@ struct LocationUnavailableView: View {
                 Label("Share Location", systemImage: "location.fill")
             }
             .buttonStyle(.bordered)
+            .foregroundStyle(.blue)
         })
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Firebase
+import MapKit
 import StoreKit
 import SwiftUI
 
@@ -134,11 +135,12 @@ struct VisitView: View {
             }
             
             Button {
-                
+                openInMaps(location)
             } label: {
                 Label("Directions", systemImage: "location")
             }
             .buttonStyle(.bordered)
+            .foregroundStyle(.blue)
         }
     }
     
@@ -166,8 +168,6 @@ struct VisitView: View {
             } else {
                 visitState = .notInProximity
             }
-            
-            
         } catch {
             print("Error: checkDidVisit(): \(error.localizedDescription)")
         }
@@ -186,7 +186,6 @@ struct VisitView: View {
             if global.user.visits >= 2 && lastVersionPromptedForReview != "2.0" {
                 presentReview()
             }
-            
         } catch {
             print("Error: logVisit() : \(error.localizedDescription)")
         }
@@ -198,6 +197,11 @@ struct VisitView: View {
             requestReview()
             lastVersionPromptedForReview = "2.0"
         }
+    }
+    
+    func openInMaps(_ location: Location) {
+        let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinates))
+        item.openInMaps()
     }
 }
 
