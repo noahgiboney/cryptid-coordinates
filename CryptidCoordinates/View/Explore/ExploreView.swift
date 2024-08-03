@@ -45,15 +45,6 @@ struct ExploreView: View {
             .searchable(text: $searchText)
             .listStyle(.plain)
             .listRowSpacing(5)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    if !searchText.isEmpty {
-                        Button("Sort", systemImage: "arrow.up.arrow.down") {
-                            //
-                        }
-                    }
-                }
-            }
         }
     }
 }

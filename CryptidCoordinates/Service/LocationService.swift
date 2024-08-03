@@ -14,12 +14,7 @@ class LocationService {
     var nearestLocations: [Location] = []
     
     private init () {}
-
-}
-
-// MARK: - trending
-
-extension LocationService {
+    
     func fetchTrending() async throws -> [String] {
         let trendingRef = Firestore.firestore().collection("trending")
         let snapshot = try await trendingRef.getDocuments()

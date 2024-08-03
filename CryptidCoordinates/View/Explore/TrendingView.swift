@@ -16,9 +16,7 @@ struct TrendingView: View {
     var body: some View {
         LocationScrollView(locations: trendingLocations)
             .listRowInsets(EdgeInsets())
-            .task {
-                await fetchTrending()
-            }
+            .task { await fetchTrending() }
     }
     
     func fetchTrending() async {

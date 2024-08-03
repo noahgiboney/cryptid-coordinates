@@ -36,7 +36,6 @@ extension Timestamp {
     }
 }
 
-
 func roundToTenth(_ number: Double) -> String {
     let roundedNumber = (number * 10).rounded() / 10
     let formatter = NumberFormatter()

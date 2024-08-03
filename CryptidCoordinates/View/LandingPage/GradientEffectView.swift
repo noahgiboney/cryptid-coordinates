@@ -1,10 +1,3 @@
-//
-//  GradientEffectView.swift
-//  CryptidCoordinates
-//
-//  Created by Noah Giboney on 6/22/24.
-//
-
 import Combine
 import SwiftUI
 

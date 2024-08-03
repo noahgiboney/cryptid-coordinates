@@ -12,7 +12,6 @@ import SwiftUI
 
 @Observable
 class GlobalModel {
-    
     var user: User
     var tabSelection = 0
     var cameraPosition: MapCameraPosition

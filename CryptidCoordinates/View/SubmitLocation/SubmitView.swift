@@ -1,5 +1,5 @@
 //
-//  RequestSubmitView.swift
+//  SubmitView.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 6/16/24.

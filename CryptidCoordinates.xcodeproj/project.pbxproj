@@ -52,7 +52,6 @@
 		E24AE7242C5760CF00B5D741 /* BundleDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE71F2C5760CF00B5D741 /* BundleDecode.swift */; };
 		E24AE7252C5760CF00B5D741 /* Saved.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE7202C5760CF00B5D741 /* Saved.swift */; };
 		E24AE7262C5760CF00B5D741 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE7212C5760CF00B5D741 /* Util.swift */; };
-		E24AE7272C5760CF00B5D741 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE7222C5760CF00B5D741 /* ImageHelper.swift */; };
 		E24AE7282C5760CF00B5D741 /* Geohash.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE7232C5760CF00B5D741 /* Geohash.swift */; };
 		E24AE7302C5760E600B5D741 /* LocationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE72A2C5760E600B5D741 /* LocationRowView.swift */; };
 		E24AE7312C5760E600B5D741 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE72B2C5760E600B5D741 /* MenuBar.swift */; };
@@ -125,7 +124,6 @@
 		E24AE71F2C5760CF00B5D741 /* BundleDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleDecode.swift; sourceTree = "<group>"; };
 		E24AE7202C5760CF00B5D741 /* Saved.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Saved.swift; sourceTree = "<group>"; };
 		E24AE7212C5760CF00B5D741 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
-		E24AE7222C5760CF00B5D741 /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		E24AE7232C5760CF00B5D741 /* Geohash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geohash.swift; sourceTree = "<group>"; };
 		E24AE72A2C5760E600B5D741 /* LocationRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationRowView.swift; sourceTree = "<group>"; };
 		E24AE72B2C5760E600B5D741 /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
@@ -260,9 +258,9 @@
 				E24AE7042C5760A200B5D741 /* Data */,
 				E20179FD2C5ADEB500D0A1AA /* AuthModel.swift */,
 				E24AE7002C5760A200B5D741 /* CommentModel.swift */,
-				E222F72A2C5C5424004643B7 /* LocationManager.swift */,
-				E24AE7032C5760A200B5D741 /* LeaderboardModel.swift */,
 				E24AE7022C5760A200B5D741 /* GlobalModel.swift */,
+				E24AE7032C5760A200B5D741 /* LeaderboardModel.swift */,
+				E222F72A2C5C5424004643B7 /* LocationManager.swift */,
 				E2C5BB5A2C59D0CC003DD640 /* MapModel.swift */,
 				E24AE6FF2C5760A200B5D741 /* SubmitLocationModel.swift */,
 			);
@@ -290,7 +288,6 @@
 			children = (
 				E24AE71F2C5760CF00B5D741 /* BundleDecode.swift */,
 				E24AE7232C5760CF00B5D741 /* Geohash.swift */,
-				E24AE7222C5760CF00B5D741 /* ImageHelper.swift */,
 				E24AE7202C5760CF00B5D741 /* Saved.swift */,
 				E24AE7212C5760CF00B5D741 /* Util.swift */,
 			);
@@ -550,7 +547,6 @@
 				E24AE7122C5760A200B5D741 /* GlobalModel.swift in Sources */,
 				E24AE7582C5762C500B5D741 /* LocationView.swift in Sources */,
 				E24AE7132C5760A200B5D741 /* LeaderboardModel.swift in Sources */,
-				E24AE7272C5760CF00B5D741 /* ImageHelper.swift in Sources */,
 				E24AE7322C5760E600B5D741 /* BackButton.swift in Sources */,
 				E23D30E02C1AC43700025363 /* ContentView.swift in Sources */,
 				E24AE70F2C5760A200B5D741 /* SubmitLocationModel.swift in Sources */,
@@ -757,7 +753,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.noahgiboney.CryptidCoordinates;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -791,7 +787,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.noahgiboney.CryptidCoordinates;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

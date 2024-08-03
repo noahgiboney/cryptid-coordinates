@@ -10,6 +10,7 @@ import Kingfisher
 import StoreKit
 import SwiftData
 import SwiftUI
+import TipKit
 
 struct LocationView: View {
     @Bindable var location: Location
@@ -69,7 +70,10 @@ struct LocationView: View {
                 locationViewCount += 1
             }
         }
-        .task { await fetchLookAround() }
+        .task {
+            await fetchLookAround()
+            await VisitTip.viewLocationEvent.donate()
+        }
     }
     
     var locationHeader: some View {
@@ -120,6 +124,7 @@ struct LocationView: View {
                 showVisitSheet.toggle()
             }
             .buttonStyle(.bordered)
+            .popoverTip(VisitTip.tip)
         }
         .imageScale(.large)
         .padding(.horizontal, 20)

@@ -8,6 +8,30 @@
 import Foundation
 import TipKit
 
+struct VisitTip: Tip {
+    static let tip = VisitTip()
+    
+    static let viewLocationEvent = Event(id: "viewLocation")
+    
+    var title: Text {
+        Text("Visit Locations")
+    }
+    
+    var message: Text? {
+        Text("Upon arriving at a location, click visit to scan for paranormal activity. If detected, you will earn a visit.")
+    }
+    
+    var image: Image? {
+        Image(systemName: "mappin.and.ellipse")
+    }
+    
+    var rules: [Rule] {
+        #Rule(Self.viewLocationEvent) { event in
+            event.donations.count == 2
+        }
+    }
+}
+
 struct PickCordTip: Tip {
     static let tip = PickCordTip()
     
