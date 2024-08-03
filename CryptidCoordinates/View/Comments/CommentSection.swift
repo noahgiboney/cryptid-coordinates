@@ -49,17 +49,10 @@ struct CommentSection: View {
     }
     
     var commentScrollView: some View {
-        LazyVStack(alignment: .leading, spacing: 25) {
+        LazyVStack(alignment: .leading, spacing: 35) {
             ForEach(model.comments) { comment in
-                CommentView(comment: comment)
+                CommentView(comment: comment, model: model)
                     .id(comment.id)
-                    .contextMenu {
-                        if comment.userId == Auth.auth().currentUser?.uid {
-                            Button("Delete", systemImage: "trash", role: .destructive) {
-                                Task { try await model.deleteComment(comment) }
-                            }
-                        }
-                    }
             }
         }
         .padding(.trailing, 25)
@@ -78,7 +71,6 @@ struct CommentSection: View {
                                 .fixedSize(horizontal: false, vertical: true)
                                 .foregroundStyle(Color.gray.opacity(0.5))
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.horizontal, 5)
                         }
                     }
                     .onTapGesture {
@@ -113,6 +105,12 @@ struct CommentSection: View {
                     scrollProxy.scrollTo(id)
                 }
             }
+        }
+    }
+    
+    func deleteComment() {
+        Task {
+            
         }
     }
 }

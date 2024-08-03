@@ -18,12 +18,12 @@ class CommentService {
     }
     
     func fetchComments(locationId: String) async throws -> [Comment] {
-        try await withThrowingTaskGroup(of: (Comment, User).self) { taskGroup in
+        try await withThrowingTaskGroup(of: (Comment, User?).self) { taskGroup in
             let snapshot = try await commentCollection(locationId).getDocuments()
             let comments = snapshot.documents.compactMap( { try? $0.data(as: Comment.self)} )
             for comment in comments {
                 taskGroup.addTask {
-                    let user = try await UserService.shared.fetchUser(userId: comment.userId)
+                    let user = try? await UserService.shared.fetchUser(userId: comment.userId)
                     return (comment, user)
                 }
             }
@@ -46,6 +46,13 @@ class CommentService {
     
     func deleteComment(locationId: String, commentId: String) async throws {
         try await commentCollection(locationId).document(commentId).delete()
+    }
+    
+    func reportComment(comment: Comment) async throws {
+        let reportRef = Firestore.firestore().collection("reportedComments")
+        let newReport = ReportedComment(commentId: comment.id, content: comment.content, locationId: comment.locationId)
+        let encodedComment = try Firestore.Encoder().encode(newReport)
+        try await reportRef.document(newReport.commentId).setData(encodedComment)
     }
     
     func fetchTotalComments(locationId: String) async throws -> Int {

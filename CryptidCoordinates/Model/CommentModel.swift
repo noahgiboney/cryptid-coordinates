@@ -49,7 +49,7 @@ class CommentModel {
         return nil
     }
     
-    func deleteComment(_ comment: Comment) async throws{
+    func deleteComment(_ comment: Comment) async throws {
         do {
             try await CommentService.shared.deleteComment(locationId: comment.locationId, commentId: comment.id)
             
@@ -58,6 +58,14 @@ class CommentModel {
             }
         } catch {
             print("Error: deleteComment(): \(error.localizedDescription)")
+        }
+    }
+    
+    func reportComment(_ comment: Comment) async throws {
+        do {
+            try await CommentService.shared.reportComment(comment: comment)
+        } catch {
+            print("Error: reportComment(): \(error.localizedDescription)")
         }
     }
 }

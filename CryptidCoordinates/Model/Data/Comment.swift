@@ -29,3 +29,9 @@ extension Comment {
     
     static let exampleArray: [Comment] = Array.init(repeating: .example, count: 5)
 }
+
+struct ReportedComment: Codable {
+    var commentId: String
+    var content: String
+    var locationId: String
+}
