@@ -25,37 +25,25 @@ struct TabBarView: View {
         TabView(selection: $global.tabSelection) {
             ExploreView()
                 .tabItem {
-                    VStack {
-                        Image(systemName: "house")
-                        Text("Explore")
-                    }
+                    Image(systemName: "house")
                 }
                 .tag(0)
             
             MapView(defaultCords: defaultCords)
                 .tabItem {
-                    VStack {
-                        Image(systemName: "map")
-                        Text("Map")
-                    }
+                    Image(systemName: "map")
                 }
                 .tag(1)
             
             LeaderboardView()
                 .tabItem {
-                    VStack {
-                        Image(systemName: "medal")
-                        Text("Leaderboard")
-                    }
+                    Image(systemName: "medal")
                 }
                 .tag(2)
             
             ProfileView()
                 .tabItem {
-                    VStack {
-                        Image(systemName: "person")
-                        Text("Profile")
-                    }
+                    Image(systemName: "person")
                 }
                 .tag(3)
         }
