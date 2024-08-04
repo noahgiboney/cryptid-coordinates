@@ -39,6 +39,10 @@ class Saved {
         }
     }
     
+    func wipeSaved() {
+        locations.removeAll()
+    }
+    
     private func save() {
         if let data = try? JSONEncoder().encode(locations) {
             UserDefaults.standard.set(data, forKey: key)

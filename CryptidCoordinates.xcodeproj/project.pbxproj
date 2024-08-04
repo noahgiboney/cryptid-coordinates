@@ -85,6 +85,7 @@
 		E2583F0E2C326D08002B1FA5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2583F0D2C326D08002B1FA5 /* SettingsView.swift */; };
 		E286FF882B560B4300C9782A /* ClusterMap in Frameworks */ = {isa = PBXBuildFile; productRef = E286FF872B560B4300C9782A /* ClusterMap */; };
 		E286FF8A2B560B4300C9782A /* ClusterMapSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E286FF892B560B4300C9782A /* ClusterMapSwiftUI */; };
+		E2A2C39C2C5FE6BA00161C16 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E2A2C39B2C5FE6BA00161C16 /* KeychainSwift */; };
 		E2B326AE2C1F978300B0D1B5 /* SubmitLocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B326AD2C1F978300B0D1B5 /* SubmitLocationDetailsView.swift */; };
 		E2B326B02C1F9BC300B0D1B5 /* PickCordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B326AF2C1F9BC300B0D1B5 /* PickCordView.swift */; };
 		E2B326B42C1F9DE800B0D1B5 /* SubmitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B326B32C1F9DE800B0D1B5 /* SubmitView.swift */; };
@@ -187,6 +188,7 @@
 				E204C1172C1E3EF700688944 /* FirebaseInstallations in Frameworks */,
 				E204C1112C1E3EF700688944 /* FirebaseFirestoreSwift in Frameworks */,
 				E204C0FF2C1E3EF700688944 /* FirebaseAppCheck in Frameworks */,
+				E2A2C39C2C5FE6BA00161C16 /* KeychainSwift in Frameworks */,
 				E2F9E9572C2296CF00D74D31 /* Kingfisher in Frameworks */,
 				E204C0F92C1E3EF700688944 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				E204C1152C1E3EF700688944 /* FirebaseFunctionsCombine-Community in Frameworks */,
@@ -480,6 +482,7 @@
 				E204C11C2C1E3EF700688944 /* FirebaseStorage */,
 				E204C11E2C1E3EF700688944 /* FirebaseVertexAI-Preview */,
 				E2F9E9562C2296CF00D74D31 /* Kingfisher */,
+				E2A2C39B2C5FE6BA00161C16 /* KeychainSwift */,
 			);
 			productName = CryptidCoordinates;
 			productReference = E2C76C032B4E14550080F669 /* CryptidCoordinates.app */;
@@ -513,6 +516,7 @@
 				E286FF862B560B4300C9782A /* XCRemoteSwiftPackageReference "ClusterMap" */,
 				E204C0F52C1E3EF700688944 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				E2F9E9552C2296CF00D74D31 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				E2A2C39A2C5FE6BA00161C16 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			productRefGroup = E2C76C042B4E14550080F669 /* Products */;
 			projectDirPath = "";
@@ -753,7 +757,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.1;
+				MARKETING_VERSION = 1.9.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.noahgiboney.CryptidCoordinates;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -787,7 +791,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.1;
+				MARKETING_VERSION = 1.9.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.noahgiboney.CryptidCoordinates;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -835,6 +839,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.1.0;
+			};
+		};
+		E2A2C39A2C5FE6BA00161C16 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 24.0.0;
 			};
 		};
 		E2F9E9552C2296CF00D74D31 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
@@ -962,6 +974,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E286FF862B560B4300C9782A /* XCRemoteSwiftPackageReference "ClusterMap" */;
 			productName = ClusterMapSwiftUI;
+		};
+		E2A2C39B2C5FE6BA00161C16 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2A2C39A2C5FE6BA00161C16 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
 		};
 		E2F9E9562C2296CF00D74D31 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;

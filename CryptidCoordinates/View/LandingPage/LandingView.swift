@@ -7,6 +7,7 @@
 
 import AuthenticationServices
 import Firebase
+import KeychainSwift
 import SwiftUI
 
 struct LandingView: View {
@@ -14,7 +15,7 @@ struct LandingView: View {
     @State private var errorMessage = ""
     @State private var isShowingError = false
     @State var colors: [(id: Int, color: UIColor, frequency: CGFloat)] = []
-    @State var gradietnModel = AnimatedGradient.Model(colors: [.accent, .black.opacity(0.3)])
+    @State var gradietnModel = AnimatedGradient.Model(colors: [.accent, .darkGray])
     
     var body: some View {
         GradientEffectView($gradietnModel)
@@ -28,7 +29,8 @@ struct LandingView: View {
                     Text("Cryptid Coordinates")
                         .font(.title.bold())
                         .foregroundStyle(.white)
-                    Text("Uncover what lurks in the shadows.")
+                    Text("Uncover what lurks in the shadows")
+                        .font(.headline)
                         .foregroundStyle(.white)
                 }
             }
@@ -60,13 +62,29 @@ struct LandingView: View {
                         nonce: AppleAuthManager.nonce
                     )
                     if let result = result {
+                        let keychain = KeychainSwift()
                         let id = result.user.uid
+                        
+                        // check if user has an active account
                         let accountExists = try await authModel.checkIfUserExists(userId: id)
                         
                         if !accountExists {
-                            try await authModel.createNewUser(id: id, name: appleIDCredentials.displayName())
+                            var displayName: String
+                            
+                            // if user had a account previously, use name saved in keychain
+                            if let name = keychain.get("displayName") {
+                                displayName = name
+                            } else {
+                                // otherwise, use apple id, save display name to keychain
+                                displayName = appleIDCredentials.displayName()
+                                keychain.set(displayName, forKey: "displayName")
+                            }
+                                
+                            // create the user
+                            try await authModel.createNewUser(id: id, name: displayName)
                         }
                         
+                        // set the session
                         authModel.userSession = result.user
                     }
                 } catch {

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(AuthModel.self) var authModel
+    @Environment(Saved.self) var saved
     @State private var isShowingSignOutAlert = false
     @State private var isShowingDeleteAccAlert = false
     @State private var isShowingDeleteAccDialog = false
@@ -52,7 +53,10 @@ struct SettingsView: View {
         }
         .alert("Confirm Deletion", isPresented: $isShowingDeleteAccAlert) {
             Button("Delete", role: .destructive) {
-                Task { try await authModel.deleteAccount() }
+                Task { 
+                    try await authModel.deleteAccount()
+                    saved.wipeSaved()
+                }
             }
         } message: {
             Text("Please confirm that you want to delete your account. Your data will be permanently lost.")
@@ -80,5 +84,6 @@ struct SettingsView: View {
 
 #Preview {
     SettingsView()
+        .environment(Saved())
         .environment(AuthModel())
 }
