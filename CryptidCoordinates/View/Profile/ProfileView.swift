@@ -121,6 +121,14 @@ struct ProfileView: View {
                     }
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets())
+                    
+                    if visits.count > 5 {
+                        NavigationLink("View All") {
+                            AllVisitsView(visits: visits)
+                        }
+                        .foregroundStyle(.blue)
+                        .padding(.trailing)
+                    }
                 }
             }
             .contentMargins(5, for: .scrollContent)

@@ -25,7 +25,7 @@ struct PickCordView: View {
                     }
                 }
             }
-            .mapStyle(.imagery)
+            .mapStyle(.hybrid)
             .onTapGesture(perform: { screenCoord in
                 let pinLocation = reader.convert(screenCoord, from: .local)
                 withAnimation(.easeOut){
@@ -36,7 +36,7 @@ struct PickCordView: View {
                 }
                 Task { await PickCordTip.pickCordEvent.donate() }
             })
-            .navigationTitle("Pick Coordinates")
+            .navigationTitle("Coordinates")
             .navigationBarTitleDisplayMode(.inline)
             .overlay(alignment: .top) {
                 TipView(PickCordTip.tip)
