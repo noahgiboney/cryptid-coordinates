@@ -60,8 +60,8 @@ struct LocationView: View {
         }
         .sheet(isPresented: $showVisitSheet) {
             VisitView(location: location)
-                .presentationDetents([.medium])
-                .presentationCornerRadius(20)
+                .presentationDetents([.fraction(0.45)])
+                .presentationCornerRadius(15)
         }
         .onAppear{
             if locationViewCount >= 10 && lastVersionPromptedForReview != "2.0" {
