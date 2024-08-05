@@ -34,6 +34,8 @@ struct CommentSection: View {
         .onChange(of: model.comments) { oldValue, newValue in
             if !model.comments.isEmpty {
                 model.loadState = .loaded
+            } else if model.comment.isEmpty {
+                model.loadState = .empty
             }
         }
         .task {

@@ -54,6 +54,7 @@ struct CommentView: View {
                             }
                         } label: {
                             Image(systemName: "ellipsis")
+                                .imageScale(.large)
                                 .foregroundStyle(.gray)
                         }
                         Spacer()
