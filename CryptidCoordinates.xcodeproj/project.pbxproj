@@ -35,7 +35,6 @@
 		E222D9052C27CCF400FA427D /* GradientEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222D9042C27CCF400FA427D /* GradientEffectView.swift */; };
 		E222F7292C5C21EE004643B7 /* ScanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222F7282C5C21EE004643B7 /* ScanningView.swift */; };
 		E222F72B2C5C5424004643B7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222F72A2C5C5424004643B7 /* LocationManager.swift */; };
-		E22B4A432C601900002E36A6 /* RippleView in Frameworks */ = {isa = PBXBuildFile; productRef = E22B4A422C601900002E36A6 /* RippleView */; };
 		E22BFCED2C584B1B00EF462B /* AllVisitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BFCEC2C584B1B00EF462B /* AllVisitsView.swift */; };
 		E23154242C1E843F0026F3E8 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23154232C1E843F0026F3E8 /* AppleAuthManager.swift */; };
 		E23618662C1E63D9005AF3FB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23618652C1E63D9005AF3FB /* ProfileView.swift */; };
@@ -95,6 +94,7 @@
 		E2C76C0B2B4E14550080F669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2C76C0A2B4E14550080F669 /* Assets.xcassets */; };
 		E2C76C0E2B4E14550080F669 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2C76C0D2B4E14550080F669 /* Preview Assets.xcassets */; };
 		E2D80E582C30EC2F0077D763 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D80E572C30EC2F0077D763 /* EditProfileView.swift */; };
+		E2E9D8752C61C694009995D0 /* UserVistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E9D8742C61C694009995D0 /* UserVistsView.swift */; };
 		E2EE30322C1D4F2A007F74C6 /* LocationPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE30312C1D4F2A007F74C6 /* LocationPreviewView.swift */; };
 		E2EE30372C1D563F007F74C6 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EE30362C1D563F007F74C6 /* LandingView.swift */; };
 		E2F9E9572C2296CF00D74D31 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E2F9E9562C2296CF00D74D31 /* Kingfisher */; };
@@ -167,6 +167,7 @@
 		E2C76C0A2B4E14550080F669 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2C76C0D2B4E14550080F669 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E2D80E572C30EC2F0077D763 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		E2E9D8742C61C694009995D0 /* UserVistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVistsView.swift; sourceTree = "<group>"; };
 		E2EE30312C1D4F2A007F74C6 /* LocationPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPreviewView.swift; sourceTree = "<group>"; };
 		E2EE30362C1D563F007F74C6 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		E2F9E9582C22A79100D74D31 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
@@ -200,7 +201,6 @@
 				E204C1052C1E3EF700688944 /* FirebaseAuthCombine-Community in Frameworks */,
 				E204C11D2C1E3EF700688944 /* FirebaseStorage in Frameworks */,
 				E204C10B2C1E3EF700688944 /* FirebaseDynamicLinks in Frameworks */,
-				E22B4A432C601900002E36A6 /* RippleView in Frameworks */,
 				E204C11F2C1E3EF700688944 /* FirebaseVertexAI-Preview in Frameworks */,
 				E204C10D2C1E3EF700688944 /* FirebaseFirestore in Frameworks */,
 			);
@@ -336,6 +336,7 @@
 			isa = PBXGroup;
 			children = (
 				E24AE7532C57629400B5D741 /* LeaderboardView.swift */,
+				E2E9D8742C61C694009995D0 /* UserVistsView.swift */,
 			);
 			path = Leaderboard;
 			sourceTree = "<group>";
@@ -485,7 +486,6 @@
 				E204C11E2C1E3EF700688944 /* FirebaseVertexAI-Preview */,
 				E2F9E9562C2296CF00D74D31 /* Kingfisher */,
 				E2A2C39B2C5FE6BA00161C16 /* KeychainSwift */,
-				E22B4A422C601900002E36A6 /* RippleView */,
 			);
 			productName = CryptidCoordinates;
 			productReference = E2C76C032B4E14550080F669 /* CryptidCoordinates.app */;
@@ -520,7 +520,6 @@
 				E204C0F52C1E3EF700688944 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				E2F9E9552C2296CF00D74D31 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E2A2C39A2C5FE6BA00161C16 /* XCRemoteSwiftPackageReference "keychain-swift" */,
-				E22B4A412C601900002E36A6 /* XCRemoteSwiftPackageReference "RippleView" */,
 			);
 			productRefGroup = E2C76C042B4E14550080F669 /* Products */;
 			projectDirPath = "";
@@ -557,6 +556,7 @@
 				E24AE7132C5760A200B5D741 /* LeaderboardModel.swift in Sources */,
 				E24AE7322C5760E600B5D741 /* BackButton.swift in Sources */,
 				E23D30E02C1AC43700025363 /* ContentView.swift in Sources */,
+				E2E9D8752C61C694009995D0 /* UserVistsView.swift in Sources */,
 				E24AE70F2C5760A200B5D741 /* SubmitLocationModel.swift in Sources */,
 				E222F7292C5C21EE004643B7 /* ScanningView.swift in Sources */,
 				E24AE7242C5760CF00B5D741 /* BundleDecode.swift in Sources */,
@@ -837,14 +837,6 @@
 				minimumVersion = 10.27.0;
 			};
 		};
-		E22B4A412C601900002E36A6 /* XCRemoteSwiftPackageReference "RippleView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/emmanuelkehinde/RippleView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.2;
-			};
-		};
 		E286FF862B560B4300C9782A /* XCRemoteSwiftPackageReference "ClusterMap" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/vospennikov/ClusterMap.git";
@@ -976,11 +968,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E204C0F52C1E3EF700688944 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseVertexAI-Preview";
-		};
-		E22B4A422C601900002E36A6 /* RippleView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E22B4A412C601900002E36A6 /* XCRemoteSwiftPackageReference "RippleView" */;
-			productName = RippleView;
 		};
 		E286FF872B560B4300C9782A /* ClusterMap */ = {
 			isa = XCSwiftPackageProductDependency;

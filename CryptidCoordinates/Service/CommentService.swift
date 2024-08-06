@@ -35,7 +35,7 @@ class CommentService {
                 updatedComments.append(updatedCommnet)
             }
             
-            return updatedComments.sorted { $0.timestamp.dateValue() > $1.timestamp.dateValue() }
+            return updatedComments.sorted { $0.timestamp.dateValue() > $1.timestamp.dateValue() }.filter { $0.user != nil }
         }
     }
     

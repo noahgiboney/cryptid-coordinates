@@ -56,6 +56,7 @@ struct CommentView: View {
                             Image(systemName: "ellipsis")
                                 .imageScale(.large)
                                 .foregroundStyle(.gray)
+                                .padding(.vertical)
                         }
                         Spacer()
                     }
