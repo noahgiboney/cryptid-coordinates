@@ -88,7 +88,11 @@ struct ProfileView: View {
     var vistitedLocationsView: some View {
         VStack(alignment: .leading) {
             NavigationLink {
-                AllVisitsView(visits: visits)
+                ScrollView {
+                    VisitsScrollView(visits: visits)
+                        .navigationTitle("Visits")
+                        .navigationBarTitleDisplayMode(.inline)
+                }
             } label: {
                 Text("\(global.user.visits) Locations Visited")
                 .padding(.top)
@@ -124,7 +128,7 @@ struct ProfileView: View {
                     
                     if visits.count > 5 {
                         NavigationLink("View All") {
-                            AllVisitsView(visits: visits)
+                            VisitsScrollView(visits: visits)
                         }
                         .foregroundStyle(.blue)
                         .padding(.trailing)

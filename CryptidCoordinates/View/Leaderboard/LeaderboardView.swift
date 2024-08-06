@@ -8,37 +8,41 @@
 import SwiftUI
 
 struct LeaderboardView: View {
-    @State private var didAppear = false
     @State private var model = LeaderboardModel()
+    @State private var didAppear = false
     
     var body: some View {
         NavigationStack {
             if model.didLoad {
                 List {
                     ForEach(model.leaderboard.indices, id: \.self) { index in
-                        HStack(spacing: 20) {
-                            MedalView(index: index)
-                            
-                            HStack {
-                                AvatarView(type: .medium, user: model.leaderboard[index])
+                        NavigationLink {
+                            UserProfileView(user: model.leaderboard[index])
+                        } label: {
+                            HStack(spacing: 20) {
+                                MedalView(index: index)
                                 
-                                Text(model.leaderboard[index].name)
-                                    .lineLimit(1)
-                                    .truncationMode(.tail)
+                                HStack {
+                                    AvatarView(type: .medium, user: model.leaderboard[index])
+                                    
+                                    Text(model.leaderboard[index].name)
+                                        .lineLimit(1)
+                                        .truncationMode(.tail)
+                                }
+                                
+                                Spacer()
+                                
+                                HStack(spacing: 4) {
+                                    Text("\(model.leaderboard[index].visits)")
+                                        .contentTransition(.numericText())
+                                    Text("Visits")
+                                }
+                                .font(.caption2)
+                                .foregroundStyle(.gray)
                             }
-                            
-                            Spacer()
-                            
-                            HStack(spacing: 4) {
-                                Text("\(model.leaderboard[index].visits)")
-                                    .contentTransition(.numericText())
-                                Text("Visits")
-                            }
-                            .font(.caption2)
-                            .foregroundStyle(.gray)
+                            .padding(.leading, index > 2 && index != 9 ? 9 : 0)
+                            .padding(.leading, index == 9 ? 3 : 0)
                         }
-                        .padding(.leading, index > 2 && index != 9 ? 9 : 0)
-                        .padding(.leading, index == 9 ? 3 : 0)
                     }
                 }
                 .navigationTitle("Leaderboard")

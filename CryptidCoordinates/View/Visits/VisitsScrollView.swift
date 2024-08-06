@@ -1,5 +1,5 @@
 //
-//  AllVisitsView.swift
+//  VisitsScrollView.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 7/29/24.
@@ -12,7 +12,7 @@ enum SortOrder {
     case chronological, latest
 }
 
-struct AllVisitsView: View {
+struct VisitsScrollView: View {
     var visits: [Location : Timestamp]
     @State private var sortComparator: ((Dictionary<Location, Timestamp>.Element, Dictionary<Location, Timestamp>.Element) -> Bool) = { $0.value.dateValue() > $1.value.dateValue() }
     @State private var sortOrder: SortOrder = .latest
@@ -24,20 +24,17 @@ struct AllVisitsView: View {
     var body: some View {
         Group {
             if sortedVisits.isEmpty {
-                ContentUnavailableView("No Visist Yet", systemImage: "house.lodge")
+                ContentUnavailableView("No Visits Yet", systemImage: "house.lodge")
             } else {
-                ScrollView {
-                    LazyVGrid(columns: [GridItem(), GridItem()]) {
-                        ForEach(sortedVisits, id: \.key.id) { key, value in
-                            VisitPreviewView(location: key, visitDate: value)
-                        }
+                LazyVGrid(columns: [GridItem(), GridItem()]) {
+                    ForEach(sortedVisits, id: \.key.id) { key, value in
+                        VisitPreviewView(location: key, visitDate: value)
                     }
                 }
             }
         }
-        .navigationTitle("Visited Locations")
-        .navigationBarTitleDisplayMode(.inline)
         .padding(.horizontal, 5)
+        .padding(.vertical)
         .toolbar {
             Menu("Sort", systemImage: "arrow.up.arrow.down") {
                 Picker("Sort Order", selection: $sortOrder) {
@@ -60,6 +57,6 @@ struct AllVisitsView: View {
 
 #Preview {
     NavigationStack {
-        AllVisitsView(visits: [:])
+        VisitsScrollView(visits: [:])
     }
 }
