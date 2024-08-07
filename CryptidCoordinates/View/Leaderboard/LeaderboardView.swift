@@ -45,6 +45,9 @@ struct LeaderboardView: View {
                     }
                 }
                 .navigationTitle("Leaderboard")
+                .refreshable {
+                    Task { try? await model.fetchLeadboard() }
+                }
             } else {
                 LoadingView()
             }
