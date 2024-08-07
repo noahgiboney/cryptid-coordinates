@@ -42,7 +42,7 @@ struct ExploreView: View {
             }
             .navigationTitle("Explore")
             .navigationBarTitleDisplayMode(.large)
-            .searchable(text: $searchText)
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             .listStyle(.plain)
             .listRowSpacing(5)
         }
