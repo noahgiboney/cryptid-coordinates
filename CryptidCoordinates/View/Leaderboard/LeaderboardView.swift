@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LeaderboardView: View {
     @State private var model = LeaderboardModel()
-    @State private var didAppear = false
     
     var body: some View {
         NavigationStack {
@@ -46,18 +45,12 @@ struct LeaderboardView: View {
                     }
                 }
                 .navigationTitle("Leaderboard")
-                .refreshable {
-                    Task { try? await model.fetchLeadboard() }
-                }
             } else {
                 LoadingView()
             }
         }
         .task {
-            if !didAppear {
-                try? await model.fetchLeadboard()
-            }
-            didAppear = true
+            try? await model.fetchLeadboard()
         }
     }
 }
