@@ -120,10 +120,19 @@ struct LocationView: View {
             
             Spacer()
             
-            Button("Visit") {
+            Button {
                 showVisitSheet.toggle()
+            } label: {
+                HStack(spacing: 10) {
+                    Image(systemName: "waveform.badge.magnifyingglass")
+                    Text("Visit")
+                }
+                .padding(.horizontal, 5)
             }
-            .buttonStyle(.borderedProminent)
+            .padding(5)
+            .background(.accent)
+            .foregroundColor(.white)
+            .cornerRadius(10)
             .popoverTip(VisitTip.tip)
         }
         .imageScale(.large)
