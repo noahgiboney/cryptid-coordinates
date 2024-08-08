@@ -88,11 +88,7 @@ struct ProfileView: View {
     var vistitedLocationsView: some View {
         VStack(alignment: .leading) {
             NavigationLink {
-                ScrollView {
-                    VisitsScrollView(visits: visits)
-                        .navigationTitle("Visits")
-                        .navigationBarTitleDisplayMode(.inline)
-                }
+                visitsScrollView
             } label: {
                 Text("\(global.user.visits) Locations Visited")
                 .padding(.top)
@@ -128,7 +124,7 @@ struct ProfileView: View {
                     
                     if visits.count > 5 {
                         NavigationLink("View All") {
-                            VisitsScrollView(visits: visits)
+                            visitsScrollView
                         }
                         .foregroundStyle(.blue)
                         .padding(.trailing)
@@ -163,6 +159,14 @@ struct ProfileView: View {
             visits = locationVisits
         } catch {
             print("Error: fetchUserVisits(): \(error.localizedDescription)")
+        }
+    }
+    
+    var visitsScrollView: some View {
+        ScrollView {
+            VisitsScrollView(visits: visits)
+                .navigationTitle("Visits")
+                .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
