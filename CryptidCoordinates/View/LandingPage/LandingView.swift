@@ -15,14 +15,14 @@ struct LandingView: View {
     @State private var errorMessage = ""
     @State private var isShowingError = false
     @State var colors: [(id: Int, color: UIColor, frequency: CGFloat)] = []
-    @State var gradietnModel = AnimatedGradient.Model(colors: [.accent, .darkGray])
+    @State var gradietnModel = AnimatedGradient.Model(colors: [.accent, .backgroundGray])
     
     var body: some View {
         GradientEffectView($gradietnModel)
             .ignoresSafeArea()
             .overlay(alignment: .center) {
                 VStack(spacing: 20) {
-                    Image(.nun)
+                    Image(.icon)
                         .resizable()
                         .scaledToFit()
                         .frame(height: 200)
