@@ -1,6 +1,6 @@
 # Crytpid Coordinates
 
-Cryptic Coordinates is a iOS app built with SwiftUI and designed for adventurers and mystery enthusiasts. It turns your locality into a thrilling exploration ground, revealing haunted locations and ancient secrets hidden in plain sight. 
+iOS app I built with SwiftUI, SwiftData, and Firebase. Explore and share information on haunted locations. Visit locations near you to compete on the leaderboard. Step into the shadows...
 
 Available on the [App Store](https://apps.apple.com/us/app/cryptid-coordinates/id6478195420).
 
@@ -8,10 +8,14 @@ Available on the [App Store](https://apps.apple.com/us/app/cryptid-coordinates/i
 
 ## Features
 
-- Interactive Map: Navigate through an interactive map that marks the cryptic coordinates around you. Select a location to see a brief overview of its haunted history or ancient lore.
+- Secure authenticaion with Apple ID.
 
-- Pinpointed Directions: Navigate with precision to the very site of each haunt, ensuring you find even the most hidden of secrets.
+- Browse a list of over ten thousand haunted spots across the U.S., each with detailed information and spine-chilling stories told by other users.
 
-- Favorites List: Keep track of the places that intrigue you most with a customizable favorites list. Perfect for planning return visits or sharing recommendations with fellow explorers.
+- Track the locations you've visited and climb the leaderboard. Challenge your friends and see who can visit the most haunted sites.
 
-- Search by City or Location: Venture beyond your local area by searching for cryptic coordinates in cities and locations worldwide. A perfect feature for planning your next spooky vacation or historical adventure.
+- Share your location to find haunted locations near you with location-based search and share your ghost hunting experience.
+
+- View location on an interactive map, allowing your exploration to be visual.
+
+- Know of spot not in our system? File a request to broaden the ecosystem.
