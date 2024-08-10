@@ -1,10 +1,10 @@
 # Crytpid Coordinates
 
+![app logo](https://github.com/user-attachments/assets/d00b010f-5aa6-495a-8d51-8469aad624cc)
+
 iOS app I built with SwiftUI, SwiftData, and Firebase. Explore and share information on haunted locations. Visit locations near you to compete on the leaderboard. Step into the shadows...
 
 Available on the [App Store](https://apps.apple.com/us/app/cryptid-coordinates/id6478195420).
-
-![app logo](https://github.com/noahgiboney/cryptid-coordinates/blob/main/CryptidCoordinates/Assets.xcassets/AppIcon.appiconset/icon-83_5%402x.png)
 
 ## Features
 
