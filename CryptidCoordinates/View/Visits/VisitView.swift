@@ -42,7 +42,7 @@ struct VisitView: View {
                     }
                 }
             }
-            .navigationTitle(visitState == .scanning ? "Scanning" : "Visit \(location.name)")
+            .navigationTitle(visitState == .scanning ? "Scanning" : "Visit")
             .navigationBarTitleDisplayMode(.inline)
             .padding(.horizontal)
             .task {
@@ -67,7 +67,7 @@ struct VisitView: View {
             
             VStack(alignment: .center, spacing: 4) {
                 Text("You Already Visted This Location")
-                    .font(.title2.bold())
+                    .font(.title3.bold())
                 
                 Text("Visit other haunted locations to earn more visits.")
                     .font(.subheadline)
@@ -85,9 +85,9 @@ struct VisitView: View {
             
             VStack(alignment: .center, spacing: 4) {
                 Text("Paranormal Activity Detected")
-                    .font(.title2.bold())
+                    .font(.title3.bold())
                 
-                Text("You have now entered the realm of the paranormal. Watch your back and don't forget to share your experience on the location.")
+                Text("Something lingers here. Stay alert... and share what you uncover.")
                     .font(.subheadline)
                     .foregroundStyle(.gray)
             }
@@ -122,7 +122,7 @@ struct VisitView: View {
             
             VStack(alignment: .center, spacing: 4) {
                 Text("You are too far away")
-                    .font(.title2.bold())
+                    .font(.title3.bold())
                 
                 Text("Move closer to \(location.name) to find paranormal activity.")
                     .font(.subheadline)
@@ -159,7 +159,7 @@ struct VisitView: View {
             try await Task.sleep(nanoseconds: 1_500_000_000)
             
             /// 0.3 miles 483
-            let minDistance = 10_000.0
+            let minDistance = 483.0
             
             let distanceFromLocation = userCords.distance(from: location.clLocation)
 
