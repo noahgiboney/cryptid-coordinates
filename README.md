@@ -6,6 +6,9 @@ iOS app I built with SwiftUI, SwiftData, and Firebase. Explore and share informa
 
 Available on the [App Store](https://apps.apple.com/us/app/cryptid-coordinates/id6478195420).
 
+## Trailer
+Watch the offical trailer
+
 ## Features
 
 - Browse a list of over ten thousand haunted spots across the U.S., each with detailed information and spine-chilling stories told by other users.
