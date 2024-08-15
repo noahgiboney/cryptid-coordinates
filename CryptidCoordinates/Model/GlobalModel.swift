@@ -12,6 +12,8 @@ import SwiftUI
 
 @Observable
 class GlobalModel {
+    let currentAppVersion = "2.1"
+    
     var user: User
     var tabSelection = 0
     var cameraPosition: MapCameraPosition
