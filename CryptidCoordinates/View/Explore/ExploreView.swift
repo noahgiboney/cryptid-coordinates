@@ -34,6 +34,7 @@ struct ExploreView: View {
                             .font(.title2.bold())
                         
                         TrendingView()
+                            .padding(.bottom, 30)
                     }
                     .listRowSeparator(.hidden)
                 } else {
