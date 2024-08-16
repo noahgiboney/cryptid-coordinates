@@ -58,4 +58,10 @@ class CommentService {
     func fetchTotalComments(locationId: String) async throws -> Int {
         return try await commentCollection(locationId).getDocuments().count
     }
+    
+    func fetchLocationIdsWithComments() async throws -> [String] {
+        let commentsSnapshot = try await Firestore.firestore().collectionGroup("comments").getDocuments()
+        let locationIds = Set(commentsSnapshot.documents.compactMap { $0.reference.parent.parent?.documentID })
+        return Array(locationIds).prefix(upTo: 5).shuffled()
+    }
 }

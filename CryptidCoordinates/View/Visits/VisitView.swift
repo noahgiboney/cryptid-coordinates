@@ -183,7 +183,7 @@ struct VisitView: View {
             
             try await VisitService.shared.logVisit(visit: newVisit, visitCount: global.user.visits)
             
-            if global.user.visits >= 2 && lastVersionPromptedForReview != "2.0" {
+            if global.user.visits >= 1 && lastVersionPromptedForReview != global.currentAppVersion  {
                 presentReview()
             }
         } catch {
@@ -195,7 +195,7 @@ struct VisitView: View {
         Task {
             try await Task.sleep(for: .seconds(2.0))
             requestReview()
-            lastVersionPromptedForReview = "2.0"
+            lastVersionPromptedForReview = global.currentAppVersion
         }
     }
     

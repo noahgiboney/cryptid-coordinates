@@ -12,20 +12,15 @@ struct TrendingView: View {
     @Environment(\.modelContext) var modelContext
     @State private var trendingIds: [String] = []
     @State private var trendingLocations: [Location] = []
+    @State private var didAppear = false
     
     var body: some View {
         LocationScrollView(locations: trendingLocations)
             .listRowInsets(EdgeInsets())
-            .task { await fetchTrending() }
-    }
-    
-    func fetchTrending() async {
-        do {
-            trendingIds = try await LocationService.shared.fetchTrending()
-            try fetchLocations()
-        } catch {
-            print("Error: fetchTrending(): \(error.localizedDescription)")
-        }
+            .task { 
+                await fetchTrendingLocations()
+                didAppear = true
+            }
     }
     
     func fetchLocations() throws {
@@ -35,6 +30,17 @@ struct TrendingView: View {
         
         let locations = try modelContext.fetch(descriptor)
         trendingLocations = locations
+    }
+    
+    func fetchTrendingLocations() async {
+        guard !didAppear else { return }
+        
+        do {
+            trendingIds = try await CommentService.shared.fetchLocationIdsWithComments()
+            try fetchLocations()
+        } catch {
+            print("Error: fetchTrendingLocations(): \(error.localizedDescription)")
+        }
     }
 }
 

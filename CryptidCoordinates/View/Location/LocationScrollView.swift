@@ -24,9 +24,7 @@ struct LocationScrollView: View {
                     }
                 }
             }
-            .scrollTargetLayout()
         }
-        .scrollTargetBehavior(.viewAligned)
         .contentMargins(15, for: .scrollContent)
         .listRowInsets(EdgeInsets())
     }
