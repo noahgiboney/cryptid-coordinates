@@ -27,6 +27,7 @@ struct LeaderboardView: View {
                                     Text(model.leaderboard[index].name)
                                         .lineLimit(1)
                                         .truncationMode(.tail)
+                                        .font(.footnote)
                                 }
                                 
                                 Spacer()
