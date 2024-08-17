@@ -7,7 +7,7 @@ iOS app I built with SwiftUI, SwiftData, and Firebase. Explore and share informa
 Available on the [App Store](https://apps.apple.com/us/app/cryptid-coordinates/id6478195420).
 
 ## Trailer
-Watch the offical trailer
+Watch the offical trailer.
 
 [![Cryptid Coordinates: Official App Trailer](https://github.com/user-attachments/assets/11b39b05-9f1e-4a3b-9a01-588cd301f1f5)](https://www.youtube.com/watch?v=bPAT3SDNc0g)
 
