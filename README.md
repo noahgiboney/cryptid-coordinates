@@ -9,6 +9,8 @@ Available on the [App Store](https://apps.apple.com/us/app/cryptid-coordinates/i
 ## Trailer
 Watch the offical trailer
 
+[![Cryptid Coordinates: Official App Trailer]([https://img.youtube.com/vi/VIDEO_ID/0.jpg](https://github.com/user-attachments/assets/11b39b05-9f1e-4a3b-9a01-588cd301f1f5))](https://www.youtube.com/watch?v=bPAT3SDNc0g)
+
 ## Features
 
 - Browse a list of over ten thousand haunted spots across the U.S., each with detailed information and spine-chilling stories told by other users.
