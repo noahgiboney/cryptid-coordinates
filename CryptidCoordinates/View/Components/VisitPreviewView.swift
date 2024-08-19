@@ -38,10 +38,10 @@ struct VisitPreviewView: View {
     
     var previewView: some View {
         VStack(alignment: .center) {
-            if let uiImage = image {
-                NavigationLink {
-                    LocationView(location: location)
-                } label: {
+            NavigationLink {
+                LocationView(location: location)
+            } label: {
+                if let uiImage = image {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFill()
@@ -51,6 +51,18 @@ struct VisitPreviewView: View {
                             Circle().stroke(Color(uiColor: averageColor), lineWidth: 3)
                         )
                         .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
+                } else {
+                    ZStack {
+                        Circle()
+                            .fill(Color(uiColor: .systemBackground))
+                            .frame(width: 75, height: 75)
+                        
+                        Image(systemName: "camera")
+                            .foregroundStyle(.primary)
+                    }
+                    .overlay(
+                        Circle().stroke(Color(uiColor: averageColor), lineWidth: 3)
+                    )
                 }
             }
             
@@ -84,7 +96,7 @@ struct VisitPreviewView: View {
                     loadState = .loaded
                 }
             case .failure(_):
-                loadState = .error
+                loadState = .loaded
             }
         }
     }

@@ -307,6 +307,7 @@
 				E24AE72A2C5760E600B5D741 /* LocationRowView.swift */,
 				E24AE72F2C5760E600B5D741 /* LocationUnavailableView.swift */,
 				E24AE72B2C5760E600B5D741 /* MenuBar.swift */,
+				E24AE7452C57615C00B5D741 /* VisitPreviewView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -324,7 +325,6 @@
 			isa = PBXGroup;
 			children = (
 				E24AE7442C57615C00B5D741 /* RadarView.swift */,
-				E24AE7452C57615C00B5D741 /* VisitPreviewView.swift */,
 				E22BFCEC2C584B1B00EF462B /* VisitsScrollView.swift */,
 				E24AE7462C57615C00B5D741 /* VisitView.swift */,
 				E222F7282C5C21EE004643B7 /* ScanningView.swift */,
