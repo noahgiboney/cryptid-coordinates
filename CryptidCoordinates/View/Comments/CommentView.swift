@@ -67,12 +67,13 @@ struct CommentView: View {
         } message: {
             Text("Thank you for reporting this comment, it will be reviewed shortly.")
         }
-        .confirmationDialog("Delete Comment", isPresented: $showingDeleteConfirm) {
+        .confirmationDialog("Delete Comment", isPresented: $showingDeleteConfirm, titleVisibility: .automatic) {
             Button("Delete Comment", systemImage: "trash", role: .destructive) {
                 Task { try await model.deleteComment(comment) }
             }
+        } message: {
+            Text("Are you sure you want to delete this comment?")
         }
-
     }
 }
 
