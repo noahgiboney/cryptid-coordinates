@@ -9,7 +9,7 @@ import Firebase
 import Foundation
 import MapKit
 
-struct User: Codable, Identifiable, Equatable {
+struct User: DataModel, Equatable {
     var id: String
     var name: String
     var avatar = Avatar.killer

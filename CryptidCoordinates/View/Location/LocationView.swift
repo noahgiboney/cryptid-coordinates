@@ -49,7 +49,7 @@ struct LocationView: View {
                         Divider()
                     }
                     
-                    CommentSection(locationId: location.id, scrollProxy: proxy)
+                    CommentSectionView(locationId: location.id, scrollProxy: proxy)
                 }
             }
         }

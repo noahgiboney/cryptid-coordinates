@@ -36,7 +36,7 @@ struct TrendingView: View {
         guard !didAppear else { return }
         
         do {
-            trendingIds = try await CommentService.shared.fetchLocationIdsWithComments()
+//            trendingIds = try await CommentService.shared.fetchLocationIdsWithComments()
             try fetchLocations()
         } catch {
             print("Error: fetchTrendingLocations(): \(error.localizedDescription)")

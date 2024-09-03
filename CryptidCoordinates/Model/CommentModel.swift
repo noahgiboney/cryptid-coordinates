@@ -19,10 +19,13 @@ class CommentModel {
     var comments: [Comment] = []
     var loadState: CommentLoadState = .loading
     
-    func fetchComments(locationId id: String) async throws {
-        loadState = .loading
+    func fetchComments(_ locationId: String) async {
         do {
-            comments = try await CommentService.shared.fetchComments(locationId: id)
+            comments = try await FirebaseService.shared.fetchData(ref: Collections.locationComments(for: locationId))
+            
+            await fetchUserForComments()
+            
+            comments = comments.sorted { $0.timestamp.dateValue() > $1.timestamp.dateValue() }.filter { $0.user != nil }
             
             if comments.isEmpty {
                 loadState = .empty
@@ -34,15 +37,19 @@ class CommentModel {
         }
     }
     
-    func addComment(locationId: String, currentUser: User) async throws -> String? {
+    func addNewComment(for locationId: String, currentUser: User) async -> String? {
         guard let user = Auth.auth().currentUser else { return nil }
-        var newComment = Comment(userId: user.uid, locationId: locationId, content: comment)
         
         do {
-            try await CommentService.shared.addComment(comment: newComment)
+            var newComment = Comment(userId: user.uid, locationId: locationId, content: comment)
+            
+            try await FirebaseService.shared.setData(object: newComment, ref: Collections.locationComments(for: locationId))
+            
             newComment.user = currentUser
+            
             comments.insert(newComment, at: 0)
             comment = ""
+            
             return newComment.id
         } catch {
             print("Error: addComment(): \(error.localizedDescription)")
@@ -50,23 +57,40 @@ class CommentModel {
         return nil
     }
     
-    func deleteComment(_ comment: Comment) async throws {
-        do {
-            try await CommentService.shared.deleteComment(locationId: comment.locationId, commentId: comment.id)
-            
-            if let index = comments.firstIndex(where: { $0.id == comment.id }) {
-                comments.remove(at: index)
-            }
-        } catch {
-            print("Error: deleteComment(): \(error.localizedDescription)")
+    func deleteComment(_ comment: Comment) {
+        FirebaseService.shared.delete(id: comment.id, ref: Collections.locationComments(for: comment.locationId))
+        
+        if let index = comments.firstIndex(where: { $0.id == comment.id }) {
+            comments.remove(at: index)
         }
     }
     
     func reportComment(_ comment: Comment) async throws {
         do {
-            try await CommentService.shared.reportComment(comment: comment)
+            let newReport = ReportedComment(commentId: comment.id, content: comment.content, locationId: comment.locationId)
+            try await FirebaseService.shared.setData(object: newReport, ref: Collections.reportedComments)
         } catch {
             print("Error: reportComment(): \(error.localizedDescription)")
         }
     }
+    
+    private func fetchUserForComments() async {
+        await withTaskGroup(of: (User?, String).self) { groupTask in
+            for comment in comments {
+                groupTask.addTask {
+                    let user: User? = try? await FirebaseService.shared.fetchOne(id: comment.userId, ref: Collections.users)
+                    return (user, comment.id)
+                }
+            }
+            
+            for await (user, commentId) in groupTask {
+                if let user {
+                    if let index = comments.firstIndex(where: { $0.id == commentId }) {
+                        comments[index].user = user
+                    }
+                }
+            }
+        }
+    }
 }
+
