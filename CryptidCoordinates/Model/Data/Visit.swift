@@ -8,7 +8,7 @@
 import Firebase
 import Foundation
 
-struct Visit: Identifiable, Codable {
+struct Visit: DataModel {
     var id = UUID().uuidString
     var timestamp = Timestamp()
     var userId: String

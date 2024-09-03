@@ -33,7 +33,7 @@ class UserService {
     
     func deleteCurrentUser() async throws {
         guard let user = Auth.auth().currentUser else { return }
-        try await VisitService.shared.deleteVisits(for: user.uid)
+//        try await VisitService.shared.deleteVisits(for: user.uid)
         try await userRef.document(user.uid).delete()
         try await user.delete()
     }

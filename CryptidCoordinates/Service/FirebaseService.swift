@@ -32,4 +32,8 @@ struct FirebaseService {
     func delete(id: String, ref: CollectionReference) {
         ref.document(id).delete()
     }
+    
+    func updateDataField(id: String, field: String, value: Any, ref: CollectionReference) async throws {
+        try await ref.document(id).updateData([field: value])
+    }
 }

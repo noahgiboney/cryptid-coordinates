@@ -79,7 +79,6 @@
 		E24AE7652C5763A500B5D741 /* SearchLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE7612C5763A500B5D741 /* SearchLocationView.swift */; };
 		E24AE7662C5763A500B5D741 /* TrendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE7622C5763A500B5D741 /* TrendingView.swift */; };
 		E24AE7672C5763A500B5D741 /* NearYouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE7632C5763A500B5D741 /* NearYouView.swift */; };
-		E24AE7692C57640F00B5D741 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE7682C57640F00B5D741 /* LocationService.swift */; };
 		E24AE76B2C57645900B5D741 /* LocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE76A2C57645900B5D741 /* LocationRequest.swift */; };
 		E24DA3ED2C86CD410018C6D8 /* MedalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DA3EC2C86CD410018C6D8 /* MedalView.swift */; };
 		E24DA3EF2C86CDE90018C6D8 /* LeaderboardRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DA3EE2C86CDE90018C6D8 /* LeaderboardRowView.swift */; };
@@ -159,7 +158,6 @@
 		E24AE7612C5763A500B5D741 /* SearchLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchLocationView.swift; sourceTree = "<group>"; };
 		E24AE7622C5763A500B5D741 /* TrendingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingView.swift; sourceTree = "<group>"; };
 		E24AE7632C5763A500B5D741 /* NearYouView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearYouView.swift; sourceTree = "<group>"; };
-		E24AE7682C57640F00B5D741 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E24AE76A2C57645900B5D741 /* LocationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationRequest.swift; sourceTree = "<group>"; };
 		E24DA3EC2C86CD410018C6D8 /* MedalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedalView.swift; sourceTree = "<group>"; };
 		E24DA3EE2C86CDE90018C6D8 /* LeaderboardRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardRowView.swift; sourceTree = "<group>"; };
@@ -293,10 +291,11 @@
 				E24AE7062C5760A200B5D741 /* LoadState.swift */,
 				E24AE7592C5762FD00B5D741 /* Location.swift */,
 				E24AE70A2C5760A200B5D741 /* locationData.json */,
+				E24AE76A2C57645900B5D741 /* LocationRequest.swift */,
+				E28B401E2C86C1A4005752EB /* ReportedComment.swift */,
 				E24AE74C2C57621800B5D741 /* Tip.swift */,
 				E24AE74E2C57621B00B5D741 /* User.swift */,
 				E24AE70E2C5760A200B5D741 /* Visit.swift */,
-				E28B401E2C86C1A4005752EB /* ReportedComment.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -444,8 +443,6 @@
 			children = (
 				E24AE7382C5760F400B5D741 /* Util */,
 				E23154232C1E843F0026F3E8 /* AppleAuthManager.swift */,
-				E24AE7682C57640F00B5D741 /* LocationService.swift */,
-				E24AE76A2C57645900B5D741 /* LocationRequest.swift */,
 				E204C1202C1E4B2000688944 /* UserService.swift */,
 				E24AE73B2C5760F400B5D741 /* VisitService.swift */,
 				E28B40182C86C09F005752EB /* FirebaseService.swift */,
@@ -592,7 +589,6 @@
 				E24AE7282C5760CF00B5D741 /* Geohash.swift in Sources */,
 				E2583F0E2C326D08002B1FA5 /* SettingsView.swift in Sources */,
 				E204C1212C1E4B2000688944 /* UserService.swift in Sources */,
-				E24AE7692C57640F00B5D741 /* LocationService.swift in Sources */,
 				E28B401F2C86C1A4005752EB /* ReportedComment.swift in Sources */,
 				E2D80E582C30EC2F0077D763 /* EditProfileView.swift in Sources */,
 				E24AE7302C5760E600B5D741 /* LocationRowView.swift in Sources */,
