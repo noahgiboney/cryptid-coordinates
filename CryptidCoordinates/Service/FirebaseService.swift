@@ -33,6 +33,23 @@ struct FirebaseService {
         ref.document(id).delete()
     }
     
+    func deleteCollection(ref: CollectionReference) async throws {
+        let snaphot = try await ref.getDocuments()
+        
+        try await withThrowingTaskGroup(of: Void.self) { group in
+            for doc in snaphot.documents {
+                try await doc.reference.delete()
+            }
+        }
+    }
+    
+    func updateData<T: DataModel>(object: T, ref: CollectionReference) async throws {
+        guard let id = object.id as? String else { return }
+        
+        let data = try Firestore.Encoder().encode(object)
+        try await ref.document(id).updateData(data)
+    }
+    
     func updateDataField(id: String, field: String, value: Any, ref: CollectionReference) async throws {
         try await ref.document(id).updateData([field: value])
     }

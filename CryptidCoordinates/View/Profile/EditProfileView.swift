@@ -22,6 +22,19 @@ struct EditProfileView: View {
         self._selectedAvatar = State(initialValue: user.avatar.wrappedValue)
     }
     
+    private func updateUser() {
+        Task {
+            user = tempUser
+            
+            do {
+                try await FirebaseService.shared.updateData(object: tempUser, ref: Collections.users)
+            } catch {
+                print("Error: updateUser(): \(error.localizedDescription)")
+            }
+        }
+        dismiss()
+    }
+    
     private let columns = [GridItem(), GridItem(), GridItem()]
     
     var body: some View {
@@ -52,17 +65,7 @@ struct EditProfileView: View {
         }
     }
     
-    func updateUser() {
-        user = tempUser
-        Task {
-            do {
-                try await UserService.shared.updateWholeUser(updateUser: tempUser)
-            } catch {
-                print("Error: updateUser(): \(error.localizedDescription)")
-            }
-        }
-        dismiss()
-    }
+    
     
     var avatarGrid: some View {
         LazyVGrid(columns: columns, spacing: 85) {
@@ -89,6 +92,6 @@ struct EditProfileView: View {
         EditProfileView(user: .constant(.example))
             .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
             .preferredColorScheme(.dark)
-
+        
     }
 }
