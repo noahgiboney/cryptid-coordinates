@@ -8,53 +8,47 @@
 import SwiftUI
 
 struct LeaderboardView: View {
+    @Environment(GlobalModel.self) var global
     @State private var model = LeaderboardModel()
+    @State private var didAppear = false
     
     var body: some View {
         NavigationStack {
-            if model.didLoad {
+            if model.isLoading && model.leaderboard.isEmpty {
+                ProgressView {
+                    Text("Loading")
+                }
+            } else {
                 List {
-                    ForEach(model.leaderboard.indices, id: \.self) { index in
-                        NavigationLink {
-                            UserProfileView(user: model.leaderboard[index])
-                        } label: {
-                            HStack(spacing: 20) {
-                                MedalView(index: index)
-                                
-                                HStack {
-                                    AvatarView(type: .medium, user: model.leaderboard[index])
-                                    
-                                    Text(model.leaderboard[index].name)
-                                        .lineLimit(1)
-                                        .truncationMode(.tail)
-                                        .font(.footnote)
-                                }
-                                
-                                Spacer()
-                                
-                                HStack(spacing: 4) {
-                                    Text("\(model.leaderboard[index].visits)")
-                                        .contentTransition(.numericText())
-                                    Text("Visits")
-                                }
-                                .font(.caption2)
-                                .foregroundStyle(.gray)
+                    Section {
+                        if let index = model.leaderboard.firstIndex(where: { $0.id == global.user.id }){
+                            LeaderboardRowView(index: index)
+                        }
+                    }
+                    
+                    Section {
+                        ForEach(model.leaderboard.indices, id: \.self) { index in
+                            NavigationLink {
+                                UserProfileView(user: model.leaderboard[index])
+                            } label: {
+                                LeaderboardRowView(index: index)
+                                    .onAppear {
+                                        if model.leaderboard.last?.id == model.leaderboard[index].id {
+                                            Task { await model.populateLeaderboard() }
+                                        }
+                                    }
                             }
-                            .padding(.leading, index > 2 && index != 9 ? 9 : 0)
-                            .padding(.leading, index == 9 ? 3 : 0)
                         }
                     }
                 }
                 .navigationTitle("Leaderboard")
-                .refreshable {
-                    Task { try? await model.fetchLeadboard() }
-                }
-            } else {
-                LoadingView()
             }
         }
+        .environment(model)
         .task {
-            try? await model.fetchLeadboard()
+            guard !didAppear else { return }
+            await model.populateInitalLeaderboard()
+            didAppear = true
         }
     }
 }
@@ -62,46 +56,4 @@ struct LeaderboardView: View {
 #Preview {
     LeaderboardView()
         .preferredColorScheme(.dark)
-}
-
-struct MedalView: View {
-    var index: Int
-    
-    var opacity: Double {
-        switch index {
-        case 0:
-            return 1
-        case 1:
-            return 1
-        case 2:
-            return 1
-        default:
-            return 0
-        }
-    }
-    
-    var color: Color {
-        switch index {
-        case 0:
-            return .gold
-        case 1:
-            return .silver
-        case 2:
-            return .bronze
-        default:
-            return .clear
-        }
-    }
-    
-    var body: some View {
-        Group {
-            if index < 3{
-                Image(systemName: "medal.fill")
-                    .opacity(opacity)
-                    .foregroundStyle(color)
-            } else {
-                Text("\(index + 1)")
-            }
-        }
-    }
 }
