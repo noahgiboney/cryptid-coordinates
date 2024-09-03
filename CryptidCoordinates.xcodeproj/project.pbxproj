@@ -86,6 +86,7 @@
 		E28594612C61C94200ADD65A /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28594602C61C94200ADD65A /* UserProfileView.swift */; };
 		E286FF882B560B4300C9782A /* ClusterMap in Frameworks */ = {isa = PBXBuildFile; productRef = E286FF872B560B4300C9782A /* ClusterMap */; };
 		E286FF8A2B560B4300C9782A /* ClusterMapSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E286FF892B560B4300C9782A /* ClusterMapSwiftUI */; };
+		E28B40172C86C036005752EB /* AvatarRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B40162C86C036005752EB /* AvatarRowView.swift */; };
 		E2A2C39C2C5FE6BA00161C16 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E2A2C39B2C5FE6BA00161C16 /* KeychainSwift */; };
 		E2B326AE2C1F978300B0D1B5 /* SubmitLocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B326AD2C1F978300B0D1B5 /* SubmitLocationDetailsView.swift */; };
 		E2B326B02C1F9BC300B0D1B5 /* PickCordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B326AF2C1F9BC300B0D1B5 /* PickCordView.swift */; };
@@ -158,6 +159,7 @@
 		E24AE76A2C57645900B5D741 /* LocationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationRequest.swift; sourceTree = "<group>"; };
 		E2583F0D2C326D08002B1FA5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E28594602C61C94200ADD65A /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		E28B40162C86C036005752EB /* AvatarRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarRowView.swift; sourceTree = "<group>"; };
 		E2B326AD2C1F978300B0D1B5 /* SubmitLocationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitLocationDetailsView.swift; sourceTree = "<group>"; };
 		E2B326AF2C1F9BC300B0D1B5 /* PickCordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCordView.swift; sourceTree = "<group>"; };
 		E2B326B32C1F9DE800B0D1B5 /* SubmitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitView.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 		E23618642C1E63D1005AF3FB /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				E28B40162C86C036005752EB /* AvatarRowView.swift */,
 				E2D80E572C30EC2F0077D763 /* EditProfileView.swift */,
 				E23618652C1E63D9005AF3FB /* ProfileView.swift */,
 				E24AE7412C57610900B5D741 /* SavedView.swift */,
@@ -581,6 +584,7 @@
 				E2C76C072B4E14550080F669 /* CryptidCoordinatesApp.swift in Sources */,
 				E2B326B42C1F9DE800B0D1B5 /* SubmitView.swift in Sources */,
 				E24AE7332C5760E600B5D741 /* AvatarView.swift in Sources */,
+				E28B40172C86C036005752EB /* AvatarRowView.swift in Sources */,
 				E24AE7422C57610900B5D741 /* SavedView.swift in Sources */,
 				E2F9E9592C22A79100D74D31 /* CommentView.swift in Sources */,
 				E24AE74F2C57621B00B5D741 /* User.swift in Sources */,
