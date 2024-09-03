@@ -18,6 +18,8 @@ struct Collections {
     
     static let visits = db.collection("visits")
     
+    static let locationRequests = db.collection("locationRequests")
+    
     static let reportedComments = db.collection("reportedComments")
     
     static func userVists(for userId: String) -> CollectionReference {

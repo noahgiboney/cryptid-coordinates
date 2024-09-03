@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct LocationRequest: Codable {
+struct LocationRequest: DataModel {
+    var id = UUID().uuidString
     var user: String
     var locationName: String
     var description: String
