@@ -36,10 +36,10 @@ struct MapView: View {
                 ForEach(model.annotations) { annotation in
                     let location = annotation.location
                     Annotation("", coordinate: location.coordinates) {
-                        AnnotationView(url: location.url)
+                        MapAnnotationView(url: location.url)
                             .onTapGesture {
                                 selectedLocation = location
-                            }
+                            }                            
                     }
                 }
                 
