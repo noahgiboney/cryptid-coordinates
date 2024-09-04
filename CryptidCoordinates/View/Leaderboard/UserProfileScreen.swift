@@ -1,5 +1,5 @@
 //
-//  UserProfileView.swift
+//  UserProfileScreen.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 8/5/24.
@@ -9,16 +9,41 @@ import Firebase
 import SwiftData
 import SwiftUI
 
-struct UserProfileView: View {
-    var user: User
+struct UserProfileScreen: View {
+    
+    let user: User
     @Environment(\.modelContext) var modelContext
     @State private var visits: [Location : Timestamp] = [:]
     @State private var didLoad = false
     @State private var sortComparator: ((Dictionary<Location, Timestamp>.Element, Dictionary<Location, Timestamp>.Element) -> Bool) = { $0.value.dateValue() > $1.value.dateValue() }
     @State private var sortOrder: SortOrder = .latest
     
-    var sortedVisits: [(key: Location, value: Timestamp)] {
+    private var sortedVisits: [(key: Location, value: Timestamp)] {
         visits.sorted(by: sortComparator)
+    }
+    
+    private func fetchUserVisits() async {
+        do {
+            var locationVisits: [Location : Timestamp] = [:]
+            
+            let userVisits: [Visit] = try await FirebaseService.shared.fetchData(ref: Collections.userVists(for: user.id))
+            let locationIds = userVisits.compactMap { $0.locationId }
+            
+            let locations = try modelContext.fetch(FetchDescriptor(predicate: #Predicate<Location> {
+                locationIds.contains($0.id)
+            }))
+            
+            for visit in userVisits {
+                if let index = locations.firstIndex(where: { $0.id == visit.locationId } ) {
+                    locationVisits[locations[index]] = visit.timestamp
+                }
+            }
+            
+            visits = locationVisits
+            didLoad = true
+        } catch {
+            print("Error: fetchUserVisits(): \(error.localizedDescription)")
+        }
     }
     
     var body: some View {
@@ -60,36 +85,12 @@ struct UserProfileView: View {
                 sortComparator = { $0.value.dateValue() > $1.value.dateValue() }
             }
         }
-        .task { try? await fetchUserVisits() }
-    }
-    
-    func fetchUserVisits() async throws {
-        do {
-            var locationVisits: [Location : Timestamp] = [:]
-            
-            let userVisits = try await VisitService.shared.fetchVisits(userId: user.id)
-            let locationIds = userVisits.compactMap { $0.locationId }
-            
-            let locations = try modelContext.fetch(FetchDescriptor(predicate: #Predicate<Location> {
-                locationIds.contains($0.id)
-            }))
-            
-            for visit in userVisits {
-                if let index = locations.firstIndex(where: { $0.id == visit.locationId } ) {
-                    locationVisits[locations[index]] = visit.timestamp
-                }
-            }
-            
-            visits = locationVisits
-            didLoad = true
-        } catch {
-            print("Error: fetchUserVisits(): \(error.localizedDescription)")
-        }
+        .task { await fetchUserVisits() }
     }
 }
 
 #Preview {
     NavigationStack {
-        UserProfileView(user: .example)
+        UserProfileScreen(user: .example)
     }
 }

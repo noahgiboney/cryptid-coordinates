@@ -1,5 +1,5 @@
 //
-//  LeaderboardView.swift
+//  LeaderboardScreen.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 7/7/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LeaderboardView: View {
+struct LeaderboardScreen: View {
     @Environment(GlobalModel.self) var global
     @State private var model = LeaderboardModel()
     @State private var didAppear = false
@@ -29,7 +29,7 @@ struct LeaderboardView: View {
                     Section {
                         ForEach(model.leaderboard.indices, id: \.self) { index in
                             NavigationLink {
-                                UserProfileView(user: model.leaderboard[index])
+                                UserProfileScreen(user: model.leaderboard[index])
                             } label: {
                                 LeaderboardRowView(index: index)
                                     .onAppear {
@@ -54,6 +54,6 @@ struct LeaderboardView: View {
 }
 
 #Preview {
-    LeaderboardView()
+    LeaderboardScreen()
         .preferredColorScheme(.dark)
 }
