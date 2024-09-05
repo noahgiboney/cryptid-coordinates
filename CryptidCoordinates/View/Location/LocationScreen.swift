@@ -13,13 +13,14 @@ import SwiftUI
 import TipKit
 
 struct LocationScreen: View {
+    
     @Bindable var location: Location
     @AppStorage("locationViewCount") var locationViewCount = 0
     @AppStorage("lastVersionPromptedForReview") var lastVersionPromptedForReview = ""
     @Environment(\.requestReview) var requestReview
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
-    @Environment(GlobalModel.self) var global
+    @Environment(Global.self) var global
     @Environment(Saved.self) var saved
     @EnvironmentObject var locationManager: LocationManager
     @State private var lookAroundPlace: MKLookAroundScene?
@@ -169,7 +170,7 @@ struct LocationScreen: View {
     return NavigationStack {
         LocationScreen(location: Location.example)
             .modelContainer(container)
-            .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
+            .environment(Global(user: .example, defaultCords: Location.example.coordinates))
             .environment(Saved())
             .environmentObject(LocationManager())
     }

@@ -11,6 +11,7 @@ import KeychainSwift
 import SwiftUI
 
 struct LandingScreen: View {
+    
     @Environment(AuthModel.self) var authModel
     @State private var errorMessage = ""
     @State private var isShowingError = false

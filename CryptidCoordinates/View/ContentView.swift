@@ -12,6 +12,7 @@ import SwiftData
 import SwiftUI
 
 struct ContentView: View {
+    
     @AppStorage("isContextPopulated") var isContextPopulated = false
     @Environment(\.modelContext) var modelContext
     @StateObject private var locationManager = LocationManager()

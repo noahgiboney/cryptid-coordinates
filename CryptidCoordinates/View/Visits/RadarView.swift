@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct RadarView: View {
+    
     @Environment(\.colorScheme) var colorScheme
     @State private var angle: Double = 0
     @State private var scaleCircle: CGFloat = 1

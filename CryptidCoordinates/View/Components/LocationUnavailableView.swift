@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct LocationUnavailableView: View {
-    var message: String
+    
+    let message: String
     @EnvironmentObject var locationManager: LocationManager
     @Environment(\.dismiss) var dismiss
     

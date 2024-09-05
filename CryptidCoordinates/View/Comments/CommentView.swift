@@ -9,9 +9,10 @@ import Firebase
 import SwiftUI
 
 struct CommentView: View {
-    var comment: Comment
-    var model: CommentModel
-    @Environment(GlobalModel.self) var viewModel
+    
+    let comment: Comment
+    var model: CommentSection
+    @Environment(Global.self) var viewModel
     @State private var showingReportAlert = false
     @State private var showingDeleteConfirm = false
     
@@ -78,6 +79,6 @@ struct CommentView: View {
 }
 
 #Preview {
-    CommentView(comment: .example, model: CommentModel())
-        .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
+    CommentView(comment: .example, model: CommentSection())
+        .environment(Global(user: .example, defaultCords: Location.example.coordinates))
 }

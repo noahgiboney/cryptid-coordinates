@@ -9,15 +9,16 @@ import MapKit
 import SwiftUI
 
 struct TabBarView: View {
-    var currentUser: User
-    var defaultCords: CLLocationCoordinate2D
-    @State private var global: GlobalModel
+    
+    let currentUser: User
+    let defaultCords: CLLocationCoordinate2D
+    @State private var global: Global
     @State private var saved = Saved()
     
     init(currentUser: User, defaultCords: CLLocationCoordinate2D) {
         self.currentUser = currentUser
         self.defaultCords = defaultCords
-        let global = GlobalModel(user: currentUser, defaultCords: defaultCords)
+        let global = Global(user: currentUser, defaultCords: defaultCords)
         self._global = State(initialValue: global)
     }
     

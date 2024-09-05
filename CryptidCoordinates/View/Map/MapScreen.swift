@@ -11,9 +11,10 @@ import SwiftData
 import SwiftUI
 
 struct MapScreen: View {
-    var defaultCords: CLLocationCoordinate2D
+    
+    let defaultCords: CLLocationCoordinate2D
     @EnvironmentObject var locationManager: LocationManager
-    @Environment(GlobalModel.self) var global
+    @Environment(Global.self) var global
     @Environment(\.modelContext) var modelContext
     @State private var selectedLocation: Location?
     @State private var model: MapModel
@@ -99,6 +100,6 @@ struct MapScreen: View {
 
 #Preview {
     MapScreen(defaultCords: Location.example.coordinates)
-        .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
+        .environment(Global(user: .example, defaultCords: Location.example.coordinates))
         .environmentObject(LocationManager())
 }

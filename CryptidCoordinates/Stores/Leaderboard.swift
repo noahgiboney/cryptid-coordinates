@@ -9,8 +9,8 @@ import Firebase
 import Foundation
 
 @Observable
-class LeaderboardModel {
-    var leaderboard: [User] = []
+class Leaderboard {
+    var users: [User] = []
     var isLoading = true
     var lastDocument: DocumentSnapshot?
     
@@ -22,7 +22,7 @@ class LeaderboardModel {
             let snapshot = try await queryLeaderboard()
                 .getDocuments()
             
-            leaderboard = snapshot.documents.compactMap { try? $0.data(as: User.self) }
+            users = snapshot.documents.compactMap { try? $0.data(as: User.self) }
             
             lastDocument = snapshot.documents.last
         } catch {
@@ -46,9 +46,9 @@ class LeaderboardModel {
                 return
             }
             
-            let users = snapshot.documents.compactMap { try? $0.data(as: User.self) }
+            let snapshotUsers = snapshot.documents.compactMap { try? $0.data(as: User.self) }
             
-            leaderboard.append(contentsOf: users)
+            users.append(contentsOf: snapshotUsers)
             
             self.lastDocument = snapshot.documents.last
         } catch {

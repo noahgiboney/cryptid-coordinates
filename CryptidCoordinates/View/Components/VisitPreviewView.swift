@@ -11,6 +11,7 @@ import SwiftData
 import SwiftUI
 
 struct VisitPreviewView: View {
+    
     let location: Location
     let visitDate: Timestamp
     @Environment(\.colorScheme) var colorScheme

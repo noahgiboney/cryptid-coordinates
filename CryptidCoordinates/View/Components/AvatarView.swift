@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct AvatarView: View {
-    var type: AvatarSize
-    var user: User
+    
+    let type: AvatarSize
+    let user: User
     @Environment(\.colorScheme) var scheme
     
     var body: some View {

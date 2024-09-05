@@ -10,7 +10,8 @@ import SwiftData
 import SwiftUI
 
 struct LocationPreviewView: View {
-    var location: Location
+    
+    let location: Location
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var locationManager: LocationManager
     @State private var image: UIImage?

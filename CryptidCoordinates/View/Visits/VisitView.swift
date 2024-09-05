@@ -21,7 +21,7 @@ struct VisitView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var locationManager: LocationManager
     @Environment(\.requestReview) var requestReview
-    @Environment(GlobalModel.self) var global
+    @Environment(Global.self) var global
     @State private var visitState: VisitState = .scanning
     @State private var visitCount = 0
     

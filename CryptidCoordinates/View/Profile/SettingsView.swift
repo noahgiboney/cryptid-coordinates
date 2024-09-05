@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
     @Environment(AuthModel.self) var authModel
     @Environment(Saved.self) var saved
     @State private var isShowingSignOutAlert = false

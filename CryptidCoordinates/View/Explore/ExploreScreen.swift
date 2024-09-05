@@ -10,6 +10,7 @@ import SwiftData
 import SwiftUI
 
 struct ExploreScreen: View {
+    
     @EnvironmentObject var locationManager: LocationManager
     @State private var searchText = ""
     

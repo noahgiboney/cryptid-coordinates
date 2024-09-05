@@ -10,6 +10,8 @@ import Firebase
 import SwiftUI
 import UIKit
 
+typealias DataModel = Codable & Identifiable & Hashable
+
 extension Timestamp {
     func timeAgo() -> String {
         let now = Date()

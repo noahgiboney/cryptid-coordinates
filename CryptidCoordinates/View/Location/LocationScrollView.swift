@@ -10,7 +10,8 @@ import SwiftData
 import SwiftUI
 
 struct LocationScrollView: View {
-    var locations: [Location]
+    
+    let locations: [Location]
     @EnvironmentObject var locationManager: LocationManager
     
     var body: some View {

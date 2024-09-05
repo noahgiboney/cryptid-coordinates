@@ -10,9 +10,10 @@ import SwiftData
 import SwiftUI
 
 struct ProfileScreen: View {
+    
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.modelContext) var modelContext
-    @Environment(GlobalModel.self) var global
+    @Environment(Global.self) var global
     @Environment(AuthModel.self) var authModel
     @State private var showSubmitRequest = false
     @State private var isShowingSignOutAlert = false
@@ -177,7 +178,7 @@ struct ProfileScreen: View {
     
     return ProfileScreen()
         .environment(AuthModel())
-        .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
+        .environment(Global(user: .example, defaultCords: Location.example.coordinates))
         .modelContainer(container)
     
 }

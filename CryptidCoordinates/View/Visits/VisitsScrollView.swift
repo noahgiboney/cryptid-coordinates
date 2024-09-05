@@ -13,7 +13,8 @@ enum SortOrder {
 }
 
 struct VisitsScrollView: View {
-    var visits: [Location : Timestamp]
+    
+    let visits: [Location : Timestamp]
     @State private var sortComparator: ((Dictionary<Location, Timestamp>.Element, Dictionary<Location, Timestamp>.Element) -> Bool) = { $0.value.dateValue() > $1.value.dateValue() }
     @State private var sortOrder: SortOrder = .latest
     

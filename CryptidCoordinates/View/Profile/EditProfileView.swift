@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct EditProfileView: View {
+    
     @Binding var user: User
-    @Environment(GlobalModel.self) var global
+    @Environment(Global.self) var global
     @Environment(\.dismiss) var dismiss
     @State private var tempUser: User
     @State private var selectedAvatar: Avatar
@@ -90,7 +91,7 @@ struct EditProfileView: View {
 #Preview {
     NavigationStack {
         EditProfileView(user: .constant(.example))
-            .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
+            .environment(Global(user: .example, defaultCords: Location.example.coordinates))
             .preferredColorScheme(.dark)
         
     }

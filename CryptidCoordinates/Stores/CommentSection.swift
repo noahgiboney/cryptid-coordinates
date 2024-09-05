@@ -1,5 +1,5 @@
 //
-//  CommentModel.swift
+//  CommentSection.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 7/14/24.
@@ -14,7 +14,7 @@ enum CommentLoadState {
 }
 
 @Observable
-class CommentModel {
+class CommentSection {
     var comment = ""
     var comments: [Comment] = []
     var loadState: CommentLoadState = .loading
@@ -93,4 +93,3 @@ class CommentModel {
         }
     }
 }
-

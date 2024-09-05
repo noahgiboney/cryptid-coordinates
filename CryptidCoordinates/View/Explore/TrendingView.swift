@@ -10,6 +10,7 @@ import SwiftData
 import SwiftUI
 
 struct TrendingView: View {
+    
     @Environment(\.modelContext) var modelContext
     @State private var trendingIds: [String] = []
     @State private var trendingLocations: [Location] = []
