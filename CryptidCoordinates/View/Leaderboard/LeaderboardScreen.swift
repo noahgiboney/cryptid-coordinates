@@ -25,21 +25,33 @@ struct LeaderboardScreen: View {
                     }
                     
                     Section {
-                        ForEach(model.leaderboard.indices, id: \.self) { index in
-                            NavigationLink {
-                                UserProfileScreen(user: model.leaderboard[index])
-                            } label: {
-                                LeaderboardRowView(index: index)
-                                    .onAppear {
-                                        if model.leaderboard.last?.id == model.leaderboard[index].id {
-                                            Task { await model.populateLeaderboard() }
+                        ForEach(model.leaderboard) { user in
+                            if let index = model.leaderboard.firstIndex(where: { $0.id == user.id }){
+                                Group {
+                                    if user.id == global.user.id {
+                                        currentUserRowView
+                                    } else {
+                                        NavigationLink {
+                                            UserProfileScreen(user: user)
+                                        } label: {
+                                            LeaderboardRowView(user: user, index: index)
+                                            
                                         }
                                     }
+                                }
+                                .onAppear {
+                                    if model.leaderboard.last?.id == user.id {
+                                        Task { await model.populateLeaderboard() }
+                                    }
+                                }
                             }
                         }
                     }
                 }
                 .navigationTitle("Leaderboard")
+                .refreshable {
+                    Task { await model.refresh() }
+                }
             }
         }
         .environment(model)
@@ -52,33 +64,39 @@ struct LeaderboardScreen: View {
     
     @ViewBuilder
     private var currentUserRowView: some View {
-        if let index = model.leaderboard.firstIndex(where: { $0.id == global.user.id }){
-            LeaderboardRowView(index: index)
-        } else {
-            HStack(spacing: 20) {
+        let index = model.leaderboard.firstIndex(where: { $0.id == global.user.id })
+        
+        HStack(spacing: 20) {
+            
+            let visits = global.user.visits
+            
+            if let index = index {
+                MedalView(index: index)
+            } else {
                 Text("NA")
-                    .font(.footnote)
-                
-                HStack {
-                    AvatarView(type: .medium, user: global.user)
-                    
-                    Text(global.user.name)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                        .font(.footnote)
-                }
-                
-                Spacer()
-                
-                HStack(spacing: 4) {
-                    Text("\(0)")
-                        .contentTransition(.numericText())
-                    Text("Visits")
-                }
-                .font(.caption2)
-                .foregroundStyle(.gray)
             }
+            
+            HStack {
+                AvatarView(type: .medium, user: global.user)
+                
+                Text(global.user.name)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .font(.footnote)
+            }
+            
+            Spacer()
+            
+            HStack(spacing: 4) {
+                Text("\(visits)")
+                    .contentTransition(.numericText())
+                Text("Visits")
+            }
+            .font(.caption2)
+            .foregroundStyle(.gray)
         }
+        .padding(.leading, index ?? 0 > 2 && index != 9 ? 9 : 0)
+        .padding(.leading, index == 9 ? 3 : 0)
     }
 }
 

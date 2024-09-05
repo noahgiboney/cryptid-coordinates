@@ -11,11 +11,11 @@ import Foundation
 @Observable
 class LeaderboardModel {
     var leaderboard: [User] = []
-    var isLoading = false
+    var isLoading = true
     var lastDocument: DocumentSnapshot?
     
     func populateInitalLeaderboard() async {
-        isLoading = true
+
         defer { isLoading = false }
         
         do {
@@ -23,6 +23,7 @@ class LeaderboardModel {
                 .getDocuments()
             
             leaderboard = snapshot.documents.compactMap { try? $0.data(as: User.self) }
+            
             lastDocument = snapshot.documents.last
         } catch {
             print("Error: populateInitalLeaderboard(): \(error.localizedDescription)")
@@ -48,10 +49,15 @@ class LeaderboardModel {
             let users = snapshot.documents.compactMap { try? $0.data(as: User.self) }
             
             leaderboard.append(contentsOf: users)
+            
             self.lastDocument = snapshot.documents.last
         } catch {
             print("Error: populateLeaderboard(): \(error.localizedDescription)")
         }
+    }
+    
+    func refresh() async {
+        await populateInitalLeaderboard()
     }
     
     private func queryLeaderboard() -> Query {

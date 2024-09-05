@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LeaderboardRowView: View {
+    
+    let user: User
     let index: Int
     @Environment(LeaderboardModel.self) var model
     
@@ -16,9 +18,9 @@ struct LeaderboardRowView: View {
             MedalView(index: index)
             
             HStack {
-                AvatarView(type: .medium, user: model.leaderboard[index])
+                AvatarView(type: .medium, user: user)
                 
-                Text(model.leaderboard[index].name)
+                Text(user.name)
                     .lineLimit(1)
                     .truncationMode(.tail)
                     .font(.footnote)
@@ -27,7 +29,7 @@ struct LeaderboardRowView: View {
             Spacer()
             
             HStack(spacing: 4) {
-                Text("\(model.leaderboard[index].visits)")
+                Text("\(user.visits)")
                     .contentTransition(.numericText())
                 Text("Visits")
             }
@@ -40,6 +42,6 @@ struct LeaderboardRowView: View {
 }
 
 #Preview {
-    LeaderboardRowView(index: 1)
+    LeaderboardRowView(user: .example, index: 1)
         .environment(LeaderboardModel())
 }
