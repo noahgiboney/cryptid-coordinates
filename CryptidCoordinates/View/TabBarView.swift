@@ -23,7 +23,7 @@ struct TabBarView: View {
     
     var body: some View {
         TabView(selection: $global.tabSelection) {
-            ExploreView()
+            ExploreScreen()
                 .tabItem {
                     Image(systemName: "house")
                 }
@@ -35,7 +35,7 @@ struct TabBarView: View {
                 }
                 .tag(1)
             
-            LeaderboardView()
+            LeaderboardScreen()
                 .tabItem {
                     Image(systemName: "medal")
                 }

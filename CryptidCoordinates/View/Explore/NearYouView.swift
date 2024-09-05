@@ -11,9 +11,14 @@ import SwiftData
 import SwiftUI
 
 struct NearYouView: View {
-    var geohashes: [String]
+    
+    let geohashes: [String]
     @EnvironmentObject var locationManager: LocationManager
+    @State private var cachedSortedLocations: [Location] = []
+    @State private var lastKnownLocation: CLLocationCoordinate2D?
     @Query var nearLocations: [Location]
+    
+    let distanceThreshold: CLLocationDistance = 50
     
     init(geohashes: [String]) {
         self.geohashes = geohashes
@@ -22,20 +27,34 @@ struct NearYouView: View {
             return geohashes.contains(location.geohash)
         })
     }
-    
-    var sortedLocations: [Location] {
-        nearLocations.sorted { location1, location2 in
-            let distance1 = locationManager.lastKnownLocation!.distance(from: location1.clLocation)
-            let distance2 = locationManager.lastKnownLocation!.distance(from: location2.clLocation)
+
+    private func sortLocations() {
+        guard let currentLocation = locationManager.lastKnownLocation else { return }
+        
+        if let lastLocation = lastKnownLocation {
+            let distance = currentLocation.distance(from: CLLocation(latitude: lastLocation.latitude, longitude: lastLocation.longitude ))
+            if distance < distanceThreshold {
+                return
+            }
+        }
+        
+        lastKnownLocation = currentLocation
+        
+        cachedSortedLocations = nearLocations.sorted { location1, location2 in
+            let distance1 = currentLocation.distance(from: location1.clLocation)
+            let distance2 = currentLocation.distance(from: location2.clLocation)
             
             return distance1 < distance2
         }
     }
     
     var body: some View {
-        LocationScrollView(locations: Array(sortedLocations.prefix(25)))
+        LocationScrollView(locations: Array(cachedSortedLocations.prefix(25)))
             .listRowSeparator(.hidden)
             .listRowInsets(EdgeInsets())
+            .onAppear {
+                sortLocations()
+            }
     }
 }
 
@@ -43,5 +62,5 @@ struct NearYouView: View {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Location.self, configurations: config)
     
-    return ExploreView().modelContainer(container)
+    return ExploreScreen().modelContainer(container)
 }

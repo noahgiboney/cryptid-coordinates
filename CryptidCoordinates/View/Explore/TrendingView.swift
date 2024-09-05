@@ -30,7 +30,6 @@ struct TrendingView: View {
         do {
             let commentsSnapshot = try await Firestore.firestore().collectionGroup("comments").getDocuments()
             let locationIds = Set(commentsSnapshot.documents.compactMap { $0.reference.parent.parent?.documentID })
-            print(locationIds)
             trendingIds = Array(locationIds).prefix(5).shuffled()
             
             try fetchLocations()

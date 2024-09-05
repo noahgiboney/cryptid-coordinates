@@ -10,14 +10,39 @@ import SwiftData
 import SwiftUI
 
 struct ProfileView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.modelContext) var modelContext
     @Environment(GlobalModel.self) var global
     @Environment(AuthModel.self) var authModel
-    @Environment(\.colorScheme) var colorScheme
     @State private var showSubmitRequest = false
     @State private var isShowingSignOutAlert = false
     @State private var visits: [Location : Timestamp] = [:]
     @State private var didAppear = false
+    
+    private func fetchUserVisits() async {
+        guard let user = Auth.auth().currentUser else { return }
+        
+        do {
+            var locationVisits: [Location : Timestamp] = [:]
+            
+            let userVisits: [Visit] = try await FirebaseService.shared.fetchData(ref: Collections.userVists(for: user.uid))
+            let locationIds = userVisits.compactMap { $0.locationId }
+            
+            let locations = try modelContext.fetch(FetchDescriptor(predicate: #Predicate<Location> {
+                locationIds.contains($0.id)
+            }))
+            
+            for visit in userVisits {
+                if let index = locations.firstIndex(where: { $0.id == visit.locationId } ) {
+                    locationVisits[locations[index]] = visit.timestamp
+                }
+            }
+            
+            visits = locationVisits
+        } catch {
+            print("Error: fetchUserVisits(): \(error.localizedDescription)")
+        }
+    }
     
     var body: some View {
         NavigationStack {
@@ -55,7 +80,7 @@ struct ProfileView: View {
             .fullScreenCover(isPresented: $showSubmitRequest) {
                 SubmitLocationDetailsView(showCover: $showSubmitRequest)
             }
-            .task { try? await fetchUserVisits() }
+            .task { await fetchUserVisits() }
         }
     }
     
@@ -137,31 +162,6 @@ struct ProfileView: View {
         }
     }
     
-    func fetchUserVisits() async throws {
-        do {
-            guard let user = Auth.auth().currentUser else { return }
-            
-            var locationVisits: [Location : Timestamp] = [:]
-            
-            let userVisits = try await VisitService.shared.fetchVisits(userId: user.uid)
-            let locationIds = userVisits.compactMap { $0.locationId }
-            
-            let locations = try modelContext.fetch(FetchDescriptor(predicate: #Predicate<Location> {
-                locationIds.contains($0.id)
-            }))
-            
-            for visit in userVisits {
-                if let index = locations.firstIndex(where: { $0.id == visit.locationId } ) {
-                    locationVisits[locations[index]] = visit.timestamp
-                }
-            }
-            
-            visits = locationVisits
-        } catch {
-            print("Error: fetchUserVisits(): \(error.localizedDescription)")
-        }
-    }
-    
     var visitsScrollView: some View {
         ScrollView {
             VisitsScrollView(visits: visits)
@@ -172,8 +172,12 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView()
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Location.self, configurations: config)
+    
+    return ProfileView()
         .environment(AuthModel())
         .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
+        .modelContainer(container)
     
 }

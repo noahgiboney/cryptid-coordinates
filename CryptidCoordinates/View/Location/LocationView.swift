@@ -32,9 +32,6 @@ struct LocationView: View {
                 VStack(alignment: .leading, spacing: 25){
                     VStack {
                         KFImage(location.url)
-                            .loadDiskFileSynchronously()
-                            .cacheMemoryOnly()
-                            .fade(duration: 0.25)
                             .resizable()
                             .frame(maxWidth: .infinity, maxHeight: 400)
                         
