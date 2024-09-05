@@ -15,34 +15,32 @@ struct MapAnnotationView: View {
     @State private var didFail = false
     
     var body: some View {
-        ZStack {
-            Circle().fill(.white)
-                .frame(width: 53, height: 53)
-                .overlay(
-                    Circle().stroke(.white, lineWidth: 2.5)
-                )
-                .shadow(radius: 10)
-            
-            if didFail || url == nil {
-                Image(systemName: "eye.slash")
-                    .imageScale(.large)
-            } else {
-                KFImage(url)
-                    .onFailure({ _ in
-                        DispatchQueue.main.async {
-                            didFail = true
-                        }
-                    })
-                    .placeholder({
-                        ProgressView()
-                    })
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 50, height: 50)
-                    .clipShape(Circle())
-                    .shadow(radius: 10)
+        KFImage(url)
+            .placeholder { _ in
+                ZStack {
+                    Circle().fill(.white)
+                        .frame(width: 50, height: 50)
+                    
+                    Image(systemName: "eye.slash")
+                        .foregroundStyle(.black)
+                }
             }
-        }
+            .onSuccess { _ in
+                didFail = false
+            }
+            .onFailure { _ in
+                didFail  = true
+            }
+            .loadDiskFileSynchronously()
+            .cacheMemoryOnly()
+            .fade(duration: 0.25)
+            .resizable()
+            .frame(maxWidth: 50, maxHeight: 50)
+            .clipShape(Circle())
+            .overlay(
+                Circle().stroke(didFail ? .gray.opacity(0.5) : .white, lineWidth: 2.5)
+            )
+            .shadow(radius: 10)
     }
 }
 #Preview {
