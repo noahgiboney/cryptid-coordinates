@@ -16,82 +16,17 @@ struct LocationPreviewView: View {
     @State private var image: UIImage?
     @State private var loadState: LoadState = .loading
     
-    var averageColor: UIColor {
+    private var averageColor: UIColor {
         image?.findAverageColor(algorithm: .simple) ?? .gray
     }
     
-    var body: some View {
-        Group {
-            switch loadState {
-            case .loading:
-                ProgressView()
-                    .frame(height: 249)
-                    .frame(width: 350)
-            case .loaded:
-                previewView
-            case .error:
-                previewView
-            }
-        }
-        .onAppear {
-            downloadImage()
-        }
-    }
-    
-    var previewView: some View {
-        VStack {
-            if let uiImage = image {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(maxHeight: 170)
-            } else {
-                Image(systemName: "camera")
-                    .imageScale(.large)
-                    .frame(height: 170)
-                    .foregroundStyle(colorScheme == .light ? .black : .white)
-            }
-            
-            VStack(spacing: 0) {
-                Rectangle()
-                    .fill(Color(uiColor: .systemBackground))
-                    .frame(height: 2.5)
-                
-                HStack(alignment: .bottom) {
-                    VStack(alignment: .leading) {
-                        Text(location.name)
-                            .fontWeight(.semibold)
-                        Text(location.cityState)
-                            .font(.footnote)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .overlay(alignment:.bottomTrailing) {
-                        if let userCords = locationManager.lastKnownLocation {
-                            Text("\(location.distanceAway(userCords)) Miles Away")
-                                .font(.footnote)
-                        }
-                    }
-                }
-                .padding(15)
-                .foregroundStyle(.white)
-                .background(Color(uiColor: averageColor))
-            }
-        }
-        .frame(width: 350)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .overlay {
-            RoundedRectangle(cornerRadius: 20).stroke(colorScheme == .light ? .black : .white, lineWidth: loadState == .error ? 1 : 0)
-        }
-        .shadow(color: .black.opacity(0.3), radius: loadState == .loaded ? 5 : 0, x: 0, y: loadState == .loaded ? 5 : 0)
-    }
-    
-    func downloadImage() {
+    private func downloadImage() {
         guard loadState == .loading else { return }
         
         guard let url = URL(string: location.imageUrl) else { return }
-        let resource = ImageResource(downloadURL: url)
+        let resource = KF.ImageResource(downloadURL: url)
 
-        KingfisherManager.shared.retrieveImage(with: resource, options: [.cacheOriginalImage], progressBlock: nil) { result in
+        KingfisherManager.shared.retrieveImage(with: resource) { result in
             switch result {
             case .success(let value):
                 DispatchQueue.main.async {
@@ -99,8 +34,88 @@ struct LocationPreviewView: View {
                     loadState = .loaded
                 }
             case .failure(_):
-                loadState = .error
+                DispatchQueue.main.async {
+                    loadState = .error
+                }
             }
+        }
+    }
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            locationImageView
+            locationInfoView
+        }
+        .frame(width: 350)
+        .onAppear {
+            downloadImage()
+        }
+    }
+    
+    private var locationImageView: some View {
+        ZStack {
+            if loadState == .loading {
+                ProgressView()
+                    .frame(height: 170)
+            } else {
+                if let uiImage = image {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(maxHeight: 170)
+                        .clipShape(
+                            .rect(
+                                topLeadingRadius: 20,
+                                bottomLeadingRadius: 0,
+                                bottomTrailingRadius: 0,
+                                topTrailingRadius: 20
+                            )
+                        )
+                } else {
+                    Image(systemName: "eye.slash")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 60)
+                        .foregroundStyle(colorScheme == .light ? .black : .white)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .background()
+    }
+    
+    private var locationInfoView: some View {
+        VStack(spacing: 0) {
+            Rectangle()
+                .fill(Color(uiColor: .systemBackground))
+                .frame(height: 2.5)
+            
+            HStack(alignment: .bottom) {
+                VStack(alignment: .leading) {
+                    Text(location.name)
+                        .fontWeight(.semibold)
+                    Text(location.cityState)
+                        .font(.footnote)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .overlay(alignment:.bottomTrailing) {
+                    if let userCords = locationManager.lastKnownLocation {
+                        Text("\(location.distanceAway(userCords)) Miles Away")
+                            .font(.footnote)
+                    }
+                }
+            }
+            .padding(15)
+            .foregroundStyle(.white)
+            .background(Color(uiColor: averageColor))
+            .clipShape(
+                .rect(
+                    topLeadingRadius: 0,
+                    bottomLeadingRadius: 20,
+                    bottomTrailingRadius: 20,
+                    topTrailingRadius: 0
+                )
+            )
         }
     }
 }
