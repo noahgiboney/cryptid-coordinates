@@ -8,12 +8,25 @@
 import Firebase
 import SwiftUI
 
-struct CommentSection: View {
-    var locationId: String
-    var scrollProxy: ScrollViewProxy
+struct CommentSectionView: View {
+    let locationId: String
+    let scrollProxy: ScrollViewProxy
     @Environment(GlobalModel.self) var global
     @FocusState private var isFocused: Bool
     @State private var model = CommentModel()
+    
+    private func addComment() {
+        Task {
+            let commentId = await model.addNewComment(for: locationId, currentUser: global.user)
+            isFocused = false
+            
+            if let id = commentId {
+                withAnimation {
+                    scrollProxy.scrollTo(id)
+                }
+            }
+        }
+    }
     
     var body: some View {
         VStack(spacing: 30) {
@@ -39,7 +52,7 @@ struct CommentSection: View {
             }
         }
         .task {
-            try? await model.fetchComments(locationId: locationId)
+            await model.fetchComments(locationId)
         }
         .onChange(of: isFocused) { _, newValue in
             if newValue == true {
@@ -96,30 +109,12 @@ struct CommentSection: View {
             }
             .padding(.horizontal, 10)
     }
-    
-    func addComment() {
-        Task {
-            let commentId = try await model.addComment(locationId: locationId, currentUser: global.user)
-            isFocused = false
-            
-            if let id = commentId {
-                withAnimation {
-                    scrollProxy.scrollTo(id)
-                }
-            }
-        }
-    }
-    
-    func deleteComment() {
-        Task {
-            
-        }
-    }
 }
 
 #Preview {
     ScrollViewReader { proxy in
-        CommentSection(locationId: UUID().uuidString, scrollProxy: proxy)
+        CommentSectionView(locationId: UUID().uuidString, scrollProxy: proxy)
             .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
     }
 }
+

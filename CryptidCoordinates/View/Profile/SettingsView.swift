@@ -46,7 +46,7 @@ struct SettingsView: View {
         .navigationBarBackButtonHidden()
         .alert("Sign Out", isPresented: $isShowingSignOutAlert) {
             Button("Sign Out", role: .destructive) {
-                try? authModel.signOut()
+                authModel.signOut()
             }
         } message: {
             Text("Are you sure you want to sign out? You will have to sign back in next visit.")
@@ -54,7 +54,7 @@ struct SettingsView: View {
         .alert("Confirm Deletion", isPresented: $isShowingDeleteAccAlert) {
             Button("Delete", role: .destructive) {
                 Task { 
-                    try await authModel.deleteAccount()
+                    await authModel.deleteAccount()
                     saved.wipeSaved()
                 }
             }
@@ -67,7 +67,7 @@ struct SettingsView: View {
             }
             
             Button("Sign Out Only") {
-                try? authModel.signOut()
+                authModel.signOut()
             }
             
             Button("Delete Account", role: .destructive) {

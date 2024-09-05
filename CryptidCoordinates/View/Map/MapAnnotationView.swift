@@ -1,17 +1,17 @@
 //
-//  AnnotationView.swift
+//  MapAnnotationView.swift
 //  CryptidCoordinates
 //
-//  Created by Noah Giboney on 7/7/24.
+//  Created by Noah Giboney on 9/4/24.
 //
 
-import ClusterMap
 import Kingfisher
-import MapKit
+import SwiftData
 import SwiftUI
 
-struct AnnotationView: View {
-    var url: URL?
+struct MapAnnotationView: View {
+    
+    let url: URL?
     @State private var didFail = false
     
     var body: some View {
@@ -21,7 +21,7 @@ struct AnnotationView: View {
                     Circle().fill(.white)
                         .frame(width: 50, height: 50)
                     
-                    Image(systemName: "camera")
+                    Image(systemName: "eye.slash")
                         .foregroundStyle(.black)
                 }
             }
@@ -43,7 +43,10 @@ struct AnnotationView: View {
             .shadow(radius: 10)
     }
 }
-
 #Preview {
-    AnnotationView()
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Location.self, configurations: config)
+    
+    return MapAnnotationView(url: Location.example.url)
+        .modelContainer(container)
 }

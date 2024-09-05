@@ -12,7 +12,7 @@ import SwiftData
 import SwiftUI
 import TipKit
 
-struct LocationView: View {
+struct LocationScreen: View {
     @Bindable var location: Location
     @AppStorage("locationViewCount") var locationViewCount = 0
     @AppStorage("lastVersionPromptedForReview") var lastVersionPromptedForReview = ""
@@ -32,9 +32,6 @@ struct LocationView: View {
                 VStack(alignment: .leading, spacing: 25){
                     VStack {
                         KFImage(location.url)
-                            .loadDiskFileSynchronously()
-                            .cacheMemoryOnly()
-                            .fade(duration: 0.25)
                             .resizable()
                             .frame(maxWidth: .infinity, maxHeight: 400)
                         
@@ -49,7 +46,7 @@ struct LocationView: View {
                         Divider()
                     }
                     
-                    CommentSection(locationId: location.id, scrollProxy: proxy)
+                    CommentSectionView(locationId: location.id, scrollProxy: proxy)
                 }
             }
         }
@@ -170,7 +167,7 @@ struct LocationView: View {
     let container = try! ModelContainer(for: Location.self, configurations: config)
     
     return NavigationStack {
-        LocationView(location: Location.example)
+        LocationScreen(location: Location.example)
             .modelContainer(container)
             .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
             .environment(Saved())

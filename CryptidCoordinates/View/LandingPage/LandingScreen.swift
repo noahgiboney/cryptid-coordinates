@@ -10,7 +10,7 @@ import Firebase
 import KeychainSwift
 import SwiftUI
 
-struct LandingView: View {
+struct LandingScreen: View {
     @Environment(AuthModel.self) var authModel
     @State private var errorMessage = ""
     @State private var isShowingError = false
@@ -99,7 +99,7 @@ struct LandingView: View {
 }
 
 #Preview {
-    LandingView()
+    LandingScreen()
         .preferredColorScheme(.dark)
         .environment(AuthModel())
 }

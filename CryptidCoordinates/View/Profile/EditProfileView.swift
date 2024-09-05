@@ -22,6 +22,19 @@ struct EditProfileView: View {
         self._selectedAvatar = State(initialValue: user.avatar.wrappedValue)
     }
     
+    private func updateUser() {
+        Task {
+            user = tempUser
+            
+            do {
+                try await FirebaseService.shared.updateData(object: tempUser, ref: Collections.users)
+            } catch {
+                print("Error: updateUser(): \(error.localizedDescription)")
+            }
+        }
+        dismiss()
+    }
+    
     private let columns = [GridItem(), GridItem(), GridItem()]
     
     var body: some View {
@@ -52,44 +65,17 @@ struct EditProfileView: View {
         }
     }
     
-    func updateUser() {
-        user = tempUser
-        Task {
-            do {
-                try await UserService.shared.updateWholeUser(updateUser: tempUser)
-            } catch {
-                print("Error: updateUser(): \(error.localizedDescription)")
-            }
-        }
-        dismiss()
-    }
+    
     
     var avatarGrid: some View {
         LazyVGrid(columns: columns, spacing: 85) {
             ForEach(Avatar.allCases, id: \.self) { avatar in
-                let isLocked = user.visits < avatar.cost
                 VStack {
-                    AvatarRowItem(isSelected: selectedAvatar == avatar, isLocked: isLocked, avatar: avatar, nsPfp: nsPfp)
+                    AvatarRowView(isSelected: selectedAvatar == avatar, avatar: avatar, nsPfp: nsPfp)
                         .id(avatar)
                         .onTapGesture{
-                            if !isLocked {
-                                withAnimation(.snappy){
-                                    selectedAvatar = avatar
-                                }
-                            }
-                        }
-                        .overlay(alignment: .bottom) {
-                            if isLocked {
-                                VStack {
-                                    HStack(spacing: 3){
-                                        Image(systemName: "lock.fill")
-                                        Text("Locked")
-                                    }
-                                    Text("\(avatar.cost) Visits")
-                                }
-                                .font(.footnote)
-                                .foregroundStyle(.gray)
-                                .offset(y: 45)
+                            withAnimation(.snappy){
+                                selectedAvatar = avatar
                             }
                         }
                 }
@@ -101,52 +87,11 @@ struct EditProfileView: View {
     }
 }
 
-struct AvatarRowItem: View {
-    var isSelected: Bool
-    var isLocked: Bool
-    var avatar: Avatar
-    var nsPfp: Namespace.ID
-    @Environment(\.colorScheme) var scheme
-    
-    var body: some View {
-        avatar.image
-            .resizable()
-            .scaledToFit()
-            .foregroundStyle(.primary)
-            .frame(width: 90, height: 90)
-            .scaleEffect(isSelected && !isLocked ? 1.1 : 1)
-            .overlay(alignment: .top) {
-                if isSelected {
-                    Image(systemName: "triangle.fill")
-                        .rotationEffect(.degrees(180))
-                        .matchedGeometryEffect(id: "PFP", in: nsPfp)
-                        .offset(y: -30)
-                }
-            }
-            .lockedModifier(isLocked: isLocked)
-    }
-}
-
 #Preview {
     NavigationStack {
         EditProfileView(user: .constant(.example))
             .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
             .preferredColorScheme(.dark)
-
-    }
-}
-
-struct LockedViewModifier: ViewModifier  {
-    var isLocked: Bool
-    
-    func body(content: Content) -> some View {
-        content
-            .shadow(color: Color.black.opacity(0.6), radius: isLocked ? 8 : 0, x: 0, y: 0)
-    }
-}
-
-extension View {
-    func lockedModifier(isLocked: Bool) -> some View {
-        self.modifier(LockedViewModifier(isLocked: isLocked))
+        
     }
 }

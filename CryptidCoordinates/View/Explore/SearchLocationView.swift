@@ -77,5 +77,5 @@ struct SearchLocationView: View {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Location.self, configurations: config)
     
-    return ExploreView().modelContainer(container)
+    return ExploreScreen().modelContainer(container)
 }

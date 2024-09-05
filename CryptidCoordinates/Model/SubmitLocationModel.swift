@@ -25,8 +25,7 @@ class SubmitLocationModel {
         let newRequest = LocationRequest(user: currentUserId, locationName: locationName, description: description, latitude: cords.latitude, longitude: cords.latitude)
         
         do {
-            let requestData = try Firestore.Encoder().encode(newRequest)
-            try await Firestore.firestore().collection("locationRequests").document(newRequest.locationName).setData(requestData)
+            try await FirebaseService.shared.setData(object: newRequest, ref: Collections.locationRequests)
             alertMessage = "Your request for \(locationName) has been sent. Keep an eye out for it be featured on the platform!"
             isShowingAlert.toggle()
         } catch {

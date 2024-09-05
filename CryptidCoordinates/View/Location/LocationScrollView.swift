@@ -18,7 +18,7 @@ struct LocationScrollView: View {
             LazyHStack {
                 ForEach(locations) { location in
                     NavigationLink {
-                        LocationView(location: location)
+                        LocationScreen(location: location)
                     } label: {
                         LocationPreviewView(location: location)
                     }

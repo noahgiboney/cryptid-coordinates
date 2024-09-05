@@ -9,7 +9,7 @@ import Kingfisher
 import SwiftData
 import SwiftUI
 
-struct ExploreView: View {
+struct ExploreScreen: View {
     @EnvironmentObject var locationManager: LocationManager
     @State private var searchText = ""
     
@@ -54,5 +54,5 @@ struct ExploreView: View {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Location.self, configurations: config)
     
-    return ExploreView().modelContainer(container).environmentObject(LocationManager())
+    return ExploreScreen().modelContainer(container).environmentObject(LocationManager())
 }

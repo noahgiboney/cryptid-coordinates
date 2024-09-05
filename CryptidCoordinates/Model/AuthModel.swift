@@ -12,20 +12,18 @@ import SwiftUI
 
 @Observable
 class AuthModel {
-    private let userService: UserService
     
     var userSession: Firebase.User? {
         didSet {
             if userSession != nil {
-                Task { try await fetchCurrentUser() }
+                Task { await fetchCurrentUser() }
             }
         }
     }
     
     var currentUser: User?
     
-    init(userService: UserService = UserService.shared) {
-        self.userService = userService
+    init() {
         updateUserSession()
         verifySignInWithAppleID()
     }
@@ -37,27 +35,30 @@ class AuthModel {
 
 // MARK: Firebase User
 extension AuthModel {
-    func fetchCurrentUser() async throws {
+    func fetchCurrentUser() async {
+        guard let user = Auth.auth().currentUser else { return }
+        
         do {
-            currentUser = try await userService.fetchCurrentUser()
+            currentUser = try await FirebaseService.shared.fetchOne(id: user.uid, ref: Collections.users)
         } catch {
-            print("")
+            print("Error: fetchCurrentUser(): \(error.localizedDescription)")
         }
     }
-    
+   
     func createNewUser(id: String, name: String) async throws {
         do {
-            try await userService.createNewUser(id: id, name: name)
+            let newUser = User(id: id, name: name)
+            try await FirebaseService.shared.setData(object: newUser, ref: Collections.users)
         } catch {
             print("DEBUG: error creating user: \(error.localizedDescription)")
         }
     }
     
     func checkIfUserExists(userId: String) async throws -> Bool {
-        return try await userService.checkIfUserExists(userId: userId)
+        return try await Collections.users.document(userId).getDocument().exists
     }
     
-    func signOut() throws {
+    func signOut() {
         do {
             try Auth.auth().signOut()
         } catch {
@@ -67,9 +68,13 @@ extension AuthModel {
         currentUser = nil
     }
     
-    func deleteAccount() async throws{
+    func deleteAccount() async {
+        guard let user = Auth.auth().currentUser else { return }
+        
         do {
-            try await userService.deleteCurrentUser()
+            try await FirebaseService.shared.deleteCollection(ref: Collections.userVists(for: user.uid))
+            FirebaseService.shared.delete(id: user.uid, ref: Collections.users)
+            try await user.delete()
         } catch {
             print("FirebaseAuthError: deleteAccount() failed. \(error)")
         }
@@ -90,10 +95,10 @@ extension AuthModel {
                 case .authorized:
                     break
                 case .revoked:
-                    try signOut()
+                    signOut()
                 case .notFound:
-                    try await userService.deleteCurrentUser()
-                    try signOut()
+                    await deleteAccount()
+                    signOut()
                 default:
                     break
                 }

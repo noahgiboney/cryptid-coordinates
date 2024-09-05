@@ -5,6 +5,7 @@
 //  Created by Noah Giboney on 7/22/24.
 //
 
+import Firebase
 import SwiftData
 import SwiftUI
 
@@ -14,16 +15,7 @@ struct TrendingView: View {
     @State private var trendingLocations: [Location] = []
     @State private var didAppear = false
     
-    var body: some View {
-        LocationScrollView(locations: trendingLocations)
-            .listRowInsets(EdgeInsets())
-            .task { 
-                await fetchTrendingLocations()
-                didAppear = true
-            }
-    }
-    
-    func fetchLocations() throws {
+    private func fetchLocations() throws {
         let descriptor = FetchDescriptor<Location>(predicate: #Predicate<Location> { location in
             trendingIds.contains(location.id)
         }, sortBy: [SortDescriptor(\Location.name)])
@@ -32,15 +24,27 @@ struct TrendingView: View {
         trendingLocations = locations
     }
     
-    func fetchTrendingLocations() async {
+    private func fetchTrendingLocations() async {
         guard !didAppear else { return }
         
         do {
-            trendingIds = try await CommentService.shared.fetchLocationIdsWithComments()
+            let commentsSnapshot = try await Firestore.firestore().collectionGroup("comments").getDocuments()
+            let locationIds = Set(commentsSnapshot.documents.compactMap { $0.reference.parent.parent?.documentID })
+            trendingIds = Array(locationIds).prefix(5).shuffled()
+            
             try fetchLocations()
         } catch {
             print("Error: fetchTrendingLocations(): \(error.localizedDescription)")
         }
+    }
+    
+    var body: some View {
+        LocationScrollView(locations: trendingLocations)
+            .listRowInsets(EdgeInsets())
+            .task {
+                await fetchTrendingLocations()
+                didAppear = true
+            }
     }
 }
 

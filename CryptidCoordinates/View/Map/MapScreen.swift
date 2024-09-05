@@ -10,7 +10,7 @@ import MapKit
 import SwiftData
 import SwiftUI
 
-struct MapView: View {
+struct MapScreen: View {
     var defaultCords: CLLocationCoordinate2D
     @EnvironmentObject var locationManager: LocationManager
     @Environment(GlobalModel.self) var global
@@ -36,10 +36,10 @@ struct MapView: View {
                 ForEach(model.annotations) { annotation in
                     let location = annotation.location
                     Annotation("", coordinate: location.coordinates) {
-                        AnnotationView(url: location.url)
+                        MapAnnotationView(url: location.url)
                             .onTapGesture {
                                 selectedLocation = location
-                            }
+                            }                            
                     }
                 }
                 
@@ -67,7 +67,7 @@ struct MapView: View {
             })
             .sheet(item: $selectedLocation) { location in
                 NavigationStack {
-                    LocationView(location: location)
+                    LocationScreen(location: location)
                         .overlay(alignment: .topTrailing) {
                             Button {
                                 selectedLocation = nil
@@ -98,7 +98,7 @@ struct MapView: View {
 }
 
 #Preview {
-    MapView(defaultCords: Location.example.coordinates)
+    MapScreen(defaultCords: Location.example.coordinates)
         .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
         .environmentObject(LocationManager())
 }

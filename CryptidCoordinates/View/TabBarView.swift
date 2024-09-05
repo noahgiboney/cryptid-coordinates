@@ -23,25 +23,25 @@ struct TabBarView: View {
     
     var body: some View {
         TabView(selection: $global.tabSelection) {
-            ExploreView()
+            ExploreScreen()
                 .tabItem {
                     Image(systemName: "house")
                 }
                 .tag(0)
             
-            MapView(defaultCords: defaultCords)
+            MapScreen(defaultCords: defaultCords)
                 .tabItem {
                     Image(systemName: "map")
                 }
                 .tag(1)
             
-            LeaderboardView()
+            LeaderboardScreen()
                 .tabItem {
                     Image(systemName: "medal")
                 }
                 .tag(2)
             
-            ProfileView()
+            ProfileScreen()
                 .tabItem {
                     Image(systemName: "person")
                 }
