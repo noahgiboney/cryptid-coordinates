@@ -18,7 +18,7 @@ struct NearYouView: View {
     @State private var lastKnownLocation: CLLocationCoordinate2D?
     @Query var nearLocations: [Location]
     
-    let distanceThreshold: CLLocationDistance = 50
+    let distanceThreshold: CLLocationDistance = 10
     
     init(geohashes: [String]) {
         self.geohashes = geohashes

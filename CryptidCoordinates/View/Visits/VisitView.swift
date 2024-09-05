@@ -48,8 +48,7 @@ struct VisitView: View {
             }
             
             /// 0.3 miles 483
-//            let minDistance = 483.0
-            let minDistance = 50_000_00.0
+            let minDistance = 483.0
             
             let distanceFromLocation = userCords.distance(from: location.clLocation)
 

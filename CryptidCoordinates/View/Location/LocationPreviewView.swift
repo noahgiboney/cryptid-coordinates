@@ -62,6 +62,7 @@ struct LocationPreviewView: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFill()
+                        .frame(width: 350)
                         .frame(maxHeight: 170)
                         .clipShape(
                             .rect(
@@ -72,16 +73,18 @@ struct LocationPreviewView: View {
                             )
                         )
                 } else {
-                    Image(systemName: "eye.slash")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 60)
-                        .foregroundStyle(colorScheme == .light ? .black : .white)
+                    VStack {
+                        Image(systemName: "eye.slash")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 60)
+                            .foregroundStyle(colorScheme == .light ? .black : .white)
+                            .frame(height: 170)
+                    }
+                    .frame(maxWidth: .infinity)
                 }
             }
         }
-        .frame(maxWidth: .infinity)
-        .background()
     }
     
     private var locationInfoView: some View {
