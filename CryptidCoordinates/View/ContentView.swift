@@ -29,7 +29,7 @@ struct ContentView: View {
                         .onAppear {  locationManager.start() }
                 }
             } else {
-                LandingView()
+                LandingScreen()
             }
         }
         .environment(authModel)

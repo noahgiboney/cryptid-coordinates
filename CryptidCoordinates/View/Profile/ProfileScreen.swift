@@ -9,7 +9,7 @@ import Firebase
 import SwiftData
 import SwiftUI
 
-struct ProfileView: View {
+struct ProfileScreen: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.modelContext) var modelContext
     @Environment(GlobalModel.self) var global
@@ -175,7 +175,7 @@ struct ProfileView: View {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Location.self, configurations: config)
     
-    return ProfileView()
+    return ProfileScreen()
         .environment(AuthModel())
         .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
         .modelContainer(container)

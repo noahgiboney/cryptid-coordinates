@@ -12,7 +12,7 @@ struct LocationRowView: View {
     
     var body: some View {
         NavigationLink {
-            LocationView(location: location)
+            LocationScreen(location: location)
         } label: {
             VStack(alignment: .leading) {
                 Text(location.name)

@@ -29,7 +29,7 @@ struct TabBarView: View {
                 }
                 .tag(0)
             
-            MapView(defaultCords: defaultCords)
+            MapScreen(defaultCords: defaultCords)
                 .tabItem {
                     Image(systemName: "map")
                 }
@@ -41,7 +41,7 @@ struct TabBarView: View {
                 }
                 .tag(2)
             
-            ProfileView()
+            ProfileScreen()
                 .tabItem {
                     Image(systemName: "person")
                 }
