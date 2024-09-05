@@ -21,9 +21,7 @@ struct LeaderboardScreen: View {
             } else {
                 List {
                     Section {
-                        if let index = model.leaderboard.firstIndex(where: { $0.id == global.user.id }){
-                            LeaderboardRowView(index: index)
-                        }
+                        currentUserRowView
                     }
                     
                     Section {
@@ -49,6 +47,37 @@ struct LeaderboardScreen: View {
             guard !didAppear else { return }
             await model.populateInitalLeaderboard()
             didAppear = true
+        }
+    }
+    
+    @ViewBuilder
+    private var currentUserRowView: some View {
+        if let index = model.leaderboard.firstIndex(where: { $0.id == global.user.id }){
+            LeaderboardRowView(index: index)
+        } else {
+            HStack(spacing: 20) {
+                Text("NA")
+                    .font(.footnote)
+                
+                HStack {
+                    AvatarView(type: .medium, user: global.user)
+                    
+                    Text(global.user.name)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .font(.footnote)
+                }
+                
+                Spacer()
+                
+                HStack(spacing: 4) {
+                    Text("\(0)")
+                        .contentTransition(.numericText())
+                    Text("Visits")
+                }
+                .font(.caption2)
+                .foregroundStyle(.gray)
+            }
         }
     }
 }
