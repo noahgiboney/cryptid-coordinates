@@ -31,6 +31,7 @@
 		E204C11D2C1E3EF700688944 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E204C11C2C1E3EF700688944 /* FirebaseStorage */; };
 		E204C11F2C1E3EF700688944 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = E204C11E2C1E3EF700688944 /* FirebaseVertexAI-Preview */; };
 		E2137BB22C8BA6F3006C7462 /* NewLocationsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2137BB12C8BA6F3006C7462 /* NewLocationsScreen.swift */; };
+		E2137BB62C8BBA5B006C7462 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2137BB52C8BBA5B006C7462 /* LocationStore.swift */; };
 		E222D9052C27CCF400FA427D /* GradientEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222D9042C27CCF400FA427D /* GradientEffectView.swift */; };
 		E222F7292C5C21EE004643B7 /* ScanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222F7282C5C21EE004643B7 /* ScanningView.swift */; };
 		E222F72B2C5C5424004643B7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222F72A2C5C5424004643B7 /* LocationManager.swift */; };
@@ -107,6 +108,7 @@
 		E20179FD2C5ADEB500D0A1AA /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		E204C0F32C1E3E9A00688944 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E2137BB12C8BA6F3006C7462 /* NewLocationsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLocationsScreen.swift; sourceTree = "<group>"; };
+		E2137BB52C8BBA5B006C7462 /* LocationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStore.swift; sourceTree = "<group>"; };
 		E222D9042C27CCF400FA427D /* GradientEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientEffectView.swift; sourceTree = "<group>"; };
 		E222F7282C5C21EE004643B7 /* ScanningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningView.swift; sourceTree = "<group>"; };
 		E222F72A2C5C5424004643B7 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				E2901E362C8A5F3B00C60213 /* CommentSection.swift */,
 				E24AE7022C5760A200B5D741 /* Global.swift */,
 				E24AE7032C5760A200B5D741 /* Leaderboard.swift */,
+				E2137BB52C8BBA5B006C7462 /* LocationStore.swift */,
 				E2C5BB5A2C59D0CC003DD640 /* MapModel.swift */,
 				E24AE7202C5760CF00B5D741 /* Saved.swift */,
 				E24AE6FF2C5760A200B5D741 /* SubmitLocationModel.swift */,
@@ -557,6 +560,7 @@
 			files = (
 				E24AE7172C5760A200B5D741 /* DecodableLocation.swift in Sources */,
 				E24AE7122C5760A200B5D741 /* Global.swift in Sources */,
+				E2137BB62C8BBA5B006C7462 /* LocationStore.swift in Sources */,
 				E24AE7582C5762C500B5D741 /* LocationScreen.swift in Sources */,
 				E24AE7132C5760A200B5D741 /* Leaderboard.swift in Sources */,
 				E24AE7322C5760E600B5D741 /* BackButton.swift in Sources */,

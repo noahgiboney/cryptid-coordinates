@@ -22,6 +22,8 @@ struct Collections {
     
     static let reportedComments = db.collection("reportedComments")
     
+    static let newLocations = db.collection("newLocations")
+    
     static func userVists(for userId: String) -> CollectionReference {
         visits.document(userId).collection("visits")
     }
