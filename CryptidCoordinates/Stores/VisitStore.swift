@@ -9,6 +9,10 @@ import CoreLocation
 import Firebase
 import Foundation
 
+enum VisitState {
+    case scanning, newVisit, notInProximity, alreadyVisited
+}
+
 @Observable
 class VisitStore {
     

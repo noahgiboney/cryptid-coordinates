@@ -7,12 +7,7 @@
 
 import Firebase
 import MapKit
-import StoreKit
 import SwiftUI
-
-enum VisitState {
-    case scanning, newVisit, notInProximity, alreadyVisited
-}
 
 struct VisitView: View {
 
@@ -44,14 +39,6 @@ struct VisitView: View {
             } catch {
                 print("Error: attemptLogVisit() : \(error.localizedDescription)")
             }
-        }
-    }
-    
-    private func presentReview() {
-        Task {
-            try await Task.sleep(for: .seconds(2.0))
-            requestReview()
-            lastVersionPromptedForReview = global.currentAppVersion
         }
     }
     

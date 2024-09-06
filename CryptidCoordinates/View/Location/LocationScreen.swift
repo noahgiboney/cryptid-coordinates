@@ -15,7 +15,7 @@ import TipKit
 struct LocationScreen: View {
     
     @Bindable var location: Location
-    @AppStorage("locationViewCount") var locationViewCount = 0
+    @AppStorage("locationsViewed") var locationsViewed = 1
     @AppStorage("lastVersionPromptedForReview") var lastVersionPromptedForReview = ""
     @Environment(\.requestReview) var requestReview
     @Environment(\.colorScheme) var colorScheme
@@ -26,6 +26,31 @@ struct LocationScreen: View {
     @State private var lookAroundPlace: MKLookAroundScene?
     @State private var showVisitSheet = false
     @State private var showLookAround = false
+    
+    private func fetchLookAround() async {
+        let request = MKLookAroundSceneRequest(coordinate: location.coordinates)
+        lookAroundPlace = try? await request.scene
+    }
+    
+    private func openInMaps(_ location: Location) {
+        let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinates))
+        item.openInMaps()
+    }
+    
+    private func viewOnMap() {
+        global.selectedLocation = location
+        if global.tabSelection == 1 {
+            dismiss()
+        }
+    }
+    
+    private func presentReview() {
+        Task {
+            try await Task.sleep(for: .seconds(2.0))
+            requestReview()
+            lastVersionPromptedForReview = global.currentAppVersion
+        }
+    }
     
     var body: some View {
         ScrollView {
@@ -62,10 +87,13 @@ struct LocationScreen: View {
                 .presentationCornerRadius(15)
         }
         .onAppear{
-            if locationViewCount >= 10 && lastVersionPromptedForReview != "2.0" {
+            print(locationsViewed)
+            print(lastVersionPromptedForReview)
+            if locationsViewed >= 10 && lastVersionPromptedForReview != global.currentAppVersion {
                 presentReview()
-            } else {
-                locationViewCount += 1
+                lastVersionPromptedForReview = global.currentAppVersion
+            } else if lastVersionPromptedForReview != global.currentAppVersion {
+                locationsViewed += 1
             }
         }
         .task {
@@ -135,31 +163,6 @@ struct LocationScreen: View {
         }
         .imageScale(.large)
         .padding(.horizontal, 20)
-    }
-        
-    func fetchLookAround() async {
-        let request = MKLookAroundSceneRequest(coordinate: location.coordinates)
-        lookAroundPlace = try? await request.scene
-    }
-    
-    func openInMaps(_ location: Location) {
-        let item = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinates))
-        item.openInMaps()
-    }
-    
-    func viewOnMap() {
-        global.selectedLocation = location
-        if global.tabSelection == 1 {
-            dismiss()
-        }
-    }
-    
-    func presentReview() {
-        Task {
-            try await Task.sleep(for: .seconds(2.0))
-            requestReview()
-            lastVersionPromptedForReview = "2.0"
-        }
     }
 }
 
