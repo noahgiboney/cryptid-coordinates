@@ -14,6 +14,7 @@ struct TabBarView: View {
     let defaultCords: CLLocationCoordinate2D
     @State private var global: Global
     @State private var saved = Saved()
+    @State private var visitStore = VisitStore()
     
     init(currentUser: User, defaultCords: CLLocationCoordinate2D) {
         self.currentUser = currentUser
@@ -50,6 +51,7 @@ struct TabBarView: View {
         }
         .environment(global)
         .environment(saved)
+        .environment(visitStore)
     }
 }
 

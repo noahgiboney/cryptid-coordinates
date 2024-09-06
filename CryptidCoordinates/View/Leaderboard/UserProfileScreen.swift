@@ -13,6 +13,7 @@ struct UserProfileScreen: View {
     
     let user: User
     @Environment(\.modelContext) var modelContext
+    @Environment(VisitStore.self) var visitStore
     @State private var visits: [Location : Timestamp] = [:]
     @State private var didLoad = false
     @State private var sortComparator: ((Dictionary<Location, Timestamp>.Element, Dictionary<Location, Timestamp>.Element) -> Bool) = { $0.value.dateValue() > $1.value.dateValue() }
@@ -24,22 +25,14 @@ struct UserProfileScreen: View {
     
     private func fetchUserVisits() async {
         do {
-            var locationVisits: [Location : Timestamp] = [:]
-            
-            let userVisits: [Visit] = try await FirebaseService.shared.fetchData(ref: Collections.userVists(for: user.id))
+            let userVisits = try await visitStore.fetchVisits(for: user.id)
             let locationIds = userVisits.compactMap { $0.locationId }
             
             let locations = try modelContext.fetch(FetchDescriptor(predicate: #Predicate<Location> {
                 locationIds.contains($0.id)
             }))
             
-            for visit in userVisits {
-                if let index = locations.firstIndex(where: { $0.id == visit.locationId } ) {
-                    locationVisits[locations[index]] = visit.timestamp
-                }
-            }
-            
-            visits = locationVisits
+            visits = visitStore.mapVisits(locations: locations, visits: userVisits)
             didLoad = true
         } catch {
             print("Error: fetchUserVisits(): \(error.localizedDescription)")
@@ -92,5 +85,6 @@ struct UserProfileScreen: View {
 #Preview {
     NavigationStack {
         UserProfileScreen(user: .example)
+            .environment(VisitStore())
     }
 }

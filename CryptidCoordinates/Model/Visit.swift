@@ -9,7 +9,7 @@ import Firebase
 import Foundation
 
 struct Visit: DataModel {
-    var id = UUID().uuidString
+    var id: String
     var timestamp = Timestamp()
     var userId: String
     var locationId: String
@@ -17,5 +17,5 @@ struct Visit: DataModel {
 
 // MARK: Developer
 extension Visit  {
-    static let example = Visit(userId: UUID().uuidString, locationId: Location.example.id)
+    static let example = Visit(id: UUID().uuidString, userId: UUID().uuidString, locationId: Location.example.id)
 }

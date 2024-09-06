@@ -76,6 +76,7 @@
 		E24DA3ED2C86CD410018C6D8 /* MedalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DA3EC2C86CD410018C6D8 /* MedalView.swift */; };
 		E24DA3EF2C86CDE90018C6D8 /* LeaderboardRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DA3EE2C86CDE90018C6D8 /* LeaderboardRowView.swift */; };
 		E2583F0E2C326D08002B1FA5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2583F0D2C326D08002B1FA5 /* SettingsView.swift */; };
+		E27CCBC12C8ABDD00025AB0F /* VisitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27CCBC02C8ABDD00025AB0F /* VisitStore.swift */; };
 		E28594612C61C94200ADD65A /* UserProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28594602C61C94200ADD65A /* UserProfileScreen.swift */; };
 		E286FF882B560B4300C9782A /* ClusterMap in Frameworks */ = {isa = PBXBuildFile; productRef = E286FF872B560B4300C9782A /* ClusterMap */; };
 		E286FF8A2B560B4300C9782A /* ClusterMapSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E286FF892B560B4300C9782A /* ClusterMapSwiftUI */; };
@@ -150,6 +151,7 @@
 		E24DA3EC2C86CD410018C6D8 /* MedalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedalView.swift; sourceTree = "<group>"; };
 		E24DA3EE2C86CDE90018C6D8 /* LeaderboardRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardRowView.swift; sourceTree = "<group>"; };
 		E2583F0D2C326D08002B1FA5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E27CCBC02C8ABDD00025AB0F /* VisitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitStore.swift; sourceTree = "<group>"; };
 		E28594602C61C94200ADD65A /* UserProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileScreen.swift; sourceTree = "<group>"; };
 		E28B40162C86C036005752EB /* AvatarRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarRowView.swift; sourceTree = "<group>"; };
 		E28B40182C86C09F005752EB /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				E2C5BB5A2C59D0CC003DD640 /* MapModel.swift */,
 				E24AE7202C5760CF00B5D741 /* Saved.swift */,
 				E24AE6FF2C5760A200B5D741 /* SubmitLocationModel.swift */,
+				E27CCBC02C8ABDD00025AB0F /* VisitStore.swift */,
 			);
 			path = Stores;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 				E22BFCED2C584B1B00EF462B /* VisitsScrollView.swift in Sources */,
 				E28B401D2C86C13F005752EB /* Collections.swift in Sources */,
 				E23618662C1E63D9005AF3FB /* ProfileScreen.swift in Sources */,
+				E27CCBC12C8ABDD00025AB0F /* VisitStore.swift in Sources */,
 				E28594612C61C94200ADD65A /* UserProfileScreen.swift in Sources */,
 				E23154242C1E843F0026F3E8 /* AppleAuthManager.swift in Sources */,
 				E24AE7472C57615C00B5D741 /* RadarView.swift in Sources */,
