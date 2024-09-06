@@ -17,8 +17,10 @@ struct LocationPreviewView: View {
     @State private var image: UIImage?
     @State private var loadState: LoadState = .loading
     
-    private var averageColor: UIColor {
-        image?.findAverageColor(algorithm: .simple) ?? .gray
+    private var gradientColors: [Color] {
+        let averageColor = image?.findAverageColor(algorithm: .simple) ?? .gray
+        
+        return Color(uiColor: averageColor).findSimilarColors()
     }
     
     private func downloadImage() {
@@ -45,12 +47,14 @@ struct LocationPreviewView: View {
     var body: some View {
         VStack(spacing: 0) {
             locationImageView
+            
             locationInfoView
         }
         .frame(width: 350)
         .onAppear {
             downloadImage()
         }
+        .shadow(radius: 5)
     }
     
     private var locationImageView: some View {
@@ -89,11 +93,7 @@ struct LocationPreviewView: View {
     }
     
     private var locationInfoView: some View {
-        VStack(spacing: 0) {
-            Rectangle()
-                .fill(Color(uiColor: .systemBackground))
-                .frame(height: 2.5)
-            
+        VStack(spacing: 0) {            
             HStack(alignment: .bottom) {
                 VStack(alignment: .leading) {
                     Text(location.name)
@@ -111,7 +111,7 @@ struct LocationPreviewView: View {
             }
             .padding(15)
             .foregroundStyle(.white)
-            .background(Color(uiColor: averageColor))
+            .background(LinearGradient(colors: gradientColors, startPoint: .leading, endPoint: .trailing))
             .clipShape(
                 .rect(
                     topLeadingRadius: 0,

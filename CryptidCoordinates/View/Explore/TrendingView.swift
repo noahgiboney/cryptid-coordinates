@@ -40,7 +40,7 @@ struct TrendingView: View {
     }
     
     var body: some View {
-        LocationScrollView(locations: trendingLocations)
+        LocationScrollView(title: "Trending", locations: trendingLocations)
             .listRowInsets(EdgeInsets())
             .task {
                 await fetchTrendingLocations()
