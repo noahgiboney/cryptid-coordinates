@@ -22,7 +22,7 @@ class SubmitLocationModel {
         guard let cords = coordinates,
         let currentUserId = Auth.auth().currentUser?.uid else { return }
         
-        let newRequest = LocationRequest(user: currentUserId, locationName: locationName, description: description, latitude: cords.latitude, longitude: cords.latitude)
+        let newRequest = LocationRequest(user: currentUserId, locationName: locationName, description: description, latitude: cords.latitude, longitude: cords.longitude)
         
         do {
             try await FirebaseService.shared.setData(object: newRequest, ref: Collections.locationRequests)
