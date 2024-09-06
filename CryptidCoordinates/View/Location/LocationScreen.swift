@@ -15,7 +15,7 @@ import TipKit
 struct LocationScreen: View {
     
     @Bindable var location: Location
-    @AppStorage("locationsViewed") var locationsViewed = 1
+    @AppStorage("locationsViewed") var locationsViewed = 0
     @AppStorage("lastVersionPromptedForReview") var lastVersionPromptedForReview = ""
     @Environment(\.requestReview) var requestReview
     @Environment(\.colorScheme) var colorScheme
@@ -87,8 +87,6 @@ struct LocationScreen: View {
                 .presentationCornerRadius(15)
         }
         .onAppear{
-            print(locationsViewed)
-            print(lastVersionPromptedForReview)
             if locationsViewed >= 10 && lastVersionPromptedForReview != global.currentAppVersion {
                 presentReview()
                 lastVersionPromptedForReview = global.currentAppVersion
