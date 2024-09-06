@@ -10,6 +10,7 @@ import SwiftData
 import SwiftUI
 
 struct TrendingView: View {
+    
     @Environment(\.modelContext) var modelContext
     @State private var trendingIds: [String] = []
     @State private var trendingLocations: [Location] = []
@@ -39,7 +40,7 @@ struct TrendingView: View {
     }
     
     var body: some View {
-        LocationScrollView(locations: trendingLocations)
+        LocationScrollView(title: "Trending", locations: trendingLocations)
             .listRowInsets(EdgeInsets())
             .task {
                 await fetchTrendingLocations()

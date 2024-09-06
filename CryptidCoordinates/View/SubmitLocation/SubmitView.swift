@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SubmitView: View {
+    
     @Binding var showCover: Bool
     @Environment(\.dismiss) var dismiss
     @Environment(SubmitLocationModel.self) var submitModel

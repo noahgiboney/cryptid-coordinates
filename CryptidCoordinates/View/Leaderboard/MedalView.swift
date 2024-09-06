@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct MedalView: View {
-    var index: Int
+    
+    let index: Int
     
     var opacity: Double {
         switch index {

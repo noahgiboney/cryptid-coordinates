@@ -1,5 +1,5 @@
 //
-//  CommentSection.swift
+//  CommentSectionView.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 6/22/24.
@@ -9,11 +9,12 @@ import Firebase
 import SwiftUI
 
 struct CommentSectionView: View {
+    
     let locationId: String
     let scrollProxy: ScrollViewProxy
-    @Environment(GlobalModel.self) var global
+    @Environment(Global.self) var global
     @FocusState private var isFocused: Bool
-    @State private var model = CommentModel()
+    @State private var model = CommentSection()
     
     private func addComment() {
         Task {
@@ -114,7 +115,7 @@ struct CommentSectionView: View {
 #Preview {
     ScrollViewReader { proxy in
         CommentSectionView(locationId: UUID().uuidString, scrollProxy: proxy)
-            .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
+            .environment(Global(user: .example, defaultCords: Location.example.coordinates))
     }
 }
 

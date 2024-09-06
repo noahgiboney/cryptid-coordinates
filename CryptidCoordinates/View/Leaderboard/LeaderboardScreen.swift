@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct LeaderboardScreen: View {
-    @Environment(GlobalModel.self) var global
-    @State private var model = LeaderboardModel()
+    
+    @Environment(Global.self) var global
+    @State private var leaderboard = Leaderboard()
     @State private var didAppear = false
     
     var body: some View {
         NavigationStack {
-            if model.isLoading && model.leaderboard.isEmpty {
+            if leaderboard.isLoading && leaderboard.users.isEmpty {
                 ProgressView {
                     Text("Loading")
                 }
@@ -25,8 +26,8 @@ struct LeaderboardScreen: View {
                     }
                     
                     Section {
-                        ForEach(model.leaderboard) { user in
-                            if let index = model.leaderboard.firstIndex(where: { $0.id == user.id }){
+                        ForEach(leaderboard.users) { user in
+                            if let index = leaderboard.users.firstIndex(where: { $0.id == user.id }){
                                 Group {
                                     if user.id == global.user.id {
                                         currentUserRowView
@@ -40,8 +41,8 @@ struct LeaderboardScreen: View {
                                     }
                                 }
                                 .onAppear {
-                                    if model.leaderboard.last?.id == user.id {
-                                        Task { await model.populateLeaderboard() }
+                                    if leaderboard.users.last?.id == user.id {
+                                        Task { await leaderboard.populateLeaderboard() }
                                     }
                                 }
                             }
@@ -50,21 +51,21 @@ struct LeaderboardScreen: View {
                 }
                 .navigationTitle("Leaderboard")
                 .refreshable {
-                    Task { await model.refresh() }
+                    Task { await leaderboard.refresh() }
                 }
             }
         }
-        .environment(model)
+        .environment(leaderboard)
         .task {
             guard !didAppear else { return }
-            await model.populateInitalLeaderboard()
+            await leaderboard.populateInitalLeaderboard()
             didAppear = true
         }
     }
     
     @ViewBuilder
     private var currentUserRowView: some View {
-        let index = model.leaderboard.firstIndex(where: { $0.id == global.user.id })
+        let index = leaderboard.users.firstIndex(where: { $0.id == global.user.id })
         
         HStack(spacing: 20) {
             

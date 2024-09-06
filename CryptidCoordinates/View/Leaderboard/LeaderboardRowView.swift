@@ -11,7 +11,6 @@ struct LeaderboardRowView: View {
     
     let user: User
     let index: Int
-    @Environment(LeaderboardModel.self) var model
     
     var body: some View {
         HStack(spacing: 20) {
@@ -43,5 +42,4 @@ struct LeaderboardRowView: View {
 
 #Preview {
     LeaderboardRowView(user: .example, index: 1)
-        .environment(LeaderboardModel())
 }

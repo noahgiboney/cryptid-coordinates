@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SubmitLocationDetailsView: View {
+    
     @Binding var showCover: Bool
     @Environment(\.dismiss) var dismiss
     @FocusState private var descriptionFocused: Bool

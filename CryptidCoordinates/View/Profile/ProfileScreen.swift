@@ -10,38 +10,33 @@ import SwiftData
 import SwiftUI
 
 struct ProfileScreen: View {
+    
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.modelContext) var modelContext
-    @Environment(GlobalModel.self) var global
+    @Environment(Global.self) var global
     @Environment(AuthModel.self) var authModel
+    @Environment(VisitStore.self) var visitStore
     @State private var showSubmitRequest = false
     @State private var isShowingSignOutAlert = false
-    @State private var visits: [Location : Timestamp] = [:]
     @State private var didAppear = false
     
     private func fetchUserVisits() async {
-        guard let user = Auth.auth().currentUser else { return }
-        
         do {
-            var locationVisits: [Location : Timestamp] = [:]
-            
-            let userVisits: [Visit] = try await FirebaseService.shared.fetchData(ref: Collections.userVists(for: user.uid))
+            let userVisits = try await visitStore.fetchVisits(for: global.user.id)
             let locationIds = userVisits.compactMap { $0.locationId }
             
             let locations = try modelContext.fetch(FetchDescriptor(predicate: #Predicate<Location> {
                 locationIds.contains($0.id)
             }))
             
-            for visit in userVisits {
-                if let index = locations.firstIndex(where: { $0.id == visit.locationId } ) {
-                    locationVisits[locations[index]] = visit.timestamp
-                }
-            }
-            
-            visits = locationVisits
+            visitStore.mapCurrentUserVists(locations: locations, visits: userVisits)
         } catch {
             print("Error: fetchUserVisits(): \(error.localizedDescription)")
         }
+    }
+    
+    private var visits: [Location: Timestamp] {
+        visitStore.userVisits
     }
     
     var body: some View {
@@ -177,7 +172,7 @@ struct ProfileScreen: View {
     
     return ProfileScreen()
         .environment(AuthModel())
-        .environment(GlobalModel(user: .example, defaultCords: Location.example.coordinates))
+        .environment(Global(user: .example, defaultCords: Location.example.coordinates))
         .modelContainer(container)
     
 }

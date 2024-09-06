@@ -10,6 +10,7 @@ import SwiftData
 import SwiftUI
 
 struct ExploreScreen: View {
+    
     @EnvironmentObject var locationManager: LocationManager
     @State private var searchText = ""
     
@@ -18,9 +19,6 @@ struct ExploreScreen: View {
             List {
                 if searchText.isEmpty {
                     Section {
-                        Text("Near You")
-                            .font(.title2.bold())
-                        
                         if locationManager.lastKnownLocation == nil && !locationManager.isLoadingLocation {
                             LocationUnavailableView(message: "Share your location to explore in your vicinity")
                         } else {
@@ -30,9 +28,6 @@ struct ExploreScreen: View {
                     .listRowSeparator(.hidden)
                     
                     Section {
-                        Text("Trending")
-                            .font(.title2.bold())
-                        
                         TrendingView()
                             .padding(.bottom, 30)
                     }
@@ -45,7 +40,6 @@ struct ExploreScreen: View {
             .navigationBarTitleDisplayMode(.large)
             .searchable(text: $searchText, prompt: "Search for location or city")
             .listStyle(.plain)
-            .listRowSpacing(5)
         }
     }
 }

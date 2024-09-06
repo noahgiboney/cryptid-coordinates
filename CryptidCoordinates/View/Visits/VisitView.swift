@@ -7,12 +7,7 @@
 
 import Firebase
 import MapKit
-import StoreKit
 import SwiftUI
-
-enum VisitState {
-    case scanning, newVisit, notInProximity, alreadyVisited
-}
 
 struct VisitView: View {
 
@@ -21,7 +16,8 @@ struct VisitView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var locationManager: LocationManager
     @Environment(\.requestReview) var requestReview
-    @Environment(GlobalModel.self) var global
+    @Environment(Global.self) var global
+    @Environment(VisitStore.self) var visitStore
     @State private var visitState: VisitState = .scanning
     @State private var visitCount = 0
     
@@ -30,65 +26,19 @@ struct VisitView: View {
         item.openInMaps()
     }
     
-    private func checkDidVisit() async {
-        guard let user = Auth.auth().currentUser else { return }
+    private func attemptLogVisit() async {
         guard let userCords = locationManager.lastKnownLocation else { return }
         
-        do {
-            
-            async let alreadyVisited = Collections.userVists(for: user.uid).document(location.id).getDocument().exists
-            
-            async let scanning: Void = Task.sleep(nanoseconds: 1_500_000_000)
-            
-            let delay = try await (alreadyVisited, scanning)
-            
-            if delay.0 {
-                visitState = .alreadyVisited
-                return
-            }
-            
-            /// 0.3 miles 483
-            let minDistance = 483.0
-            
-            let distanceFromLocation = userCords.distance(from: location.clLocation)
+        visitState = await visitStore.checkDidVisit(cords: userCords, location: location)
 
-            if distanceFromLocation <= minDistance {
-                visitState = .newVisit
-            } else {
-                visitState = .notInProximity
+        if visitState == .newVisit {
+            do {
+                global.user.visits += 1
+                
+                try await visitStore.logVisit(locationId: location.id, newVisitCount: global.user.visits)
+            } catch {
+                print("Error: attemptLogVisit() : \(error.localizedDescription)")
             }
-        } catch {
-            print("Error: checkDidVisit(): \(error.localizedDescription)")
-        }
-    }
-    
-    private func logVisit(_ locationId: String) async throws {
-        guard let user = Auth.auth().currentUser else { return }
-        
-        let newVisit = Visit(userId: user.uid, locationId: locationId)
-        
-        do {
-            global.user.visits += 1
-            
-            async let result1: Void = try await FirebaseService.shared.setData(object: newVisit, ref: Collections.userVists(for: user.uid))
-            
-            async let result2: Void = try await FirebaseService.shared.updateDataField(id: user.uid, field: "visits", value: global.user.visits, ref: Collections.users)
-            
-            _ = try await (result1, result2)
-            
-            if global.user.visits >= 1 && lastVersionPromptedForReview != global.currentAppVersion  {
-                presentReview()
-            }
-        } catch {
-            print("Error: logVisit() : \(error.localizedDescription)")
-        }
-    }
-    
-    private func presentReview() {
-        Task {
-            try await Task.sleep(for: .seconds(2.0))
-            requestReview()
-            lastVersionPromptedForReview = global.currentAppVersion
         }
     }
     
@@ -114,7 +64,7 @@ struct VisitView: View {
             .navigationBarTitleDisplayMode(.inline)
             .padding(.horizontal)
             .task {
-                await checkDidVisit()
+                await attemptLogVisit()
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -175,11 +125,7 @@ struct VisitView: View {
                     }
                 }
             }
-        }
-        .task {
-            try? await logVisit(location.id)
-        }
-    }
+        }    }
     
     var failView: some View {
         VStack(spacing: 20) {

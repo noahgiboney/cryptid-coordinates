@@ -9,7 +9,8 @@ import SwiftData
 import SwiftUI
 
 struct SearchLocationView: View {
-    var searchText: String
+    
+    let searchText: String
     @Environment(Saved.self) var saved
     @Environment(\.modelContext) var modelContext
     @State private var locations: [Location] = []

@@ -1,5 +1,5 @@
 //
-//  GlobalModel.swift
+//  Global.swift
 //  CryptidCoordinates
 //
 //  Created by Noah Giboney on 6/14/24.
@@ -11,8 +11,8 @@ import MapKit
 import SwiftUI
 
 @Observable
-class GlobalModel {
-    let currentAppVersion = "2.1"
+class Global {
+    let currentAppVersion = "2.3.1"
     
     var user: User
     var tabSelection = 0

@@ -49,7 +49,7 @@ struct NearYouView: View {
     }
     
     var body: some View {
-        LocationScrollView(locations: Array(cachedSortedLocations.prefix(25)))
+        LocationScrollView(title: "Near You", locations: Array(cachedSortedLocations.prefix(25)))
             .listRowSeparator(.hidden)
             .listRowInsets(EdgeInsets())
             .onAppear {

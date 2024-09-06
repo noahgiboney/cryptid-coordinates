@@ -10,6 +10,44 @@ import Firebase
 import SwiftUI
 import UIKit
 
+typealias DataModel = Codable & Identifiable & Hashable
+
+extension Color {
+    
+    func findSimilarColors() -> [Color] {
+        // Convert SwiftUI Color to UIColor to access RGB components
+        let uiColor = UIColor(self)
+        
+        // Extract the RGB components of the UIColor
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        
+        guard uiColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha) else {
+            // Return empty array if extraction fails
+            return []
+        }
+        
+        // Generate two similar colors by adjusting brightness and saturation slightly
+        let color1 = Color(
+            red: min(Double(red * 1.1), 1.0),
+            green: min(Double(green * 1.1), 1.0),
+            blue: min(Double(blue * 1.1), 1.0),
+            opacity: Double(alpha)
+        )
+        
+        let color2 = Color(
+            red: max(Double(red * 0.9), 0.0),
+            green: max(Double(green * 0.9), 0.0),
+            blue: max(Double(blue * 0.9), 0.0),
+            opacity: Double(alpha)
+        )
+        
+        return [color1, color2]
+    }
+}
+
 extension Timestamp {
     func timeAgo() -> String {
         let now = Date()

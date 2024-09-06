@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct LocationRowView: View {
-    var location: Location
+    
+    let location: Location
     
     var body: some View {
         NavigationLink {
