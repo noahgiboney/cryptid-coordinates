@@ -17,12 +17,13 @@ class SubmitLocationModel {
     var coordinates: CLLocationCoordinate2D?
     var isShowingAlert = false
     var alertMessage = ""
+    var isAnonymous = false
     
     func sumbitRequest() async throws {
         guard let cords = coordinates,
         let currentUserId = Auth.auth().currentUser?.uid else { return }
         
-        let newRequest = LocationRequest(user: currentUserId, locationName: locationName, description: description, latitude: cords.latitude, longitude: cords.longitude)
+        let newRequest = LocationRequest(user: currentUserId, locationName: locationName, description: description, latitude: cords.latitude, longitude: cords.longitude, isAnonymous: isAnonymous)
         
         do {
             try await FirebaseService.shared.setData(object: newRequest, ref: Collections.locationRequests)

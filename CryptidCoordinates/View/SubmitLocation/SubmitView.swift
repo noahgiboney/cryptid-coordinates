@@ -35,6 +35,11 @@ struct SubmitView: View {
                 }
             }
             
+            Section {
+                Toggle("Remain Anonymous", isOn: Bindable(submitModel).isAnonymous)
+                    .tint(.blue)
+            }
+            
             Button {
                 Task { try await submitModel.sumbitRequest() }
             } label: {

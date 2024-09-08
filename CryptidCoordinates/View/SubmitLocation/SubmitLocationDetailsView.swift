@@ -25,19 +25,16 @@ struct SubmitLocationDetailsView: View {
                 }
                 
                 Section {
-                    TextField("What is the name of the location?", text: Bindable(submitModel).locationName)
+                    TextField("Location Name", text: Bindable(submitModel).locationName)
                 }
                 
                 Section {
                     Text("Provide an overview of the history. Include chilling tales, errie history, and haunted lore.")
                     TextField("Description", text: Bindable(submitModel).description, axis: .vertical)
-                        .focused($descriptionFocused)
                 }
                 
-                NavigationLink {
+                NavigationLink("Next") {
                     PickCordView(showCover: $showCover)
-                } label: {
-                    Label("Pick Coordinates", systemImage: "mappin.and.ellipse")
                 }
                 .disabled(submitModel.locationName.isEmpty || submitModel.description.isEmpty)
             }
@@ -49,12 +46,6 @@ struct SubmitLocationDetailsView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") {
                         dismiss()
-                    }
-                }
-                
-                ToolbarItem(placement: .keyboard) {
-                    Button("Done") {
-                        descriptionFocused.toggle()
                     }
                 }
             }
