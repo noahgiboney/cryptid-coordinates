@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SettingsView: View {
+struct SettingsScreen: View {
     
     @Environment(AuthModel.self) var authModel
     @Environment(Saved.self) var saved
@@ -22,6 +22,15 @@ struct SettingsView: View {
                     if let url = URL(string: UIApplication.openSettingsURLString) {
                         UIApplication.shared.open(url)
                     }
+                }
+                .foregroundStyle(.blue)
+            }
+            
+            Section {
+                NavigationLink {
+                    FeedbackScreen()
+                } label: {
+                    Label("Feedback", systemImage: "bubble.left.and.bubble.right")
                 }
                 .foregroundStyle(.blue)
             }
@@ -84,7 +93,7 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView()
+    SettingsScreen()
         .environment(Saved())
         .environment(AuthModel())
 }

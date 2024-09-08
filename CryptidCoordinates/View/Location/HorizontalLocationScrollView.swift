@@ -9,7 +9,7 @@ import Kingfisher
 import SwiftData
 import SwiftUI
 
-struct LocationScrollView: View {
+struct HorizontalLocationScrollView: View {
     
     let title: String
     let locations: [Location]
@@ -42,7 +42,7 @@ struct LocationScrollView: View {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Location.self, configurations: config)
     
-    return LocationScrollView(title: "Test", locations: [.example, .example3, .example2])
+    return HorizontalLocationScrollView(title: "Test", locations: [.example, .example3, .example2])
         .modelContainer(container)
         .environmentObject(LocationManager())
 }

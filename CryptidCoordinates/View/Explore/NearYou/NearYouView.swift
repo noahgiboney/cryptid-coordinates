@@ -27,7 +27,7 @@ struct NearYouView: View {
             return geohashes.contains(location.geohash)
         })
     }
-
+    
     private func sortLocations() {
         guard let currentLocation = locationManager.lastKnownLocation else { return }
         
@@ -49,12 +49,17 @@ struct NearYouView: View {
     }
     
     var body: some View {
-        LocationScrollView(title: "Near You", locations: Array(cachedSortedLocations.prefix(25)))
-            .listRowSeparator(.hidden)
-            .listRowInsets(EdgeInsets())
-            .onAppear {
-                sortLocations()
+        ExploreTabContainer(title: "Near You", description: "Locations Near You") {
+            if locationManager.lastKnownLocation == nil && !locationManager.isLoadingLocation {
+                LocationUnavailableView(message: "Share your location to explore in your vicinity")
+            } else {
+                VerticalLocationScrollView(locations: Array(cachedSortedLocations.prefix(25)))
+                    .onAppear {
+                        sortLocations()
+                    }
             }
+        }
+        .listRowSeparator(.hidden)
     }
 }
 
