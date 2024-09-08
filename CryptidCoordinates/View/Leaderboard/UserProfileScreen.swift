@@ -67,7 +67,7 @@ struct UserProfileScreen: View {
                 ProgressView()
             }
         }
-        .navigationTitle("\(user.name)")
+        .navigationTitle(user.username)
         .navigationBarTitleDisplayMode(.large)
         .onChange(of: sortOrder) {
             print(sortOrder)

@@ -11,7 +11,6 @@ struct LeaderboardScreen: View {
     
     @Environment(Global.self) var global
     @State private var leaderboard = Leaderboard()
-    @State private var didAppear = false
     
     var body: some View {
         NavigationStack {
@@ -21,7 +20,7 @@ struct LeaderboardScreen: View {
                 }
             } else {
                 List {
-                    Section {
+                    Section("Your Ranking") {
                         currentUserRowView
                     }
                     
@@ -36,13 +35,12 @@ struct LeaderboardScreen: View {
                                             UserProfileScreen(user: user)
                                         } label: {
                                             LeaderboardRowView(user: user, index: index)
-                                            
                                         }
                                     }
                                 }
                                 .onAppear {
                                     if leaderboard.users.last?.id == user.id {
-                                        Task { await leaderboard.populateLeaderboard() }
+                                        Task { await leaderboard.paginateLeaderboard() }
                                     }
                                 }
                             }
@@ -50,16 +48,11 @@ struct LeaderboardScreen: View {
                     }
                 }
                 .navigationTitle("Leaderboard")
-                .refreshable {
-                    Task { await leaderboard.refresh() }
-                }
             }
         }
         .environment(leaderboard)
-        .task {
-            guard !didAppear else { return }
-            await leaderboard.populateInitalLeaderboard()
-            didAppear = true
+        .task { 
+            await leaderboard.loadLeaderboard()
         }
     }
     

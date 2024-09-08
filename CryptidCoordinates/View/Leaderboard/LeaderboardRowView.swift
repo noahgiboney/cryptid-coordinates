@@ -19,7 +19,7 @@ struct LeaderboardRowView: View {
             HStack {
                 AvatarView(type: .medium, user: user)
                 
-                Text(user.name)
+                Text(user.username)
                     .lineLimit(1)
                     .truncationMode(.tail)
                     .font(.footnote)
