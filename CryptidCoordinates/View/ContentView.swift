@@ -30,7 +30,9 @@ struct ContentView: View {
             if authModel.userSession != nil {
                 if let user = authModel.currentUser {
                     TabBarView(currentUser: user, defaultCords: defaultCords)
-                        .onAppear {  locationManager.start() }
+                        .onAppear {
+                            locationManager.start()
+                        }
                 }
             } else {
                 LandingScreen()
@@ -56,7 +58,7 @@ struct ContentView: View {
     }
     
     func loadNewLocations() async throws {
-        let newLocations: [DecodableLocation] = try await FirebaseService.shared.fetchData(ref: Collections.newLocations)
+        let newLocations: [NewLocation] = try await FirebaseService.shared.fetchData(ref: Collections.newLocations)
 
         try newLocations.forEach { location in
             let newLocation = Location(

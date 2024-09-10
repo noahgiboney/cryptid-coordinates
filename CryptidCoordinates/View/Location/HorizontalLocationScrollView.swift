@@ -13,7 +13,6 @@ struct HorizontalLocationScrollView: View {
     
     let title: String
     let locations: [Location]
-    @EnvironmentObject var locationManager: LocationManager
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -27,7 +26,7 @@ struct HorizontalLocationScrollView: View {
                         NavigationLink {
                             LocationScreen(location: location)
                         } label: {
-                            LocationPreviewView(location: location)
+                            HorizontalLocationPreview(location: location)
                         }
                     }
                 }

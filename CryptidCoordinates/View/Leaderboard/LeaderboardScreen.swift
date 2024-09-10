@@ -14,44 +14,47 @@ struct LeaderboardScreen: View {
     
     var body: some View {
         NavigationStack {
-            if leaderboard.isLoading && leaderboard.users.isEmpty {
-                ProgressView {
-                    Text("Loading")
+            List {
+                Section("Your Ranking") {
+                    currentUserRowView
                 }
-            } else {
-                List {
-                    Section("Your Ranking") {
-                        currentUserRowView
-                    }
-                    
-                    Section {
-                        ForEach(leaderboard.users) { user in
-                            if let index = leaderboard.users.firstIndex(where: { $0.id == user.id }){
-                                Group {
-                                    if user.id == global.user.id {
-                                        currentUserRowView
-                                    } else {
-                                        NavigationLink {
-                                            UserProfileScreen(user: user)
-                                        } label: {
-                                            LeaderboardRowView(user: user, index: index)
-                                        }
-                                    }
-                                }
-                                .onAppear {
-                                    if leaderboard.users.last?.id == user.id {
-                                        Task { await leaderboard.paginateLeaderboard() }
+                
+                Section {
+                    ForEach(leaderboard.users) { user in
+                        if let index = leaderboard.users.firstIndex(where: { $0.id == user.id }) {
+                            Group {
+                                if user.id == global.user.id {
+                                    currentUserRowView
+                                } else {
+                                    NavigationLink {
+                                        UserProfileScreen(user: user)
+                                    } label: {
+                                        LeaderboardRowView(user: user, index: index)
                                     }
                                 }
                             }
+                            .id(user.id)
                         }
                     }
+                    
+                    if leaderboard.isLoading {
+                        ProgressView()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .listRowBackground(Color.clear)
+                    }
                 }
-                .navigationTitle("Leaderboard")
+                
+                Color.clear
+                    .listRowBackground(Color.clear)
+                    .onAppear {
+                        Task { await leaderboard.paginateLeaderboard() }
+                    }
             }
+            .navigationTitle("Leaderboard")
+            
         }
         .environment(leaderboard)
-        .task { 
+        .task {
             await leaderboard.loadLeaderboard()
         }
     }

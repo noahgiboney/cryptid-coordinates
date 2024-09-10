@@ -5,6 +5,7 @@
 //  Created by Noah Giboney on 9/6/24.
 //
 
+import Firebase
 import SwiftData
 import SwiftUI
 
@@ -12,45 +13,45 @@ struct NewLocationsView: View {
     
     @Environment(LocationStore.self) var locations
     @State private var showSubmitRequest = false
+    @State private var didAppear = false
     
     var body: some View {
-        ExploreTabContainer(title: "New", description: "The newest added by users") {
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Know of a huanted location not on the platform? Add it here!")
-                
+        ExploreTabContainer(title: "New", description: "Locations added by users") {
+            VStack(spacing: 15) {
                 Button("Submit Location", systemImage: "square.and.pencil") {
                     showSubmitRequest.toggle()
                 }
                 .buttonStyle(.borderless)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 20)
+                
+                Divider()
+            }
+            .padding(.top)
+            .listRowSeparator(.hidden)
+            .listRowInsets(EdgeInsets())
+            .fullScreenCover(isPresented: $showSubmitRequest) {
+                SubmitLocationDetailsView(showCover: $showSubmitRequest)
+            }
+            
+            ScrollView {
+                LazyVStack(spacing: 35) {
+                    ForEach(locations.new) { location in
+                        if let user = location.user {
+                            NewLocationCellView(newLocation: location, user: user)
+                        }
+                    }
+                    .listRowInsets(EdgeInsets())
+                }
             }
             .listRowSeparator(.hidden)
-                
-            Divider().listRowSeparator(.hidden)
-            
-            NewLocationsScrollView(ids: locations.new)
+            .listRowInsets(EdgeInsets())
+            .padding(.vertical, 30)
         }
         .task {
+            guard !didAppear else { return }
             await locations.fetchNewLocations()
-        }
-        .fullScreenCover(isPresented: $showSubmitRequest) {
-            SubmitLocationDetailsView(showCover: $showSubmitRequest)
-        }
-    }
-}
-
-struct NewLocationsScrollView: View {
-    
-    let ids: [String]
-    @Query var locations: [Location]
-    
-    init(ids: [String]) {
-        self.ids = ids
-        _locations = .init(filter: #Predicate { ids.contains($0.id) })
-    }
-    
-    var body: some View {
-        ForEach(locations) { location in
-            Text(location.name)
+            didAppear = true
         }
     }
 }

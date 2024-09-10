@@ -17,6 +17,25 @@ struct SearchLocationView: View {
     @State private var offset = 0
     @State private var isFetching = false
     
+    private func fetchLocations() throws {
+        guard !isFetching else { return }
+        isFetching = true
+        
+        let limit = 50
+        var descriptor = FetchDescriptor<Location>(predicate: #Predicate<Location> { location in
+            location.name.localizedStandardContains(searchText) ||
+            location.city.localizedStandardContains(searchText)
+        }, sortBy: [SortDescriptor(\Location.name)])
+        
+        descriptor.fetchLimit = limit
+        descriptor.fetchOffset = limit * offset
+        
+        let newLocations = try modelContext.fetch(descriptor)
+        locations.append(contentsOf: newLocations)
+        offset += 1
+        isFetching = false
+    }
+    
     var body: some View {
         Group {
             if locations.isEmpty {
@@ -53,25 +72,6 @@ struct SearchLocationView: View {
                 try? fetchLocations()
             }
         }    }
-    
-    func fetchLocations() throws {
-        guard !isFetching else { return }
-        isFetching = true
-        
-        let limit = 50
-        var descriptor = FetchDescriptor<Location>(predicate: #Predicate<Location> { location in
-            location.name.localizedStandardContains(searchText) ||
-            location.city.localizedStandardContains(searchText)
-        }, sortBy: [SortDescriptor(\Location.name)])
-        
-        descriptor.fetchLimit = limit
-        descriptor.fetchOffset = limit * offset
-        
-        let newLocations = try modelContext.fetch(descriptor)
-        locations.append(contentsOf: newLocations)
-        offset += 1
-        isFetching = false
-    }
 }
 
 #Preview {

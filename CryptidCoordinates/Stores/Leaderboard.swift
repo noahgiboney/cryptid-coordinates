@@ -13,24 +13,51 @@ class Leaderboard {
     var users: [User] = []
     var isLoading = true
     var lastDocument: DocumentSnapshot?
+    var didAppear = false
+    
+    func loadLeaderboard() async {
+        if didAppear {
+            await populateUpToLastDoc()
+        } else {
+            await populateInitalLeaderboard()
+        }
+    }
     
     func populateInitalLeaderboard() async {
 
         defer { isLoading = false }
         
         do {
-            let snapshot = try await queryLeaderboard()
-                .getDocuments()
+            let snapshot = try await queryLeaderboard().getDocuments()
             
             users = snapshot.documents.compactMap { try? $0.data(as: User.self) }
             
             lastDocument = snapshot.documents.last
+            didAppear.toggle()
         } catch {
             print("Error: populateInitalLeaderboard(): \(error.localizedDescription)")
         }
     }
     
-    func populateLeaderboard() async {
+    func populateUpToLastDoc() async {
+        guard let lastDoc = lastDocument else { return }
+        
+        isLoading = true
+        defer { isLoading = false }
+        
+        do {
+            let snapshot = try await queryLeaderboard().end(atDocument: lastDoc).getDocuments()
+            
+            users = snapshot.documents.compactMap { try? $0.data(as: User.self) }
+            
+            lastDocument = snapshot.documents.last
+        } catch {
+            print("Error: populateUpToLastDoc(): \(error.localizedDescription)")
+        }
+    }
+    
+    func paginateLeaderboard() async {
+        guard !isLoading else { return }
         guard let lastDocument = lastDocument else { return }
         
         isLoading = true
@@ -54,10 +81,6 @@ class Leaderboard {
         } catch {
             print("Error: populateLeaderboard(): \(error.localizedDescription)")
         }
-    }
-    
-    func refresh() async {
-        await populateInitalLeaderboard()
     }
     
     private func queryLeaderboard() -> Query {

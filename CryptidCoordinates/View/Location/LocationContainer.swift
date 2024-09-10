@@ -8,11 +8,29 @@
 import SwiftUI
 
 struct LocationContainer: View {
+    
+    let location: Location
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        LocationScreen(location: location)
+            .navigationBarBackButtonHidden()
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .padding(10)
+                            .background(.ultraThinMaterial, in: Circle())
+                            .padding()
+                    }
+                }
+            }
     }
 }
 
 #Preview {
-    LocationContainer()
+    LocationContainer(location: .example)
 }

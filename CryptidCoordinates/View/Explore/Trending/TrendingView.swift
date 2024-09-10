@@ -22,27 +22,16 @@ struct TrendingView: View {
     
     var body: some View {
         ExploreTabContainer(title: "Trending", description: "The most popular locations") {
-            TrendingScrollView(ids: locations.trending)
+            if didLoad {
+                TrendingScrollView(ids: locations.trending)
+            } else {
+                ProgressView()
+            }
         }
         .listRowSeparator(.hidden)
         .task {
             await loadTrending()
         }
-    }
-}
-
-struct TrendingScrollView: View {
-    
-    let ids: [String]
-    @Query var locations: [Location]
-    
-    init(ids: [String]) {
-        self.ids = ids
-        _locations = .init(filter: #Predicate{ ids.contains($0.id) })
-    }
-    
-    var body: some View {
-        VerticalLocationScrollView(locations: locations)
     }
 }
 

@@ -5,6 +5,7 @@
 //  Created by Noah Giboney on 7/13/24.
 //
 
+import MapKit
 import Kingfisher
 import SwiftData
 import SwiftUI
@@ -28,6 +29,7 @@ struct ExploreScreen: View {
                         .pickerStyle(.segmented)
                     }
                     .listRowSeparator(.hidden)
+                    
                     switch exploreTab {
                     case .nearYou:
                         NearYouView(geohashes: locationManager.geohashes)

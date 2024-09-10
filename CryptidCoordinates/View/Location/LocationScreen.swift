@@ -26,6 +26,7 @@ struct LocationScreen: View {
     @State private var lookAroundPlace: MKLookAroundScene?
     @State private var showVisitSheet = false
     @State private var showLookAround = false
+    @State private var imageDidFail = false
     
     private func fetchLookAround() async {
         let request = MKLookAroundSceneRequest(coordinate: location.coordinates)
@@ -58,6 +59,9 @@ struct LocationScreen: View {
                 VStack(alignment: .leading, spacing: 25){
                     VStack {
                         KFImage(location.url)
+                            .onFailure { _ in
+                                imageDidFail = true
+                            }
                             .resizable()
                             .frame(maxWidth: .infinity, maxHeight: 400)
                         
@@ -76,7 +80,7 @@ struct LocationScreen: View {
                 }
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
+        .ignoresSafeArea(edges: imageDidFail ? [] : .top)
         .fullScreenCover(isPresented: $showLookAround) {
             LookAroundPreview(initialScene: lookAroundPlace)
                 .ignoresSafeArea()
@@ -95,8 +99,9 @@ struct LocationScreen: View {
             }
         }
         .task {
-            await fetchLookAround()
-            await VisitTip.viewLocationEvent.donate()
+            async let result1: Void = fetchLookAround()
+            async let result2: Void = VisitTip.viewLocationEvent.donate()
+            let _ = await (result1, result2)
         }
     }
     
