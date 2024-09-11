@@ -46,7 +46,7 @@ struct VisitPreviewView: View {
     var body: some View {
         VStack {
             NavigationLink {
-                LocationScreen(location: location)
+                LocationContainer(location: location)
             } label: {
                 locationNavLinkLabel
             }

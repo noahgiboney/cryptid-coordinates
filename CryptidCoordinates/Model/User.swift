@@ -38,6 +38,10 @@ extension User {
     var joinDate: String {
         return joinTimestamp.dateValue().formatted(date: .complete, time: .omitted)
     }
+    
+    var username: String {
+        name.isEmpty ? "Anonymous" : name
+    }
 }
 
 // MARK: Developer

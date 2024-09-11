@@ -9,11 +9,10 @@ import Kingfisher
 import SwiftData
 import SwiftUI
 
-struct LocationScrollView: View {
+struct HorizontalLocationScrollView: View {
     
     let title: String
     let locations: [Location]
-    @EnvironmentObject var locationManager: LocationManager
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -27,7 +26,7 @@ struct LocationScrollView: View {
                         NavigationLink {
                             LocationScreen(location: location)
                         } label: {
-                            LocationPreviewView(location: location)
+                            HorizontalLocationPreview(location: location)
                         }
                     }
                 }
@@ -42,7 +41,7 @@ struct LocationScrollView: View {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Location.self, configurations: config)
     
-    return LocationScrollView(title: "Test", locations: [.example, .example3, .example2])
+    return HorizontalLocationScrollView(title: "Test", locations: [.example, .example3, .example2])
         .modelContainer(container)
         .environmentObject(LocationManager())
 }

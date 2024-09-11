@@ -5,6 +5,7 @@
 //  Created by Noah Giboney on 7/13/24.
 //
 
+import MapKit
 import Kingfisher
 import SwiftData
 import SwiftUI
@@ -13,25 +14,31 @@ struct ExploreScreen: View {
     
     @EnvironmentObject var locationManager: LocationManager
     @State private var searchText = ""
+    @State private var exploreTab: ExploreTab = .nearYou
     
     var body: some View {
         NavigationStack {
             List {
                 if searchText.isEmpty {
                     Section {
-                        if locationManager.lastKnownLocation == nil && !locationManager.isLoadingLocation {
-                            LocationUnavailableView(message: "Share your location to explore in your vicinity")
-                        } else {
-                            NearYouView(geohashes: locationManager.geohashes)
+                        Picker("", selection: $exploreTab) {
+                            ForEach(ExploreTab.allCases) { tab in
+                                Text(tab.title).tag(tab)
+                            }
                         }
+                        .pickerStyle(.segmented)
                     }
                     .listRowSeparator(.hidden)
                     
-                    Section {
+                    switch exploreTab {
+                    case .nearYou:
+                        NearYouView(geohashes: locationManager.geohashes)
+                    case .trending:
                         TrendingView()
-                            .padding(.bottom, 30)
+                    case .new:
+                        NewLocationsView()
                     }
-                    .listRowSeparator(.hidden)
+
                 } else {
                     SearchLocationView(searchText: searchText)
                 }

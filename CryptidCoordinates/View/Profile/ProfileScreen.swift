@@ -16,8 +16,6 @@ struct ProfileScreen: View {
     @Environment(Global.self) var global
     @Environment(AuthModel.self) var authModel
     @Environment(VisitStore.self) var visitStore
-    @State private var showSubmitRequest = false
-    @State private var isShowingSignOutAlert = false
     @State private var didAppear = false
     
     private func fetchUserVisits() async {
@@ -58,22 +56,12 @@ struct ProfileScreen: View {
             .navigationTitle(global.user.name)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        isShowingSignOutAlert.toggle()
+                    NavigationLink {
+                        SettingsForm()
                     } label: {
-                        Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
+                        Label("Settings", systemImage: "gearshape")
                     }
                 }
-            }
-            .alert("Sign Out", isPresented: $isShowingSignOutAlert) {
-                Button("Sign Out", role: .destructive) {
-                    authModel.signOut()
-                }
-            } message: {
-                Text("Are you sure you want to sign out? You will have to sign back in next visit.")
-            }
-            .fullScreenCover(isPresented: $showSubmitRequest) {
-                SubmitLocationDetailsView(showCover: $showSubmitRequest)
             }
             .task { await fetchUserVisits() }
         }
@@ -88,19 +76,9 @@ struct ProfileScreen: View {
         }
         
         NavigationLink {
-            SettingsView()
-        } label: {
-            Label("Settings", systemImage: "gearshape")
-        }
-        
-        NavigationLink {
             SavedView()
         } label: {
             Label("Saved", systemImage: "bookmark")
-        }
-        
-        Button("Submit Location", systemImage: "map") {
-            showSubmitRequest.toggle()
         }
     }
     

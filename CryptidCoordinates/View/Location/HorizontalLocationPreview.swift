@@ -9,7 +9,7 @@ import Kingfisher
 import SwiftData
 import SwiftUI
 
-struct LocationPreviewView: View {
+struct HorizontalLocationPreview: View {
     
     let location: Location
     @Environment(\.colorScheme) var colorScheme
@@ -54,7 +54,7 @@ struct LocationPreviewView: View {
         .onAppear {
             downloadImage()
         }
-        .shadow(radius: 5)
+        .shadow(color: .black.opacity(0.6), radius: 10, x: 0, y: 5)
     }
     
     private var locationImageView: some View {
@@ -71,10 +71,10 @@ struct LocationPreviewView: View {
                         .frame(maxHeight: 170)
                         .clipShape(
                             .rect(
-                                topLeadingRadius: 20,
+                                topLeadingRadius: 15,
                                 bottomLeadingRadius: 0,
                                 bottomTrailingRadius: 0,
-                                topTrailingRadius: 20
+                                topTrailingRadius: 15
                             )
                         )
                 } else {
@@ -115,8 +115,8 @@ struct LocationPreviewView: View {
             .clipShape(
                 .rect(
                     topLeadingRadius: 0,
-                    bottomLeadingRadius: 20,
-                    bottomTrailingRadius: 20,
+                    bottomLeadingRadius: 15,
+                    bottomTrailingRadius: 15,
                     topTrailingRadius: 0
                 )
             )
@@ -128,7 +128,7 @@ struct LocationPreviewView: View {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Location.self, configurations: config)
     
-    return LocationPreviewView(location: .example)
+    return HorizontalLocationPreview(location: .example)
         .modelContainer(container)
         .environmentObject(LocationManager())
 }

@@ -5,13 +5,16 @@
 //  Created by Noah Giboney on 6/29/24.
 //
 
+import Firebase
 import Foundation
 
 struct LocationRequest: DataModel {
     var id = UUID().uuidString
-    var user: String
-    var locationName: String
-    var description: String
-    var latitude: Double
-    var longitude: Double
+    let user: String
+    let locationName: String
+    let description: String
+    let latitude: Double
+    let longitude: Double
+    let isAnonymous: Bool
+    var timestamp = Timestamp()
 }

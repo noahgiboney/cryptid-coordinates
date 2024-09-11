@@ -74,6 +74,7 @@ class CommentSection {
         }
     }
     
+    @MainActor
     private func fetchUserForComments() async {
         await withTaskGroup(of: (User?, String).self) { groupTask in
             for comment in comments {

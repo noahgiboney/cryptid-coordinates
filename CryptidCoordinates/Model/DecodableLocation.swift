@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DecodableLocation: Codable {
+struct DecodableLocation: DataModel {
     var id: String
     var name: String
     var country: String
