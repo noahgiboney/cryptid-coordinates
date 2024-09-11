@@ -11,7 +11,10 @@ import SwiftUI
 
 struct NewLocationsView: View {
     
+    @AppStorage("lastVersionLoadedNewLocations") var lastVersionLoadedNewLocations = ""
+    @Environment(Global.self) var global
     @Environment(LocationStore.self) var locations
+    @Environment(\.modelContext) var modelContext
     @State private var showSubmitRequest = false
     @State private var didAppear = false
     
@@ -47,11 +50,53 @@ struct NewLocationsView: View {
             .padding(.vertical, 30)
         }
         .task {
+            if lastVersionLoadedNewLocations != global.currentAppVersion {
+                do {
+                    try await loadNewLocations()
+                } catch {
+                    print("Error: loadNewLocations(): \(error.localizedDescription)")
+                }
+            }
+            
             guard !didAppear else { return }
             await locations.fetchNewLocations()
             didAppear = true
         }
     }
+    
+    func loadNewLocations() async throws {
+        let newLocations: [NewLocation] = try await FirebaseService.shared.fetchData(ref: Collections.newLocations)
+
+        try newLocations.forEach { location in
+            let newLocation = Location(
+                id: location.id,
+                name: location.name,
+                country: location.country,
+                city: location.city,
+                state: location.state,
+                detail: location.detail,
+                longitude: location.longitude,
+                latitude: location.latitude,
+                cityLongitude: location.cityLongitude,
+                cityLatitude: location.cityLatitude,
+                stateAbbrev: location.stateAbbrev,
+                imageUrl: location.imageUrl,
+                geohash: location.geohash
+            )
+            
+            let fetchDescriptor = FetchDescriptor<Location>(predicate: #Predicate<Location> { modelLocation in
+                modelLocation.id == location.id
+            })
+            
+            let locationsWithId = try modelContext.fetch(fetchDescriptor)
+            
+            if locationsWithId.isEmpty {
+                modelContext.insert(newLocation)
+            }
+        }
+        lastVersionLoadedNewLocations = global.currentAppVersion
+    }
+
 }
 
 #Preview {
