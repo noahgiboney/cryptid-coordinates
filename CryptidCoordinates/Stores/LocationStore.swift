@@ -28,7 +28,6 @@ class LocationStore {
     func fetchNewLocations() async {
         do {
             new = try await FirebaseService.shared.fetchData(ref: Collections.newLocations).sorted()
-            print(new.count)
             
             try await withThrowingTaskGroup(of: (User?, String).self) { group in
                 for location in new {

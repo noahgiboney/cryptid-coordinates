@@ -26,6 +26,7 @@ struct TrendingView: View {
                 TrendingScrollView(ids: locations.trending)
             } else {
                 ProgressView()
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
         }
         .listRowSeparator(.hidden)

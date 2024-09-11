@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SettingsScreen: View {
+struct SettingsForm: View {
     
     @Environment(AuthModel.self) var authModel
     @Environment(Saved.self) var saved
@@ -28,7 +28,7 @@ struct SettingsScreen: View {
             
             Section {
                 NavigationLink {
-                    FeedbackScreen()
+                    FeedbackForm()
                 } label: {
                     Label("Feedback", systemImage: "bubble.left.and.bubble.right")
                 }
@@ -93,7 +93,7 @@ struct SettingsScreen: View {
 }
 
 #Preview {
-    SettingsScreen()
+    SettingsForm()
         .environment(Saved())
         .environment(AuthModel())
 }

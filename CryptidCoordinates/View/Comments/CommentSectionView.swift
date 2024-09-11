@@ -44,7 +44,6 @@ struct CommentSectionView: View {
             }
         }
         .padding(.horizontal)
-        .padding(.bottom, 35)
         .onChange(of: model.comments) { oldValue, newValue in
             if !model.comments.isEmpty {
                 model.loadState = .loaded

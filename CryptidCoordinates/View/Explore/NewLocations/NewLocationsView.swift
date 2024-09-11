@@ -37,9 +37,7 @@ struct NewLocationsView: View {
             ScrollView {
                 LazyVStack(spacing: 35) {
                     ForEach(locations.new) { location in
-                        if let user = location.user {
-                            NewLocationCellView(newLocation: location, user: user)
-                        }
+                        NewLocationCellView(newLocation: location)
                     }
                     .listRowInsets(EdgeInsets())
                 }

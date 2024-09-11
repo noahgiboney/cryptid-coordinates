@@ -15,7 +15,7 @@ struct Feedback: DataModel {
     var timestamp = Timestamp()
 }
 
-struct FeedbackScreen: View {
+struct FeedbackForm: View {
     
     @Environment(\.dismiss) var dismiss
     @State private var feedback = ""
@@ -35,7 +35,7 @@ struct FeedbackScreen: View {
     
     var body: some View {
         Form {
-            Text("Feedback, suggestions, reports of bugs would be greatly appreciated!")
+            Text("Feedback, suggestions, or reports of bugs would be greatly appreciated!")
             TextField("Feedback", text: $feedback, axis: .vertical)
             
             Section {
@@ -60,5 +60,5 @@ struct FeedbackScreen: View {
 }
 
 #Preview {
-    FeedbackScreen()
+    FeedbackForm()
 }

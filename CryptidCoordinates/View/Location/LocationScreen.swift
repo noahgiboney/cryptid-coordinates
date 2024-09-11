@@ -77,6 +77,7 @@ struct LocationScreen: View {
                     }
                     
                     CommentSectionView(locationId: location.id, scrollProxy: proxy)
+                        .padding(.bottom, 35)
                 }
             }
         }

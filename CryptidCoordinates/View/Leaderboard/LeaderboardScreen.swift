@@ -51,7 +51,6 @@ struct LeaderboardScreen: View {
                     }
             }
             .navigationTitle("Leaderboard")
-            
         }
         .environment(leaderboard)
         .task {
@@ -64,7 +63,6 @@ struct LeaderboardScreen: View {
         let index = leaderboard.users.firstIndex(where: { $0.id == global.user.id })
         
         HStack(spacing: 20) {
-            
             let visits = global.user.visits
             
             if let index = index {

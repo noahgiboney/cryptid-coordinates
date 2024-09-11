@@ -19,7 +19,7 @@ struct ContentView: View {
     @StateObject private var locationManager = LocationManager()
     @State private var authModel = AuthModel()
     
-    let currentVersion = "2.5"
+    let currentVersion = "2.4"
     
     var defaultCords: CLLocationCoordinate2D {
         locationManager.lastKnownLocation ?? CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
@@ -46,7 +46,6 @@ struct ContentView: View {
             }
         }
         .task {
-            print(lastVersionLoadedNewLocations)
             if lastVersionLoadedNewLocations != currentVersion {
                 do {
                     try await loadNewLocations()

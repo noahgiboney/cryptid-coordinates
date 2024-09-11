@@ -30,7 +30,7 @@
 		E204C11B2C1E3EF700688944 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = E204C11A2C1E3EF700688944 /* FirebasePerformance */; };
 		E204C11D2C1E3EF700688944 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E204C11C2C1E3EF700688944 /* FirebaseStorage */; };
 		E204C11F2C1E3EF700688944 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = E204C11E2C1E3EF700688944 /* FirebaseVertexAI-Preview */; };
-		E207FC002C8E3C8100423E08 /* FeedbackScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E207FBFF2C8E3C8100423E08 /* FeedbackScreen.swift */; };
+		E207FC002C8E3C8100423E08 /* FeedbackForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E207FBFF2C8E3C8100423E08 /* FeedbackForm.swift */; };
 		E2137BB62C8BBA5B006C7462 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2137BB52C8BBA5B006C7462 /* LocationStore.swift */; };
 		E222D9052C27CCF400FA427D /* GradientEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222D9042C27CCF400FA427D /* GradientEffectView.swift */; };
 		E222F7292C5C21EE004643B7 /* ScanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222F7282C5C21EE004643B7 /* ScanningView.swift */; };
@@ -77,7 +77,7 @@
 		E24AE76B2C57645900B5D741 /* LocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24AE76A2C57645900B5D741 /* LocationRequest.swift */; };
 		E24DA3ED2C86CD410018C6D8 /* MedalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DA3EC2C86CD410018C6D8 /* MedalView.swift */; };
 		E24DA3EF2C86CDE90018C6D8 /* LeaderboardRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DA3EE2C86CDE90018C6D8 /* LeaderboardRowView.swift */; };
-		E2583F0E2C326D08002B1FA5 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2583F0D2C326D08002B1FA5 /* SettingsScreen.swift */; };
+		E2583F0E2C326D08002B1FA5 /* SettingsForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2583F0D2C326D08002B1FA5 /* SettingsForm.swift */; };
 		E26495DA2C8CADF9008DF252 /* NewLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26495D92C8CADF9008DF252 /* NewLocation.swift */; };
 		E26495DC2C8CB60A008DF252 /* ExploreTabContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26495DB2C8CB60A008DF252 /* ExploreTabContainer.swift */; };
 		E26495DF2C8CBCB5008DF252 /* NewLocationCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26495DE2C8CBCB5008DF252 /* NewLocationCellView.swift */; };
@@ -117,7 +117,7 @@
 /* Begin PBXFileReference section */
 		E20179FD2C5ADEB500D0A1AA /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		E204C0F32C1E3E9A00688944 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E207FBFF2C8E3C8100423E08 /* FeedbackScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackScreen.swift; sourceTree = "<group>"; };
+		E207FBFF2C8E3C8100423E08 /* FeedbackForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackForm.swift; sourceTree = "<group>"; };
 		E2137BB52C8BBA5B006C7462 /* LocationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStore.swift; sourceTree = "<group>"; };
 		E222D9042C27CCF400FA427D /* GradientEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientEffectView.swift; sourceTree = "<group>"; };
 		E222F7282C5C21EE004643B7 /* ScanningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningView.swift; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 		E24AE76A2C57645900B5D741 /* LocationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationRequest.swift; sourceTree = "<group>"; };
 		E24DA3EC2C86CD410018C6D8 /* MedalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedalView.swift; sourceTree = "<group>"; };
 		E24DA3EE2C86CDE90018C6D8 /* LeaderboardRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardRowView.swift; sourceTree = "<group>"; };
-		E2583F0D2C326D08002B1FA5 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
+		E2583F0D2C326D08002B1FA5 /* SettingsForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsForm.swift; sourceTree = "<group>"; };
 		E26495D92C8CADF9008DF252 /* NewLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLocation.swift; sourceTree = "<group>"; };
 		E26495DB2C8CB60A008DF252 /* ExploreTabContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTabContainer.swift; sourceTree = "<group>"; };
 		E26495DE2C8CBCB5008DF252 /* NewLocationCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLocationCellView.swift; sourceTree = "<group>"; };
@@ -238,8 +238,8 @@
 		E207FBFE2C8E3B7700423E08 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				E207FBFF2C8E3C8100423E08 /* FeedbackScreen.swift */,
-				E2583F0D2C326D08002B1FA5 /* SettingsScreen.swift */,
+				E207FBFF2C8E3C8100423E08 /* FeedbackForm.swift */,
+				E2583F0D2C326D08002B1FA5 /* SettingsForm.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -625,7 +625,7 @@
 				E24AE7122C5760A200B5D741 /* Global.swift in Sources */,
 				E2137BB62C8BBA5B006C7462 /* LocationStore.swift in Sources */,
 				E24AE7582C5762C500B5D741 /* LocationScreen.swift in Sources */,
-				E207FC002C8E3C8100423E08 /* FeedbackScreen.swift in Sources */,
+				E207FC002C8E3C8100423E08 /* FeedbackForm.swift in Sources */,
 				E24AE7132C5760A200B5D741 /* Leaderboard.swift in Sources */,
 				E27D61862C8D44F60049429B /* TrendingScrollView.swift in Sources */,
 				E24AE7322C5760E600B5D741 /* BackButton.swift in Sources */,
@@ -646,7 +646,7 @@
 				E24AE75D2C57638900B5D741 /* MapScreen.swift in Sources */,
 				E24DA3ED2C86CD410018C6D8 /* MedalView.swift in Sources */,
 				E24AE7282C5760CF00B5D741 /* Geohash.swift in Sources */,
-				E2583F0E2C326D08002B1FA5 /* SettingsScreen.swift in Sources */,
+				E2583F0E2C326D08002B1FA5 /* SettingsForm.swift in Sources */,
 				E28B401F2C86C1A4005752EB /* ReportedComment.swift in Sources */,
 				E2901E392C8A5F4E00C60213 /* CommentSectionView.swift in Sources */,
 				E2D80E582C30EC2F0077D763 /* EditProfileView.swift in Sources */,

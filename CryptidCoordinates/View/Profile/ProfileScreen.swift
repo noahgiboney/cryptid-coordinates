@@ -57,7 +57,7 @@ struct ProfileScreen: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
-                        SettingsScreen()
+                        SettingsForm()
                     } label: {
                         Label("Settings", systemImage: "gearshape")
                     }
