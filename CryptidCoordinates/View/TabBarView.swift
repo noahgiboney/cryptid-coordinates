@@ -11,16 +11,16 @@ import SwiftUI
 struct TabBarView: View {
     
     let currentUser: User
-    let defaultCords: CLLocationCoordinate2D
+    @StateObject private var locationManager = LocationManager()
     @State private var global: Global
     @State private var saved = Saved()
     @State private var visitStore = VisitStore()
     @State private var locations = LocationStore()
     
-    init(currentUser: User, defaultCords: CLLocationCoordinate2D) {
+    init(currentUser: User) {
+        print("init")
         self.currentUser = currentUser
-        self.defaultCords = defaultCords
-        self._global = State(initialValue: Global(user: currentUser, defaultCords: defaultCords))
+        self._global = State(initialValue: Global(user: currentUser, defaultCords: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)))
     }
     
     var body: some View {
@@ -31,7 +31,7 @@ struct TabBarView: View {
                 }
                 .tag(0)
             
-            MapScreen(defaultCords: defaultCords)
+            MapScreen(defaultCords: CLLocationCoordinate2D(latitude: 0, longitude: 0))
                 .tabItem {
                     Image(systemName: "map")
                 }
@@ -49,13 +49,17 @@ struct TabBarView: View {
                 }
                 .tag(3)
         }
+        .environmentObject(locationManager)
         .environment(global)
         .environment(saved)
         .environment(visitStore)
         .environment(locations)
+        .onAppear {
+            locationManager.start()
+        }
     }
 }
 
 #Preview {
-    TabBarView(currentUser: .example, defaultCords: Location.example.coordinates)
+    TabBarView(currentUser: .example)
 }

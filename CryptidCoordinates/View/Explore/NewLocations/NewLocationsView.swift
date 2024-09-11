@@ -53,6 +53,7 @@ struct NewLocationsView: View {
             if lastVersionLoadedNewLocations != global.currentAppVersion {
                 do {
                     try await loadNewLocations()
+                    lastVersionLoadedNewLocations = global.currentAppVersion
                 } catch {
                     print("Error: loadNewLocations(): \(error.localizedDescription)")
                 }
@@ -64,7 +65,7 @@ struct NewLocationsView: View {
         }
     }
     
-    func loadNewLocations() async throws {
+    private func loadNewLocations() async throws {
         let newLocations: [NewLocation] = try await FirebaseService.shared.fetchData(ref: Collections.newLocations)
 
         try newLocations.forEach { location in
@@ -94,9 +95,7 @@ struct NewLocationsView: View {
                 modelContext.insert(newLocation)
             }
         }
-        lastVersionLoadedNewLocations = global.currentAppVersion
     }
-
 }
 
 #Preview {

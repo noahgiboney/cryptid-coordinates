@@ -15,30 +15,19 @@ struct ContentView: View {
     
     @AppStorage("isContextPopulated") var isContextPopulated = false
     @Environment(\.modelContext) var modelContext
-    @StateObject private var locationManager = LocationManager()
     @State private var authModel = AuthModel()
-    
-    let currentVersion = "2.4"
-    
-    var defaultCords: CLLocationCoordinate2D {
-        locationManager.lastKnownLocation ?? CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
-    }
     
     var body: some View {
         Group {
-            if authModel.userSession != nil {
+            if authModel.userSession != nil, isContextPopulated {
                 if let user = authModel.currentUser {
-                    TabBarView(currentUser: user, defaultCords: defaultCords)
-                        .onAppear {
-                            locationManager.start()
-                        }
+                    TabBarView(currentUser: user)
                 }
             } else {
                 LandingScreen()
             }
         }
         .environment(authModel)
-        .environmentObject(locationManager)
         .onAppear {
             if !isContextPopulated {
                 populateModelContext()

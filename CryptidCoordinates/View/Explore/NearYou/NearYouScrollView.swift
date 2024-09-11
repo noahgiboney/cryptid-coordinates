@@ -12,13 +12,29 @@ struct NearYouScrollView: View {
     
     let locations: [Location]
     var cords: CLLocationCoordinate2D
+    @Environment(Global.self) var global
     @State private var sortedLocations: [Location] = []
     @State private var didSort = false
     
     var body: some View {
         Group {
             if didSort {
-                VerticalLocationScrollView(locations: sortedLocations)
+                VerticalLocationScrollView(locations: Array(sortedLocations.prefix(10)))
+                
+                Button {
+                    global.tabSelection = 1
+                } label: {
+                    HStack(spacing: 5) {
+                        Image(systemName: "map")
+                        Text("View more on the map")
+                    }
+                    .font(.footnote)
+                    .foregroundStyle(.accent)
+                }
+                .padding(.bottom)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .buttonStyle(.borderless)
+                
             } else {
                 ProgressView()
                     .frame(maxWidth: .infinity, alignment: .center)
