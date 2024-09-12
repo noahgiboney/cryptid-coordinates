@@ -17,6 +17,8 @@ struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @State private var authModel = AuthModel()
     
+    let currentAppVersion = "2.4.1"
+    
     var body: some View {
         Group {
             if authModel.userSession != nil, isContextPopulated {
@@ -29,6 +31,10 @@ struct ContentView: View {
         }
         .environment(authModel)
         .onAppear {
+            Task {
+                
+            }
+            
             if !isContextPopulated {
                 populateModelContext()
             }

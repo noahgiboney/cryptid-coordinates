@@ -18,7 +18,6 @@ struct TabBarView: View {
     @State private var locations = LocationStore()
     
     init(currentUser: User) {
-        print("init")
         self.currentUser = currentUser
         self._global = State(initialValue: Global(user: currentUser, defaultCords: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)))
     }

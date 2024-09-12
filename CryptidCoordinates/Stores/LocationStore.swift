@@ -27,10 +27,12 @@ class LocationStore {
     
     func fetchNewLocations() async {
         do {
-            new = try await FirebaseService.shared.fetchData(ref: Collections.newLocations).sorted()
+            let fetchedNew: [NewLocation] = try await FirebaseService.shared.fetchData(ref: Collections.newLocations).sorted()
+            
+            var tempNew = fetchedNew
             
             try await withThrowingTaskGroup(of: (User?, String).self) { group in
-                for location in new {
+                for location in tempNew {
                     group.addTask {
                         let user = try await self.fetchUser(with: location.userId)
                         return (user, location.id)
@@ -38,13 +40,19 @@ class LocationStore {
                 }
                 
                 for try await (user, id) in group {
-                    if let index = new.firstIndex(where: { $0.id == id}) {
-                        new[index].user = user
+                    if let index = tempNew.firstIndex(where: { $0.id == id }) {
+                        DispatchQueue.main.async {
+                            tempNew[index].user = user
+                        }
                     }
                 }
             }
+            
+            DispatchQueue.main.async {
+                self.new = tempNew
+            }
         } catch {
-            print("Error: new(): \(error.localizedDescription)")
+            print("Error: fetchNewLocations(): \(error.localizedDescription)")
         }
     }
     

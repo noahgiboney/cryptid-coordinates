@@ -25,7 +25,7 @@ struct NearYouView: View {
     }
     
     var body: some View {
-        ExploreTabContainer(title: "Near You", description: "Huanted Locations Near You") {
+        ExploreTabContainer(title: "Near You", description: "Haunted locations near you") {
             if locationManager.lastKnownLocation == nil && !locationManager.isLoadingLocation {
                 LocationUnavailableView(message: "Share your location to explore in your vicinity")
             } else {
