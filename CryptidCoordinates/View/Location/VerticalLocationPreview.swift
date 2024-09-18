@@ -17,6 +17,12 @@ struct VerticalLocationPreview: View {
     @State private var image: UIImage?
     @State private var loadState: LoadState = .loading
     
+    private var gradientColors: [Color] {
+        let averageColor = image?.findAverageColor(algorithm: .simple) ?? .gray
+        
+        return Color(uiColor: averageColor).findSimilarColors()
+    }
+    
     private func downloadImage() {
         guard loadState == .loading else { return }
         guard let url = URL(string: location.imageUrl) else { return }
@@ -39,12 +45,13 @@ struct VerticalLocationPreview: View {
     }
     
     var body: some View {
-        VStack(alignment:.leading, spacing: 5) {
+        VStack(alignment:.leading, spacing: 0) {
             imageView
                 .frame(maxWidth: .infinity)
             infoView
         }
-        .padding(.horizontal)
+        .clipShape(RoundedRectangle(cornerRadius: 15))
+        .padding(.horizontal, 12)
         .onAppear {
             downloadImage()
         }
@@ -58,7 +65,6 @@ struct VerticalLocationPreview: View {
                     .resizable()
                     .scaledToFill()
                     .frame(maxWidth: .infinity, maxHeight: 400)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
             } else {
                 Image(systemName: "eye.slash")
                     .foregroundStyle(colorScheme == .dark ? .white : .black)
@@ -76,15 +82,16 @@ struct VerticalLocationPreview: View {
             Text(location.name)
                 .font(.headline)
             Text(location.cityState)
-                .foregroundStyle(.gray)
                 .font(.footnote)
             if let userCords = locationManager.lastKnownLocation {
                 Text("\(location.distanceAway(userCords)) Miles Away")
                     .font(.footnote)
-                    .foregroundStyle(.gray)
             }
         }
-        .foregroundStyle(colorScheme == .light ? .black : .white)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .foregroundStyle(.white)
+        .padding()
+        .background(LinearGradient(colors: gradientColors, startPoint: .bottomLeading, endPoint: .topTrailing))
     }
 }
 
