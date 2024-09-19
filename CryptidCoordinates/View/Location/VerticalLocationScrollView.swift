@@ -20,9 +20,7 @@ struct VerticalLocationScrollView: View {
                         .opacity(0)
                 }
         }
-        .padding(.top, 10)
         .listRowInsets(EdgeInsets())
-        .padding(.bottom, 30)
     }
 }
 
