@@ -15,34 +15,13 @@ struct LeaderboardScreen: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("Your Ranking") {
-                    currentUserRowView
+                if leaderboard.didAppear {
+                    Section("Your Ranking") {
+                        currentUserRowView
+                    }
                 }
                 
-                Section {
-                    ForEach(leaderboard.users) { user in
-                        if let index = leaderboard.users.firstIndex(where: { $0.id == user.id }) {
-                            Group {
-                                if user.id == global.user.id {
-                                    currentUserRowView
-                                } else {
-                                    NavigationLink {
-                                        UserProfileScreen(user: user)
-                                    } label: {
-                                        LeaderboardRowView(user: user, index: index)
-                                    }
-                                }
-                            }
-                            .id(user.id)
-                        }
-                    }
-                    
-                    if leaderboard.isLoading {
-                        ProgressView()
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .listRowBackground(Color.clear)
-                    }
-                }
+                leaderboardView
                 
                 Color.clear
                     .listRowBackground(Color.clear)
@@ -92,6 +71,33 @@ struct LeaderboardScreen: View {
         }
         .padding(.leading, index ?? 0 > 2 && index != 9 ? 9 : 0)
         .padding(.leading, index == 9 ? 3 : 0)
+    }
+    
+    private var leaderboardView: some View {
+        Section("Visit Leaderboard") {
+            ForEach(leaderboard.users) { user in
+                if let index = leaderboard.users.firstIndex(where: { $0.id == user.id }) {
+                    Group {
+                        if user.id == global.user.id {
+                            currentUserRowView
+                        } else {
+                            NavigationLink {
+                                UserProfileScreen(user: user)
+                            } label: {
+                                LeaderboardRowView(user: user, index: index)
+                            }
+                        }
+                    }
+                    .id(user.id)
+                }
+            }
+            
+            if leaderboard.isLoading {
+                ProgressView()
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .listRowBackground(Color.clear)
+            }
+        }
     }
 }
 
