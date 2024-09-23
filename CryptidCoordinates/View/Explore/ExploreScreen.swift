@@ -56,7 +56,6 @@ struct ExploreScreen: View {
             .navigationBarTitleDisplayMode(.large)
             .searchable(text: $searchText, prompt: "Search for location or city")
             .listStyle(.plain)
-            .listRowSpacing(40)
             .task {
                 if lastVersionLoadedNewLocations != global.currentAppVersion {
                     do {

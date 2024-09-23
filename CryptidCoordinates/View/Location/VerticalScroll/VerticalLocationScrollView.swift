@@ -15,10 +15,6 @@ struct VerticalLocationScrollView: View {
     var body: some View {
         ForEach(locations) { location in
             VerticalLocationPreview(location: location)
-                .background {
-                    NavigationLink("", destination: LocationContainer(location: location))
-                        .opacity(0)
-                }
         }
         .listRowInsets(EdgeInsets())
     }
