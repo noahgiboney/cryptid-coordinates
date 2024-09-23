@@ -256,12 +256,10 @@
 		E21E87182C291ED00017D9CF /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				E2EE30312C1D4F2A007F74C6 /* HorizontalLocationPreview.swift */,
-				E24AE7552C5762C500B5D741 /* HorizontalLocationScrollView.swift */,
+				E2D36B122CA112E8007223A2 /* HorizontalScroll */,
+				E2D36B132CA112FA007223A2 /* VerticalScroll */,
 				E2E486FF2C8CEC92008132D8 /* LocationContainer.swift */,
 				E24AE7562C5762C500B5D741 /* LocationScreen.swift */,
-				E26495E02C8CD131008DF252 /* VerticalLocationPreview.swift */,
-				E2DE990C2C8BEE0D00427900 /* VerticalLocationScrollView.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -474,6 +472,24 @@
 				E2C76C0D2B4E14550080F669 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E2D36B122CA112E8007223A2 /* HorizontalScroll */ = {
+			isa = PBXGroup;
+			children = (
+				E2EE30312C1D4F2A007F74C6 /* HorizontalLocationPreview.swift */,
+				E24AE7552C5762C500B5D741 /* HorizontalLocationScrollView.swift */,
+			);
+			path = HorizontalScroll;
+			sourceTree = "<group>";
+		};
+		E2D36B132CA112FA007223A2 /* VerticalScroll */ = {
+			isa = PBXGroup;
+			children = (
+				E26495E02C8CD131008DF252 /* VerticalLocationPreview.swift */,
+				E2DE990C2C8BEE0D00427900 /* VerticalLocationScrollView.swift */,
+			);
+			path = VerticalScroll;
 			sourceTree = "<group>";
 		};
 		E2EE30262C1D4169007F74C6 /* View */ = {

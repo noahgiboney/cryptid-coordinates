@@ -50,8 +50,13 @@ struct VerticalLocationPreview: View {
                 .frame(maxWidth: .infinity)
             infoView
         }
+        .background {
+            NavigationLink("", destination: LocationContainer(location: location))
+                .opacity(0)
+        }
         .clipShape(RoundedRectangle(cornerRadius: 15))
-        .padding(.horizontal, 12)
+        .padding()
+        .shadow(color: colorScheme == .dark ? .white.opacity(0.2) : .black.opacity(0.2), radius: 5, x: 2, y: 5)
         .onAppear {
             downloadImage()
         }
