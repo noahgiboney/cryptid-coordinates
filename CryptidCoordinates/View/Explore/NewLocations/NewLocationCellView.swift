@@ -27,27 +27,9 @@ struct NewLocationCellView: View {
     
     var body: some View {
         Group {
-            if let user = newLocation.user, let location = locations.first {
-                VStack(spacing: 10) {
-                    HStack(alignment: .bottom) {
-                        NavigationLink {
-                            UserProfileScreen(user: user)
-                        } label: {
-                            HStack(alignment: .bottom) {
-                                AvatarView(type: .medium, user: user)
-                                Text("Submitted by \(user.username)")
-                                    .font(.system(size: 14).italic())
-                                    .foregroundStyle(colorScheme == .light ? .black : .white)
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        Text(newLocation.timestamp.timeAgo())
-                            .foregroundStyle(.gray)
-                            .font(.footnote.italic())
-                    }
-                    .padding(.horizontal)
+            if let location = locations.first {
+                VStack(spacing: 0) {
+                    userInfoView
                     
                     NavigationLink {
                         LocationContainer(location: location)
@@ -57,6 +39,36 @@ struct NewLocationCellView: View {
                 }
             }
         }
+    }
+    
+    private var userInfoView: some View {
+        HStack(alignment: .bottom) {
+            if let user = newLocation.user {
+                NavigationLink {
+                    UserProfileScreen(user: user)
+                } label: {
+                    HStack(alignment: .bottom) {
+                        AvatarView(type: .medium, user: user)
+                        Text("Submitted by \(user.username)")
+                            .font(.system(size: 14).italic())
+                            .foregroundStyle(colorScheme == .light ? .black : .white)
+                    }
+                }
+            } else {
+                HStack(alignment: .bottom) {
+                    AvatarView(type: .medium, user: .example)
+                    Text("Submitted by Anonymous")
+                        .font(.system(size: 14).italic())
+                }
+            }
+            
+            Spacer()
+            
+            Text(newLocation.timestamp.timeAgo())
+                .foregroundStyle(.gray)
+                .font(.footnote.italic())
+        }
+        .padding(.horizontal)
     }
 }
 

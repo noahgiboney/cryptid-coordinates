@@ -22,7 +22,7 @@ struct NewLocation: DataModel, Comparable {
     let stateAbbrev: String
     let imageUrl: String
     let geohash: String
-    let userId: String
+    let userId: String?
     let timestamp: Timestamp
     
     var user: User?
