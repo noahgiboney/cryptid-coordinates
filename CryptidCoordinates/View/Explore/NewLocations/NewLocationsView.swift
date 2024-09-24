@@ -36,7 +36,7 @@ struct NewLocationsView: View {
             }
             
             ScrollView {
-                LazyVStack(spacing: 35) {
+                LazyVStack(spacing: 30) {
                     ForEach(locations.new) { location in
                         NewLocationCellView(newLocation: location)
                     }
@@ -45,7 +45,7 @@ struct NewLocationsView: View {
             }
             .listRowSeparator(.hidden)
             .listRowInsets(EdgeInsets())
-            .padding(.vertical, 30)
+            .padding(.vertical, 20)
         }
         .task {
             guard !didAppear else { return }

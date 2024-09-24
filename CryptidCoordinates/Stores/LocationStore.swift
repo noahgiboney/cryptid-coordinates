@@ -27,30 +27,28 @@ class LocationStore {
     
     func fetchNewLocations() async {
         do {
+            let actor = LocationActor()
             let fetchedNew: [NewLocation] = try await FirebaseService.shared.fetchData(ref: Collections.newLocations).sorted()
             
-            var tempNew = fetchedNew
+            await actor.setNewLocations(fetchedNew)
             
             try await withThrowingTaskGroup(of: (User?, String).self) { group in
-                for location in tempNew {
+                for location in fetchedNew {
                     group.addTask {
-                        let user = try await self.fetchUser(with: location.userId)
+                        var user: User?
+                        if let userId = location.userId {
+                            user = try await self.fetchUser(with: userId)
+                        }
                         return (user, location.id)
                     }
                 }
                 
                 for try await (user, id) in group {
-                    if let index = tempNew.firstIndex(where: { $0.id == id }) {
-                        DispatchQueue.main.async {
-                            tempNew[index].user = user
-                        }
-                    }
+                    await actor.updateNewLocation(for: id, with: user)
                 }
             }
             
-            DispatchQueue.main.async {
-                self.new = tempNew
-            }
+            self.new = await actor.getNewLocations()
         } catch {
             print("Error: fetchNewLocations(): \(error.localizedDescription)")
         }
@@ -58,5 +56,23 @@ class LocationStore {
     
     func fetchUser(with id: String) async throws -> User? {
         return try await FirebaseService.shared.fetchOne(id: id, ref: Collections.users)
+    }
+}
+
+actor LocationActor {
+    private var newLocations: [NewLocation] = []
+    
+    func setNewLocations(_ locations: [NewLocation]) {
+        newLocations.append(contentsOf: locations)
+    }
+    
+    func getNewLocations() -> [NewLocation] {
+        newLocations
+    }
+    
+    func updateNewLocation(for id: String, with user: User?) {
+        if let index = newLocations.firstIndex(where: { $0.id == id }) {
+            newLocations[index].user = user
+        }
     }
 }

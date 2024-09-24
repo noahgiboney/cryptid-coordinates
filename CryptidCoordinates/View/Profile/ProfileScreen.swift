@@ -85,14 +85,10 @@ struct ProfileScreen: View {
     @ViewBuilder
     var vistitedLocationsView: some View {
         VStack(alignment: .leading) {
-            NavigationLink {
-                visitsScrollView
-            } label: {
-                Text("\(global.user.visits) Locations Visited")
+            Text("\(global.user.visits) Locations Visited")
                 .padding(.top)
                 .font(.title3.bold())
-            }
-
+            
             Text("Earn points for visiting haunted locations, climb the leaderboard, and unlock exclusive rewards.")
                 .font(.footnote)
                 .foregroundStyle(.gray)
@@ -104,42 +100,19 @@ struct ProfileScreen: View {
                 .listRowSeparator(.hidden, edges: .bottom)
                 .foregroundStyle(.primary)
         } else {
-            ScrollView(.horizontal,  showsIndicators: false) {
-                LazyHStack {
-                    ForEach(Array(visits.keys.sorted { visits[$0]!.dateValue() > visits[$1]!.dateValue() }).prefix(upTo: visits.count < 5 ? visits.count : 5), id: \.id) { location in
+            ScrollView(.vertical,  showsIndicators: false) {
+                LazyVGrid(columns: [GridItem(), GridItem()]) {
+                    ForEach(Array(visits.keys.sorted { visits[$0]!.dateValue() > visits[$1]!.dateValue() }), id: \.id) { location in
                         if let date = visits[location] {
-                                VisitPreviewView(location: location, visitDate: date)
-                                .scrollTransition { content, phase in
-                                    content
-                                        .scaleEffect(phase.isIdentity ? 1 : 0.75)
-                                        .offset(y: phase.isIdentity ? 0 : 5)
-                                        .opacity(phase.isIdentity ? 1 : 0.5)
-                                }
+                            VisitPreviewView(location: location, visitDate: date)
                         }
-                    }
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets())
-                    
-                    if visits.count > 5 {
-                        NavigationLink("View All") {
-                            visitsScrollView
-                        }
-                        .foregroundStyle(.blue)
-                        .padding(.trailing)
                     }
                 }
+                
             }
             .contentMargins(5, for: .scrollContent)
             .listRowInsets(EdgeInsets())
             .listRowSeparator(.hidden)
-        }
-    }
-    
-    var visitsScrollView: some View {
-        ScrollView {
-            VisitsScrollView(visits: visits)
-                .navigationTitle("Visits")
-                .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
