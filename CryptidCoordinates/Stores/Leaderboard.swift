@@ -23,8 +23,8 @@ class Leaderboard {
         }
     }
     
+    @MainActor
     func populateInitalLeaderboard() async {
-
         defer { isLoading = false }
         
         do {
@@ -39,6 +39,7 @@ class Leaderboard {
         }
     }
     
+    @MainActor
     func populateUpToLastDoc() async {
         guard let lastDoc = lastDocument else { return }
         
@@ -56,6 +57,7 @@ class Leaderboard {
         }
     }
     
+    @MainActor
     func paginateLeaderboard() async {
         guard !isLoading else { return }
         guard let lastDocument = lastDocument else { return }
@@ -83,6 +85,7 @@ class Leaderboard {
         }
     }
     
+    @MainActor
     private func queryLeaderboard() -> Query {
         return Collections.users
             .order(by: "visits", descending: true)
