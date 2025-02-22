@@ -12,7 +12,7 @@ import SwiftUI
 
 @Observable
 class Global {
-    let currentAppVersion = "2.4.4"
+    let currentAppVersion = "2.4.5"
     
     var user: User
     var tabSelection = AppTab.explore
