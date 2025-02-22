@@ -12,10 +12,10 @@ import SwiftUI
 
 @Observable
 class Global {
-    let currentAppVersion = "2.4.3"
+    let currentAppVersion = "2.4.4"
     
     var user: User
-    var tabSelection = 0
+    var tabSelection = AppTab.explore
     var cameraPosition: MapCameraPosition
     
     init(user: User, defaultCords: CLLocationCoordinate2D) {
@@ -26,7 +26,7 @@ class Global {
     var selectedLocation: Location? {
         didSet {
             if let location = selectedLocation {
-                tabSelection = 1
+                tabSelection = .map
                 goToSelectedLocation(location)
             }
         }

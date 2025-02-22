@@ -19,7 +19,7 @@ class LocationStore {
             let commentsSnapshot = try await Firestore.firestore().collectionGroup("comments").getDocuments()
             let locationIds = Set(commentsSnapshot.documents.compactMap { $0.reference.parent.parent?.documentID })
             
-            trending = Array(locationIds).prefix(5).shuffled()
+            trending = Array(locationIds).prefix(10).shuffled()
         } catch {
             print("Error: fetchTrending(): \(error.localizedDescription)")
         }

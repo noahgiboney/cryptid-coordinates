@@ -35,6 +35,7 @@ class AuthModel {
 
 // MARK: Firebase User
 extension AuthModel {
+    
     func fetchCurrentUser() async {
         guard let user = Auth.auth().currentUser else { return }
         

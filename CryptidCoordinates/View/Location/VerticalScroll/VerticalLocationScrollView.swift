@@ -9,7 +9,7 @@ import SwiftData
 import SwiftUI
 
 struct VerticalLocationScrollView: View {
-    
+
     let locations: [Location]
     
     var body: some View {

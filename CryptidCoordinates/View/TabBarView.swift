@@ -8,8 +8,27 @@
 import MapKit
 import SwiftUI
 
-struct TabBarView: View {
+enum AppTab: CaseIterable, Identifiable {
     
+    case explore, map, leaderboard, profile
+    
+    var systemImage: String {
+        switch self {
+        case .explore:
+            "house"
+        case .map:
+            "map"
+        case .leaderboard:
+            "medal"
+        case .profile:
+            "person"
+        }
+    }
+    
+    var id: Self { self }
+}
+
+struct TabBarView: View {
     let currentUser: User
     @StateObject private var locationManager = LocationManager()
     @State private var global: Global
@@ -24,29 +43,12 @@ struct TabBarView: View {
     
     var body: some View {
         TabView(selection: $global.tabSelection) {
-            ExploreScreen()
-                .tabItem {
-                    Image(systemName: "house")
-                }
-                .tag(0)
-            
-            MapScreen(defaultCords: CLLocationCoordinate2D(latitude: 0, longitude: 0))
-                .tabItem {
-                    Image(systemName: "map")
-                }
-                .tag(1)
-            
-            LeaderboardScreen()
-                .tabItem {
-                    Image(systemName: "medal")
-                }
-                .tag(2)
-            
-            ProfileScreen()
-                .tabItem {
-                    Image(systemName: "person")
-                }
-                .tag(3)
+            ForEach(AppTab.allCases) { tab in
+                tabView(for: tab)
+                    .tabItem {
+                        Image(systemName: tab.systemImage)
+                    }
+            }
         }
         .environmentObject(locationManager)
         .environment(global)
@@ -55,6 +57,20 @@ struct TabBarView: View {
         .environment(locations)
         .onAppear {
             locationManager.start()
+        }
+    }
+    
+    @ViewBuilder
+    func tabView(for tab: AppTab) -> some View {
+        switch tab {
+        case .explore:
+            ExploreScreen()
+        case .map:
+            MapScreen(defaultCords: CLLocationCoordinate2D(latitude: 0, longitude: 0))
+        case .leaderboard:
+            LeaderboardScreen()
+        case .profile:
+            ProfileScreen()
         }
     }
 }

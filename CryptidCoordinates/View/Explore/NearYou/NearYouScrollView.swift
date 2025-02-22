@@ -9,7 +9,6 @@ import CoreLocation
 import SwiftUI
 
 struct NearYouScrollView: View {
-    
     let locations: [Location]
     var cords: CLLocationCoordinate2D
     @Environment(Global.self) var global
@@ -22,7 +21,7 @@ struct NearYouScrollView: View {
                 VerticalLocationScrollView(locations: Array(sortedLocations.prefix(10)))
                 
                 Button {
-                    global.tabSelection = 1
+                    global.tabSelection = .map
                 } label: {
                     HStack(spacing: 5) {
                         Image(systemName: "map")

@@ -40,7 +40,7 @@ struct LocationScreen: View {
     
     private func viewOnMap() {
         global.selectedLocation = location
-        if global.tabSelection == 1 {
+        if global.tabSelection == .map {
             dismiss()
         }
     }

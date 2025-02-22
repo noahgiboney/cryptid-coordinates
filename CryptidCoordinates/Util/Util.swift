@@ -2,9 +2,10 @@
 //  Util.swift
 //  CryptidCoordinates
 //
-//  Created by Noah Giboney on 7/7/24.
+//  Created by Noah Giboney on 2/21/25.
 //
 
+import Foundation
 import CoreLocation
 import Firebase
 import SwiftUI
